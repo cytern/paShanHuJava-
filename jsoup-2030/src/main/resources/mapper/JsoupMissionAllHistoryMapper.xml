@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dam.jsoup.updatereport.updatreport.dao.JsoupMissionAllHistoryMapper">
+  <resultMap id="BaseResultMap" type="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory">
+    <!--@mbg.generated-->
+    <!--@Table jsoup_mission_all_history-->
+    <id column="mission_all_history_id" jdbcType="INTEGER" property="missionAllHistoryId" />
+    <result column="mission_all_id" jdbcType="INTEGER" property="missionAllId" />
+    <result column="mission_state" jdbcType="VARCHAR" property="missionState" />
+    <result column="mission_result_url" jdbcType="VARCHAR" property="missionResultUrl" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="mission_fail_reason" jdbcType="VARCHAR" property="missionFailReason" />
+    <result column="sent_time" jdbcType="TIMESTAMP" property="sentTime" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="mission_all_name" jdbcType="VARCHAR" property="missionAllName" />
+    <result column="mission_all_dis" jdbcType="VARCHAR" property="missionAllDis" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    mission_all_history_id, mission_all_id, mission_state, mission_result_url, user_id, 
+    mission_fail_reason, sent_time, finish_time, mission_all_name, mission_all_dis
+  </sql>
+  <select id="selectByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistoryExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jsoup_mission_all_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from jsoup_mission_all_history
+    where mission_all_history_id = #{missionAllHistoryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from jsoup_mission_all_history
+    where mission_all_history_id = #{missionAllHistoryId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistoryExample">
+    <!--@mbg.generated-->
+    delete from jsoup_mission_all_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="mission_all_history_id" keyProperty="missionAllHistoryId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into jsoup_mission_all_history (mission_all_id, mission_state, mission_result_url, 
+      user_id, mission_fail_reason, sent_time, 
+      finish_time, mission_all_name, mission_all_dis
+      )
+    values (#{missionAllId,jdbcType=INTEGER}, #{missionState,jdbcType=VARCHAR}, #{missionResultUrl,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{missionFailReason,jdbcType=VARCHAR}, #{sentTime,jdbcType=TIMESTAMP}, 
+      #{finishTime,jdbcType=TIMESTAMP}, #{missionAllName,jdbcType=VARCHAR}, #{missionAllDis,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="mission_all_history_id" keyProperty="missionAllHistoryId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into jsoup_mission_all_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="missionAllId != null">
+        mission_all_id,
+      </if>
+      <if test="missionState != null">
+        mission_state,
+      </if>
+      <if test="missionResultUrl != null">
+        mission_result_url,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="missionFailReason != null">
+        mission_fail_reason,
+      </if>
+      <if test="sentTime != null">
+        sent_time,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
+      </if>
+      <if test="missionAllName != null">
+        mission_all_name,
+      </if>
+      <if test="missionAllDis != null">
+        mission_all_dis,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="missionAllId != null">
+        #{missionAllId,jdbcType=INTEGER},
+      </if>
+      <if test="missionState != null">
+        #{missionState,jdbcType=VARCHAR},
+      </if>
+      <if test="missionResultUrl != null">
+        #{missionResultUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="missionFailReason != null">
+        #{missionFailReason,jdbcType=VARCHAR},
+      </if>
+      <if test="sentTime != null">
+        #{sentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="missionAllName != null">
+        #{missionAllName,jdbcType=VARCHAR},
+      </if>
+      <if test="missionAllDis != null">
+        #{missionAllDis,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistoryExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from jsoup_mission_all_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update jsoup_mission_all_history
+    <set>
+      <if test="record.missionAllHistoryId != null">
+        mission_all_history_id = #{record.missionAllHistoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.missionAllId != null">
+        mission_all_id = #{record.missionAllId,jdbcType=INTEGER},
+      </if>
+      <if test="record.missionState != null">
+        mission_state = #{record.missionState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.missionResultUrl != null">
+        mission_result_url = #{record.missionResultUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.missionFailReason != null">
+        mission_fail_reason = #{record.missionFailReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sentTime != null">
+        sent_time = #{record.sentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.finishTime != null">
+        finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.missionAllName != null">
+        mission_all_name = #{record.missionAllName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.missionAllDis != null">
+        mission_all_dis = #{record.missionAllDis,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update jsoup_mission_all_history
+    set mission_all_history_id = #{record.missionAllHistoryId,jdbcType=INTEGER},
+      mission_all_id = #{record.missionAllId,jdbcType=INTEGER},
+      mission_state = #{record.missionState,jdbcType=VARCHAR},
+      mission_result_url = #{record.missionResultUrl,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      mission_fail_reason = #{record.missionFailReason,jdbcType=VARCHAR},
+      sent_time = #{record.sentTime,jdbcType=TIMESTAMP},
+      finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      mission_all_name = #{record.missionAllName,jdbcType=VARCHAR},
+      mission_all_dis = #{record.missionAllDis,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory">
+    <!--@mbg.generated-->
+    update jsoup_mission_all_history
+    <set>
+      <if test="missionAllId != null">
+        mission_all_id = #{missionAllId,jdbcType=INTEGER},
+      </if>
+      <if test="missionState != null">
+        mission_state = #{missionState,jdbcType=VARCHAR},
+      </if>
+      <if test="missionResultUrl != null">
+        mission_result_url = #{missionResultUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="missionFailReason != null">
+        mission_fail_reason = #{missionFailReason,jdbcType=VARCHAR},
+      </if>
+      <if test="sentTime != null">
+        sent_time = #{sentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="missionAllName != null">
+        mission_all_name = #{missionAllName,jdbcType=VARCHAR},
+      </if>
+      <if test="missionAllDis != null">
+        mission_all_dis = #{missionAllDis,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mission_all_history_id = #{missionAllHistoryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory">
+    <!--@mbg.generated-->
+    update jsoup_mission_all_history
+    set mission_all_id = #{missionAllId,jdbcType=INTEGER},
+      mission_state = #{missionState,jdbcType=VARCHAR},
+      mission_result_url = #{missionResultUrl,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      mission_fail_reason = #{missionFailReason,jdbcType=VARCHAR},
+      sent_time = #{sentTime,jdbcType=TIMESTAMP},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      mission_all_name = #{missionAllName,jdbcType=VARCHAR},
+      mission_all_dis = #{missionAllDis,jdbcType=VARCHAR}
+    where mission_all_history_id = #{missionAllHistoryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update jsoup_mission_all_history
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="mission_all_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.missionAllId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="mission_state = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.missionState,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="mission_result_url = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.missionResultUrl,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="user_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.userId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="mission_fail_reason = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.missionFailReason,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="sent_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.sentTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="finish_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.finishTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="mission_all_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.missionAllName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="mission_all_dis = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.missionAllDis,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+    </trim>
+    where mission_all_history_id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.missionAllHistoryId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="mission_all_history_id" keyProperty="missionAllHistoryId" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into jsoup_mission_all_history
+    (mission_all_id, mission_state, mission_result_url, user_id, mission_fail_reason, 
+      sent_time, finish_time, mission_all_name, mission_all_dis)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.missionAllId,jdbcType=INTEGER}, #{item.missionState,jdbcType=VARCHAR}, #{item.missionResultUrl,jdbcType=VARCHAR}, 
+        #{item.userId,jdbcType=INTEGER}, #{item.missionFailReason,jdbcType=VARCHAR}, #{item.sentTime,jdbcType=TIMESTAMP}, 
+        #{item.finishTime,jdbcType=TIMESTAMP}, #{item.missionAllName,jdbcType=VARCHAR}, 
+        #{item.missionAllDis,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="mission_all_history_id" keyProperty="missionAllHistoryId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into jsoup_mission_all_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="missionAllHistoryId != null">
+        mission_all_history_id,
+      </if>
+      mission_all_id,
+      mission_state,
+      mission_result_url,
+      user_id,
+      mission_fail_reason,
+      sent_time,
+      finish_time,
+      mission_all_name,
+      mission_all_dis,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="missionAllHistoryId != null">
+        #{missionAllHistoryId,jdbcType=INTEGER},
+      </if>
+      #{missionAllId,jdbcType=INTEGER},
+      #{missionState,jdbcType=VARCHAR},
+      #{missionResultUrl,jdbcType=VARCHAR},
+      #{userId,jdbcType=INTEGER},
+      #{missionFailReason,jdbcType=VARCHAR},
+      #{sentTime,jdbcType=TIMESTAMP},
+      #{finishTime,jdbcType=TIMESTAMP},
+      #{missionAllName,jdbcType=VARCHAR},
+      #{missionAllDis,jdbcType=VARCHAR},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="missionAllHistoryId != null">
+        mission_all_history_id = #{missionAllHistoryId,jdbcType=INTEGER},
+      </if>
+      mission_all_id = #{missionAllId,jdbcType=INTEGER},
+      mission_state = #{missionState,jdbcType=VARCHAR},
+      mission_result_url = #{missionResultUrl,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      mission_fail_reason = #{missionFailReason,jdbcType=VARCHAR},
+      sent_time = #{sentTime,jdbcType=TIMESTAMP},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      mission_all_name = #{missionAllName,jdbcType=VARCHAR},
+      mission_all_dis = #{missionAllDis,jdbcType=VARCHAR},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="mission_all_history_id" keyProperty="missionAllHistoryId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into jsoup_mission_all_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="missionAllHistoryId != null">
+        mission_all_history_id,
+      </if>
+      <if test="missionAllId != null">
+        mission_all_id,
+      </if>
+      <if test="missionState != null">
+        mission_state,
+      </if>
+      <if test="missionResultUrl != null">
+        mission_result_url,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="missionFailReason != null">
+        mission_fail_reason,
+      </if>
+      <if test="sentTime != null">
+        sent_time,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
+      </if>
+      <if test="missionAllName != null">
+        mission_all_name,
+      </if>
+      <if test="missionAllDis != null">
+        mission_all_dis,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="missionAllHistoryId != null">
+        #{missionAllHistoryId,jdbcType=INTEGER},
+      </if>
+      <if test="missionAllId != null">
+        #{missionAllId,jdbcType=INTEGER},
+      </if>
+      <if test="missionState != null">
+        #{missionState,jdbcType=VARCHAR},
+      </if>
+      <if test="missionResultUrl != null">
+        #{missionResultUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="missionFailReason != null">
+        #{missionFailReason,jdbcType=VARCHAR},
+      </if>
+      <if test="sentTime != null">
+        #{sentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="missionAllName != null">
+        #{missionAllName,jdbcType=VARCHAR},
+      </if>
+      <if test="missionAllDis != null">
+        #{missionAllDis,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="missionAllHistoryId != null">
+        mission_all_history_id = #{missionAllHistoryId,jdbcType=INTEGER},
+      </if>
+      <if test="missionAllId != null">
+        mission_all_id = #{missionAllId,jdbcType=INTEGER},
+      </if>
+      <if test="missionState != null">
+        mission_state = #{missionState,jdbcType=VARCHAR},
+      </if>
+      <if test="missionResultUrl != null">
+        mission_result_url = #{missionResultUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="missionFailReason != null">
+        mission_fail_reason = #{missionFailReason,jdbcType=VARCHAR},
+      </if>
+      <if test="sentTime != null">
+        sent_time = #{sentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="missionAllName != null">
+        mission_all_name = #{missionAllName,jdbcType=VARCHAR},
+      </if>
+      <if test="missionAllDis != null">
+        mission_all_dis = #{missionAllDis,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

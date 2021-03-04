@@ -1,0 +1,38 @@
+server:
+  port: 2040
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  tomcat:
+    accesslog:
+      encoding: UTF-8
+    uri-encoding: UTF-8
+
+
+spring:
+  application:
+    name: javaServer
+  datasource:
+    username: root
+    password: zhenlong
+    url: jdbc:mysql://localhost:3306/jsoup?useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  #  eureka 配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:2020/eureka/  #注册位置
+  instance:
+    instance-id: spring-cloud-server-2040
+
+  #info 配置
+info:
+  app.name: 服务端
+  app.author: dam
+

@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dam.jsoup.updatereport.updatreport.dao.TaskExecutionMapper">
+  <resultMap id="BaseResultMap" type="dam.jsoup.updatereport.updatreport.pojo.TaskExecution">
+    <!--@mbg.generated-->
+    <!--@Table task_execution-->
+    <id column="TASK_EXECUTION_ID" jdbcType="BIGINT" property="taskExecutionId" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="EXIT_CODE" jdbcType="INTEGER" property="exitCode" />
+    <result column="EXIT_MESSAGE" jdbcType="VARCHAR" property="exitMessage" />
+    <result column="ERROR_MESSAGE" jdbcType="VARCHAR" property="errorMessage" />
+    <result column="LAST_UPDATED" jdbcType="TIMESTAMP" property="lastUpdated" />
+    <result column="EXTERNAL_EXECUTION_ID" jdbcType="VARCHAR" property="externalExecutionId" />
+    <result column="PARENT_EXECUTION_ID" jdbcType="BIGINT" property="parentExecutionId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    TASK_EXECUTION_ID, START_TIME, END_TIME, TASK_NAME, EXIT_CODE, EXIT_MESSAGE, ERROR_MESSAGE, 
+    LAST_UPDATED, EXTERNAL_EXECUTION_ID, PARENT_EXECUTION_ID
+  </sql>
+  <select id="selectByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskExecutionExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from task_execution
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from task_execution
+    where TASK_EXECUTION_ID = #{taskExecutionId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from task_execution
+    where TASK_EXECUTION_ID = #{taskExecutionId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskExecutionExample">
+    <!--@mbg.generated-->
+    delete from task_execution
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskExecution">
+    <!--@mbg.generated-->
+    insert into task_execution (TASK_EXECUTION_ID, START_TIME, END_TIME, 
+      TASK_NAME, EXIT_CODE, EXIT_MESSAGE, 
+      ERROR_MESSAGE, LAST_UPDATED, EXTERNAL_EXECUTION_ID, 
+      PARENT_EXECUTION_ID)
+    values (#{taskExecutionId,jdbcType=BIGINT}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{taskName,jdbcType=VARCHAR}, #{exitCode,jdbcType=INTEGER}, #{exitMessage,jdbcType=VARCHAR}, 
+      #{errorMessage,jdbcType=VARCHAR}, #{lastUpdated,jdbcType=TIMESTAMP}, #{externalExecutionId,jdbcType=VARCHAR}, 
+      #{parentExecutionId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskExecution">
+    <!--@mbg.generated-->
+    insert into task_execution
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskExecutionId != null">
+        TASK_EXECUTION_ID,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="taskName != null">
+        TASK_NAME,
+      </if>
+      <if test="exitCode != null">
+        EXIT_CODE,
+      </if>
+      <if test="exitMessage != null">
+        EXIT_MESSAGE,
+      </if>
+      <if test="errorMessage != null">
+        ERROR_MESSAGE,
+      </if>
+      <if test="lastUpdated != null">
+        LAST_UPDATED,
+      </if>
+      <if test="externalExecutionId != null">
+        EXTERNAL_EXECUTION_ID,
+      </if>
+      <if test="parentExecutionId != null">
+        PARENT_EXECUTION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskExecutionId != null">
+        #{taskExecutionId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="exitCode != null">
+        #{exitCode,jdbcType=INTEGER},
+      </if>
+      <if test="exitMessage != null">
+        #{exitMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMessage != null">
+        #{errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdated != null">
+        #{lastUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="externalExecutionId != null">
+        #{externalExecutionId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentExecutionId != null">
+        #{parentExecutionId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskExecutionExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from task_execution
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update task_execution
+    <set>
+      <if test="record.taskExecutionId != null">
+        TASK_EXECUTION_ID = #{record.taskExecutionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.startTime != null">
+        START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null">
+        END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.taskName != null">
+        TASK_NAME = #{record.taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exitCode != null">
+        EXIT_CODE = #{record.exitCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.exitMessage != null">
+        EXIT_MESSAGE = #{record.exitMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errorMessage != null">
+        ERROR_MESSAGE = #{record.errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdated != null">
+        LAST_UPDATED = #{record.lastUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.externalExecutionId != null">
+        EXTERNAL_EXECUTION_ID = #{record.externalExecutionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentExecutionId != null">
+        PARENT_EXECUTION_ID = #{record.parentExecutionId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update task_execution
+    set TASK_EXECUTION_ID = #{record.taskExecutionId,jdbcType=BIGINT},
+      START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
+      TASK_NAME = #{record.taskName,jdbcType=VARCHAR},
+      EXIT_CODE = #{record.exitCode,jdbcType=INTEGER},
+      EXIT_MESSAGE = #{record.exitMessage,jdbcType=VARCHAR},
+      ERROR_MESSAGE = #{record.errorMessage,jdbcType=VARCHAR},
+      LAST_UPDATED = #{record.lastUpdated,jdbcType=TIMESTAMP},
+      EXTERNAL_EXECUTION_ID = #{record.externalExecutionId,jdbcType=VARCHAR},
+      PARENT_EXECUTION_ID = #{record.parentExecutionId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskExecution">
+    <!--@mbg.generated-->
+    update task_execution
+    <set>
+      <if test="startTime != null">
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskName != null">
+        TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="exitCode != null">
+        EXIT_CODE = #{exitCode,jdbcType=INTEGER},
+      </if>
+      <if test="exitMessage != null">
+        EXIT_MESSAGE = #{exitMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMessage != null">
+        ERROR_MESSAGE = #{errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdated != null">
+        LAST_UPDATED = #{lastUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="externalExecutionId != null">
+        EXTERNAL_EXECUTION_ID = #{externalExecutionId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentExecutionId != null">
+        PARENT_EXECUTION_ID = #{parentExecutionId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where TASK_EXECUTION_ID = #{taskExecutionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskExecution">
+    <!--@mbg.generated-->
+    update task_execution
+    set START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      EXIT_CODE = #{exitCode,jdbcType=INTEGER},
+      EXIT_MESSAGE = #{exitMessage,jdbcType=VARCHAR},
+      ERROR_MESSAGE = #{errorMessage,jdbcType=VARCHAR},
+      LAST_UPDATED = #{lastUpdated,jdbcType=TIMESTAMP},
+      EXTERNAL_EXECUTION_ID = #{externalExecutionId,jdbcType=VARCHAR},
+      PARENT_EXECUTION_ID = #{parentExecutionId,jdbcType=BIGINT}
+    where TASK_EXECUTION_ID = #{taskExecutionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update task_execution
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="START_TIME = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when TASK_EXECUTION_ID = #{item.taskExecutionId,jdbcType=BIGINT} then #{item.startTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="END_TIME = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when TASK_EXECUTION_ID = #{item.taskExecutionId,jdbcType=BIGINT} then #{item.endTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="TASK_NAME = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when TASK_EXECUTION_ID = #{item.taskExecutionId,jdbcType=BIGINT} then #{item.taskName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="EXIT_CODE = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when TASK_EXECUTION_ID = #{item.taskExecutionId,jdbcType=BIGINT} then #{item.exitCode,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="EXIT_MESSAGE = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when TASK_EXECUTION_ID = #{item.taskExecutionId,jdbcType=BIGINT} then #{item.exitMessage,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="ERROR_MESSAGE = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when TASK_EXECUTION_ID = #{item.taskExecutionId,jdbcType=BIGINT} then #{item.errorMessage,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="LAST_UPDATED = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when TASK_EXECUTION_ID = #{item.taskExecutionId,jdbcType=BIGINT} then #{item.lastUpdated,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="EXTERNAL_EXECUTION_ID = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when TASK_EXECUTION_ID = #{item.taskExecutionId,jdbcType=BIGINT} then #{item.externalExecutionId,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="PARENT_EXECUTION_ID = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when TASK_EXECUTION_ID = #{item.taskExecutionId,jdbcType=BIGINT} then #{item.parentExecutionId,jdbcType=BIGINT}
+        </foreach>
+      </trim>
+    </trim>
+    where TASK_EXECUTION_ID in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.taskExecutionId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into task_execution
+    (TASK_EXECUTION_ID, START_TIME, END_TIME, TASK_NAME, EXIT_CODE, EXIT_MESSAGE, ERROR_MESSAGE, 
+      LAST_UPDATED, EXTERNAL_EXECUTION_ID, PARENT_EXECUTION_ID)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.taskExecutionId,jdbcType=BIGINT}, #{item.startTime,jdbcType=TIMESTAMP}, #{item.endTime,jdbcType=TIMESTAMP}, 
+        #{item.taskName,jdbcType=VARCHAR}, #{item.exitCode,jdbcType=INTEGER}, #{item.exitMessage,jdbcType=VARCHAR}, 
+        #{item.errorMessage,jdbcType=VARCHAR}, #{item.lastUpdated,jdbcType=TIMESTAMP}, 
+        #{item.externalExecutionId,jdbcType=VARCHAR}, #{item.parentExecutionId,jdbcType=BIGINT}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskExecution">
+    <!--@mbg.generated-->
+    insert into task_execution
+    (TASK_EXECUTION_ID, START_TIME, END_TIME, TASK_NAME, EXIT_CODE, EXIT_MESSAGE, ERROR_MESSAGE, 
+      LAST_UPDATED, EXTERNAL_EXECUTION_ID, PARENT_EXECUTION_ID)
+    values
+    (#{taskExecutionId,jdbcType=BIGINT}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{taskName,jdbcType=VARCHAR}, #{exitCode,jdbcType=INTEGER}, #{exitMessage,jdbcType=VARCHAR}, 
+      #{errorMessage,jdbcType=VARCHAR}, #{lastUpdated,jdbcType=TIMESTAMP}, #{externalExecutionId,jdbcType=VARCHAR}, 
+      #{parentExecutionId,jdbcType=BIGINT})
+    on duplicate key update 
+    TASK_EXECUTION_ID = #{taskExecutionId,jdbcType=BIGINT}, 
+    START_TIME = #{startTime,jdbcType=TIMESTAMP}, 
+    END_TIME = #{endTime,jdbcType=TIMESTAMP}, 
+    TASK_NAME = #{taskName,jdbcType=VARCHAR}, 
+    EXIT_CODE = #{exitCode,jdbcType=INTEGER}, 
+    EXIT_MESSAGE = #{exitMessage,jdbcType=VARCHAR}, 
+    ERROR_MESSAGE = #{errorMessage,jdbcType=VARCHAR}, 
+    LAST_UPDATED = #{lastUpdated,jdbcType=TIMESTAMP}, 
+    EXTERNAL_EXECUTION_ID = #{externalExecutionId,jdbcType=VARCHAR}, 
+    PARENT_EXECUTION_ID = #{parentExecutionId,jdbcType=BIGINT}
+  </insert>
+  <insert id="insertOrUpdateSelective" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskExecution">
+    <!--@mbg.generated-->
+    insert into task_execution
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskExecutionId != null">
+        TASK_EXECUTION_ID,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="taskName != null">
+        TASK_NAME,
+      </if>
+      <if test="exitCode != null">
+        EXIT_CODE,
+      </if>
+      <if test="exitMessage != null">
+        EXIT_MESSAGE,
+      </if>
+      <if test="errorMessage != null">
+        ERROR_MESSAGE,
+      </if>
+      <if test="lastUpdated != null">
+        LAST_UPDATED,
+      </if>
+      <if test="externalExecutionId != null">
+        EXTERNAL_EXECUTION_ID,
+      </if>
+      <if test="parentExecutionId != null">
+        PARENT_EXECUTION_ID,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskExecutionId != null">
+        #{taskExecutionId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="exitCode != null">
+        #{exitCode,jdbcType=INTEGER},
+      </if>
+      <if test="exitMessage != null">
+        #{exitMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMessage != null">
+        #{errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdated != null">
+        #{lastUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="externalExecutionId != null">
+        #{externalExecutionId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentExecutionId != null">
+        #{parentExecutionId,jdbcType=BIGINT},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="taskExecutionId != null">
+        TASK_EXECUTION_ID = #{taskExecutionId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null">
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskName != null">
+        TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="exitCode != null">
+        EXIT_CODE = #{exitCode,jdbcType=INTEGER},
+      </if>
+      <if test="exitMessage != null">
+        EXIT_MESSAGE = #{exitMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMessage != null">
+        ERROR_MESSAGE = #{errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdated != null">
+        LAST_UPDATED = #{lastUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="externalExecutionId != null">
+        EXTERNAL_EXECUTION_ID = #{externalExecutionId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentExecutionId != null">
+        PARENT_EXECUTION_ID = #{parentExecutionId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

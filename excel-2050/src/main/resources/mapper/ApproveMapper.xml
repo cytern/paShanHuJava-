@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kente.demo.dao.ApproveMapper">
+  <resultMap id="BaseResultMap" type="com.kente.demo.pojo.Approve">
+    <!--@mbg.generated-->
+    <!--@Table approve-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="kente_id" jdbcType="INTEGER" property="kenteId" />
+    <result column="approve_one" jdbcType="VARCHAR" property="approveOne" />
+    <result column="approve_two" jdbcType="VARCHAR" property="approveTwo" />
+    <result column="approve_three" jdbcType="VARCHAR" property="approveThree" />
+    <result column="approve_four" jdbcType="VARCHAR" property="approveFour" />
+    <result column="approve_five" jdbcType="VARCHAR" property="approveFive" />
+    <result column="approve_six" jdbcType="VARCHAR" property="approveSix" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, kente_id, approve_one, approve_two, approve_three, approve_four, approve_five, 
+    approve_six
+  </sql>
+  <select id="selectByExample" parameterType="com.kente.demo.pojo.ApproveExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from approve
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from approve
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from approve
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kente.demo.pojo.ApproveExample">
+    <!--@mbg.generated-->
+    delete from approve
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.kente.demo.pojo.Approve" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into approve (kente_id, approve_one, approve_two, 
+      approve_three, approve_four, approve_five, 
+      approve_six)
+    values (#{kenteId,jdbcType=INTEGER}, #{approveOne,jdbcType=VARCHAR}, #{approveTwo,jdbcType=VARCHAR}, 
+      #{approveThree,jdbcType=VARCHAR}, #{approveFour,jdbcType=VARCHAR}, #{approveFive,jdbcType=VARCHAR}, 
+      #{approveSix,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.kente.demo.pojo.Approve" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into approve
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kenteId != null">
+        kente_id,
+      </if>
+      <if test="approveOne != null">
+        approve_one,
+      </if>
+      <if test="approveTwo != null">
+        approve_two,
+      </if>
+      <if test="approveThree != null">
+        approve_three,
+      </if>
+      <if test="approveFour != null">
+        approve_four,
+      </if>
+      <if test="approveFive != null">
+        approve_five,
+      </if>
+      <if test="approveSix != null">
+        approve_six,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kenteId != null">
+        #{kenteId,jdbcType=INTEGER},
+      </if>
+      <if test="approveOne != null">
+        #{approveOne,jdbcType=VARCHAR},
+      </if>
+      <if test="approveTwo != null">
+        #{approveTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="approveThree != null">
+        #{approveThree,jdbcType=VARCHAR},
+      </if>
+      <if test="approveFour != null">
+        #{approveFour,jdbcType=VARCHAR},
+      </if>
+      <if test="approveFive != null">
+        #{approveFive,jdbcType=VARCHAR},
+      </if>
+      <if test="approveSix != null">
+        #{approveSix,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kente.demo.pojo.ApproveExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from approve
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update approve
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.kenteId != null">
+        kente_id = #{record.kenteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.approveOne != null">
+        approve_one = #{record.approveOne,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approveTwo != null">
+        approve_two = #{record.approveTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approveThree != null">
+        approve_three = #{record.approveThree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approveFour != null">
+        approve_four = #{record.approveFour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approveFive != null">
+        approve_five = #{record.approveFive,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approveSix != null">
+        approve_six = #{record.approveSix,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update approve
+    set id = #{record.id,jdbcType=INTEGER},
+      kente_id = #{record.kenteId,jdbcType=INTEGER},
+      approve_one = #{record.approveOne,jdbcType=VARCHAR},
+      approve_two = #{record.approveTwo,jdbcType=VARCHAR},
+      approve_three = #{record.approveThree,jdbcType=VARCHAR},
+      approve_four = #{record.approveFour,jdbcType=VARCHAR},
+      approve_five = #{record.approveFive,jdbcType=VARCHAR},
+      approve_six = #{record.approveSix,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kente.demo.pojo.Approve">
+    <!--@mbg.generated-->
+    update approve
+    <set>
+      <if test="kenteId != null">
+        kente_id = #{kenteId,jdbcType=INTEGER},
+      </if>
+      <if test="approveOne != null">
+        approve_one = #{approveOne,jdbcType=VARCHAR},
+      </if>
+      <if test="approveTwo != null">
+        approve_two = #{approveTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="approveThree != null">
+        approve_three = #{approveThree,jdbcType=VARCHAR},
+      </if>
+      <if test="approveFour != null">
+        approve_four = #{approveFour,jdbcType=VARCHAR},
+      </if>
+      <if test="approveFive != null">
+        approve_five = #{approveFive,jdbcType=VARCHAR},
+      </if>
+      <if test="approveSix != null">
+        approve_six = #{approveSix,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kente.demo.pojo.Approve">
+    <!--@mbg.generated-->
+    update approve
+    set kente_id = #{kenteId,jdbcType=INTEGER},
+      approve_one = #{approveOne,jdbcType=VARCHAR},
+      approve_two = #{approveTwo,jdbcType=VARCHAR},
+      approve_three = #{approveThree,jdbcType=VARCHAR},
+      approve_four = #{approveFour,jdbcType=VARCHAR},
+      approve_five = #{approveFive,jdbcType=VARCHAR},
+      approve_six = #{approveSix,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update approve
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="kente_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.kenteId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="approve_one = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.approveOne,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="approve_two = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.approveTwo,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="approve_three = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.approveThree,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="approve_four = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.approveFour,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="approve_five = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.approveFive,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="approve_six = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.approveSix,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update approve
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="kente_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.kenteId != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.kenteId,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="approve_one = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.approveOne != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.approveOne,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="approve_two = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.approveTwo != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.approveTwo,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="approve_three = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.approveThree != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.approveThree,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="approve_four = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.approveFour != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.approveFour,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="approve_five = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.approveFive != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.approveFive,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="approve_six = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.approveSix != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.approveSix,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into approve
+    (kente_id, approve_one, approve_two, approve_three, approve_four, approve_five, approve_six
+      )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.kenteId,jdbcType=INTEGER}, #{item.approveOne,jdbcType=VARCHAR}, #{item.approveTwo,jdbcType=VARCHAR}, 
+        #{item.approveThree,jdbcType=VARCHAR}, #{item.approveFour,jdbcType=VARCHAR}, #{item.approveFive,jdbcType=VARCHAR}, 
+        #{item.approveSix,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="com.kente.demo.pojo.Approve" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into approve
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      kente_id,
+      approve_one,
+      approve_two,
+      approve_three,
+      approve_four,
+      approve_five,
+      approve_six,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      #{kenteId,jdbcType=INTEGER},
+      #{approveOne,jdbcType=VARCHAR},
+      #{approveTwo,jdbcType=VARCHAR},
+      #{approveThree,jdbcType=VARCHAR},
+      #{approveFour,jdbcType=VARCHAR},
+      #{approveFive,jdbcType=VARCHAR},
+      #{approveSix,jdbcType=VARCHAR},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      kente_id = #{kenteId,jdbcType=INTEGER},
+      approve_one = #{approveOne,jdbcType=VARCHAR},
+      approve_two = #{approveTwo,jdbcType=VARCHAR},
+      approve_three = #{approveThree,jdbcType=VARCHAR},
+      approve_four = #{approveFour,jdbcType=VARCHAR},
+      approve_five = #{approveFive,jdbcType=VARCHAR},
+      approve_six = #{approveSix,jdbcType=VARCHAR},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id" parameterType="com.kente.demo.pojo.Approve" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into approve
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="kenteId != null">
+        kente_id,
+      </if>
+      <if test="approveOne != null">
+        approve_one,
+      </if>
+      <if test="approveTwo != null">
+        approve_two,
+      </if>
+      <if test="approveThree != null">
+        approve_three,
+      </if>
+      <if test="approveFour != null">
+        approve_four,
+      </if>
+      <if test="approveFive != null">
+        approve_five,
+      </if>
+      <if test="approveSix != null">
+        approve_six,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="kenteId != null">
+        #{kenteId,jdbcType=INTEGER},
+      </if>
+      <if test="approveOne != null">
+        #{approveOne,jdbcType=VARCHAR},
+      </if>
+      <if test="approveTwo != null">
+        #{approveTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="approveThree != null">
+        #{approveThree,jdbcType=VARCHAR},
+      </if>
+      <if test="approveFour != null">
+        #{approveFour,jdbcType=VARCHAR},
+      </if>
+      <if test="approveFive != null">
+        #{approveFive,jdbcType=VARCHAR},
+      </if>
+      <if test="approveSix != null">
+        #{approveSix,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="kenteId != null">
+        kente_id = #{kenteId,jdbcType=INTEGER},
+      </if>
+      <if test="approveOne != null">
+        approve_one = #{approveOne,jdbcType=VARCHAR},
+      </if>
+      <if test="approveTwo != null">
+        approve_two = #{approveTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="approveThree != null">
+        approve_three = #{approveThree,jdbcType=VARCHAR},
+      </if>
+      <if test="approveFour != null">
+        approve_four = #{approveFour,jdbcType=VARCHAR},
+      </if>
+      <if test="approveFive != null">
+        approve_five = #{approveFive,jdbcType=VARCHAR},
+      </if>
+      <if test="approveSix != null">
+        approve_six = #{approveSix,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

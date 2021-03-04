@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dam.jsoup.updatereport.updatreport.dao.JsoupMissionMapper">
+  <resultMap id="BaseResultMap" type="dam.jsoup.updatereport.updatreport.pojo.JsoupMission">
+    <!--@mbg.generated-->
+    <!--@Table jsoup_mission-->
+    <id column="mission_id" jdbcType="INTEGER" property="missionId" />
+    <result column="mission_name" jdbcType="VARCHAR" property="missionName" />
+    <result column="start_action_id" jdbcType="INTEGER" property="startActionId" />
+    <result column="notice_email" jdbcType="VARCHAR" property="noticeEmail" />
+    <result column="end_tag_contains" jdbcType="VARCHAR" property="endTagContains" />
+    <result column="mission_start_url" jdbcType="VARCHAR" property="missionStartUrl" />
+    <result column="mission_success_excel_name" jdbcType="VARCHAR" property="missionSuccessExcelName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    mission_id, mission_name, start_action_id, notice_email, end_tag_contains, mission_start_url, 
+    mission_success_excel_name
+  </sql>
+  <select id="selectByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jsoup_mission
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from jsoup_mission
+    where mission_id = #{missionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from jsoup_mission
+    where mission_id = #{missionId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionExample">
+    <!--@mbg.generated-->
+    delete from jsoup_mission
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="mission_id" keyProperty="missionId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMission" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into jsoup_mission (mission_name, start_action_id, notice_email, 
+      end_tag_contains, mission_start_url, mission_success_excel_name
+      )
+    values (#{missionName,jdbcType=VARCHAR}, #{startActionId,jdbcType=INTEGER}, #{noticeEmail,jdbcType=VARCHAR}, 
+      #{endTagContains,jdbcType=VARCHAR}, #{missionStartUrl,jdbcType=VARCHAR}, #{missionSuccessExcelName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="mission_id" keyProperty="missionId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMission" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into jsoup_mission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="missionName != null">
+        mission_name,
+      </if>
+      <if test="startActionId != null">
+        start_action_id,
+      </if>
+      <if test="noticeEmail != null">
+        notice_email,
+      </if>
+      <if test="endTagContains != null">
+        end_tag_contains,
+      </if>
+      <if test="missionStartUrl != null">
+        mission_start_url,
+      </if>
+      <if test="missionSuccessExcelName != null">
+        mission_success_excel_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="missionName != null">
+        #{missionName,jdbcType=VARCHAR},
+      </if>
+      <if test="startActionId != null">
+        #{startActionId,jdbcType=INTEGER},
+      </if>
+      <if test="noticeEmail != null">
+        #{noticeEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="endTagContains != null">
+        #{endTagContains,jdbcType=VARCHAR},
+      </if>
+      <if test="missionStartUrl != null">
+        #{missionStartUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="missionSuccessExcelName != null">
+        #{missionSuccessExcelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from jsoup_mission
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update jsoup_mission
+    <set>
+      <if test="record.missionId != null">
+        mission_id = #{record.missionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.missionName != null">
+        mission_name = #{record.missionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startActionId != null">
+        start_action_id = #{record.startActionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.noticeEmail != null">
+        notice_email = #{record.noticeEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTagContains != null">
+        end_tag_contains = #{record.endTagContains,jdbcType=VARCHAR},
+      </if>
+      <if test="record.missionStartUrl != null">
+        mission_start_url = #{record.missionStartUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.missionSuccessExcelName != null">
+        mission_success_excel_name = #{record.missionSuccessExcelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update jsoup_mission
+    set mission_id = #{record.missionId,jdbcType=INTEGER},
+      mission_name = #{record.missionName,jdbcType=VARCHAR},
+      start_action_id = #{record.startActionId,jdbcType=INTEGER},
+      notice_email = #{record.noticeEmail,jdbcType=VARCHAR},
+      end_tag_contains = #{record.endTagContains,jdbcType=VARCHAR},
+      mission_start_url = #{record.missionStartUrl,jdbcType=VARCHAR},
+      mission_success_excel_name = #{record.missionSuccessExcelName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMission">
+    <!--@mbg.generated-->
+    update jsoup_mission
+    <set>
+      <if test="missionName != null">
+        mission_name = #{missionName,jdbcType=VARCHAR},
+      </if>
+      <if test="startActionId != null">
+        start_action_id = #{startActionId,jdbcType=INTEGER},
+      </if>
+      <if test="noticeEmail != null">
+        notice_email = #{noticeEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="endTagContains != null">
+        end_tag_contains = #{endTagContains,jdbcType=VARCHAR},
+      </if>
+      <if test="missionStartUrl != null">
+        mission_start_url = #{missionStartUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="missionSuccessExcelName != null">
+        mission_success_excel_name = #{missionSuccessExcelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mission_id = #{missionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMission">
+    <!--@mbg.generated-->
+    update jsoup_mission
+    set mission_name = #{missionName,jdbcType=VARCHAR},
+      start_action_id = #{startActionId,jdbcType=INTEGER},
+      notice_email = #{noticeEmail,jdbcType=VARCHAR},
+      end_tag_contains = #{endTagContains,jdbcType=VARCHAR},
+      mission_start_url = #{missionStartUrl,jdbcType=VARCHAR},
+      mission_success_excel_name = #{missionSuccessExcelName,jdbcType=VARCHAR}
+    where mission_id = #{missionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update jsoup_mission
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="mission_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_id = #{item.missionId,jdbcType=INTEGER} then #{item.missionName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="start_action_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_id = #{item.missionId,jdbcType=INTEGER} then #{item.startActionId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="notice_email = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_id = #{item.missionId,jdbcType=INTEGER} then #{item.noticeEmail,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="end_tag_contains = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_id = #{item.missionId,jdbcType=INTEGER} then #{item.endTagContains,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="mission_start_url = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_id = #{item.missionId,jdbcType=INTEGER} then #{item.missionStartUrl,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="mission_success_excel_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_id = #{item.missionId,jdbcType=INTEGER} then #{item.missionSuccessExcelName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+    </trim>
+    where mission_id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.missionId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="mission_id" keyProperty="missionId" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into jsoup_mission
+    (mission_name, start_action_id, notice_email, end_tag_contains, mission_start_url, 
+      mission_success_excel_name)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.missionName,jdbcType=VARCHAR}, #{item.startActionId,jdbcType=INTEGER}, #{item.noticeEmail,jdbcType=VARCHAR}, 
+        #{item.endTagContains,jdbcType=VARCHAR}, #{item.missionStartUrl,jdbcType=VARCHAR}, 
+        #{item.missionSuccessExcelName,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="mission_id" keyProperty="missionId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMission" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into jsoup_mission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="missionId != null">
+        mission_id,
+      </if>
+      mission_name,
+      start_action_id,
+      notice_email,
+      end_tag_contains,
+      mission_start_url,
+      mission_success_excel_name,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="missionId != null">
+        #{missionId,jdbcType=INTEGER},
+      </if>
+      #{missionName,jdbcType=VARCHAR},
+      #{startActionId,jdbcType=INTEGER},
+      #{noticeEmail,jdbcType=VARCHAR},
+      #{endTagContains,jdbcType=VARCHAR},
+      #{missionStartUrl,jdbcType=VARCHAR},
+      #{missionSuccessExcelName,jdbcType=VARCHAR},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="missionId != null">
+        mission_id = #{missionId,jdbcType=INTEGER},
+      </if>
+      mission_name = #{missionName,jdbcType=VARCHAR},
+      start_action_id = #{startActionId,jdbcType=INTEGER},
+      notice_email = #{noticeEmail,jdbcType=VARCHAR},
+      end_tag_contains = #{endTagContains,jdbcType=VARCHAR},
+      mission_start_url = #{missionStartUrl,jdbcType=VARCHAR},
+      mission_success_excel_name = #{missionSuccessExcelName,jdbcType=VARCHAR},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="mission_id" keyProperty="missionId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMission" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into jsoup_mission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="missionId != null">
+        mission_id,
+      </if>
+      <if test="missionName != null">
+        mission_name,
+      </if>
+      <if test="startActionId != null">
+        start_action_id,
+      </if>
+      <if test="noticeEmail != null">
+        notice_email,
+      </if>
+      <if test="endTagContains != null">
+        end_tag_contains,
+      </if>
+      <if test="missionStartUrl != null">
+        mission_start_url,
+      </if>
+      <if test="missionSuccessExcelName != null">
+        mission_success_excel_name,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="missionId != null">
+        #{missionId,jdbcType=INTEGER},
+      </if>
+      <if test="missionName != null">
+        #{missionName,jdbcType=VARCHAR},
+      </if>
+      <if test="startActionId != null">
+        #{startActionId,jdbcType=INTEGER},
+      </if>
+      <if test="noticeEmail != null">
+        #{noticeEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="endTagContains != null">
+        #{endTagContains,jdbcType=VARCHAR},
+      </if>
+      <if test="missionStartUrl != null">
+        #{missionStartUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="missionSuccessExcelName != null">
+        #{missionSuccessExcelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="missionId != null">
+        mission_id = #{missionId,jdbcType=INTEGER},
+      </if>
+      <if test="missionName != null">
+        mission_name = #{missionName,jdbcType=VARCHAR},
+      </if>
+      <if test="startActionId != null">
+        start_action_id = #{startActionId,jdbcType=INTEGER},
+      </if>
+      <if test="noticeEmail != null">
+        notice_email = #{noticeEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="endTagContains != null">
+        end_tag_contains = #{endTagContains,jdbcType=VARCHAR},
+      </if>
+      <if test="missionStartUrl != null">
+        mission_start_url = #{missionStartUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="missionSuccessExcelName != null">
+        mission_success_excel_name = #{missionSuccessExcelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

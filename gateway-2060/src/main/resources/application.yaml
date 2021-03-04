@@ -1,0 +1,55 @@
+server:
+  port: 2060
+spring:
+  application:
+    name: javaGateWay
+  datasource:
+    username: root
+    password: zhenlong
+    url: jdbc:mysql://localhost:3306/jsoup?useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    servlet:
+      multipart:
+        max-file-size: 10MB
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/mian/java
+#  eureka 配置
+eureka:
+    client:
+      service-url:
+        defaultZone: http://localhost:2020/eureka/  #注册位置
+    instance:
+      instance-id: spring-cloud-gateway-2060
+
+  #info 配置
+info:
+  app.name: 网关
+  app.author: dam
+zuul:
+  routes:
+    server.serviceId: excel
+    server.path: /excel/**
+    jsoup.serviceId: javaServer
+    jsoup.path: /server/**
+  host:
+    connect-timeout-millis: 30000
+    socket-timeout-millis: 30000
+  ignored-services: "*"
+# 请求处理超时时间
+ribbon:
+  ReadTimeout: 30000
+  # 请求连接超时时间
+  ConnectTimeout: 30000
+  # 断路器超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+
+

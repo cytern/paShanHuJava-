@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MyBatisCodeHelperDatasource">
+    <option name="projectProfile">
+      <ProjectProfile>
+        <option name="addSerializeUid" value="true" />
+        <option name="batchInsert" value="true" />
+        <option name="insertOnDuplicateKey" value="true" />
+        <option name="javaMapperPackage" value="dam.jsoup.updatereport.updatreport.dao" />
+        <option name="javaMapperPath" value="$PROJECT_DIR$/jsoup-2030/src/main/java" />
+        <option name="javaModelPackage" value="dam.jsoup.updatereport.updatreport.pojo" />
+        <option name="javaModelPath" value="$PROJECT_DIR$/jsoup-2030/src/main/java" />
+        <option name="lastDatabaseCrudChooseModuleName" value="jsoup-2030" />
+        <option name="lombokAllArgConstructor" value="true" />
+        <option name="lombokDataAnnotation" value="true" />
+        <option name="lombokNoArgsConstructor" value="true" />
+        <option name="mapperAnnotaion" value="true" />
+        <option name="modelAddToString" value="true" />
+        <option name="moduleNameToPackageAndPathMap">
+          <map>
+            <entry key="euerka-2020">
+              <value>
+                <UserPackageAndPathInfoByModule>
+                  <option name="javaMapperPackage" value="dam.jsoup.updatereport.updatreport.dao" />
+                  <option name="javaMapperPath" value="E:\projects\javaProject\demo\jsoup-2030\src\main\java\dam\jsoup\updatereport\updatreport\dao" />
+                  <option name="javaModelPacakge" value="dam.jsoup.updatereport.updatreport.pojo" />
+                  <option name="javaModelPath" value="E:\projects\javaProject\demo\jsoup-2030\src\main\java\dam\jsoup\updatereport\updatreport\pojo" />
+                  <option name="javaServiceInterfacePath" value="$PROJECT_DIR$/euerka-2020/src/main/java" />
+                  <option name="javaServicePath" value="$PROJECT_DIR$/euerka-2020/src/main/java" />
+                  <option name="xmlPackage" value="mapper" />
+                  <option name="xmlPath" value="E:\projects\javaProject\demo\jsoup-2030\src\main\resources\mapper" />
+                </UserPackageAndPathInfoByModule>
+              </value>
+            </entry>
+            <entry key="jsoup-2030">
+              <value>
+                <UserPackageAndPathInfoByModule>
+                  <option name="javaMapperPackage" value="dam.jsoup.updatereport.updatreport.dao" />
+                  <option name="javaMapperPath" value="$PROJECT_DIR$/jsoup-2030/src/main/java" />
+                  <option name="javaModelPacakge" value="dam.jsoup.updatereport.updatreport.pojo" />
+                  <option name="javaModelPath" value="$PROJECT_DIR$/jsoup-2030/src/main/java" />
+                  <option name="xmlPackage" value="mapper" />
+                  <option name="xmlPath" value="$PROJECT_DIR$/jsoup-2030/src/main/resources" />
+                </UserPackageAndPathInfoByModule>
+              </value>
+            </entry>
+          </map>
+        </option>
+        <option name="p3CComment" value="true" />
+        <option name="tableGenerateConfigs">
+          <map>
+            <entry key="jsoup:jsoup_action">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="action_id" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupAction" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:jsoup_action_his">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="action_his_id" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupActionHis" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:jsoup_action_order">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="action_order_id" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupActionOrder" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:jsoup_mission">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="mission_id" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupMission" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:jsoup_mission_all">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="ma_id" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupMissionAll" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:jsoup_mission_all_history">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="mission_all_history_id" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupMissionAllHistory" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:jsoup_mission_history">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="mission_state_id" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupMissionHistory" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:jsoup_mission_order">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="mission_order_id" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupMissionOrder" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:jsoup_pragram">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="pragram_id" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupPragram" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:jsoup_user">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="user_id" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupUser" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:jsoup_user_assets">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="user_assets_id" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupUserAssets" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:jsoup_user_detail">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="user_detail_id" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupUserDetail" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:jsoup_user_order">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="order_id" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupUserOrder" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:setting">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="Setting" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:task_execution">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="TaskExecution" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:task_execution_params">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="TaskExecutionParams" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:task_lock">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="TaskLock" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:task_seq">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="TaskSeq" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:task_task_batch">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="TaskTaskBatch" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+          </map>
+        </option>
+        <option name="updateBatch" value="true" />
+        <option name="useExample" value="true" />
+        <option name="useSwagger" value="true" />
+        <option name="xmlMapperPackage" value="mapper" />
+        <option name="xmlMapperPath" value="$PROJECT_DIR$/jsoup-2030/src/main/resources" />
+      </ProjectProfile>
+    </option>
+  </component>
+</project>

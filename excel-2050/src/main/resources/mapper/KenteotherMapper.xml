@@ -1,0 +1,1196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kente.demo.dao.KenteotherMapper">
+  <resultMap id="BaseResultMap" type="com.kente.demo.pojo.Kenteother">
+    <!--@mbg.generated-->
+    <!--@Table kenteother-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mouth" jdbcType="VARCHAR" property="mouth" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="lv" jdbcType="VARCHAR" property="lv" />
+    <result column="obj_type" jdbcType="VARCHAR" property="objType" />
+    <result column="pro_type" jdbcType="VARCHAR" property="proType" />
+    <result column="other_name" jdbcType="VARCHAR" property="otherName" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="final_user_name" jdbcType="VARCHAR" property="finalUserName" />
+    <result column="need_num" jdbcType="INTEGER" property="needNum" />
+    <result column="need_price" jdbcType="VARCHAR" property="needPrice" />
+    <result column="need_res" jdbcType="VARCHAR" property="needRes" />
+    <result column="final_win" jdbcType="VARCHAR" property="finalWin" />
+    <result column="not_reason" jdbcType="VARCHAR" property="notReason" />
+    <result column="final_price" jdbcType="VARCHAR" property="finalPrice" />
+    <result column="not_reason_detail" jdbcType="VARCHAR" property="notReasonDetail" />
+    <result column="have_contract" jdbcType="VARCHAR" property="haveContract" />
+    <result column="contract_price" jdbcType="VARCHAR" property="contractPrice" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="sale_area" jdbcType="VARCHAR" property="saleArea" />
+    <result column="sale_man" jdbcType="VARCHAR" property="saleMan" />
+    <result column="un_tract_num" jdbcType="INTEGER" property="unTractNum" />
+    <result column="task_id" jdbcType="INTEGER" property="taskId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, mouth, start_time, `type`, lv, obj_type, pro_type, other_name, project_id, project_name, 
+    final_user_name, need_num, need_price, need_res, final_win, not_reason, final_price, 
+    not_reason_detail, have_contract, contract_price, department, sale_area, sale_man, 
+    un_tract_num, task_id
+  </sql>
+  <select id="selectByExample" parameterType="com.kente.demo.pojo.KenteotherExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from kenteother
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from kenteother
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from kenteother
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kente.demo.pojo.KenteotherExample">
+    <!--@mbg.generated-->
+    delete from kenteother
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.kente.demo.pojo.Kenteother" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into kenteother (mouth, start_time, `type`, 
+      lv, obj_type, pro_type, 
+      other_name, project_id, project_name, 
+      final_user_name, need_num, need_price, 
+      need_res, final_win, not_reason, 
+      final_price, not_reason_detail, have_contract, 
+      contract_price, department, sale_area, 
+      sale_man, un_tract_num, task_id
+      )
+    values (#{mouth,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{lv,jdbcType=VARCHAR}, #{objType,jdbcType=VARCHAR}, #{proType,jdbcType=VARCHAR}, 
+      #{otherName,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
+      #{finalUserName,jdbcType=VARCHAR}, #{needNum,jdbcType=INTEGER}, #{needPrice,jdbcType=VARCHAR}, 
+      #{needRes,jdbcType=VARCHAR}, #{finalWin,jdbcType=VARCHAR}, #{notReason,jdbcType=VARCHAR}, 
+      #{finalPrice,jdbcType=VARCHAR}, #{notReasonDetail,jdbcType=VARCHAR}, #{haveContract,jdbcType=VARCHAR}, 
+      #{contractPrice,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{saleArea,jdbcType=VARCHAR}, 
+      #{saleMan,jdbcType=VARCHAR}, #{unTractNum,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.kente.demo.pojo.Kenteother" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into kenteother
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mouth != null">
+        mouth,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="lv != null">
+        lv,
+      </if>
+      <if test="objType != null">
+        obj_type,
+      </if>
+      <if test="proType != null">
+        pro_type,
+      </if>
+      <if test="otherName != null">
+        other_name,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="projectName != null">
+        project_name,
+      </if>
+      <if test="finalUserName != null">
+        final_user_name,
+      </if>
+      <if test="needNum != null">
+        need_num,
+      </if>
+      <if test="needPrice != null">
+        need_price,
+      </if>
+      <if test="needRes != null">
+        need_res,
+      </if>
+      <if test="finalWin != null">
+        final_win,
+      </if>
+      <if test="notReason != null">
+        not_reason,
+      </if>
+      <if test="finalPrice != null">
+        final_price,
+      </if>
+      <if test="notReasonDetail != null">
+        not_reason_detail,
+      </if>
+      <if test="haveContract != null">
+        have_contract,
+      </if>
+      <if test="contractPrice != null">
+        contract_price,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="saleArea != null">
+        sale_area,
+      </if>
+      <if test="saleMan != null">
+        sale_man,
+      </if>
+      <if test="unTractNum != null">
+        un_tract_num,
+      </if>
+      <if test="taskId != null">
+        task_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mouth != null">
+        #{mouth,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="lv != null">
+        #{lv,jdbcType=VARCHAR},
+      </if>
+      <if test="objType != null">
+        #{objType,jdbcType=VARCHAR},
+      </if>
+      <if test="proType != null">
+        #{proType,jdbcType=VARCHAR},
+      </if>
+      <if test="otherName != null">
+        #{otherName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="finalUserName != null">
+        #{finalUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="needNum != null">
+        #{needNum,jdbcType=INTEGER},
+      </if>
+      <if test="needPrice != null">
+        #{needPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="needRes != null">
+        #{needRes,jdbcType=VARCHAR},
+      </if>
+      <if test="finalWin != null">
+        #{finalWin,jdbcType=VARCHAR},
+      </if>
+      <if test="notReason != null">
+        #{notReason,jdbcType=VARCHAR},
+      </if>
+      <if test="finalPrice != null">
+        #{finalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="notReasonDetail != null">
+        #{notReasonDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="haveContract != null">
+        #{haveContract,jdbcType=VARCHAR},
+      </if>
+      <if test="contractPrice != null">
+        #{contractPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="saleArea != null">
+        #{saleArea,jdbcType=VARCHAR},
+      </if>
+      <if test="saleMan != null">
+        #{saleMan,jdbcType=VARCHAR},
+      </if>
+      <if test="unTractNum != null">
+        #{unTractNum,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kente.demo.pojo.KenteotherExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from kenteother
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update kenteother
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.mouth != null">
+        mouth = #{record.mouth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        `type` = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lv != null">
+        lv = #{record.lv,jdbcType=VARCHAR},
+      </if>
+      <if test="record.objType != null">
+        obj_type = #{record.objType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proType != null">
+        pro_type = #{record.proType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otherName != null">
+        other_name = #{record.otherName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectName != null">
+        project_name = #{record.projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finalUserName != null">
+        final_user_name = #{record.finalUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.needNum != null">
+        need_num = #{record.needNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.needPrice != null">
+        need_price = #{record.needPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.needRes != null">
+        need_res = #{record.needRes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finalWin != null">
+        final_win = #{record.finalWin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notReason != null">
+        not_reason = #{record.notReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finalPrice != null">
+        final_price = #{record.finalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notReasonDetail != null">
+        not_reason_detail = #{record.notReasonDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.haveContract != null">
+        have_contract = #{record.haveContract,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractPrice != null">
+        contract_price = #{record.contractPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null">
+        department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleArea != null">
+        sale_area = #{record.saleArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleMan != null">
+        sale_man = #{record.saleMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unTractNum != null">
+        un_tract_num = #{record.unTractNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskId != null">
+        task_id = #{record.taskId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update kenteother
+    set id = #{record.id,jdbcType=INTEGER},
+      mouth = #{record.mouth,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=VARCHAR},
+      `type` = #{record.type,jdbcType=VARCHAR},
+      lv = #{record.lv,jdbcType=VARCHAR},
+      obj_type = #{record.objType,jdbcType=VARCHAR},
+      pro_type = #{record.proType,jdbcType=VARCHAR},
+      other_name = #{record.otherName,jdbcType=VARCHAR},
+      project_id = #{record.projectId,jdbcType=VARCHAR},
+      project_name = #{record.projectName,jdbcType=VARCHAR},
+      final_user_name = #{record.finalUserName,jdbcType=VARCHAR},
+      need_num = #{record.needNum,jdbcType=INTEGER},
+      need_price = #{record.needPrice,jdbcType=VARCHAR},
+      need_res = #{record.needRes,jdbcType=VARCHAR},
+      final_win = #{record.finalWin,jdbcType=VARCHAR},
+      not_reason = #{record.notReason,jdbcType=VARCHAR},
+      final_price = #{record.finalPrice,jdbcType=VARCHAR},
+      not_reason_detail = #{record.notReasonDetail,jdbcType=VARCHAR},
+      have_contract = #{record.haveContract,jdbcType=VARCHAR},
+      contract_price = #{record.contractPrice,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=VARCHAR},
+      sale_area = #{record.saleArea,jdbcType=VARCHAR},
+      sale_man = #{record.saleMan,jdbcType=VARCHAR},
+      un_tract_num = #{record.unTractNum,jdbcType=INTEGER},
+      task_id = #{record.taskId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kente.demo.pojo.Kenteother">
+    <!--@mbg.generated-->
+    update kenteother
+    <set>
+      <if test="mouth != null">
+        mouth = #{mouth,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="lv != null">
+        lv = #{lv,jdbcType=VARCHAR},
+      </if>
+      <if test="objType != null">
+        obj_type = #{objType,jdbcType=VARCHAR},
+      </if>
+      <if test="proType != null">
+        pro_type = #{proType,jdbcType=VARCHAR},
+      </if>
+      <if test="otherName != null">
+        other_name = #{otherName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="finalUserName != null">
+        final_user_name = #{finalUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="needNum != null">
+        need_num = #{needNum,jdbcType=INTEGER},
+      </if>
+      <if test="needPrice != null">
+        need_price = #{needPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="needRes != null">
+        need_res = #{needRes,jdbcType=VARCHAR},
+      </if>
+      <if test="finalWin != null">
+        final_win = #{finalWin,jdbcType=VARCHAR},
+      </if>
+      <if test="notReason != null">
+        not_reason = #{notReason,jdbcType=VARCHAR},
+      </if>
+      <if test="finalPrice != null">
+        final_price = #{finalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="notReasonDetail != null">
+        not_reason_detail = #{notReasonDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="haveContract != null">
+        have_contract = #{haveContract,jdbcType=VARCHAR},
+      </if>
+      <if test="contractPrice != null">
+        contract_price = #{contractPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="saleArea != null">
+        sale_area = #{saleArea,jdbcType=VARCHAR},
+      </if>
+      <if test="saleMan != null">
+        sale_man = #{saleMan,jdbcType=VARCHAR},
+      </if>
+      <if test="unTractNum != null">
+        un_tract_num = #{unTractNum,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kente.demo.pojo.Kenteother">
+    <!--@mbg.generated-->
+    update kenteother
+    set mouth = #{mouth,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      lv = #{lv,jdbcType=VARCHAR},
+      obj_type = #{objType,jdbcType=VARCHAR},
+      pro_type = #{proType,jdbcType=VARCHAR},
+      other_name = #{otherName,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      final_user_name = #{finalUserName,jdbcType=VARCHAR},
+      need_num = #{needNum,jdbcType=INTEGER},
+      need_price = #{needPrice,jdbcType=VARCHAR},
+      need_res = #{needRes,jdbcType=VARCHAR},
+      final_win = #{finalWin,jdbcType=VARCHAR},
+      not_reason = #{notReason,jdbcType=VARCHAR},
+      final_price = #{finalPrice,jdbcType=VARCHAR},
+      not_reason_detail = #{notReasonDetail,jdbcType=VARCHAR},
+      have_contract = #{haveContract,jdbcType=VARCHAR},
+      contract_price = #{contractPrice,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      sale_area = #{saleArea,jdbcType=VARCHAR},
+      sale_man = #{saleMan,jdbcType=VARCHAR},
+      un_tract_num = #{unTractNum,jdbcType=INTEGER},
+      task_id = #{taskId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update kenteother
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="mouth = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.mouth,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="start_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.startTime,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`type` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.type,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="lv = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.lv,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="obj_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.objType,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="pro_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.proType,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="other_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.otherName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="project_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.projectId,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="project_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.projectName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="final_user_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.finalUserName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="need_num = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.needNum,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="need_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.needPrice,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="need_res = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.needRes,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="final_win = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.finalWin,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="not_reason = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.notReason,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="final_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.finalPrice,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="not_reason_detail = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.notReasonDetail,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="have_contract = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.haveContract,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="contract_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.contractPrice,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="department = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.department,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="sale_area = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.saleArea,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="sale_man = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.saleMan,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="un_tract_num = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.unTractNum,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="task_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.taskId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update kenteother
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="mouth = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.mouth != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.mouth,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="start_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.startTime != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.startTime,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`type` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.type != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.type,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="lv = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.lv != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.lv,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="obj_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.objType != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.objType,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="pro_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.proType != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.proType,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="other_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.otherName != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.otherName,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="project_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.projectId != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.projectId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="project_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.projectName != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.projectName,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="final_user_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.finalUserName != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.finalUserName,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="need_num = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.needNum != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.needNum,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="need_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.needPrice != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.needPrice,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="need_res = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.needRes != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.needRes,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="final_win = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.finalWin != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.finalWin,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="not_reason = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.notReason != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.notReason,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="final_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.finalPrice != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.finalPrice,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="not_reason_detail = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.notReasonDetail != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.notReasonDetail,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="have_contract = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.haveContract != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.haveContract,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="contract_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.contractPrice != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.contractPrice,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="department = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.department != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.department,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="sale_area = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.saleArea != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.saleArea,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="sale_man = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.saleMan != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.saleMan,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="un_tract_num = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.unTractNum != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.unTractNum,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="task_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.taskId != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.taskId,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into kenteother
+    (mouth, start_time, `type`, lv, obj_type, pro_type, other_name, project_id, project_name, 
+      final_user_name, need_num, need_price, need_res, final_win, not_reason, final_price, 
+      not_reason_detail, have_contract, contract_price, department, sale_area, sale_man, 
+      un_tract_num, task_id)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.mouth,jdbcType=VARCHAR}, #{item.startTime,jdbcType=VARCHAR}, #{item.type,jdbcType=VARCHAR}, 
+        #{item.lv,jdbcType=VARCHAR}, #{item.objType,jdbcType=VARCHAR}, #{item.proType,jdbcType=VARCHAR}, 
+        #{item.otherName,jdbcType=VARCHAR}, #{item.projectId,jdbcType=VARCHAR}, #{item.projectName,jdbcType=VARCHAR}, 
+        #{item.finalUserName,jdbcType=VARCHAR}, #{item.needNum,jdbcType=INTEGER}, #{item.needPrice,jdbcType=VARCHAR}, 
+        #{item.needRes,jdbcType=VARCHAR}, #{item.finalWin,jdbcType=VARCHAR}, #{item.notReason,jdbcType=VARCHAR}, 
+        #{item.finalPrice,jdbcType=VARCHAR}, #{item.notReasonDetail,jdbcType=VARCHAR}, 
+        #{item.haveContract,jdbcType=VARCHAR}, #{item.contractPrice,jdbcType=VARCHAR}, 
+        #{item.department,jdbcType=VARCHAR}, #{item.saleArea,jdbcType=VARCHAR}, #{item.saleMan,jdbcType=VARCHAR}, 
+        #{item.unTractNum,jdbcType=INTEGER}, #{item.taskId,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="com.kente.demo.pojo.Kenteother" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into kenteother
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      mouth,
+      start_time,
+      `type`,
+      lv,
+      obj_type,
+      pro_type,
+      other_name,
+      project_id,
+      project_name,
+      final_user_name,
+      need_num,
+      need_price,
+      need_res,
+      final_win,
+      not_reason,
+      final_price,
+      not_reason_detail,
+      have_contract,
+      contract_price,
+      department,
+      sale_area,
+      sale_man,
+      un_tract_num,
+      task_id,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      #{mouth,jdbcType=VARCHAR},
+      #{startTime,jdbcType=VARCHAR},
+      #{type,jdbcType=VARCHAR},
+      #{lv,jdbcType=VARCHAR},
+      #{objType,jdbcType=VARCHAR},
+      #{proType,jdbcType=VARCHAR},
+      #{otherName,jdbcType=VARCHAR},
+      #{projectId,jdbcType=VARCHAR},
+      #{projectName,jdbcType=VARCHAR},
+      #{finalUserName,jdbcType=VARCHAR},
+      #{needNum,jdbcType=INTEGER},
+      #{needPrice,jdbcType=VARCHAR},
+      #{needRes,jdbcType=VARCHAR},
+      #{finalWin,jdbcType=VARCHAR},
+      #{notReason,jdbcType=VARCHAR},
+      #{finalPrice,jdbcType=VARCHAR},
+      #{notReasonDetail,jdbcType=VARCHAR},
+      #{haveContract,jdbcType=VARCHAR},
+      #{contractPrice,jdbcType=VARCHAR},
+      #{department,jdbcType=VARCHAR},
+      #{saleArea,jdbcType=VARCHAR},
+      #{saleMan,jdbcType=VARCHAR},
+      #{unTractNum,jdbcType=INTEGER},
+      #{taskId,jdbcType=INTEGER},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      mouth = #{mouth,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      lv = #{lv,jdbcType=VARCHAR},
+      obj_type = #{objType,jdbcType=VARCHAR},
+      pro_type = #{proType,jdbcType=VARCHAR},
+      other_name = #{otherName,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      final_user_name = #{finalUserName,jdbcType=VARCHAR},
+      need_num = #{needNum,jdbcType=INTEGER},
+      need_price = #{needPrice,jdbcType=VARCHAR},
+      need_res = #{needRes,jdbcType=VARCHAR},
+      final_win = #{finalWin,jdbcType=VARCHAR},
+      not_reason = #{notReason,jdbcType=VARCHAR},
+      final_price = #{finalPrice,jdbcType=VARCHAR},
+      not_reason_detail = #{notReasonDetail,jdbcType=VARCHAR},
+      have_contract = #{haveContract,jdbcType=VARCHAR},
+      contract_price = #{contractPrice,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      sale_area = #{saleArea,jdbcType=VARCHAR},
+      sale_man = #{saleMan,jdbcType=VARCHAR},
+      un_tract_num = #{unTractNum,jdbcType=INTEGER},
+      task_id = #{taskId,jdbcType=INTEGER},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id" parameterType="com.kente.demo.pojo.Kenteother" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into kenteother
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mouth != null">
+        mouth,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="lv != null">
+        lv,
+      </if>
+      <if test="objType != null">
+        obj_type,
+      </if>
+      <if test="proType != null">
+        pro_type,
+      </if>
+      <if test="otherName != null">
+        other_name,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="projectName != null">
+        project_name,
+      </if>
+      <if test="finalUserName != null">
+        final_user_name,
+      </if>
+      <if test="needNum != null">
+        need_num,
+      </if>
+      <if test="needPrice != null">
+        need_price,
+      </if>
+      <if test="needRes != null">
+        need_res,
+      </if>
+      <if test="finalWin != null">
+        final_win,
+      </if>
+      <if test="notReason != null">
+        not_reason,
+      </if>
+      <if test="finalPrice != null">
+        final_price,
+      </if>
+      <if test="notReasonDetail != null">
+        not_reason_detail,
+      </if>
+      <if test="haveContract != null">
+        have_contract,
+      </if>
+      <if test="contractPrice != null">
+        contract_price,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="saleArea != null">
+        sale_area,
+      </if>
+      <if test="saleMan != null">
+        sale_man,
+      </if>
+      <if test="unTractNum != null">
+        un_tract_num,
+      </if>
+      <if test="taskId != null">
+        task_id,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mouth != null">
+        #{mouth,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="lv != null">
+        #{lv,jdbcType=VARCHAR},
+      </if>
+      <if test="objType != null">
+        #{objType,jdbcType=VARCHAR},
+      </if>
+      <if test="proType != null">
+        #{proType,jdbcType=VARCHAR},
+      </if>
+      <if test="otherName != null">
+        #{otherName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="finalUserName != null">
+        #{finalUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="needNum != null">
+        #{needNum,jdbcType=INTEGER},
+      </if>
+      <if test="needPrice != null">
+        #{needPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="needRes != null">
+        #{needRes,jdbcType=VARCHAR},
+      </if>
+      <if test="finalWin != null">
+        #{finalWin,jdbcType=VARCHAR},
+      </if>
+      <if test="notReason != null">
+        #{notReason,jdbcType=VARCHAR},
+      </if>
+      <if test="finalPrice != null">
+        #{finalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="notReasonDetail != null">
+        #{notReasonDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="haveContract != null">
+        #{haveContract,jdbcType=VARCHAR},
+      </if>
+      <if test="contractPrice != null">
+        #{contractPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="saleArea != null">
+        #{saleArea,jdbcType=VARCHAR},
+      </if>
+      <if test="saleMan != null">
+        #{saleMan,jdbcType=VARCHAR},
+      </if>
+      <if test="unTractNum != null">
+        #{unTractNum,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mouth != null">
+        mouth = #{mouth,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="lv != null">
+        lv = #{lv,jdbcType=VARCHAR},
+      </if>
+      <if test="objType != null">
+        obj_type = #{objType,jdbcType=VARCHAR},
+      </if>
+      <if test="proType != null">
+        pro_type = #{proType,jdbcType=VARCHAR},
+      </if>
+      <if test="otherName != null">
+        other_name = #{otherName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="finalUserName != null">
+        final_user_name = #{finalUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="needNum != null">
+        need_num = #{needNum,jdbcType=INTEGER},
+      </if>
+      <if test="needPrice != null">
+        need_price = #{needPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="needRes != null">
+        need_res = #{needRes,jdbcType=VARCHAR},
+      </if>
+      <if test="finalWin != null">
+        final_win = #{finalWin,jdbcType=VARCHAR},
+      </if>
+      <if test="notReason != null">
+        not_reason = #{notReason,jdbcType=VARCHAR},
+      </if>
+      <if test="finalPrice != null">
+        final_price = #{finalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="notReasonDetail != null">
+        not_reason_detail = #{notReasonDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="haveContract != null">
+        have_contract = #{haveContract,jdbcType=VARCHAR},
+      </if>
+      <if test="contractPrice != null">
+        contract_price = #{contractPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="saleArea != null">
+        sale_area = #{saleArea,jdbcType=VARCHAR},
+      </if>
+      <if test="saleMan != null">
+        sale_man = #{saleMan,jdbcType=VARCHAR},
+      </if>
+      <if test="unTractNum != null">
+        un_tract_num = #{unTractNum,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

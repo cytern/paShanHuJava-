@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dam.jsoup.updatereport.updatreport.dao.TaskLockMapper">
+  <resultMap id="BaseResultMap" type="dam.jsoup.updatereport.updatreport.pojo.TaskLock">
+    <!--@mbg.generated-->
+    <!--@Table task_lock-->
+    <id column="LOCK_KEY" jdbcType="CHAR" property="lockKey" />
+    <id column="REGION" jdbcType="VARCHAR" property="region" />
+    <result column="CLIENT_ID" jdbcType="CHAR" property="clientId" />
+    <result column="CREATED_DATE" jdbcType="TIMESTAMP" property="createdDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    LOCK_KEY, REGION, CLIENT_ID, CREATED_DATE
+  </sql>
+  <select id="selectByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskLockExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from task_lock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from task_lock
+    where LOCK_KEY = #{lockKey,jdbcType=CHAR}
+      and REGION = #{region,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    <!--@mbg.generated-->
+    delete from task_lock
+    where LOCK_KEY = #{lockKey,jdbcType=CHAR}
+      and REGION = #{region,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskLockExample">
+    <!--@mbg.generated-->
+    delete from task_lock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskLock">
+    <!--@mbg.generated-->
+    insert into task_lock (LOCK_KEY, REGION, CLIENT_ID, 
+      CREATED_DATE)
+    values (#{lockKey,jdbcType=CHAR}, #{region,jdbcType=VARCHAR}, #{clientId,jdbcType=CHAR}, 
+      #{createdDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskLock">
+    <!--@mbg.generated-->
+    insert into task_lock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lockKey != null">
+        LOCK_KEY,
+      </if>
+      <if test="region != null">
+        REGION,
+      </if>
+      <if test="clientId != null">
+        CLIENT_ID,
+      </if>
+      <if test="createdDate != null">
+        CREATED_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lockKey != null">
+        #{lockKey,jdbcType=CHAR},
+      </if>
+      <if test="region != null">
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null">
+        #{clientId,jdbcType=CHAR},
+      </if>
+      <if test="createdDate != null">
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskLockExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from task_lock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update task_lock
+    <set>
+      <if test="record.lockKey != null">
+        LOCK_KEY = #{record.lockKey,jdbcType=CHAR},
+      </if>
+      <if test="record.region != null">
+        REGION = #{record.region,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientId != null">
+        CLIENT_ID = #{record.clientId,jdbcType=CHAR},
+      </if>
+      <if test="record.createdDate != null">
+        CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update task_lock
+    set LOCK_KEY = #{record.lockKey,jdbcType=CHAR},
+      REGION = #{record.region,jdbcType=VARCHAR},
+      CLIENT_ID = #{record.clientId,jdbcType=CHAR},
+      CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskLock">
+    <!--@mbg.generated-->
+    update task_lock
+    <set>
+      <if test="clientId != null">
+        CLIENT_ID = #{clientId,jdbcType=CHAR},
+      </if>
+      <if test="createdDate != null">
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where LOCK_KEY = #{lockKey,jdbcType=CHAR}
+      and REGION = #{region,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskLock">
+    <!--@mbg.generated-->
+    update task_lock
+    set CLIENT_ID = #{clientId,jdbcType=CHAR},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP}
+    where LOCK_KEY = #{lockKey,jdbcType=CHAR}
+      and REGION = #{region,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update task_lock
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="CLIENT_ID = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when LOCK_KEY = #{item.lockKey,jdbcType=CHAR} then #{item.clientId,jdbcType=CHAR}
+        </foreach>
+      </trim>
+      <trim prefix="CREATED_DATE = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when LOCK_KEY = #{item.lockKey,jdbcType=CHAR} then #{item.createdDate,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+    </trim>
+    where LOCK_KEY in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.lockKey,jdbcType=CHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into task_lock
+    (LOCK_KEY, REGION, CLIENT_ID, CREATED_DATE)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.lockKey,jdbcType=CHAR}, #{item.region,jdbcType=VARCHAR}, #{item.clientId,jdbcType=CHAR}, 
+        #{item.createdDate,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskLock">
+    <!--@mbg.generated-->
+    insert into task_lock
+    (LOCK_KEY, REGION, CLIENT_ID, CREATED_DATE)
+    values
+    (#{lockKey,jdbcType=CHAR}, #{region,jdbcType=VARCHAR}, #{clientId,jdbcType=CHAR}, 
+      #{createdDate,jdbcType=TIMESTAMP})
+    on duplicate key update 
+    LOCK_KEY = #{lockKey,jdbcType=CHAR}, 
+    REGION = #{region,jdbcType=VARCHAR}, 
+    CLIENT_ID = #{clientId,jdbcType=CHAR}, 
+    CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP}
+  </insert>
+  <insert id="insertOrUpdateSelective" parameterType="dam.jsoup.updatereport.updatreport.pojo.TaskLock">
+    <!--@mbg.generated-->
+    insert into task_lock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lockKey != null">
+        LOCK_KEY,
+      </if>
+      <if test="region != null">
+        REGION,
+      </if>
+      <if test="clientId != null">
+        CLIENT_ID,
+      </if>
+      <if test="createdDate != null">
+        CREATED_DATE,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lockKey != null">
+        #{lockKey,jdbcType=CHAR},
+      </if>
+      <if test="region != null">
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null">
+        #{clientId,jdbcType=CHAR},
+      </if>
+      <if test="createdDate != null">
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="lockKey != null">
+        LOCK_KEY = #{lockKey,jdbcType=CHAR},
+      </if>
+      <if test="region != null">
+        REGION = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null">
+        CLIENT_ID = #{clientId,jdbcType=CHAR},
+      </if>
+      <if test="createdDate != null">
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>
