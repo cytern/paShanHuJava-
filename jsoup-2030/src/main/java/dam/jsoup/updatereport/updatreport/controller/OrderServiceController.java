@@ -8,10 +8,7 @@ import dam.jsoup.updatereport.updatreport.util.PageHelper;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
 import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -97,6 +94,24 @@ public class OrderServiceController {
         } catch (Exception e) {
             log.error("************ 获取一个脚本的信息 失败***************",e);
             map = MyResponse.myResponseError("获取信息失败");
+        }
+        return map;
+    }
+
+    @PostMapping("customer/saveMyScript")
+    @ResponseBody
+    Map saveMyScript(@RequestBody MissionAllData missionAllData){
+        log.info("************ 保存脚本信息***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map map = new HashMap();
+        try {
+            Integer maId = missionService.saveMissionAll(missionAllData,userId);
+            map = MyResponse.myResponseOk("保存成功");
+            map.put("maId",maId);
+        } catch (Exception e) {
+            log.error("************ 保存脚本信息 失败***************",e);
+            map = MyResponse.myResponseError("保存失败");
         }
         return map;
     }

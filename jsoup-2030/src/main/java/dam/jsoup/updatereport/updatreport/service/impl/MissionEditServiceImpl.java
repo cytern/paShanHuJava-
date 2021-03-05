@@ -4,18 +4,20 @@ import dam.jsoup.updatereport.updatreport.dao.*;
 import dam.jsoup.updatereport.updatreport.pojo.*;
 import dam.jsoup.updatereport.updatreport.service.JsoupActionService;
 import dam.jsoup.updatereport.updatreport.service.JsoupMissionService;
+import dam.jsoup.updatereport.updatreport.vo.ActionVo;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
 import dam.jsoup.updatereport.updatreport.vo.MissionData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
 @Slf4j
-
-
+@Transactional
 public class MissionEditServiceImpl implements JsoupMissionService {
     private final JsoupMissionAllMapper jsoupMissionAllMapper;
     private final JsoupMissionMapper jsoupMissionMapper;
@@ -25,9 +27,11 @@ public class MissionEditServiceImpl implements JsoupMissionService {
     private final JsoupUserOrderMapper userOrderMapper;
     private final JsoupMissionAllHistoryMapper missionAllHistoryMapper;
     private final JsoupActionOrderMapper actionOrderMapper;
+    private final JsoupActionMapper actionMapper;
 
 
-    public MissionEditServiceImpl(JsoupMissionAllMapper jsoupMissionAllMapper, JsoupMissionMapper jsoupMissionMapper, JsoupPragramMapper pragramMapper, JsoupMissionOrderMapper orderMapper, JsoupActionService actionEditService, JsoupUserOrderMapper userOrderMapper, JsoupMissionAllHistoryMapper missionAllHistoryMapper, JsoupActionOrderMapper actionOrderMapper) {
+
+    public MissionEditServiceImpl(JsoupMissionAllMapper jsoupMissionAllMapper, JsoupMissionMapper jsoupMissionMapper, JsoupPragramMapper pragramMapper, JsoupMissionOrderMapper orderMapper, JsoupActionService actionEditService, JsoupUserOrderMapper userOrderMapper, JsoupMissionAllHistoryMapper missionAllHistoryMapper, JsoupActionOrderMapper actionOrderMapper, JsoupActionMapper actionMapper) {
         this.jsoupMissionAllMapper = jsoupMissionAllMapper;
         this.jsoupMissionMapper = jsoupMissionMapper;
         this.pragramMapper = pragramMapper;
@@ -36,6 +40,8 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         this.userOrderMapper = userOrderMapper;
         this.missionAllHistoryMapper = missionAllHistoryMapper;
         this.actionOrderMapper = actionOrderMapper;
+
+        this.actionMapper = actionMapper;
     }
 
 
@@ -134,4 +140,81 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         List<JsoupMissionAllHistory> histories = missionAllHistoryMapper.selectByExample(example);
         return histories;
     }
+
+    /**
+     * 存取一个完整的脚本信息
+     *
+     * @param missionAllData 总集合
+     * @return 总集合
+     */
+    @Override
+    public Integer saveMissionAll(MissionAllData missionAllData,Integer userId) {
+      log.info("**********开始保存脚本的值 saveMissionAll **********");
+        Integer maId = 0;
+        //确定任务是否存在
+        if (missionAllData.getJsoupMissionAll().getMaId() <= 0){
+            //不存在首先添加新任务
+            missionAllData.getJsoupMissionAll().setUserId(userId);
+            jsoupMissionAllMapper.insertSelective(missionAllData.getJsoupMissionAll());
+            maId = missionAllData.getJsoupMissionAll().getMaId();
+        }else {
+            //存在则确定任务是否与用户对应
+            maId = missionAllData.getJsoupMissionAll().getMaId();
+            JsoupMissionAll missionAll = jsoupMissionAllMapper.selectByPrimaryKey(missionAllData.getJsoupMissionAll().getMaId());
+            if (missionAll.getUserId() != missionAllData.getJsoupMissionAll().getUserId()){
+                log.error("**********保存脚本的值失败：非法用户修改**********");
+                return null;
+            }
+        }
+        //删除之前的全部missionOrder
+        JsoupMissionOrderExample orderExample = new JsoupMissionOrderExample();
+        orderExample.createCriteria().andMoMissionAllIdEqualTo(maId);
+        orderMapper.deleteByExample(orderExample);
+        //修改 或增加 missions  actions
+        for (MissionData missionData : missionAllData.getMissionDataList()) {
+            if (missionData.getJsoupMission().getMissionId()<=0){
+                jsoupMissionMapper.insertSelective(missionData.getJsoupMission());
+            }else {
+                jsoupMissionMapper.updateByPrimaryKeySelective(missionData.getJsoupMission());
+            }
+            JsoupMissionOrder order = missionData.getJsoupMissionOrder();
+            order.setMoMissionAllId(maId);
+            order.setMoMissionId(missionData.getJsoupMission().getMissionId());
+            order.setMoAddTime(new Date());
+            orderMapper.insertSelective(order);
+            //删除actionOrders
+            JsoupActionOrderExample orderExample1 = new JsoupActionOrderExample();
+            orderExample1.createCriteria().andMissionIdEqualTo(order.getMoMissionId());
+            actionOrderMapper.deleteByExample(orderExample1);
+            //增加action的数据
+            for (ActionVo actionVo : missionData.getActionVos()) {
+
+                //增加 或修改 action
+                if (actionVo.getJsoupAction().getActionId()<= 0){
+                    actionMapper.insertSelective(actionVo.getJsoupAction());
+                }else {
+                    actionMapper.updateByPrimaryKeySelective(actionVo.getJsoupAction());
+                }
+                JsoupActionOrder order1 = actionVo.getActionOrder();
+                order1.setActionId(actionVo.getJsoupAction().getActionId());
+                actionOrderMapper.insertSelective(order1);
+                if (actionVo.getJsoupAction().getActionDoType().equals("input") || actionVo.getJsoupAction().getActionDoType().equals("goto")) {
+                    JsoupPragram pragram = actionVo.getJsoupPragram();
+                    pragram.setActionId(actionVo.getJsoupAction().getActionId());
+                    pragram.setMissionId(order.getMoMissionId());
+                    if (pragram.getPragramId() <= 0){
+                        pragramMapper.insertSelective(pragram);
+                    }else {
+                        pragramMapper.updateByPrimaryKeySelective(pragram);
+                    }
+                }
+            }
+        }
+        return maId;
+
+
+        //删除未get 到 id 的 order
+
+    }
+
 }

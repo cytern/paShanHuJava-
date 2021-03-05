@@ -60,10 +60,15 @@ public class ActionServiceImpl implements JsoupActionService {
      */
     @Override
     public List<JsoupAction> searchByMissionId(Integer missionId) {
-        JsoupActionExample example = new JsoupActionExample();
-        JsoupActionExample.Criteria criteria = example.createCriteria();
-        criteria.andMissionIdEqualTo(missionId);
-        return jsoupActionMapper.selectByExample(example);
+        JsoupActionOrderExample actionOrderExample = new JsoupActionOrderExample();
+        actionOrderExample.createCriteria().andMissionIdEqualTo(missionId);
+        List<JsoupActionOrder> orders = orderMapper.selectByExample(actionOrderExample);
+        List<JsoupAction> list = new ArrayList<>();
+        for (JsoupActionOrder order : orders) {
+            JsoupAction action = jsoupActionMapper.selectByPrimaryKey(order.getActionId());
+            list.add(action);
+        }
+        return list;
     }
 
     /**

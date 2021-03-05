@@ -31,4 +31,12 @@ public interface JsoupMissionService {
      */
     List<JsoupMissionAllHistory> getMissionAllHistory(Integer userId);
 
+
+    /**
+     * 存取一个完整的脚本信息
+     * @param missionAllData 总集合
+     * @return 总集合
+     */
+    Integer saveMissionAll( MissionAllData missionAllData,Integer userId);
+
 }
