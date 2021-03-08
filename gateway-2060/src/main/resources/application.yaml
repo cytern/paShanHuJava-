@@ -31,9 +31,11 @@ info:
 zuul:
   routes:
     server.serviceId: excel
-    server.path: /excel/**
+    server.path: /file/**
     jsoup.serviceId: javaServer
     jsoup.path: /server/**
+    excutor.serviceId: excutor
+    excutor.path: /jsoup/**
   host:
     connect-timeout-millis: 30000
     socket-timeout-millis: 30000

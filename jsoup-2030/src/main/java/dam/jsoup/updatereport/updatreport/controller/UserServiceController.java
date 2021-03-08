@@ -11,7 +11,6 @@ import java.util.Map;
 
 @RestController
 @Slf4j
-@FeignClient(name = "jsoupExcutor")
 public class UserServiceController {
     private final UserService userService;
 

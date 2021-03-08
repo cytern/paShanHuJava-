@@ -80,7 +80,7 @@ public class MissionEditServiceImpl implements JsoupMissionService {
             //存入 JsoupPragram
             JsoupPragramExample example1 = new JsoupPragramExample();
             JsoupPragramExample.Criteria criteria1 = example1.createCriteria();
-            criteria1.andActionIdEqualTo(mission.getMissionId());
+            criteria1.andMissionIdEqualTo(mission.getMissionId());
             missionData.setJsoupPragrams(pragramMapper.selectByExample(example1));
             //放入actionVos
             missionData.setActionVos(actionEditService.getAllActionVos(mission.getMissionId()));
@@ -213,7 +213,7 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         return maId;
 
 
-        //删除未get 到 id 的 order
+
 
     }
 

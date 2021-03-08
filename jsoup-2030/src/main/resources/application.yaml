@@ -57,4 +57,18 @@ eureka:
 info:
   app.name: 脚本执行器
   app.author: dam
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 300000
+#ribbon的超时时间
+ribbon:
+  ReadTimeout: 300000
+  ConnectTimeout: 300000
+
 
