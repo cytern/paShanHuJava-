@@ -4,10 +4,12 @@ import dam.jsoup.updatereport.updatreport.service.HttpExcutorService;
 import dam.jsoup.updatereport.updatreport.service.JsoupMissionService;
 import dam.jsoup.updatereport.updatreport.service.SendExcutorServcie;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 @Service
+@Slf4j
 public class SendExcutorServiceImpl implements SendExcutorServcie {
     private final JsoupMissionService jsoupMissionService;
     private final HttpExcutorService httpExcutorService;
@@ -29,8 +31,9 @@ public class SendExcutorServiceImpl implements SendExcutorServcie {
         //异常应该统一抛出给最上层补货 而非此处
         MissionAllData missionAllData = jsoupMissionService.getMissionAllData(maId,userId);
         Map map = httpExcutorService.excutorJavaSoup(missionAllData);
-        System.out.println(map);
+        if (map.get("code").equals("error")){
+            log.info("脚本执行错误");
+        }
         return map;
-
     }
 }

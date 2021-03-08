@@ -33,7 +33,7 @@ public class ExcutorServiceImpl implements ExcutorService {
      * @return myResponse保证的map集合 包含执行结果以及成功与否
      */
     @Override
-    public Map doExcutor(MissionAllData missionAllData) {
+    public Map doExcutor(MissionAllData missionAllData) throws InterruptedException {
 
         Map<String, List<String>> resultMap = new HashMap<>();
         //通过missionAllData 获得mission的list 并且排序
@@ -57,6 +57,7 @@ public class ExcutorServiceImpl implements ExcutorService {
             List<ActionVo> actionVos = missionData.getActionVos();
             List<ActionVo> actionVos1 = actionVos.stream().sorted(Comparator.comparing(e -> e.getActionOrder().getRank())).collect(Collectors.toList());
             for (ActionVo actionVo : actionVos1) {
+                Thread.sleep(1000);
                 log.info("开始执行脚本任务,脚本id=[{}],脚本数据为=[{}]",actionVo.getJsoupAction().getActionId(),actionVo);
                 //判断doType是否为跳转 如果是 则跳转网页
                 if (actionVo.getJsoupAction().getActionDoType().equals("goto")) {
@@ -102,6 +103,12 @@ public class ExcutorServiceImpl implements ExcutorService {
             webDriver.switchTo().frame(i);
             List<WebElement> iframe1 = webDriver.findElements(By.tagName("iframe"));
             if (iframe1.size()>0){
+                try {
+                    WebElement webElement = getWebEle(actionVo.getJsoupAction().getActionEleType(),actionVo.getJsoupAction().getActionEleValue(),webDriver);
+                    return webElement;
+                } catch (Exception e) {
+                    log.info("非此frame");
+                }
                 WebDriver webDriver1 = webDriver;
                 getElement(webDriver1,actionVo);
             }else {

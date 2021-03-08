@@ -13,5 +13,5 @@ public interface ExcutorService {
      * @param missionAllData 一个mission的全部内容
      * @return myResponse保证的map集合 包含执行结果以及成功与否
      */
-    Map doExcutor(MissionAllData missionAllData);
+    Map doExcutor(MissionAllData missionAllData) throws InterruptedException;
 }
