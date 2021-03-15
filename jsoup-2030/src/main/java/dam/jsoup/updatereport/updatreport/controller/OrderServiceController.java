@@ -3,10 +3,10 @@ package dam.jsoup.updatereport.updatreport.controller;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
 import dam.jsoup.updatereport.updatreport.service.JsoupActionService;
 import dam.jsoup.updatereport.updatreport.service.JsoupMissionService;
+import dam.jsoup.updatereport.updatreport.service.RunJavaSoup;
 import dam.jsoup.updatereport.updatreport.util.MyResponse;
 import dam.jsoup.updatereport.updatreport.util.PageHelper;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -24,9 +24,12 @@ import java.util.*;
 public class OrderServiceController {
   private final JsoupActionService actionService;
   private final JsoupMissionService missionService;
-    public OrderServiceController(JsoupActionService actionService, JsoupMissionService missionService) {
+  private final RunJavaSoup runJavaSoup;
+
+    public OrderServiceController(JsoupActionService actionService, JsoupMissionService missionService, RunJavaSoup runJavaSoup) {
         this.actionService = actionService;
         this.missionService = missionService;
+        this.runJavaSoup = runJavaSoup;
     }
 
     /**
@@ -115,6 +118,29 @@ public class OrderServiceController {
         }
         return map;
     }
+
+    /**
+     * 以后将使用rabbitMq 进行消息队列 但目前使用直接发布任务
+     * 这一步接受 maid 添加一个序号为1的hisorder
+     * @return
+     */
+      @PostMapping("customer/runJavaSoup/{maId}")
+      @ResponseBody
+      Map runJavaSoup(@PathVariable Integer maId){
+         //执行
+          log.info("************ 执行脚本***************");
+          HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+          Integer userId = Integer.valueOf(request.getHeader("userId"));
+          Map map = new HashMap();
+          try {
+              runJavaSoup.sendJavaSoup(maId,userId);
+              map = MyResponse.myResponseOk("发送成功");
+          }catch (Exception e){
+              map = MyResponse.myResponseError(e.getMessage());
+              log.error("方法执行错误 执行脚本 ",e);
+          }
+           return map;
+      }
 
 
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,7 +38,7 @@ public class JsoupExcutorController {
         Map map = new HashMap();
         log.info("开始执行任务");
         try {
-            Map result = excutorService.doExcutor(missionAllData);
+            List result = excutorService.doExcutor(missionAllData);
             map = MyResponse.myResponseOk("执行成功");
             map.put("result",result);
         } catch (Exception e) {

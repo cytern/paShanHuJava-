@@ -24,7 +24,7 @@ public class TestController {
     }
 
 
-    @GetMapping("test/test")
+    @GetMapping("everyone/test")
     public String sendExcutor () {
         return "ok";
     }

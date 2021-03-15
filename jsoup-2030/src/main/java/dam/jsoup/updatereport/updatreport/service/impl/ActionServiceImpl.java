@@ -7,6 +7,7 @@ import dam.jsoup.updatereport.updatreport.pojo.*;
 import dam.jsoup.updatereport.updatreport.service.JsoupActionService;
 import dam.jsoup.updatereport.updatreport.vo.ActionVo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
  * jsoupaction 的操作类
  */
 @Service
+@Scope("singleton")
 @Slf4j
 public class ActionServiceImpl implements JsoupActionService {
 

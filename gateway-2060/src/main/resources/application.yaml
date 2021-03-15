@@ -3,15 +3,6 @@ server:
 spring:
   application:
     name: javaGateWay
-  datasource:
-    username: root
-    password: zhenlong
-    url: jdbc:mysql://localhost:3306/jsoup?useUnicode=true&characterEncoding=utf-8
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    servlet:
-      multipart:
-        max-file-size: 10MB
   devtools:
     restart:
       enabled: true
@@ -20,9 +11,10 @@ spring:
 eureka:
     client:
       service-url:
-        defaultZone: http://localhost:2020/eureka/  #注册位置
+        defaultZone: http://10.147.19.98:2020/eureka/  #注册位置
     instance:
       instance-id: spring-cloud-gateway-2060
+      prefer-ip-address: true
 
   #info 配置
 info:
@@ -30,12 +22,21 @@ info:
   app.author: dam
 zuul:
   routes:
-    server.serviceId: excel
-    server.path: /file/**
-    jsoup.serviceId: javaServer
-    jsoup.path: /server/**
-    excutor.serviceId: excutor
-    excutor.path: /jsoup/**
+#    javaServer:
+#      url: http://10.147.19.0:2060/server
+#    excutor:
+#      url: http://10.147.19.0:2060/jsoup
+    server:
+      serviceId: excel
+      path: /file/**
+    jsoup:
+      serviceId: javaServer
+      url: http://10.147.19.0:2030
+      path: /server/**
+    excutor:
+      serviceId: excutor
+      url: http://10.147.19.0:2040
+      path: /jsoup/**
   host:
     connect-timeout-millis: 30000
     socket-timeout-millis: 30000

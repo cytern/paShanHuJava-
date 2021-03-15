@@ -4,6 +4,7 @@ import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
@@ -18,5 +19,6 @@ public interface HttpExcutorService {
      * @return
      */
     @PostMapping("system/sendJsoup")
-    Map excutorJavaSoup( MissionAllData missionAllData);
+    @ResponseBody
+    Map excutorJavaSoup(@RequestBody MissionAllData missionAllData);
 }

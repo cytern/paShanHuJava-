@@ -1,8 +1,8 @@
 package dam.zuul.gateway.httpservice;
 
 
-import dam.jsoup.updatereport.updatreport.pojo.JsoupUser;
-import dam.jsoup.updatereport.updatreport.vo.UserVo;
+
+import dam.zuul.gateway.vo.UserVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

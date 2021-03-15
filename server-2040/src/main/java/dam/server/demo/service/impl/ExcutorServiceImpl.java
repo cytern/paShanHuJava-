@@ -33,9 +33,10 @@ public class ExcutorServiceImpl implements ExcutorService {
      * @return myResponse保证的map集合 包含执行结果以及成功与否
      */
     @Override
-    public Map doExcutor(MissionAllData missionAllData) throws InterruptedException {
+    public List<Map<String, String>> doExcutor(MissionAllData missionAllData) throws InterruptedException {
 
-        Map<String, List<String>> resultMap = new HashMap<>();
+        List<Map<String,String>> resultMap = new ArrayList<>();
+        Map<String,List<String>> maps = new HashMap<>();
         //通过missionAllData 获得mission的list 并且排序
         if (missionAllData == null || missionAllData.getMissionDataList().size() < 1) {
             throw new RuntimeException("空的脚本数据");
@@ -85,21 +86,59 @@ public class ExcutorServiceImpl implements ExcutorService {
                            }
                                    }
                     //判断执行何种操作
-                     resultMap = doWebEle(actionVo,webElement,resultMap);
+                     maps = doWebEle(actionVo,webElement,maps);
                 }
             }
         }
+        //对maps 进行处理  合成对应行的 maplist
+        Integer maxSize = 0;
+        Integer num = maps.size();
+        Iterator<Map.Entry<String, List<String>>> it = maps.entrySet().iterator();
+        //获得最大size 确定循环获取的次数
+        while (it.hasNext()) {
+            Map.Entry<String, List<String>> entry = it.next();
+            try {
+                if (maxSize<entry.getValue().size()){
+                    maxSize = entry.getValue().size();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        //根据最大的size 循环取值
+
+        for (int i = 0; i < maxSize; i++) {
+            Map<String,String> rowMap = new HashMap<>();
+            //遍历数组
+            Iterator<Map.Entry<String, List<String>>> nowit = maps.entrySet().iterator();
+            //获得最大size 确定循环获取的次数
+            while (nowit.hasNext()) {
+                Map.Entry<String, List<String>> entry = nowit.next();
+                try {
+                    rowMap.put(entry.getKey(),entry.getValue().get(i));
+                } catch (Exception e) {
+                    rowMap.put(entry.getKey(),"");
+                }
+            }
+            resultMap.add(rowMap);
+        }
+        webDriver.close();
         return resultMap;
 
     }
 
     /**
      * 从frame中获得webelement
-     * @return
+     * @return  获得到的组件
      */
     private WebElement getElement(WebDriver webDriver,ActionVo actionVo){
         List<WebElement> iframe = webDriver.findElements(By.tagName("iframe"));
         for (int i = 0; i < iframe.size(); i++) {
+            try {
+                return getWebEle(actionVo.getJsoupAction().getActionEleType(),actionVo.getJsoupAction().getActionEleValue(),webDriver);
+            } catch (Exception e) {
+                log.info("非此frame");
+            }
             webDriver.switchTo().frame(i);
             List<WebElement> iframe1 = webDriver.findElements(By.tagName("iframe"));
             if (iframe1.size()>0){
@@ -155,6 +194,10 @@ public class ExcutorServiceImpl implements ExcutorService {
                 ele = webDriver.findElement(By.xpath(value));
                 break;
             }
+            case "css": {
+                ele = webDriver.findElement(By.cssSelector(value));
+                break;
+            }
             default: {
                 throw new RuntimeException("无效的选取类型:   " + type);
             }
@@ -167,10 +210,10 @@ public class ExcutorServiceImpl implements ExcutorService {
      *
      * @param actionVo
      * @param element
-     * @param result
+     * @param maps
      * @return
      */
-    Map doWebEle(ActionVo actionVo, WebElement element, Map<String,List<String>> result) {
+    Map<String,List<String>> doWebEle(ActionVo actionVo, WebElement element, Map<String,List<String>> maps) {
         String doType = actionVo.getJsoupAction().getActionDoType();
         switch (doType) {
             case "submit": {
@@ -192,21 +235,27 @@ public class ExcutorServiceImpl implements ExcutorService {
             }
             case "output": {
                 //map 集合的key
-                String key = actionVo.getJsoupPragram().getProgramContent();
-                List<String> list = result.get(key);
-                //判断是否具有该参数的list
-                if (list == null) {
-                    list = new ArrayList<>();
-                }
-                list.add(element.getText());
-                result.put(key,list);
+                String key = actionVo.getJsoupPragram().getPragramValue();
+               List<String> values = maps.get(key);
+               //如果不存在对应的值 则进行设计增加map
+               if (values == null){
+                  List<String> list = new ArrayList();
+                  list.add(element.getText());
+                  maps.put(key,list);
+               }else {
+                   //如果存在 则更新插入values
+                 values.add(element.getText());
+                   maps.put(key,values);
+               }
+
+
                 break;
             }
             default: {
                throw new RuntimeException("无效的执行类型:  " + doType);
             }
         }
-        return result;
+        return maps;
     }
 
     /**

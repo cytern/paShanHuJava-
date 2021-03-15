@@ -1,13 +1,16 @@
 package dam.zuul.gateway.config;
 
+
+
 import com.alibaba.fastjson.JSON;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
-import dam.jsoup.updatereport.updatreport.pojo.JsoupUser;
-import dam.jsoup.updatereport.updatreport.util.MyResponse;
-import dam.jsoup.updatereport.updatreport.vo.UserVo;
+
 import dam.zuul.gateway.httpservice.HttpUserService;
+import dam.zuul.gateway.vo.JsoupUser;
+import dam.zuul.gateway.vo.MyResponse;
+import dam.zuul.gateway.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
@@ -54,7 +57,7 @@ public class LoginGateWay extends ZuulFilter {
         if (request.getMethod().equals("OPTIONS")) {
             return false;
         }
-        if(requestURI.contains("login" ) || requestURI.contains("everyone")
+        if(requestURI.contains("login" ) || requestURI.contains("everyone") || requestURI.contains("download")
         ){
             return false;
         }else{
