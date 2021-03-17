@@ -42,7 +42,7 @@ public class UserDataServiceImpl implements UserDataService {
         example.createCriteria().andUsernameEqualTo(userName);
         List<JsoupUser> users = userMapper.selectByExample(example);
         //判断是否具有该用户
-        if (users.size() != 1) {
+        if (users.size() != 1 || users.get(0).getUserType().equals("0000")) {
           map = MyResponse.myResponseError("无效的用户");
         }else {
             JsoupUser user = users.get(0);

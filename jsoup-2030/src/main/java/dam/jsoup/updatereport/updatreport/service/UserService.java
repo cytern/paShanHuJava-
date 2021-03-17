@@ -52,5 +52,12 @@ public interface UserService {
 
     UserVo tokenCheck(JsoupUser user);
 
+    /**
+     * 激活用户
+     * @param token  token值
+     * @return
+     */
+    Map awakeUser(String token);
+
 
 }

@@ -1,5 +1,7 @@
 package dam.jsoup.updatereport.updatreport.service;
 
+import dam.jsoup.updatereport.updatreport.vo.UserVo;
+
 /**
  * @author dam
  * @version 1.0
@@ -21,4 +23,12 @@ public interface SendEmail {
      * @param title 标题
      */
     void sendHtmlEmail(String email,String msg,String title);
+
+    /**
+     * 发送注册完成的链接
+     * @param email
+     * @param link
+     * @param userVo
+     */
+    void sendLinkEmail(String email, String link, UserVo userVo);
 }

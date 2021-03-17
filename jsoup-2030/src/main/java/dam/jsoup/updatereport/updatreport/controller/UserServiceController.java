@@ -2,6 +2,7 @@ package dam.jsoup.updatereport.updatreport.controller;
 
 import dam.jsoup.updatereport.updatreport.pojo.JsoupUser;
 import dam.jsoup.updatereport.updatreport.service.UserService;
+import dam.jsoup.updatereport.updatreport.util.MyResponse;
 import dam.jsoup.updatereport.updatreport.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -40,6 +41,13 @@ public class UserServiceController {
     @PostMapping("everyone/register")
     @ResponseBody
     Map registerOne (@RequestBody  UserVo userVo) {
-       return userService.registerUser(userVo);
+        Map map = null;
+        try {
+            map = userService.registerUser(userVo);
+        } catch (Exception e) {
+            log.error("注册用户失败",e);
+            map =  MyResponse.myResponseError("注册失败，系统内部异常");
+        }
+        return map;
     }
 }
