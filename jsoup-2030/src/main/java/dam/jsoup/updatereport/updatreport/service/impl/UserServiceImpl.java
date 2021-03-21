@@ -1,5 +1,7 @@
 package dam.jsoup.updatereport.updatreport.service.impl;
 
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.ShearCaptcha;
 import cn.hutool.core.util.IdUtil;
 import dam.jsoup.updatereport.updatreport.dao.JsoupUserAssetsMapper;
 import dam.jsoup.updatereport.updatreport.dao.JsoupUserDetailMapper;
@@ -220,6 +222,71 @@ public class UserServiceImpl implements UserService {
             user.setUserType("1002");
             jsoupUserMapper.updateByPrimaryKey(user);
             return MyResponse.myResponseOk("激活成功！");
+        }
+    }
+
+    /**
+     * 忘记密码服务
+     * @param userName  用户名
+     * @return
+     */
+    @Override
+    public Map forgetPassword(String userName) {
+        JsoupUserExample example = new JsoupUserExample();
+        example.createCriteria().andUsernameEqualTo(userName);
+        List<JsoupUser> users = jsoupUserMapper.selectByExample(example);
+        if (users.size()<1){
+            return MyResponse.myResponseError("无此用户");
+        }else {
+            //获取用户信息
+            JsoupUser user = users.get(0);
+            //将验证码设置为token 并且发送于邮箱中
+            ShearCaptcha captcha = CaptchaUtil.createShearCaptcha(200, 100, 4, 4);
+            String code = captcha.getCode();
+            user.setUserToken(code);
+            //存入数据库中
+            jsoupUserMapper.updateByPrimaryKey(user);
+            //获取用户注册时的邮箱
+            JsoupUserDetailExample example1 = new JsoupUserDetailExample();
+            example.createCriteria().andUserIdEqualTo(user.getUserId());
+            List<JsoupUserDetail> jsoupUserDetails = detailMapper.selectByExample(example1);
+
+            //发送邮件验证码
+            sendEmail.sendCodeEmail(jsoupUserDetails.get(0).getUserEmail(),code);
+            return MyResponse.myResponseOk("已经发送重置密码验证码值您的邮箱");
+        }
+    }
+
+    /**
+     * 重设密码
+     *
+     * @param userName 用户名
+     * @param password 密码
+     * @param code     验证码
+     * @return
+     */
+    @Override
+    public Map resetPassword(String userName, String password, String code) {
+       JsoupUserExample example = new JsoupUserExample();
+       example.createCriteria().andUsernameEqualTo(userName);
+        List<JsoupUser> users = jsoupUserMapper.selectByExample(example);
+        if (users.size()<1){
+            return MyResponse.myResponseError("无此用户");
+        }else {
+            JsoupUser user = users.get(0);
+            if (!code.equals(user.getUserToken())){
+                return MyResponse.myResponseError("验证码错误，请检查后在输入");
+            }else {
+                String reg  = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
+                if (!password.matches(reg)){
+                    return MyResponse.myResponseError("至少8个字符，至少1个大写字母，1个小写字母和1个数字");
+                }
+                user.setPassword(AesUtil.enAes(password));
+                //重置用户密码
+                user.setUserToken(null);
+                jsoupUserMapper.updateByPrimaryKey(user);
+                return MyResponse.myResponseOk("修改密码成功");
+            }
         }
     }
 }

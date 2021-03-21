@@ -31,4 +31,11 @@ public interface SendEmail {
      * @param userVo
      */
     void sendLinkEmail(String email, String link, UserVo userVo);
+
+    /**
+     * 发送验证码于邮箱中
+     * @param email 邮箱
+     * @param code 验证码
+     */
+    void sendCodeEmail(String email, String code);
 }

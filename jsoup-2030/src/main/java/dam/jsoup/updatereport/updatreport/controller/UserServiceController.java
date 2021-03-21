@@ -50,4 +50,36 @@ public class UserServiceController {
         }
         return map;
     }
+
+    /**
+     * 忘记密码
+     * @param userName 用户名
+     * @return
+     */
+    @PostMapping("everyone/forgetPassword/{userName}")
+    @ResponseBody
+    Map forgetPassword (@PathVariable String userName) {
+        log.info("用户 [{}],调用忘记密码接口",userName);
+        try {
+            Map map = userService.forgetPassword(userName);
+            return map;
+        } catch (Exception e) {
+            log.error("忘记密码服务调用失败",e);
+            return MyResponse.myResponseError("系统内部异常");}
+    }
+
+    @PostMapping("everyone/resetPassword")
+    @ResponseBody
+    Map resetUserPassword (@RequestBody JsoupUser user) {
+        log.info("用户 [{}],调用重设密码接口",user.getUsername());
+        try {
+            Map map = userService.resetPassword(user.getUsername(),user.getPassword(),user.getUserToken());
+            return map;
+        } catch (Exception e) {
+            log.error("调用重设密码服务调用失败",e);
+            return MyResponse.myResponseError("系统内部异常");}
+    }
+
+
+
 }

@@ -59,5 +59,22 @@ public interface UserService {
      */
     Map awakeUser(String token);
 
+    /**
+     * 获取忘记密码验证码
+     * @param userName 用户名
+     * @return
+     */
+    Map forgetPassword(String userName);
+
+
+    /**
+     * 重设密码
+     * @param userName 用户名
+     * @param password 密码
+     * @param code 验证码
+     * @return
+     */
+    Map resetPassword(String userName,String password,String code);
+
 
 }
