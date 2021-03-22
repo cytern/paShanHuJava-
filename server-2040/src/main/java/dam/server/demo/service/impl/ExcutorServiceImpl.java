@@ -49,7 +49,8 @@ public class ExcutorServiceImpl implements ExcutorService {
 //        String dir = applicationArguments.getNonOptionArgs().get(0);
         System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe");
         ChromeOptions chromeOptions = new ChromeOptions();
-        WebDriver webDriver = new ChromeDriver();
+        chromeOptions.addArguments("-headless");
+        WebDriver webDriver = new ChromeDriver(chromeOptions);
 
 
         //循环mission
@@ -82,7 +83,8 @@ public class ExcutorServiceImpl implements ExcutorService {
                         //无限循环frame直到全部循环完毕为止
                           webElement = getElement(webDriver,actionVo);
                            if (webElement == null){
-                               throw new RuntimeException("无法寻找到组件,排除frame问题");
+                               webDriver.quit();
+                               throw new RuntimeException("无法寻找到组件,行动名称为:   " + actionVo.getJsoupAction().getActionName() + "    任务名称为:  "+ missionData.getJsoupMission().getMissionName() );
                            }
                                    }
                     //判断执行何种操作
@@ -102,7 +104,7 @@ public class ExcutorServiceImpl implements ExcutorService {
                     maxSize = entry.getValue().size();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error("循环错误",e);
             }
         }
         //根据最大的size 循环取值
@@ -122,7 +124,7 @@ public class ExcutorServiceImpl implements ExcutorService {
             }
             resultMap.add(rowMap);
         }
-        webDriver.close();
+        webDriver.quit();
         return resultMap;
 
     }

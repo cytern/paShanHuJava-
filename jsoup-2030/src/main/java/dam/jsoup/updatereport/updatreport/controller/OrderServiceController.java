@@ -158,6 +158,48 @@ public class OrderServiceController {
           return map;
       }
 
+    /**
+     * 获取全部的可购总任务
+     * @param pageSize  页码容量
+     * @param index 页码
+     * @return
+     */
+      @GetMapping("customer/getSalesMa/{pageSize}/{index}")
+      Map getSalesMa(@PathVariable Integer pageSize,@PathVariable Integer index) {
+          log.info("**************获取能够买的脚本列表****************");
+          Map map = new HashMap();
+          List<JsoupMissionAll> list = new ArrayList<>();
+          try {
+              list = missionService.getSalesMa();
+              map = PageHelper.page(list,pageSize,index,"maList");
+          } catch (Exception e) {
+              log.error("************ 获取能够买的脚本列表 失败***************",e);
+              map = MyResponse.myResponseError("获取信息失败");
+          }
+          return map;
+      }
+
+
+    /**
+     * 获取全部的可购总结果
+     * @param pageSize  页码容量
+     * @param index 页码
+     * @return
+     */
+        @GetMapping("customer/getSalesMh/{pageSize}/{index}")
+    Map getSalesMh(@PathVariable Integer pageSize,@PathVariable Integer index) {
+        log.info("**************获取能够买的结果列表****************");
+        Map map = new HashMap();
+        List<JsoupMissionAllHistory> list = new ArrayList<>();
+        try {
+            list = missionService.getSalesMh();
+            map = PageHelper.page(list,pageSize,index,"mhList");
+        } catch (Exception e) {
+            log.error("************ 获取能够买的结果列表 失败***************",e);
+            map = MyResponse.myResponseError("获取信息失败");
+        }
+        return map;
+    }
 
 
 

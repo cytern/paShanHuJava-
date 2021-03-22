@@ -1247,7 +1247,7 @@ SELECT|sys.sys_config
     <column id="370" parent="300" name="mission_fail_reason">
       <Position>6</Position>
       <Comment>失败原因</Comment>
-      <DataType>varchar(1020)|0s</DataType>
+      <DataType>varchar(5000)|0s</DataType>
     </column>
     <column id="371" parent="300" name="sent_time">
       <Position>7</Position>

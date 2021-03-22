@@ -2,6 +2,8 @@ package dam.jsoup.updatereport.updatreport.service;
 
 import dam.jsoup.updatereport.updatreport.vo.UserVo;
 
+import java.util.Map;
+
 /**
  * @author dam
  * @version 1.0
@@ -38,4 +40,8 @@ public interface SendEmail {
      * @param code 验证码
      */
     void sendCodeEmail(String email, String code);
+
+
+
+    void sendResEmail(String email, String codeMsg,String maName,String failReason);
 }

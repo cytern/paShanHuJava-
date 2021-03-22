@@ -33,4 +33,5 @@ public class MissionAllData {
      */
     private Integer isSuccess;
 
+
 }

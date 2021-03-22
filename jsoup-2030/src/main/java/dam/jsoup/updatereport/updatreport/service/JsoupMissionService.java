@@ -49,6 +49,15 @@ public interface JsoupMissionService {
      */
     Map setMissionAllState (JsoupMissionAll jsoupMissionAll,Integer userId);
 
+    /**
+     * 获取能够购买的全部任务
+     * @return
+     */
+    List<JsoupMissionAll> getSalesMa();
 
 
+    /**
+     * 获取能够购买的全部结果集
+     */
+    List<JsoupMissionAllHistory> getSalesMh();
 }

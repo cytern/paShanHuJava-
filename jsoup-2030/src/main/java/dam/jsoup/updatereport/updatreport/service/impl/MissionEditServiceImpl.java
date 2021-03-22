@@ -277,4 +277,29 @@ public class MissionEditServiceImpl implements JsoupMissionService {
 
     }
 
+    /**
+     * 获取能够出售的全部任务
+     *
+     * @return
+     */
+    @Override
+    public List<JsoupMissionAll> getSalesMa() {
+        JsoupMissionAllExample missionAllExample = new JsoupMissionAllExample();
+        //获取全部上架的任务总览
+        missionAllExample.createCriteria().andMaStateEqualTo(2);
+        List<JsoupMissionAll> jsoupMissionAlls = jsoupMissionAllMapper.selectByExample(missionAllExample);
+        return jsoupMissionAlls;
+    }
+
+    /**
+     * 获取能够购买的全部结果集
+     */
+    @Override
+    public List<JsoupMissionAllHistory> getSalesMh() {
+        JsoupMissionAllHistoryExample example = new JsoupMissionAllHistoryExample();
+        example.createCriteria().andOnSaleEqualTo("1");
+        List<JsoupMissionAllHistory> histories = missionAllHistoryMapper.selectByExample(example);
+        return histories;
+    }
+
 }
