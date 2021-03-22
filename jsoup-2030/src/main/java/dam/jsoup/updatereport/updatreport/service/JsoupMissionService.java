@@ -1,9 +1,11 @@
 package dam.jsoup.updatereport.updatreport.service;
 
+import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 涉及到mission层的操作
@@ -38,5 +40,15 @@ public interface JsoupMissionService {
      * @return 总集合
      */
     Integer saveMissionAll( MissionAllData missionAllData,Integer userId);
+
+    /**
+     * 更改保存用户总订单id
+     * @param jsoupMissionAll  总任务
+     * @param userId  用户id
+     * @return
+     */
+    Map setMissionAllState (JsoupMissionAll jsoupMissionAll,Integer userId);
+
+
 
 }

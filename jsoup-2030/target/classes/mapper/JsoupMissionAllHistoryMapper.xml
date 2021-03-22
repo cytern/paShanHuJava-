@@ -14,6 +14,8 @@
     <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
     <result column="mission_all_name" jdbcType="VARCHAR" property="missionAllName" />
     <result column="mission_all_dis" jdbcType="VARCHAR" property="missionAllDis" />
+    <result column="on_sale" jdbcType="VARCHAR" property="onSale" />
+    <result column="sale_price" jdbcType="DECIMAL" property="salePrice" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated-->
@@ -78,7 +80,8 @@
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     mission_all_history_id, mission_all_id, mission_state, mission_result_url, user_id, 
-    mission_fail_reason, sent_time, finish_time, mission_all_name, mission_all_dis
+    mission_fail_reason, sent_time, finish_time, mission_all_name, mission_all_dis, on_sale, 
+    sale_price
   </sql>
   <select id="selectByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistoryExample" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -118,12 +121,12 @@
     <!--@mbg.generated-->
     insert into jsoup_mission_all_history (mission_all_id, mission_state, mission_result_url, 
       user_id, mission_fail_reason, sent_time, 
-      finish_time, mission_all_name, mission_all_dis
-      )
+      finish_time, mission_all_name, mission_all_dis, 
+      on_sale, sale_price)
     values (#{missionAllId,jdbcType=INTEGER}, #{missionState,jdbcType=VARCHAR}, #{missionResultUrl,jdbcType=VARCHAR}, 
       #{userId,jdbcType=INTEGER}, #{missionFailReason,jdbcType=VARCHAR}, #{sentTime,jdbcType=TIMESTAMP}, 
-      #{finishTime,jdbcType=TIMESTAMP}, #{missionAllName,jdbcType=VARCHAR}, #{missionAllDis,jdbcType=VARCHAR}
-      )
+      #{finishTime,jdbcType=TIMESTAMP}, #{missionAllName,jdbcType=VARCHAR}, #{missionAllDis,jdbcType=VARCHAR}, 
+      #{onSale,jdbcType=VARCHAR}, #{salePrice,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" keyColumn="mission_all_history_id" keyProperty="missionAllHistoryId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -156,6 +159,12 @@
       <if test="missionAllDis != null">
         mission_all_dis,
       </if>
+      <if test="onSale != null">
+        on_sale,
+      </if>
+      <if test="salePrice != null">
+        sale_price,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="missionAllId != null">
@@ -184,6 +193,12 @@
       </if>
       <if test="missionAllDis != null">
         #{missionAllDis,jdbcType=VARCHAR},
+      </if>
+      <if test="onSale != null">
+        #{onSale,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null">
+        #{salePrice,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -228,6 +243,12 @@
       <if test="record.missionAllDis != null">
         mission_all_dis = #{record.missionAllDis,jdbcType=VARCHAR},
       </if>
+      <if test="record.onSale != null">
+        on_sale = #{record.onSale,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salePrice != null">
+        sale_price = #{record.salePrice,jdbcType=DECIMAL},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -245,7 +266,9 @@
       sent_time = #{record.sentTime,jdbcType=TIMESTAMP},
       finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
       mission_all_name = #{record.missionAllName,jdbcType=VARCHAR},
-      mission_all_dis = #{record.missionAllDis,jdbcType=VARCHAR}
+      mission_all_dis = #{record.missionAllDis,jdbcType=VARCHAR},
+      on_sale = #{record.onSale,jdbcType=VARCHAR},
+      sale_price = #{record.salePrice,jdbcType=DECIMAL}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -281,6 +304,12 @@
       <if test="missionAllDis != null">
         mission_all_dis = #{missionAllDis,jdbcType=VARCHAR},
       </if>
+      <if test="onSale != null">
+        on_sale = #{onSale,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null">
+        sale_price = #{salePrice,jdbcType=DECIMAL},
+      </if>
     </set>
     where mission_all_history_id = #{missionAllHistoryId,jdbcType=INTEGER}
   </update>
@@ -295,7 +324,9 @@
       sent_time = #{sentTime,jdbcType=TIMESTAMP},
       finish_time = #{finishTime,jdbcType=TIMESTAMP},
       mission_all_name = #{missionAllName,jdbcType=VARCHAR},
-      mission_all_dis = #{missionAllDis,jdbcType=VARCHAR}
+      mission_all_dis = #{missionAllDis,jdbcType=VARCHAR},
+      on_sale = #{onSale,jdbcType=VARCHAR},
+      sale_price = #{salePrice,jdbcType=DECIMAL}
     where mission_all_history_id = #{missionAllHistoryId,jdbcType=INTEGER}
   </update>
   <update id="updateBatch" parameterType="java.util.List">
@@ -347,6 +378,16 @@
           when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.missionAllDis,jdbcType=VARCHAR}
         </foreach>
       </trim>
+      <trim prefix="on_sale = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.onSale,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="sale_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.salePrice,jdbcType=DECIMAL}
+        </foreach>
+      </trim>
     </trim>
     where mission_all_history_id in
     <foreach close=")" collection="list" item="item" open="(" separator=", ">
@@ -357,13 +398,14 @@
     <!--@mbg.generated-->
     insert into jsoup_mission_all_history
     (mission_all_id, mission_state, mission_result_url, user_id, mission_fail_reason, 
-      sent_time, finish_time, mission_all_name, mission_all_dis)
+      sent_time, finish_time, mission_all_name, mission_all_dis, on_sale, sale_price)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.missionAllId,jdbcType=INTEGER}, #{item.missionState,jdbcType=VARCHAR}, #{item.missionResultUrl,jdbcType=VARCHAR}, 
         #{item.userId,jdbcType=INTEGER}, #{item.missionFailReason,jdbcType=VARCHAR}, #{item.sentTime,jdbcType=TIMESTAMP}, 
         #{item.finishTime,jdbcType=TIMESTAMP}, #{item.missionAllName,jdbcType=VARCHAR}, 
-        #{item.missionAllDis,jdbcType=VARCHAR})
+        #{item.missionAllDis,jdbcType=VARCHAR}, #{item.onSale,jdbcType=VARCHAR}, #{item.salePrice,jdbcType=DECIMAL}
+        )
     </foreach>
   </insert>
   <insert id="insertOrUpdate" keyColumn="mission_all_history_id" keyProperty="missionAllHistoryId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory" useGeneratedKeys="true">
@@ -382,6 +424,8 @@
       finish_time,
       mission_all_name,
       mission_all_dis,
+      on_sale,
+      sale_price,
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -397,6 +441,8 @@
       #{finishTime,jdbcType=TIMESTAMP},
       #{missionAllName,jdbcType=VARCHAR},
       #{missionAllDis,jdbcType=VARCHAR},
+      #{onSale,jdbcType=VARCHAR},
+      #{salePrice,jdbcType=DECIMAL},
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -412,6 +458,8 @@
       finish_time = #{finishTime,jdbcType=TIMESTAMP},
       mission_all_name = #{missionAllName,jdbcType=VARCHAR},
       mission_all_dis = #{missionAllDis,jdbcType=VARCHAR},
+      on_sale = #{onSale,jdbcType=VARCHAR},
+      sale_price = #{salePrice,jdbcType=DECIMAL},
     </trim>
   </insert>
   <insert id="insertOrUpdateSelective" keyColumn="mission_all_history_id" keyProperty="missionAllHistoryId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory" useGeneratedKeys="true">
@@ -448,6 +496,12 @@
       <if test="missionAllDis != null">
         mission_all_dis,
       </if>
+      <if test="onSale != null">
+        on_sale,
+      </if>
+      <if test="salePrice != null">
+        sale_price,
+      </if>
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -481,6 +535,12 @@
       <if test="missionAllDis != null">
         #{missionAllDis,jdbcType=VARCHAR},
       </if>
+      <if test="onSale != null">
+        #{onSale,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null">
+        #{salePrice,jdbcType=DECIMAL},
+      </if>
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -513,6 +573,12 @@
       </if>
       <if test="missionAllDis != null">
         mission_all_dis = #{missionAllDis,jdbcType=VARCHAR},
+      </if>
+      <if test="onSale != null">
+        on_sale = #{onSale,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null">
+        sale_price = #{salePrice,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>

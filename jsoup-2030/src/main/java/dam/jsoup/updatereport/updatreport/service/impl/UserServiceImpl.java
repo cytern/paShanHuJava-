@@ -289,4 +289,33 @@ public class UserServiceImpl implements UserService {
             }
         }
     }
+
+    /**
+     * 获取用户详细信息
+     *
+     * @param userId 用户id
+     * @return 用户信息
+     */
+    @Override
+    public Map getUserInfo(Integer userId) {
+        //获取user  user详细  user资产 表的内容 存入userVo 返回
+        JsoupUserExample userExample = new JsoupUserExample();
+        userExample.createCriteria().andUserIdEqualTo(userId);
+        List<JsoupUser> users = jsoupUserMapper.selectByExample(userExample);
+        JsoupUserDetailExample detailExample = new JsoupUserDetailExample();
+        detailExample.createCriteria().andUserIdEqualTo(userId);
+        List<JsoupUserDetail> jsoupUserDetails = detailMapper.selectByExample(detailExample);
+        JsoupUserDetail userDetail = jsoupUserDetails.get(0);
+        JsoupUserAssetsExample assetsExample = new JsoupUserAssetsExample();
+        assetsExample.createCriteria().andUserIdEqualTo(userId);
+        List<JsoupUserAssets> jsoupUserAssets = assetsMapper.selectByExample(assetsExample);
+        JsoupUserAssets assets = jsoupUserAssets.get(0);
+        UserVo userVo = new UserVo();
+        userVo.setJsoupUser(users.get(0));
+        userVo.setJsoupUserAssets(assets);
+        userVo.setJsoupUserDetail(userDetail);
+        Map map = MyResponse.myResponseOk("查询成功");
+        map.put("userVo",userVo);
+        return map;
+    }
 }

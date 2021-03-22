@@ -12,6 +12,9 @@
     <result column="ma_user_id" jdbcType="INTEGER" property="maUserId" />
     <result column="ma_notice_email" jdbcType="VARCHAR" property="maNoticeEmail" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="ma_state" jdbcType="INTEGER" property="maState" />
+    <result column="ma_price" jdbcType="DECIMAL" property="maPrice" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated-->
@@ -76,7 +79,7 @@
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     ma_id, ma_name, ma_tip, mal_start_url, ma_success_file_name, ma_user_id, ma_notice_email, 
-    user_id
+    user_id, ma_state, ma_price, create_time
   </sql>
   <select id="selectByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllExample" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -116,10 +119,12 @@
     <!--@mbg.generated-->
     insert into jsoup_mission_all (ma_name, ma_tip, mal_start_url, 
       ma_success_file_name, ma_user_id, ma_notice_email, 
-      user_id)
+      user_id, ma_state, ma_price, 
+      create_time)
     values (#{maName,jdbcType=VARCHAR}, #{maTip,jdbcType=VARCHAR}, #{malStartUrl,jdbcType=VARCHAR}, 
       #{maSuccessFileName,jdbcType=VARCHAR}, #{maUserId,jdbcType=INTEGER}, #{maNoticeEmail,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=INTEGER})
+      #{userId,jdbcType=INTEGER}, #{maState,jdbcType=INTEGER}, #{maPrice,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="ma_id" keyProperty="maId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -146,6 +151,15 @@
       <if test="userId != null">
         user_id,
       </if>
+      <if test="maState != null">
+        ma_state,
+      </if>
+      <if test="maPrice != null">
+        ma_price,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="maName != null">
@@ -168,6 +182,15 @@
       </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="maState != null">
+        #{maState,jdbcType=INTEGER},
+      </if>
+      <if test="maPrice != null">
+        #{maPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -206,6 +229,15 @@
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
+      <if test="record.maState != null">
+        ma_state = #{record.maState,jdbcType=INTEGER},
+      </if>
+      <if test="record.maPrice != null">
+        ma_price = #{record.maPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -221,7 +253,10 @@
       ma_success_file_name = #{record.maSuccessFileName,jdbcType=VARCHAR},
       ma_user_id = #{record.maUserId,jdbcType=INTEGER},
       ma_notice_email = #{record.maNoticeEmail,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=INTEGER}
+      user_id = #{record.userId,jdbcType=INTEGER},
+      ma_state = #{record.maState,jdbcType=INTEGER},
+      ma_price = #{record.maPrice,jdbcType=DECIMAL},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -251,6 +286,15 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
+      <if test="maState != null">
+        ma_state = #{maState,jdbcType=INTEGER},
+      </if>
+      <if test="maPrice != null">
+        ma_price = #{maPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where ma_id = #{maId,jdbcType=INTEGER}
   </update>
@@ -263,7 +307,10 @@
       ma_success_file_name = #{maSuccessFileName,jdbcType=VARCHAR},
       ma_user_id = #{maUserId,jdbcType=INTEGER},
       ma_notice_email = #{maNoticeEmail,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER}
+      user_id = #{userId,jdbcType=INTEGER},
+      ma_state = #{maState,jdbcType=INTEGER},
+      ma_price = #{maPrice,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where ma_id = #{maId,jdbcType=INTEGER}
   </update>
   <update id="updateBatch" parameterType="java.util.List">
@@ -305,6 +352,21 @@
           when ma_id = #{item.maId,jdbcType=INTEGER} then #{item.userId,jdbcType=INTEGER}
         </foreach>
       </trim>
+      <trim prefix="ma_state = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when ma_id = #{item.maId,jdbcType=INTEGER} then #{item.maState,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="ma_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when ma_id = #{item.maId,jdbcType=INTEGER} then #{item.maPrice,jdbcType=DECIMAL}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when ma_id = #{item.maId,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
     </trim>
     where ma_id in
     <foreach close=")" collection="list" item="item" open="(" separator=", ">
@@ -315,12 +377,13 @@
     <!--@mbg.generated-->
     insert into jsoup_mission_all
     (ma_name, ma_tip, mal_start_url, ma_success_file_name, ma_user_id, ma_notice_email, 
-      user_id)
+      user_id, ma_state, ma_price, create_time)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.maName,jdbcType=VARCHAR}, #{item.maTip,jdbcType=VARCHAR}, #{item.malStartUrl,jdbcType=VARCHAR}, 
         #{item.maSuccessFileName,jdbcType=VARCHAR}, #{item.maUserId,jdbcType=INTEGER}, 
-        #{item.maNoticeEmail,jdbcType=VARCHAR}, #{item.userId,jdbcType=INTEGER})
+        #{item.maNoticeEmail,jdbcType=VARCHAR}, #{item.userId,jdbcType=INTEGER}, #{item.maState,jdbcType=INTEGER}, 
+        #{item.maPrice,jdbcType=DECIMAL}, #{item.createTime,jdbcType=TIMESTAMP})
     </foreach>
   </insert>
   <insert id="insertOrUpdate" keyColumn="ma_id" keyProperty="maId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll" useGeneratedKeys="true">
@@ -337,6 +400,9 @@
       ma_user_id,
       ma_notice_email,
       user_id,
+      ma_state,
+      ma_price,
+      create_time,
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -350,6 +416,9 @@
       #{maUserId,jdbcType=INTEGER},
       #{maNoticeEmail,jdbcType=VARCHAR},
       #{userId,jdbcType=INTEGER},
+      #{maState,jdbcType=INTEGER},
+      #{maPrice,jdbcType=DECIMAL},
+      #{createTime,jdbcType=TIMESTAMP},
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -363,6 +432,9 @@
       ma_user_id = #{maUserId,jdbcType=INTEGER},
       ma_notice_email = #{maNoticeEmail,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=INTEGER},
+      ma_state = #{maState,jdbcType=INTEGER},
+      ma_price = #{maPrice,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
     </trim>
   </insert>
   <insert id="insertOrUpdateSelective" keyColumn="ma_id" keyProperty="maId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll" useGeneratedKeys="true">
@@ -393,6 +465,15 @@
       <if test="userId != null">
         user_id,
       </if>
+      <if test="maState != null">
+        ma_state,
+      </if>
+      <if test="maPrice != null">
+        ma_price,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -420,6 +501,15 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
+      <if test="maState != null">
+        #{maState,jdbcType=INTEGER},
+      </if>
+      <if test="maPrice != null">
+        #{maPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -446,6 +536,15 @@
       </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="maState != null">
+        ma_state = #{maState,jdbcType=INTEGER},
+      </if>
+      <if test="maPrice != null">
+        ma_price = #{maPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>

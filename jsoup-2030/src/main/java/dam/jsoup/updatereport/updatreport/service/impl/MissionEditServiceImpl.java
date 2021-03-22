@@ -4,6 +4,7 @@ import dam.jsoup.updatereport.updatreport.dao.*;
 import dam.jsoup.updatereport.updatreport.pojo.*;
 import dam.jsoup.updatereport.updatreport.service.JsoupActionService;
 import dam.jsoup.updatereport.updatreport.service.JsoupMissionService;
+import dam.jsoup.updatereport.updatreport.util.MyResponse;
 import dam.jsoup.updatereport.updatreport.vo.ActionVo;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
 import dam.jsoup.updatereport.updatreport.vo.MissionData;
@@ -11,9 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -28,10 +28,12 @@ public class MissionEditServiceImpl implements JsoupMissionService {
     private final JsoupMissionAllHistoryMapper missionAllHistoryMapper;
     private final JsoupActionOrderMapper actionOrderMapper;
     private final JsoupActionMapper actionMapper;
+    private final OrderJsoupMaMapper orderJsoupMaMapper;
+    private final OrderJsoupMhMapper orderJsoupMhMapper;
 
 
 
-    public MissionEditServiceImpl(JsoupMissionAllMapper jsoupMissionAllMapper, JsoupMissionMapper jsoupMissionMapper, JsoupPragramMapper pragramMapper, JsoupMissionOrderMapper orderMapper, JsoupActionService actionEditService, JsoupUserOrderMapper userOrderMapper, JsoupMissionAllHistoryMapper missionAllHistoryMapper, JsoupActionOrderMapper actionOrderMapper, JsoupActionMapper actionMapper) {
+    public MissionEditServiceImpl(JsoupMissionAllMapper jsoupMissionAllMapper, JsoupMissionMapper jsoupMissionMapper, JsoupPragramMapper pragramMapper, JsoupMissionOrderMapper orderMapper, JsoupActionService actionEditService, JsoupUserOrderMapper userOrderMapper, JsoupMissionAllHistoryMapper missionAllHistoryMapper, JsoupActionOrderMapper actionOrderMapper, JsoupActionMapper actionMapper, OrderJsoupMaMapper orderJsoupMaMapper, OrderJsoupMhMapper orderJsoupMhMapper) {
         this.jsoupMissionAllMapper = jsoupMissionAllMapper;
         this.jsoupMissionMapper = jsoupMissionMapper;
         this.pragramMapper = pragramMapper;
@@ -40,8 +42,9 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         this.userOrderMapper = userOrderMapper;
         this.missionAllHistoryMapper = missionAllHistoryMapper;
         this.actionOrderMapper = actionOrderMapper;
-
         this.actionMapper = actionMapper;
+        this.orderJsoupMaMapper = orderJsoupMaMapper;
+        this.orderJsoupMhMapper = orderJsoupMhMapper;
     }
 
 
@@ -57,9 +60,12 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         //首先获取missionAll
         JsoupMissionAll jsoupMissionAll = jsoupMissionAllMapper.selectByPrimaryKey(missionAllId);
         missionAllData.setJsoupMissionAll(jsoupMissionAll);
+        //是否为拥有者
         if (jsoupMissionAll.getUserId().equals(userId)){
             missionAllData.setIsOwner(1);
         }
+        //TODO 是否拥有完成结果集
+
         //获取missionALL 下的全部order
         JsoupMissionOrderExample example = new JsoupMissionOrderExample();
         JsoupMissionOrderExample.Criteria criteria = example.createCriteria();
@@ -115,13 +121,27 @@ public class MissionEditServiceImpl implements JsoupMissionService {
      */
     @Override
     public List<MissionAllData> getOnesOrder(Integer userId) {
-        JsoupUserOrderExample example = new JsoupUserOrderExample();
+        //获取持有者的全部脚本
+        JsoupMissionAllExample example = new JsoupMissionAllExample();
         example.createCriteria().andUserIdEqualTo(userId);
-        //获取该用户的全部订单 脚本
-        List<JsoupUserOrder> orders = userOrderMapper.selectByExample(example);
+        List<JsoupMissionAll> jsoupMissionAlls = jsoupMissionAllMapper.selectByExample(example);
+        if (jsoupMissionAlls == null){
+            jsoupMissionAlls = new ArrayList<>();
+        }
+        //获取购买者的全部脚本
+        OrderJsoupMaExample maExample = new OrderJsoupMaExample();
+        maExample.createCriteria().andCustomerUserIdEqualTo(userId);
+        List<OrderJsoupMa> orderJsoupMas = orderJsoupMaMapper.selectByExample(maExample);
+        for (OrderJsoupMa orderJsoupMa : orderJsoupMas) {
+            JsoupMissionAll jsoupMissionAll = jsoupMissionAllMapper.selectByPrimaryKey(orderJsoupMa.getMaId());
+            jsoupMissionAlls.add(jsoupMissionAll);
+        }
+        //按照日期倒序排序
+        List<JsoupMissionAll> collect = jsoupMissionAlls.stream().sorted(Comparator.comparing(JsoupMissionAll::getCreateTime).reversed()).collect(Collectors.toList());
+        //获取总数据
         List<MissionAllData> list = new ArrayList<>();
-        for (JsoupUserOrder order : orders) {
-            MissionAllData allData = getMissionAllData(order.getMissionAllId(),userId);
+        for (JsoupMissionAll jsoupMissionAll : collect) {
+            MissionAllData allData = getMissionAllData(jsoupMissionAll.getMaId(),userId);
             list.add(allData);
         }
         return list;
@@ -137,8 +157,25 @@ public class MissionEditServiceImpl implements JsoupMissionService {
     public List<JsoupMissionAllHistory> getMissionAllHistory(Integer userId) {
         JsoupMissionAllHistoryExample example = new JsoupMissionAllHistoryExample();
         example.createCriteria().andUserIdEqualTo(userId);
+        //以持有者身份获取用户历史结果集
         List<JsoupMissionAllHistory> histories = missionAllHistoryMapper.selectByExample(example);
-        return histories;
+        //以购买者身份获取用户历史结果集
+        if (histories == null) {
+            histories = new ArrayList<>();
+        }
+         OrderJsoupMhExample mhExample = new OrderJsoupMhExample();
+        mhExample.createCriteria().andCustomerUserIdEqualTo(userId);
+        List<OrderJsoupMh> orderJsoupMhs = orderJsoupMhMapper.selectByExample(mhExample);
+        for (OrderJsoupMh orderJsoupMh : orderJsoupMhs) {
+            JsoupMissionAllHistory history = missionAllHistoryMapper.selectByPrimaryKey(orderJsoupMh.getMhId());
+            if (history != null){
+                histories.add(history);
+            }
+        }
+        //按时间倒序排序 结果集
+        List<JsoupMissionAllHistory> collect = histories.stream().sorted(Comparator.comparing(JsoupMissionAllHistory::getSentTime).reversed()).collect(Collectors.toList());
+        //
+        return collect;
     }
 
     /**
@@ -214,6 +251,29 @@ public class MissionEditServiceImpl implements JsoupMissionService {
 
 
 
+
+    }
+
+    /**
+     * 更改保存用户总订单id
+     *
+     * @param jsoupMissionAll 总任务
+     * @param userId          用户id
+     * @return
+     */
+    @Override
+    public Map setMissionAllState(JsoupMissionAll jsoupMissionAll, Integer userId) {
+        //获取missionAll
+        JsoupMissionAll jsoupMissionAll1 = jsoupMissionAllMapper.selectByPrimaryKey(jsoupMissionAll.getMaId());
+        if (!jsoupMissionAll1.getUserId().equals(userId)
+            ||
+             jsoupMissionAll1.getMaState().equals(2)){
+            return MyResponse.myResponseError("非法的修改");
+        }else {
+            jsoupMissionAll1.setMaState(jsoupMissionAll.getMaState());
+            jsoupMissionAllMapper.updateByPrimaryKeySelective(jsoupMissionAll1);
+            return MyResponse.myResponseOk("修改成功");
+        }
 
     }
 

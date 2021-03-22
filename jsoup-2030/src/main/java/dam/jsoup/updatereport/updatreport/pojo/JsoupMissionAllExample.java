@@ -1,6 +1,8 @@
 package dam.jsoup.updatereport.updatreport.pojo;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class JsoupMissionAllExample {
@@ -631,6 +633,186 @@ public class JsoupMissionAllExample {
 
         public Criteria andUserIdNotBetween(Integer value1, Integer value2) {
             addCriterion("user_id not between", value1, value2, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaStateIsNull() {
+            addCriterion("ma_state is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaStateIsNotNull() {
+            addCriterion("ma_state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaStateEqualTo(Integer value) {
+            addCriterion("ma_state =", value, "maState");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaStateNotEqualTo(Integer value) {
+            addCriterion("ma_state <>", value, "maState");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaStateGreaterThan(Integer value) {
+            addCriterion("ma_state >", value, "maState");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaStateGreaterThanOrEqualTo(Integer value) {
+            addCriterion("ma_state >=", value, "maState");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaStateLessThan(Integer value) {
+            addCriterion("ma_state <", value, "maState");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaStateLessThanOrEqualTo(Integer value) {
+            addCriterion("ma_state <=", value, "maState");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaStateIn(List<Integer> values) {
+            addCriterion("ma_state in", values, "maState");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaStateNotIn(List<Integer> values) {
+            addCriterion("ma_state not in", values, "maState");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaStateBetween(Integer value1, Integer value2) {
+            addCriterion("ma_state between", value1, value2, "maState");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaStateNotBetween(Integer value1, Integer value2) {
+            addCriterion("ma_state not between", value1, value2, "maState");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaPriceIsNull() {
+            addCriterion("ma_price is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaPriceIsNotNull() {
+            addCriterion("ma_price is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaPriceEqualTo(BigDecimal value) {
+            addCriterion("ma_price =", value, "maPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaPriceNotEqualTo(BigDecimal value) {
+            addCriterion("ma_price <>", value, "maPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaPriceGreaterThan(BigDecimal value) {
+            addCriterion("ma_price >", value, "maPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaPriceGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("ma_price >=", value, "maPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaPriceLessThan(BigDecimal value) {
+            addCriterion("ma_price <", value, "maPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaPriceLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("ma_price <=", value, "maPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaPriceIn(List<BigDecimal> values) {
+            addCriterion("ma_price in", values, "maPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaPriceNotIn(List<BigDecimal> values) {
+            addCriterion("ma_price not in", values, "maPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaPriceBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("ma_price between", value1, value2, "maPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaPriceNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("ma_price not between", value1, value2, "maPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("create_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("create_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeEqualTo(Date value) {
+            addCriterion("create_time =", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotEqualTo(Date value) {
+            addCriterion("create_time <>", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThan(Date value) {
+            addCriterion("create_time >", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("create_time >=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThan(Date value) {
+            addCriterion("create_time <", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("create_time <=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIn(List<Date> values) {
+            addCriterion("create_time in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotIn(List<Date> values) {
+            addCriterion("create_time not in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+            addCriterion("create_time between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
     }

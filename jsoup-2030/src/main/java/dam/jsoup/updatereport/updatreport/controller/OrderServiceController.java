@@ -1,5 +1,6 @@
 package dam.jsoup.updatereport.updatreport.controller;
 
+import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
 import dam.jsoup.updatereport.updatreport.service.JsoupActionService;
 import dam.jsoup.updatereport.updatreport.service.JsoupMissionService;
@@ -141,6 +142,22 @@ public class OrderServiceController {
           }
            return map;
       }
+
+      @PostMapping("customer/setMissionAllState")
+      Map setMissionAllState(@RequestBody JsoupMissionAll jsoupMissionAll){
+          log.info("************ 设置任务状态***************");
+          HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+          Integer userId = Integer.valueOf(request.getHeader("userId"));
+          Map map = null;
+          try {
+              map = missionService.setMissionAllState(jsoupMissionAll, userId);
+          } catch (Exception e) {
+              map = MyResponse.myResponseError(e.getMessage());
+              log.error("设置任务状态错误 执行脚本 ",e);
+          }
+          return map;
+      }
+
 
 
 

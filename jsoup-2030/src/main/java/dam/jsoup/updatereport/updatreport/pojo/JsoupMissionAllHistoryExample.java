@@ -1,5 +1,6 @@
 package dam.jsoup.updatereport.updatreport.pojo;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -752,6 +753,136 @@ public class JsoupMissionAllHistoryExample {
 
         public Criteria andMissionAllDisNotBetween(String value1, String value2) {
             addCriterion("mission_all_dis not between", value1, value2, "missionAllDis");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnSaleIsNull() {
+            addCriterion("on_sale is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnSaleIsNotNull() {
+            addCriterion("on_sale is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnSaleEqualTo(String value) {
+            addCriterion("on_sale =", value, "onSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnSaleNotEqualTo(String value) {
+            addCriterion("on_sale <>", value, "onSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnSaleGreaterThan(String value) {
+            addCriterion("on_sale >", value, "onSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnSaleGreaterThanOrEqualTo(String value) {
+            addCriterion("on_sale >=", value, "onSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnSaleLessThan(String value) {
+            addCriterion("on_sale <", value, "onSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnSaleLessThanOrEqualTo(String value) {
+            addCriterion("on_sale <=", value, "onSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnSaleLike(String value) {
+            addCriterion("on_sale like", value, "onSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnSaleNotLike(String value) {
+            addCriterion("on_sale not like", value, "onSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnSaleIn(List<String> values) {
+            addCriterion("on_sale in", values, "onSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnSaleNotIn(List<String> values) {
+            addCriterion("on_sale not in", values, "onSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnSaleBetween(String value1, String value2) {
+            addCriterion("on_sale between", value1, value2, "onSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnSaleNotBetween(String value1, String value2) {
+            addCriterion("on_sale not between", value1, value2, "onSale");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalePriceIsNull() {
+            addCriterion("sale_price is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalePriceIsNotNull() {
+            addCriterion("sale_price is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalePriceEqualTo(BigDecimal value) {
+            addCriterion("sale_price =", value, "salePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalePriceNotEqualTo(BigDecimal value) {
+            addCriterion("sale_price <>", value, "salePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalePriceGreaterThan(BigDecimal value) {
+            addCriterion("sale_price >", value, "salePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalePriceGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("sale_price >=", value, "salePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalePriceLessThan(BigDecimal value) {
+            addCriterion("sale_price <", value, "salePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalePriceLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("sale_price <=", value, "salePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalePriceIn(List<BigDecimal> values) {
+            addCriterion("sale_price in", values, "salePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalePriceNotIn(List<BigDecimal> values) {
+            addCriterion("sale_price not in", values, "salePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalePriceBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("sale_price between", value1, value2, "salePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalePriceNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("sale_price not between", value1, value2, "salePrice");
             return (Criteria) this;
         }
     }

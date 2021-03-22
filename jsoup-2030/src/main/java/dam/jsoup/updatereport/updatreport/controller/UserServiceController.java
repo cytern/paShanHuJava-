@@ -7,8 +7,12 @@ import dam.jsoup.updatereport.updatreport.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @Slf4j
@@ -77,6 +81,19 @@ public class UserServiceController {
             return map;
         } catch (Exception e) {
             log.error("调用重设密码服务调用失败",e);
+            return MyResponse.myResponseError("系统内部异常");}
+    }
+
+    @PostMapping("customer/getUserInfo")
+    Map getUserInfo () {
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        log.info("用户 [{}],调用获取用户信息接口",userId);
+        try {
+            Map map = userService.getUserInfo(userId);
+            return map;
+        } catch (Exception e) {
+            log.error("调用获取用户信息接口调用失败",e);
             return MyResponse.myResponseError("系统内部异常");}
     }
 

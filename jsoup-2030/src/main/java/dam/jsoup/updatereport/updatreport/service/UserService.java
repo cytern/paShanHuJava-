@@ -76,5 +76,10 @@ public interface UserService {
      */
     Map resetPassword(String userName,String password,String code);
 
-
+    /**
+     * 获取用户详细信息
+     * @param userId 用户id
+     * @return 用户信息
+     */
+    Map getUserInfo(Integer userId);
 }
