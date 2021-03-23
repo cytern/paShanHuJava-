@@ -221,6 +221,25 @@ public class OrderServiceController {
         return map;
     }
 
+    /**
+     * 购买一个脚本
+     * @param maId maId
+     * @return
+     */
+    @PostMapping("customer/buy/{maId}")
+    Map buyMa(@PathVariable Integer maId) {
+        log.info("************ 购买脚本***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map map = null;
+        try {
+            map = missionService.byMa(userId,maId);
+        } catch (Exception e) {
+            map = MyResponse.myResponseError(e.getMessage());
+            log.error("购买失败,错误原因=[{}],用户id=[{}],maId =[{}]",e,userId,maId);
+        }
+        return map;
+    }
 
 
 

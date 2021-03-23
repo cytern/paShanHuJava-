@@ -30,10 +30,13 @@ public class MissionEditServiceImpl implements JsoupMissionService {
     private final JsoupActionMapper actionMapper;
     private final OrderJsoupMaMapper orderJsoupMaMapper;
     private final OrderJsoupMhMapper orderJsoupMhMapper;
+    private final JsoupUserAssetsMapper assetsMapper;
 
 
 
-    public MissionEditServiceImpl(JsoupMissionAllMapper jsoupMissionAllMapper, JsoupMissionMapper jsoupMissionMapper, JsoupPragramMapper pragramMapper, JsoupMissionOrderMapper orderMapper, JsoupActionService actionEditService, JsoupUserOrderMapper userOrderMapper, JsoupMissionAllHistoryMapper missionAllHistoryMapper, JsoupActionOrderMapper actionOrderMapper, JsoupActionMapper actionMapper, OrderJsoupMaMapper orderJsoupMaMapper, OrderJsoupMhMapper orderJsoupMhMapper) {
+
+
+    public MissionEditServiceImpl(JsoupMissionAllMapper jsoupMissionAllMapper, JsoupMissionMapper jsoupMissionMapper, JsoupPragramMapper pragramMapper, JsoupMissionOrderMapper orderMapper, JsoupActionService actionEditService, JsoupUserOrderMapper userOrderMapper, JsoupMissionAllHistoryMapper missionAllHistoryMapper, JsoupActionOrderMapper actionOrderMapper, JsoupActionMapper actionMapper, OrderJsoupMaMapper orderJsoupMaMapper, OrderJsoupMhMapper orderJsoupMhMapper, JsoupUserAssetsMapper assetsMapper) {
         this.jsoupMissionAllMapper = jsoupMissionAllMapper;
         this.jsoupMissionMapper = jsoupMissionMapper;
         this.pragramMapper = pragramMapper;
@@ -45,6 +48,7 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         this.actionMapper = actionMapper;
         this.orderJsoupMaMapper = orderJsoupMaMapper;
         this.orderJsoupMhMapper = orderJsoupMhMapper;
+        this.assetsMapper = assetsMapper;
     }
 
 
@@ -320,6 +324,47 @@ public class MissionEditServiceImpl implements JsoupMissionService {
             history.setSalePrice(jsoupMissionAllHistory.getSalePrice());
             missionAllHistoryMapper.updateByPrimaryKeySelective(history);
             return MyResponse.myResponseOk("更新成功");
+        }
+    }
+
+    /**
+     * 购买一个脚本
+     *
+     * @param userId 用户id
+     * @param maId   脚本id
+     * @return
+     */
+    @Override
+    public Map byMa(Integer userId, Integer maId) {
+        //判断该脚本是否能够购买
+        JsoupMissionAll missionAll = jsoupMissionAllMapper.selectByPrimaryKey(maId);
+        if (missionAll == null || missionAll.getMaState() == 0  ){
+            return MyResponse.myResponseError("无效的脚本");
+        }else {
+            //TODO 判断是否是用户持有的脚本
+
+            //判断用户是否具有足够的钱
+           JsoupUserAssetsExample assetsExample = new JsoupUserAssetsExample();
+           assetsExample.createCriteria().andUserIdEqualTo( userId);
+            List<JsoupUserAssets> jsoupUserAssets = assetsMapper.selectByExample(assetsExample);
+            if (missionAll.getMaPrice().compareTo(jsoupUserAssets.get(0).getCornNum())>0){
+               //钱不够
+               return MyResponse.myResponseError("余额不足");
+            }else {
+               //扣除钱
+                jsoupUserAssets.get(0).setCornNum(jsoupUserAssets.get(0).getCornNum().subtract(missionAll.getMaPrice()));
+                assetsMapper.updateByPrimaryKeySelective(jsoupUserAssets.get(0));
+                //将商品加入订单
+                OrderJsoupMa orderJsoupMa = new OrderJsoupMa();
+                orderJsoupMa.setCreateTime(new Date());
+                orderJsoupMa.setCustomerUserId(userId);
+                orderJsoupMa.setFinishPrice(missionAll.getMaPrice());
+                orderJsoupMa.setMaId(missionAll.getMaId());
+                orderJsoupMa.setOwnerUserId(missionAll.getUserId());
+                orderJsoupMaMapper.insertSelective(orderJsoupMa);
+                return MyResponse.myResponseOk("购买成功");
+            }
+
         }
     }
 

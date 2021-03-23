@@ -3,6 +3,7 @@ package dam.jsoup.updatereport.updatreport.pojo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,13 +29,13 @@ public class JsoupUserAssets implements Serializable {
      * 硬币数目
      */
     @ApiModelProperty(value = "硬币数目")
-    private Integer cornNum;
+    private BigDecimal cornNum;
 
     /**
      * 金币数目
      */
     @ApiModelProperty(value = "金币数目")
-    private Integer goldNum;
+    private BigDecimal goldNum;
 
     private static final long serialVersionUID = 1L;
 }

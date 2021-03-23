@@ -1451,8 +1451,7 @@ SELECT|sys.sys_config
     </column>
     <key id="408" parent="304" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>user_id
-username</ColNames>
+      <ColNames>user_id</ColNames>
       <Primary>1</Primary>
     </key>
     <column id="409" parent="305" name="user_assets_id">
@@ -1470,12 +1469,12 @@ username</ColNames>
     <column id="411" parent="305" name="corn_num">
       <Position>3</Position>
       <Comment>硬币数目</Comment>
-      <DataType>int|0s</DataType>
+      <DataType>decimal(15,2 digit)|0s</DataType>
     </column>
     <column id="412" parent="305" name="gold_num">
       <Position>4</Position>
       <Comment>金币数目</Comment>
-      <DataType>int|0s</DataType>
+      <DataType>decimal(15,2 digit)|0s</DataType>
     </column>
     <key id="413" parent="305" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>

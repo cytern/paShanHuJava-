@@ -68,4 +68,12 @@ public interface JsoupMissionService {
      * @return
      */
     Map setMhState (JsoupMissionAllHistory jsoupMissionAllHistory,Integer userId);
+
+    /**
+     * 购买一个脚本
+     * @param userId 用户id
+     * @param maId 脚本id
+     * @return
+     */
+    Map byMa(Integer userId,Integer maId);
 }

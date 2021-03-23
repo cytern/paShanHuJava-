@@ -1,5 +1,6 @@
 package dam.jsoup.updatereport.updatreport.pojo;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -234,52 +235,52 @@ public class JsoupUserAssetsExample {
             return (Criteria) this;
         }
 
-        public Criteria andCornNumEqualTo(Integer value) {
+        public Criteria andCornNumEqualTo(BigDecimal value) {
             addCriterion("corn_num =", value, "cornNum");
             return (Criteria) this;
         }
 
-        public Criteria andCornNumNotEqualTo(Integer value) {
+        public Criteria andCornNumNotEqualTo(BigDecimal value) {
             addCriterion("corn_num <>", value, "cornNum");
             return (Criteria) this;
         }
 
-        public Criteria andCornNumGreaterThan(Integer value) {
+        public Criteria andCornNumGreaterThan(BigDecimal value) {
             addCriterion("corn_num >", value, "cornNum");
             return (Criteria) this;
         }
 
-        public Criteria andCornNumGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCornNumGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("corn_num >=", value, "cornNum");
             return (Criteria) this;
         }
 
-        public Criteria andCornNumLessThan(Integer value) {
+        public Criteria andCornNumLessThan(BigDecimal value) {
             addCriterion("corn_num <", value, "cornNum");
             return (Criteria) this;
         }
 
-        public Criteria andCornNumLessThanOrEqualTo(Integer value) {
+        public Criteria andCornNumLessThanOrEqualTo(BigDecimal value) {
             addCriterion("corn_num <=", value, "cornNum");
             return (Criteria) this;
         }
 
-        public Criteria andCornNumIn(List<Integer> values) {
+        public Criteria andCornNumIn(List<BigDecimal> values) {
             addCriterion("corn_num in", values, "cornNum");
             return (Criteria) this;
         }
 
-        public Criteria andCornNumNotIn(List<Integer> values) {
+        public Criteria andCornNumNotIn(List<BigDecimal> values) {
             addCriterion("corn_num not in", values, "cornNum");
             return (Criteria) this;
         }
 
-        public Criteria andCornNumBetween(Integer value1, Integer value2) {
+        public Criteria andCornNumBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("corn_num between", value1, value2, "cornNum");
             return (Criteria) this;
         }
 
-        public Criteria andCornNumNotBetween(Integer value1, Integer value2) {
+        public Criteria andCornNumNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("corn_num not between", value1, value2, "cornNum");
             return (Criteria) this;
         }
@@ -294,52 +295,52 @@ public class JsoupUserAssetsExample {
             return (Criteria) this;
         }
 
-        public Criteria andGoldNumEqualTo(Integer value) {
+        public Criteria andGoldNumEqualTo(BigDecimal value) {
             addCriterion("gold_num =", value, "goldNum");
             return (Criteria) this;
         }
 
-        public Criteria andGoldNumNotEqualTo(Integer value) {
+        public Criteria andGoldNumNotEqualTo(BigDecimal value) {
             addCriterion("gold_num <>", value, "goldNum");
             return (Criteria) this;
         }
 
-        public Criteria andGoldNumGreaterThan(Integer value) {
+        public Criteria andGoldNumGreaterThan(BigDecimal value) {
             addCriterion("gold_num >", value, "goldNum");
             return (Criteria) this;
         }
 
-        public Criteria andGoldNumGreaterThanOrEqualTo(Integer value) {
+        public Criteria andGoldNumGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("gold_num >=", value, "goldNum");
             return (Criteria) this;
         }
 
-        public Criteria andGoldNumLessThan(Integer value) {
+        public Criteria andGoldNumLessThan(BigDecimal value) {
             addCriterion("gold_num <", value, "goldNum");
             return (Criteria) this;
         }
 
-        public Criteria andGoldNumLessThanOrEqualTo(Integer value) {
+        public Criteria andGoldNumLessThanOrEqualTo(BigDecimal value) {
             addCriterion("gold_num <=", value, "goldNum");
             return (Criteria) this;
         }
 
-        public Criteria andGoldNumIn(List<Integer> values) {
+        public Criteria andGoldNumIn(List<BigDecimal> values) {
             addCriterion("gold_num in", values, "goldNum");
             return (Criteria) this;
         }
 
-        public Criteria andGoldNumNotIn(List<Integer> values) {
+        public Criteria andGoldNumNotIn(List<BigDecimal> values) {
             addCriterion("gold_num not in", values, "goldNum");
             return (Criteria) this;
         }
 
-        public Criteria andGoldNumBetween(Integer value1, Integer value2) {
+        public Criteria andGoldNumBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("gold_num between", value1, value2, "goldNum");
             return (Criteria) this;
         }
 
-        public Criteria andGoldNumNotBetween(Integer value1, Integer value2) {
+        public Criteria andGoldNumNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("gold_num not between", value1, value2, "goldNum");
             return (Criteria) this;
         }
