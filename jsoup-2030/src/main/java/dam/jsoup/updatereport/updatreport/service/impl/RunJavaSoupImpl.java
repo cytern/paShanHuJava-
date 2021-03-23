@@ -45,8 +45,8 @@ public class RunJavaSoupImpl implements RunJavaSoup {
         List<JsoupMissionAllHistory> histories = jsoupMissionAllHistoryMapper.selectByExample(example);
         JsoupMissionAllHistory jsoupMissionAllHistory = histories.get(0);
         //如果是非待执行请求 直接中止
-        if (!jsoupMissionAllHistory.getMissionState().equals("1")){
-            throw new RuntimeException("不可执行的任务");
+        if (!jsoupMissionAllHistory.getMissionState().equals("2")){
+            throw new RuntimeException("任务异常:该任务已经执行完毕");
         }
         //发送执行服务
         Map map;
@@ -80,7 +80,7 @@ public class RunJavaSoupImpl implements RunJavaSoup {
         JsoupMissionAllHistory history = new JsoupMissionAllHistory();
         history.setSentTime(new Date());
         history.setMissionAllId(jsoupMissionAll.getMaId());
-        history.setMissionState("1");
+        history.setMissionState("2");
         history.setUserId(userId);
         history.setMissionAllName(jsoupMissionAll.getMaName());
         history.setMissionAllDis(jsoupMissionAll.getMaTip());
@@ -90,7 +90,15 @@ public class RunJavaSoupImpl implements RunJavaSoup {
             runJavaSoup(history.getMissionAllHistoryId(),userId);
         } catch (Exception e) {
            history.setMissionState("4");
-           history.setMissionFailReason(e.getMessage());
+           if (e.getMessage().contains("Invalid cell range") || e.getMessage().contains("Merged region")){
+               history.setMissionFailReason("内部异常:文件生成器");
+           }else if (e.getMessage().contains("interrupt")){
+               history.setMissionFailReason("内部异常:脚本执行器");
+           }else if (e.getMessage().contains("com.netflix.client.ClientException: Load balancer does not have available server for client")){
+               history.setMissionFailReason("内部异常:集群服务");
+           }else {
+               history.setMissionFailReason(e.getMessage());
+           }
            jsoupMissionAllHistoryMapper.updateByPrimaryKeySelective(history);
            throw new RuntimeException(e.getMessage());
         }
