@@ -192,6 +192,7 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         if (missionAllData.getJsoupMissionAll().getMaId() <= 0){
             //不存在首先添加新任务
             missionAllData.getJsoupMissionAll().setUserId(userId);
+            missionAllData.getJsoupMissionAll().setCreateTime(new Date());
             jsoupMissionAllMapper.insertSelective(missionAllData.getJsoupMissionAll());
             maId = missionAllData.getJsoupMissionAll().getMaId();
         }else {
@@ -265,12 +266,12 @@ public class MissionEditServiceImpl implements JsoupMissionService {
     public Map setMissionAllState(JsoupMissionAll jsoupMissionAll, Integer userId) {
         //获取missionAll
         JsoupMissionAll jsoupMissionAll1 = jsoupMissionAllMapper.selectByPrimaryKey(jsoupMissionAll.getMaId());
-        if (!jsoupMissionAll1.getUserId().equals(userId)
-            ||
-             jsoupMissionAll1.getMaState().equals(2)){
+        if (!jsoupMissionAll1.getUserId().equals(userId)){
             return MyResponse.myResponseError("非法的修改");
         }else {
-            jsoupMissionAll1.setMaState(jsoupMissionAll.getMaState());
+            //如果是已经上架 则不能修改
+            jsoupMissionAll1.setMaState(jsoupMissionAll1.getMaState().equals(2)?2:jsoupMissionAll.getMaState());
+            jsoupMissionAll1.setMaPrice(jsoupMissionAll.getMaPrice());
             jsoupMissionAllMapper.updateByPrimaryKeySelective(jsoupMissionAll1);
             return MyResponse.myResponseOk("修改成功");
         }
@@ -300,6 +301,26 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         example.createCriteria().andOnSaleEqualTo("1");
         List<JsoupMissionAllHistory> histories = missionAllHistoryMapper.selectByExample(example);
         return histories;
+    }
+
+    /**
+     * 设置结果集状态 售价
+     *
+     * @param jsoupMissionAllHistory 历史
+     * @return
+     */
+    @Override
+    public Map setMhState(JsoupMissionAllHistory jsoupMissionAllHistory,Integer userId) {
+        //获取真实的结果集数据
+        JsoupMissionAllHistory history = missionAllHistoryMapper.selectByPrimaryKey(jsoupMissionAllHistory.getMissionAllHistoryId());
+        if (!history.getUserId().equals(userId) || !history.getMissionState().equals("3")){
+            return MyResponse.myResponseError("非法的操作,非可售卖脚本");
+        }else {
+            history.setOnSale(jsoupMissionAllHistory.getOnSale().equals("1")?"1":jsoupMissionAllHistory.getOnSale());
+            history.setSalePrice(jsoupMissionAllHistory.getSalePrice());
+            missionAllHistoryMapper.updateByPrimaryKeySelective(history);
+            return MyResponse.myResponseOk("更新成功");
+        }
     }
 
 }

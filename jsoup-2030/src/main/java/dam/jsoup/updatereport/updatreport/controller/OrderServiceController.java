@@ -201,6 +201,26 @@ public class OrderServiceController {
         return map;
     }
 
+    /**
+     * 设置结果集的市场化信息
+     * @param missionAllHistory
+     * @return
+     */
+    @PostMapping("customer/setMhState")
+    Map setMhState(@RequestBody JsoupMissionAllHistory missionAllHistory) {
+        log.info("************ 设置结果集状态***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map map = null;
+        try {
+            map = missionService.setMhState(missionAllHistory, userId);
+        } catch (Exception e) {
+            map = MyResponse.myResponseError(e.getMessage());
+            log.error("设置结果集错误 执行脚本 ",e);
+        }
+        return map;
+    }
+
 
 
 

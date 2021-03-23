@@ -60,4 +60,12 @@ public interface JsoupMissionService {
      * 获取能够购买的全部结果集
      */
     List<JsoupMissionAllHistory> getSalesMh();
+
+
+    /**
+     * 设置结果集状态 售价
+     * @param jsoupMissionAllHistory 历史
+     * @return
+     */
+    Map setMhState (JsoupMissionAllHistory jsoupMissionAllHistory,Integer userId);
 }
