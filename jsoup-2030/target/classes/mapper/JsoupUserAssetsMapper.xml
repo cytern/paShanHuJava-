@@ -6,8 +6,8 @@
     <!--@Table jsoup_user_assets-->
     <id column="user_assets_id" jdbcType="INTEGER" property="userAssetsId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="corn_num" jdbcType="INTEGER" property="cornNum" />
-    <result column="gold_num" jdbcType="INTEGER" property="goldNum" />
+    <result column="corn_num" jdbcType="DECIMAL" property="cornNum" />
+    <result column="gold_num" jdbcType="DECIMAL" property="goldNum" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated-->
@@ -111,7 +111,7 @@
     <!--@mbg.generated-->
     insert into jsoup_user_assets (user_id, corn_num, gold_num
       )
-    values (#{userId,jdbcType=INTEGER}, #{cornNum,jdbcType=INTEGER}, #{goldNum,jdbcType=INTEGER}
+    values (#{userId,jdbcType=INTEGER}, #{cornNum,jdbcType=DECIMAL}, #{goldNum,jdbcType=DECIMAL}
       )
   </insert>
   <insert id="insertSelective" keyColumn="user_assets_id" keyProperty="userAssetsId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupUserAssets" useGeneratedKeys="true">
@@ -133,10 +133,10 @@
         #{userId,jdbcType=INTEGER},
       </if>
       <if test="cornNum != null">
-        #{cornNum,jdbcType=INTEGER},
+        #{cornNum,jdbcType=DECIMAL},
       </if>
       <if test="goldNum != null">
-        #{goldNum,jdbcType=INTEGER},
+        #{goldNum,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -158,10 +158,10 @@
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.cornNum != null">
-        corn_num = #{record.cornNum,jdbcType=INTEGER},
+        corn_num = #{record.cornNum,jdbcType=DECIMAL},
       </if>
       <if test="record.goldNum != null">
-        gold_num = #{record.goldNum,jdbcType=INTEGER},
+        gold_num = #{record.goldNum,jdbcType=DECIMAL},
       </if>
     </set>
     <if test="_parameter != null">
@@ -173,8 +173,8 @@
     update jsoup_user_assets
     set user_assets_id = #{record.userAssetsId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      corn_num = #{record.cornNum,jdbcType=INTEGER},
-      gold_num = #{record.goldNum,jdbcType=INTEGER}
+      corn_num = #{record.cornNum,jdbcType=DECIMAL},
+      gold_num = #{record.goldNum,jdbcType=DECIMAL}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -187,10 +187,10 @@
         user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="cornNum != null">
-        corn_num = #{cornNum,jdbcType=INTEGER},
+        corn_num = #{cornNum,jdbcType=DECIMAL},
       </if>
       <if test="goldNum != null">
-        gold_num = #{goldNum,jdbcType=INTEGER},
+        gold_num = #{goldNum,jdbcType=DECIMAL},
       </if>
     </set>
     where user_assets_id = #{userAssetsId,jdbcType=INTEGER}
@@ -199,8 +199,8 @@
     <!--@mbg.generated-->
     update jsoup_user_assets
     set user_id = #{userId,jdbcType=INTEGER},
-      corn_num = #{cornNum,jdbcType=INTEGER},
-      gold_num = #{goldNum,jdbcType=INTEGER}
+      corn_num = #{cornNum,jdbcType=DECIMAL},
+      gold_num = #{goldNum,jdbcType=DECIMAL}
     where user_assets_id = #{userAssetsId,jdbcType=INTEGER}
   </update>
   <update id="updateBatch" parameterType="java.util.List">
@@ -214,12 +214,12 @@
       </trim>
       <trim prefix="corn_num = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when user_assets_id = #{item.userAssetsId,jdbcType=INTEGER} then #{item.cornNum,jdbcType=INTEGER}
+          when user_assets_id = #{item.userAssetsId,jdbcType=INTEGER} then #{item.cornNum,jdbcType=DECIMAL}
         </foreach>
       </trim>
       <trim prefix="gold_num = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when user_assets_id = #{item.userAssetsId,jdbcType=INTEGER} then #{item.goldNum,jdbcType=INTEGER}
+          when user_assets_id = #{item.userAssetsId,jdbcType=INTEGER} then #{item.goldNum,jdbcType=DECIMAL}
         </foreach>
       </trim>
     </trim>
@@ -234,7 +234,7 @@
     (user_id, corn_num, gold_num)
     values
     <foreach collection="list" item="item" separator=",">
-      (#{item.userId,jdbcType=INTEGER}, #{item.cornNum,jdbcType=INTEGER}, #{item.goldNum,jdbcType=INTEGER}
+      (#{item.userId,jdbcType=INTEGER}, #{item.cornNum,jdbcType=DECIMAL}, #{item.goldNum,jdbcType=DECIMAL}
         )
     </foreach>
   </insert>
@@ -255,8 +255,8 @@
         #{userAssetsId,jdbcType=INTEGER},
       </if>
       #{userId,jdbcType=INTEGER},
-      #{cornNum,jdbcType=INTEGER},
-      #{goldNum,jdbcType=INTEGER},
+      #{cornNum,jdbcType=DECIMAL},
+      #{goldNum,jdbcType=DECIMAL},
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -264,8 +264,8 @@
         user_assets_id = #{userAssetsId,jdbcType=INTEGER},
       </if>
       user_id = #{userId,jdbcType=INTEGER},
-      corn_num = #{cornNum,jdbcType=INTEGER},
-      gold_num = #{goldNum,jdbcType=INTEGER},
+      corn_num = #{cornNum,jdbcType=DECIMAL},
+      gold_num = #{goldNum,jdbcType=DECIMAL},
     </trim>
   </insert>
   <insert id="insertOrUpdateSelective" keyColumn="user_assets_id" keyProperty="userAssetsId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupUserAssets" useGeneratedKeys="true">
@@ -294,10 +294,10 @@
         #{userId,jdbcType=INTEGER},
       </if>
       <if test="cornNum != null">
-        #{cornNum,jdbcType=INTEGER},
+        #{cornNum,jdbcType=DECIMAL},
       </if>
       <if test="goldNum != null">
-        #{goldNum,jdbcType=INTEGER},
+        #{goldNum,jdbcType=DECIMAL},
       </if>
     </trim>
     on duplicate key update 
@@ -309,10 +309,10 @@
         user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="cornNum != null">
-        corn_num = #{cornNum,jdbcType=INTEGER},
+        corn_num = #{cornNum,jdbcType=DECIMAL},
       </if>
       <if test="goldNum != null">
-        gold_num = #{goldNum,jdbcType=INTEGER},
+        gold_num = #{goldNum,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>

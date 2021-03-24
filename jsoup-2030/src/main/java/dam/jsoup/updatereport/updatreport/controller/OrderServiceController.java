@@ -226,7 +226,7 @@ public class OrderServiceController {
      * @param maId maId
      * @return
      */
-    @PostMapping("customer/buy/{maId}")
+    @PostMapping("customer/buyMa/{maId}")
     Map buyMa(@PathVariable Integer maId) {
         log.info("************ 购买脚本***************");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
@@ -236,7 +236,21 @@ public class OrderServiceController {
             map = missionService.byMa(userId,maId);
         } catch (Exception e) {
             map = MyResponse.myResponseError(e.getMessage());
-            log.error("购买失败,错误原因=[{}],用户id=[{}],maId =[{}]",e,userId,maId);
+            log.error("购买脚本失败,错误原因=[{}],用户id=[{}],maId =[{}]",e,userId,maId);
+        }
+        return map;
+    }
+    @PostMapping("customer/buyMh/{mhId}")
+    Map bugMh(@PathVariable Integer mhId){
+        log.info("************ 购买结果集***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map map = null;
+        try {
+            map = missionService.byMh(userId,mhId);
+        } catch (Exception e) {
+            map = MyResponse.myResponseError(e.getMessage());
+            log.error("购买结果集失败,错误原因=[{}],用户id=[{}],maId =[{}]",e,userId,mhId);
         }
         return map;
     }

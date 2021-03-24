@@ -76,4 +76,13 @@ public interface JsoupMissionService {
      * @return
      */
     Map byMa(Integer userId,Integer maId);
+
+
+    /**
+     * 购买一个结果集
+     * @param userId 用户id
+     * @param mhId  结果集id
+     * @return
+     */
+    Map byMh(Integer userId,Integer mhId);
 }

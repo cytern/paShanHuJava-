@@ -338,11 +338,17 @@ public class MissionEditServiceImpl implements JsoupMissionService {
     public Map byMa(Integer userId, Integer maId) {
         //判断该脚本是否能够购买
         JsoupMissionAll missionAll = jsoupMissionAllMapper.selectByPrimaryKey(maId);
-        if (missionAll == null || missionAll.getMaState() == 0  ){
-            return MyResponse.myResponseError("无效的脚本");
+        //无该脚本  未上架  持有者
+        if (missionAll == null || !missionAll.getMaState().equals(2)  ||  missionAll.getUserId().equals(userId)){
+            return MyResponse.myResponseError("无效的商品");
         }else {
             //TODO 判断是否是用户持有的脚本
-
+            OrderJsoupMaExample example = new OrderJsoupMaExample();
+            example.createCriteria().andCustomerUserIdEqualTo(userId).andMaIdEqualTo(maId);
+            List<OrderJsoupMa> orderJsoupMas = orderJsoupMaMapper.selectByExample(example);
+            if (orderJsoupMas.size()>0){
+                return MyResponse.myResponseError("已在库中");
+            }
             //判断用户是否具有足够的钱
            JsoupUserAssetsExample assetsExample = new JsoupUserAssetsExample();
            assetsExample.createCriteria().andUserIdEqualTo( userId);
@@ -366,6 +372,51 @@ public class MissionEditServiceImpl implements JsoupMissionService {
             }
 
         }
+    }
+
+    /**
+     * 购买一个结果集
+     * @param userId 用户id
+     * @param mhId  结果集id
+     * @return
+     */
+    @Override
+    public Map byMh(Integer userId, Integer mhId) {
+        //判断该脚本是否允许购买 执行状态为完成执行  执行结果集不为空
+        JsoupMissionAllHistory history = missionAllHistoryMapper.selectByPrimaryKey(mhId);
+        //执行结果为失败 上架状态为 未上架  结果集持有者
+        if ( history == null || !history.getMissionState().equals("3") || !history.getOnSale().equals("1") || history.getUserId().equals(userId)){
+         return MyResponse.myResponseError("无效的商品");
+        }
+        //判断我的订单中是否拥有
+        OrderJsoupMhExample orderJsoupMhExample = new OrderJsoupMhExample();
+        orderJsoupMhExample.createCriteria().andCustomerUserIdEqualTo(userId).andMhIdEqualTo(mhId);
+        List<OrderJsoupMh> orderJsoupMhs = orderJsoupMhMapper.selectByExample(orderJsoupMhExample);
+        if (orderJsoupMhs.size()>0){
+            return MyResponse.myResponseError("已在库中");
+        }
+        //判断是否钱够
+        JsoupUserAssetsExample example = new JsoupUserAssetsExample();
+         example.createCriteria().andUserIdEqualTo(userId);
+        List<JsoupUserAssets> jsoupUserAssets = assetsMapper.selectByExample(example);
+        if (jsoupUserAssets.get(0).getCornNum().compareTo(history.getSalePrice())<0){
+            //钱不够
+            return MyResponse.myResponseError("余额不足");
+        }
+        //扣钱
+        jsoupUserAssets.get(0).setCornNum(jsoupUserAssets.get(0).getCornNum().subtract(history.getSalePrice()));
+        assetsMapper.updateByPrimaryKeySelective(jsoupUserAssets.get(0));
+        //加入订单
+        OrderJsoupMh jsoupMh = new OrderJsoupMh();
+        jsoupMh.setCreateTime(new Date());
+        jsoupMh.setFinishPrice(history.getSalePrice());
+        jsoupMh.setOwnerUserId(history.getUserId());
+        jsoupMh.setCustomerUserId(userId);
+        jsoupMh.setMhId(history.getMissionAllHistoryId());
+        jsoupMh.setOwnerUserId(history.getUserId());
+        orderJsoupMhMapper.insertSelective(jsoupMh);
+        return MyResponse.myResponseOk("购买成功");
+
     }
 
 }
