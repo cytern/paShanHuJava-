@@ -23,9 +23,9 @@ import java.util.*;
 @RestController
 @Slf4j
 public class OrderServiceController {
-  private final JsoupActionService actionService;
-  private final JsoupMissionService missionService;
-  private final RunJavaSoup runJavaSoup;
+    private final JsoupActionService actionService;
+    private final JsoupMissionService missionService;
+    private final RunJavaSoup runJavaSoup;
 
     public OrderServiceController(JsoupActionService actionService, JsoupMissionService missionService, RunJavaSoup runJavaSoup) {
         this.actionService = actionService;
@@ -35,33 +35,35 @@ public class OrderServiceController {
 
     /**
      * 获取个人的mission 列表
+     *
      * @return 需要登录 在网关处进行鉴权并且赋值
      */
     @GetMapping("customer/getMyOrders/{pageSize}/{index}")
     @ResponseBody
-    Map  getMyMissions(@PathVariable("index")Integer index,@PathVariable("pageSize") Integer pageSize) {
+    Map getMyMissions(@PathVariable("index") Integer index, @PathVariable("pageSize") Integer pageSize) {
         log.info("************ 获取个人可使用脚本列表***************");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-       Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
         Map map = new HashMap();
         List<MissionAllData> list = new ArrayList<>();
         try {
             list = missionService.getOnesOrder(userId);
-            map = PageHelper.page(list,pageSize,index,"missionData");
+            map = PageHelper.page(list, pageSize, index, "missionData");
         } catch (Exception e) {
-           log.error("获取个人可使用脚本列表 错误 ",e);
-           map = MyResponse.myResponseError("获取信息失败");
+            log.error("获取个人可使用脚本列表 错误 ", e);
+            map = MyResponse.myResponseError("获取信息失败");
         }
         return map;
     }
 
     /**
      * 获取全部执行过历史
+     *
      * @return 历史情况
      */
     @GetMapping("customer/getMyMissionHistory/{pageSize}/{index}")
     @ResponseBody
-    Map getMyMissionsHistory (@PathVariable("index")Integer index,@PathVariable("pageSize") Integer pageSize) {
+    Map getMyMissionsHistory(@PathVariable("index") Integer index, @PathVariable("pageSize") Integer pageSize) {
         log.info("************ 获取个人已执行过脚本历史列表***************");
         //获取userId
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
@@ -70,9 +72,9 @@ public class OrderServiceController {
         List<JsoupMissionAllHistory> list = new ArrayList<>();
         try {
             list = missionService.getMissionAllHistory(userId);
-            map = PageHelper.page(list,pageSize,index,"missionHistory");
+            map = PageHelper.page(list, pageSize, index, "missionHistory");
         } catch (Exception e) {
-            log.error("************ 获取个人已执行过脚本历史 失败***************",e);
+            log.error("************ 获取个人已执行过脚本历史 失败***************", e);
             map = MyResponse.myResponseError("获取信息失败");
         }
         return map;
@@ -80,12 +82,13 @@ public class OrderServiceController {
 
     /**
      * 获取一个脚本的全部信息
+     *
      * @param missionAllId 总id
      * @return 一个脚本的全部信息
      */
     @GetMapping("customer/getScript/{missionAllId}")
     @ResponseBody
-    Map getOneScript(@PathVariable("missionAllId")Integer missionAllId) {
+    Map getOneScript(@PathVariable("missionAllId") Integer missionAllId) {
         log.info("************ 获取一个脚本的信息***************");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         Integer userId = Integer.valueOf(request.getHeader("userId"));
@@ -94,9 +97,9 @@ public class OrderServiceController {
         try {
             missionAllData = missionService.getMissionAllData(missionAllId, userId);
             map = MyResponse.myResponseOk("获取成功");
-            map.put("missionData",missionAllData);
+            map.put("missionData", missionAllData);
         } catch (Exception e) {
-            log.error("************ 获取一个脚本的信息 失败***************",e);
+            log.error("************ 获取一个脚本的信息 失败***************", e);
             map = MyResponse.myResponseError("获取信息失败");
         }
         return map;
@@ -104,17 +107,17 @@ public class OrderServiceController {
 
     @PostMapping("customer/saveMyScript")
     @ResponseBody
-    Map saveMyScript(@RequestBody MissionAllData missionAllData){
+    Map saveMyScript(@RequestBody MissionAllData missionAllData) {
         log.info("************ 保存脚本信息***************");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         Integer userId = Integer.valueOf(request.getHeader("userId"));
         Map map = new HashMap();
         try {
-            Integer maId = missionService.saveMissionAll(missionAllData,userId);
+            Integer maId = missionService.saveMissionAll(missionAllData, userId);
             map = MyResponse.myResponseOk("保存成功");
-            map.put("maId",maId);
+            map.put("maId", maId);
         } catch (Exception e) {
-            log.error("************ 保存脚本信息 失败***************",e);
+            log.error("************ 保存脚本信息 失败***************", e);
             map = MyResponse.myResponseError("保存失败");
         }
         return map;
@@ -123,79 +126,87 @@ public class OrderServiceController {
     /**
      * 以后将使用rabbitMq 进行消息队列 但目前使用直接发布任务
      * 这一步接受 maid 添加一个序号为1的hisorder
+     *
      * @return
      */
-      @PostMapping("customer/runJavaSoup/{maId}")
-      @ResponseBody
-      Map runJavaSoup(@PathVariable Integer maId){
-         //执行
-          log.info("************ 执行脚本***************");
-          HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-          Integer userId = Integer.valueOf(request.getHeader("userId"));
-          Map map = new HashMap();
-          try {
-              runJavaSoup.sendJavaSoup(maId,userId);
-              map = MyResponse.myResponseOk("发送成功");
-          }catch (Exception e){
-              map = MyResponse.myResponseError(e.getMessage());
-              log.error("方法执行错误 执行脚本 ",e);
-          }
-           return map;
-      }
+    @PostMapping("customer/runJavaSoup/{maId}")
+    @ResponseBody
+    Map runJavaSoup(@PathVariable Integer maId) {
+        //执行
+        log.info("************ 执行脚本***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map map = new HashMap();
+        try {
+            runJavaSoup.sendJavaSoup(maId, userId);
+            map = MyResponse.myResponseOk("发送成功");
+        } catch (Exception e) {
+            map = MyResponse.myResponseError(e.getMessage());
+            log.error("方法执行错误 执行脚本 ", e);
+        }
+        return map;
+    }
 
-      @PostMapping("customer/setMissionAllState")
-      Map setMissionAllState(@RequestBody JsoupMissionAll jsoupMissionAll){
-          log.info("************ 设置任务状态***************");
-          HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-          Integer userId = Integer.valueOf(request.getHeader("userId"));
-          Map map = null;
-          try {
-              map = missionService.setMissionAllState(jsoupMissionAll, userId);
-          } catch (Exception e) {
-              map = MyResponse.myResponseError(e.getMessage());
-              log.error("设置任务状态错误 执行脚本 ",e);
-          }
-          return map;
-      }
+    @PostMapping("customer/setMissionAllState")
+    Map setMissionAllState(@RequestBody JsoupMissionAll jsoupMissionAll) {
+        log.info("************ 设置任务状态***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map map = null;
+        try {
+            map = missionService.setMissionAllState(jsoupMissionAll, userId);
+        } catch (Exception e) {
+            map = MyResponse.myResponseError(e.getMessage());
+            log.error("设置任务状态错误 执行脚本 ", e);
+        }
+        return map;
+    }
 
     /**
      * 获取全部的可购总任务
-     * @param pageSize  页码容量
-     * @param index 页码
+     *
+     * @param pageSize 页码容量
+     * @param index    页码
      * @return
      */
-      @GetMapping("customer/getSalesMa/{pageSize}/{index}")
-      Map getSalesMa(@PathVariable Integer pageSize,@PathVariable Integer index) {
-          log.info("**************获取能够买的脚本列表****************");
-          Map map = new HashMap();
-          List<JsoupMissionAll> list = new ArrayList<>();
-          try {
-              list = missionService.getSalesMa();
-              map = PageHelper.page(list,pageSize,index,"maList");
-          } catch (Exception e) {
-              log.error("************ 获取能够买的脚本列表 失败***************",e);
-              map = MyResponse.myResponseError("获取信息失败");
-          }
-          return map;
-      }
+    @GetMapping("customer/getSalesMa/{pageSize}/{index}")
+    Map getSalesMa(@PathVariable Integer pageSize, @PathVariable Integer index) {
+        log.info("**************获取能够买的脚本列表****************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map map = new HashMap();
+        List<JsoupMissionAll> list = new ArrayList<>();
+        try {
+            list = missionService.getSalesMa(userId);
+            map = PageHelper.page(list, pageSize, index, "maList");
+        } catch (Exception e) {
+            log.error("************ 获取能够买的脚本列表 失败***************", e);
+            map = MyResponse.myResponseError("获取信息失败");
+        }
+        return map;
+    }
 
 
     /**
      * 获取全部的可购总结果
-     * @param pageSize  页码容量
-     * @param index 页码
+     *
+     * @param pageSize 页码容量
+     * @param index    页码
      * @return
      */
-        @GetMapping("customer/getSalesMh/{pageSize}/{index}")
-    Map getSalesMh(@PathVariable Integer pageSize,@PathVariable Integer index) {
+    @GetMapping("customer/getSalesMh/{pageSize}/{index}")
+    Map getSalesMh(@PathVariable Integer pageSize, @PathVariable Integer index) {
         log.info("**************获取能够买的结果列表****************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
         Map map = new HashMap();
         List<JsoupMissionAllHistory> list = new ArrayList<>();
+
         try {
-            list = missionService.getSalesMh();
-            map = PageHelper.page(list,pageSize,index,"mhList");
+            list = missionService.getSalesMh(userId);
+            map = PageHelper.page(list, pageSize, index, "mhList");
         } catch (Exception e) {
-            log.error("************ 获取能够买的结果列表 失败***************",e);
+            log.error("************ 获取能够买的结果列表 失败***************", e);
             map = MyResponse.myResponseError("获取信息失败");
         }
         return map;
@@ -203,6 +214,7 @@ public class OrderServiceController {
 
     /**
      * 设置结果集的市场化信息
+     *
      * @param missionAllHistory
      * @return
      */
@@ -216,13 +228,14 @@ public class OrderServiceController {
             map = missionService.setMhState(missionAllHistory, userId);
         } catch (Exception e) {
             map = MyResponse.myResponseError(e.getMessage());
-            log.error("设置结果集错误 执行脚本 ",e);
+            log.error("设置结果集错误 执行脚本 ", e);
         }
         return map;
     }
 
     /**
      * 购买一个脚本
+     *
      * @param maId maId
      * @return
      */
@@ -233,30 +246,28 @@ public class OrderServiceController {
         Integer userId = Integer.valueOf(request.getHeader("userId"));
         Map map = null;
         try {
-            map = missionService.byMa(userId,maId);
+            map = missionService.byMa(userId, maId);
         } catch (Exception e) {
             map = MyResponse.myResponseError(e.getMessage());
-            log.error("购买脚本失败,错误原因=[{}],用户id=[{}],maId =[{}]",e,userId,maId);
+            log.error("购买脚本失败,错误原因=[{}],用户id=[{}],maId =[{}]", e, userId, maId);
         }
         return map;
     }
+
     @PostMapping("customer/buyMh/{mhId}")
-    Map bugMh(@PathVariable Integer mhId){
+    Map bugMh(@PathVariable Integer mhId) {
         log.info("************ 购买结果集***************");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         Integer userId = Integer.valueOf(request.getHeader("userId"));
         Map map = null;
         try {
-            map = missionService.byMh(userId,mhId);
+            map = missionService.byMh(userId, mhId);
         } catch (Exception e) {
             map = MyResponse.myResponseError(e.getMessage());
-            log.error("购买结果集失败,错误原因=[{}],用户id=[{}],maId =[{}]",e,userId,mhId);
+            log.error("购买结果集失败,错误原因=[{}],用户id=[{}],maId =[{}]", e, userId, mhId);
         }
         return map;
     }
-
-
-
 
 
 }

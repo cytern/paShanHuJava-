@@ -288,23 +288,57 @@ public class MissionEditServiceImpl implements JsoupMissionService {
      * @return
      */
     @Override
-    public List<JsoupMissionAll> getSalesMa() {
+    public List<JsoupMissionAll> getSalesMa(Integer userId) {
         JsoupMissionAllExample missionAllExample = new JsoupMissionAllExample();
         //获取全部上架的任务总览
         missionAllExample.createCriteria().andMaStateEqualTo(2);
         List<JsoupMissionAll> jsoupMissionAlls = jsoupMissionAllMapper.selectByExample(missionAllExample);
-        return jsoupMissionAlls;
+        OrderJsoupMaExample maExample = new OrderJsoupMaExample();
+        List<JsoupMissionAll> collect = jsoupMissionAlls.stream().peek((a) -> {
+            maExample.clear();
+            //判断是否为持有者
+            if (a.getUserId().equals(userId)) {
+                a.setUserId(1);
+            } else {
+                maExample.createCriteria().andCustomerUserIdEqualTo(userId).andMaIdEqualTo(a.getMaId());
+                List<OrderJsoupMa> orderJsoupMas = orderJsoupMaMapper.selectByExample(maExample);
+                if (orderJsoupMas.size() > 0) {
+                    a.setUserId(2);
+                } else {
+                    a.setUserId(0);
+                }
+            }
+        }).collect(Collectors.toList());
+        return collect;
     }
 
     /**
      * 获取能够购买的全部结果集
      */
     @Override
-    public List<JsoupMissionAllHistory> getSalesMh() {
+    public List<JsoupMissionAllHistory> getSalesMh(Integer userId) {
         JsoupMissionAllHistoryExample example = new JsoupMissionAllHistoryExample();
         example.createCriteria().andOnSaleEqualTo("1");
         List<JsoupMissionAllHistory> histories = missionAllHistoryMapper.selectByExample(example);
-        return histories;
+        OrderJsoupMhExample mhExample = new OrderJsoupMhExample();
+        //如果持有者id 与用户id相同 则将userId 设置为1 否则则设置成0  表示是否是持有者
+        List<JsoupMissionAllHistory> collect = histories.stream().peek((a) -> {
+            //如果持有者id 与用户id相同 则将userId 设置为1 否则则设置成0  表示是否是持有者
+            if (a.getUserId().equals(userId)) {
+                a.setUserId(1);
+            } else {
+                mhExample.clear();
+                mhExample.createCriteria().andCustomerUserIdEqualTo(userId).andMhIdEqualTo(a.getMissionAllHistoryId());
+                List<OrderJsoupMh> orderJsoupMhs = orderJsoupMhMapper.selectByExample(mhExample);
+                if (orderJsoupMhs.size() > 0) {
+                    a.setUserId(2);
+                } else {
+                    a.setUserId(0);
+                }
+            }
+        }).collect(Collectors.toList());
+
+        return collect;
     }
 
     /**

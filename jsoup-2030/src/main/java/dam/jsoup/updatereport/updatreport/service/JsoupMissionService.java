@@ -53,13 +53,13 @@ public interface JsoupMissionService {
      * 获取能够购买的全部任务
      * @return
      */
-    List<JsoupMissionAll> getSalesMa();
+    List<JsoupMissionAll> getSalesMa(Integer userId);
 
 
     /**
      * 获取能够购买的全部结果集
      */
-    List<JsoupMissionAllHistory> getSalesMh();
+    List<JsoupMissionAllHistory> getSalesMh(Integer userId);
 
 
     /**
