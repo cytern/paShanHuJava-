@@ -1,5 +1,6 @@
 package dam.jsoup.updatereport.updatreport.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -58,12 +59,14 @@ public class JsoupMissionAllHistory implements Serializable {
     /**
      * 发送执行时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "发送执行时间")
     private Date sentTime;
 
     /**
      * 完成时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "完成时间")
     private Date finishTime;
 
@@ -91,6 +94,42 @@ public class JsoupMissionAllHistory implements Serializable {
      */
     @ApiModelProperty(value = "出售价格,")
     private BigDecimal salePrice;
+
+    /**
+     * 评分
+     */
+    @ApiModelProperty(value = "评分")
+    private String saleRate;
+
+    /**
+     * 出售份数
+     */
+    @ApiModelProperty(value = "出售份数")
+    private Integer saleNum;
+
+    /**
+     * 标签
+     */
+    @ApiModelProperty(value = "标签")
+    private String tips;
+
+    /**
+     * 作者名称
+     */
+    @ApiModelProperty(value = "作者名称")
+    private String userName;
+
+    /**
+     * 是否是官方来源
+     */
+    @ApiModelProperty(value = "是否是官方来源")
+    private String isAoto;
+
+    /**
+     * 图片
+     */
+    @ApiModelProperty(value = "图片")
+    private String hsUrl;
 
     private static final long serialVersionUID = 1L;
 }

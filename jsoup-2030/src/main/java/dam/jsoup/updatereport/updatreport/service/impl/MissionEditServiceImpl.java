@@ -300,6 +300,8 @@ public class MissionEditServiceImpl implements JsoupMissionService {
             if (a.getUserId().equals(userId)) {
                 a.setUserId(1);
             } else {
+
+                //判断是否已经购买过
                 maExample.createCriteria().andCustomerUserIdEqualTo(userId).andMaIdEqualTo(a.getMaId());
                 List<OrderJsoupMa> orderJsoupMas = orderJsoupMaMapper.selectByExample(maExample);
                 if (orderJsoupMas.size() > 0) {

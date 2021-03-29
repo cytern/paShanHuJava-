@@ -15,6 +15,12 @@
     <result column="ma_state" jdbcType="INTEGER" property="maState" />
     <result column="ma_price" jdbcType="DECIMAL" property="maPrice" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ma_rate" jdbcType="VARCHAR" property="maRate" />
+    <result column="ma_sale_num" jdbcType="INTEGER" property="maSaleNum" />
+    <result column="tips" jdbcType="VARCHAR" property="tips" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="is_auto" jdbcType="VARCHAR" property="isAuto" />
+    <result column="ma_url" jdbcType="VARCHAR" property="maUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated-->
@@ -79,7 +85,8 @@
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     ma_id, ma_name, ma_tip, mal_start_url, ma_success_file_name, ma_user_id, ma_notice_email, 
-    user_id, ma_state, ma_price, create_time
+    user_id, ma_state, ma_price, create_time, ma_rate, ma_sale_num, tips, user_name, 
+    is_auto, ma_url
   </sql>
   <select id="selectByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllExample" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -120,11 +127,15 @@
     insert into jsoup_mission_all (ma_name, ma_tip, mal_start_url, 
       ma_success_file_name, ma_user_id, ma_notice_email, 
       user_id, ma_state, ma_price, 
-      create_time)
+      create_time, ma_rate, ma_sale_num, 
+      tips, user_name, is_auto, 
+      ma_url)
     values (#{maName,jdbcType=VARCHAR}, #{maTip,jdbcType=VARCHAR}, #{malStartUrl,jdbcType=VARCHAR}, 
       #{maSuccessFileName,jdbcType=VARCHAR}, #{maUserId,jdbcType=INTEGER}, #{maNoticeEmail,jdbcType=VARCHAR}, 
       #{userId,jdbcType=INTEGER}, #{maState,jdbcType=INTEGER}, #{maPrice,jdbcType=DECIMAL}, 
-      #{createTime,jdbcType=TIMESTAMP})
+      #{createTime,jdbcType=TIMESTAMP}, #{maRate,jdbcType=VARCHAR}, #{maSaleNum,jdbcType=INTEGER}, 
+      #{tips,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{isAuto,jdbcType=VARCHAR}, 
+      #{maUrl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="ma_id" keyProperty="maId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -160,6 +171,24 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="maRate != null">
+        ma_rate,
+      </if>
+      <if test="maSaleNum != null">
+        ma_sale_num,
+      </if>
+      <if test="tips != null">
+        tips,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="isAuto != null">
+        is_auto,
+      </if>
+      <if test="maUrl != null">
+        ma_url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="maName != null">
@@ -191,6 +220,24 @@
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maRate != null">
+        #{maRate,jdbcType=VARCHAR},
+      </if>
+      <if test="maSaleNum != null">
+        #{maSaleNum,jdbcType=INTEGER},
+      </if>
+      <if test="tips != null">
+        #{tips,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuto != null">
+        #{isAuto,jdbcType=VARCHAR},
+      </if>
+      <if test="maUrl != null">
+        #{maUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -238,6 +285,24 @@
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.maRate != null">
+        ma_rate = #{record.maRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maSaleNum != null">
+        ma_sale_num = #{record.maSaleNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.tips != null">
+        tips = #{record.tips,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isAuto != null">
+        is_auto = #{record.isAuto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maUrl != null">
+        ma_url = #{record.maUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -256,7 +321,13 @@
       user_id = #{record.userId,jdbcType=INTEGER},
       ma_state = #{record.maState,jdbcType=INTEGER},
       ma_price = #{record.maPrice,jdbcType=DECIMAL},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      ma_rate = #{record.maRate,jdbcType=VARCHAR},
+      ma_sale_num = #{record.maSaleNum,jdbcType=INTEGER},
+      tips = #{record.tips,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      is_auto = #{record.isAuto,jdbcType=VARCHAR},
+      ma_url = #{record.maUrl,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -295,6 +366,24 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="maRate != null">
+        ma_rate = #{maRate,jdbcType=VARCHAR},
+      </if>
+      <if test="maSaleNum != null">
+        ma_sale_num = #{maSaleNum,jdbcType=INTEGER},
+      </if>
+      <if test="tips != null">
+        tips = #{tips,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuto != null">
+        is_auto = #{isAuto,jdbcType=VARCHAR},
+      </if>
+      <if test="maUrl != null">
+        ma_url = #{maUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     where ma_id = #{maId,jdbcType=INTEGER}
   </update>
@@ -310,7 +399,13 @@
       user_id = #{userId,jdbcType=INTEGER},
       ma_state = #{maState,jdbcType=INTEGER},
       ma_price = #{maPrice,jdbcType=DECIMAL},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      ma_rate = #{maRate,jdbcType=VARCHAR},
+      ma_sale_num = #{maSaleNum,jdbcType=INTEGER},
+      tips = #{tips,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      is_auto = #{isAuto,jdbcType=VARCHAR},
+      ma_url = #{maUrl,jdbcType=VARCHAR}
     where ma_id = #{maId,jdbcType=INTEGER}
   </update>
   <update id="updateBatch" parameterType="java.util.List">
@@ -367,6 +462,36 @@
           when ma_id = #{item.maId,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
         </foreach>
       </trim>
+      <trim prefix="ma_rate = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when ma_id = #{item.maId,jdbcType=INTEGER} then #{item.maRate,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="ma_sale_num = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when ma_id = #{item.maId,jdbcType=INTEGER} then #{item.maSaleNum,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="tips = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when ma_id = #{item.maId,jdbcType=INTEGER} then #{item.tips,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="user_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when ma_id = #{item.maId,jdbcType=INTEGER} then #{item.userName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="is_auto = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when ma_id = #{item.maId,jdbcType=INTEGER} then #{item.isAuto,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="ma_url = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when ma_id = #{item.maId,jdbcType=INTEGER} then #{item.maUrl,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
     </trim>
     where ma_id in
     <foreach close=")" collection="list" item="item" open="(" separator=", ">
@@ -377,13 +502,16 @@
     <!--@mbg.generated-->
     insert into jsoup_mission_all
     (ma_name, ma_tip, mal_start_url, ma_success_file_name, ma_user_id, ma_notice_email, 
-      user_id, ma_state, ma_price, create_time)
+      user_id, ma_state, ma_price, create_time, ma_rate, ma_sale_num, tips, user_name, 
+      is_auto, ma_url)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.maName,jdbcType=VARCHAR}, #{item.maTip,jdbcType=VARCHAR}, #{item.malStartUrl,jdbcType=VARCHAR}, 
         #{item.maSuccessFileName,jdbcType=VARCHAR}, #{item.maUserId,jdbcType=INTEGER}, 
         #{item.maNoticeEmail,jdbcType=VARCHAR}, #{item.userId,jdbcType=INTEGER}, #{item.maState,jdbcType=INTEGER}, 
-        #{item.maPrice,jdbcType=DECIMAL}, #{item.createTime,jdbcType=TIMESTAMP})
+        #{item.maPrice,jdbcType=DECIMAL}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.maRate,jdbcType=VARCHAR}, 
+        #{item.maSaleNum,jdbcType=INTEGER}, #{item.tips,jdbcType=VARCHAR}, #{item.userName,jdbcType=VARCHAR}, 
+        #{item.isAuto,jdbcType=VARCHAR}, #{item.maUrl,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="insertOrUpdate" keyColumn="ma_id" keyProperty="maId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll" useGeneratedKeys="true">
@@ -403,6 +531,12 @@
       ma_state,
       ma_price,
       create_time,
+      ma_rate,
+      ma_sale_num,
+      tips,
+      user_name,
+      is_auto,
+      ma_url,
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -419,6 +553,12 @@
       #{maState,jdbcType=INTEGER},
       #{maPrice,jdbcType=DECIMAL},
       #{createTime,jdbcType=TIMESTAMP},
+      #{maRate,jdbcType=VARCHAR},
+      #{maSaleNum,jdbcType=INTEGER},
+      #{tips,jdbcType=VARCHAR},
+      #{userName,jdbcType=VARCHAR},
+      #{isAuto,jdbcType=VARCHAR},
+      #{maUrl,jdbcType=VARCHAR},
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -435,6 +575,12 @@
       ma_state = #{maState,jdbcType=INTEGER},
       ma_price = #{maPrice,jdbcType=DECIMAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
+      ma_rate = #{maRate,jdbcType=VARCHAR},
+      ma_sale_num = #{maSaleNum,jdbcType=INTEGER},
+      tips = #{tips,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      is_auto = #{isAuto,jdbcType=VARCHAR},
+      ma_url = #{maUrl,jdbcType=VARCHAR},
     </trim>
   </insert>
   <insert id="insertOrUpdateSelective" keyColumn="ma_id" keyProperty="maId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll" useGeneratedKeys="true">
@@ -474,6 +620,24 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="maRate != null">
+        ma_rate,
+      </if>
+      <if test="maSaleNum != null">
+        ma_sale_num,
+      </if>
+      <if test="tips != null">
+        tips,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="isAuto != null">
+        is_auto,
+      </if>
+      <if test="maUrl != null">
+        ma_url,
+      </if>
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -510,6 +674,24 @@
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="maRate != null">
+        #{maRate,jdbcType=VARCHAR},
+      </if>
+      <if test="maSaleNum != null">
+        #{maSaleNum,jdbcType=INTEGER},
+      </if>
+      <if test="tips != null">
+        #{tips,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuto != null">
+        #{isAuto,jdbcType=VARCHAR},
+      </if>
+      <if test="maUrl != null">
+        #{maUrl,jdbcType=VARCHAR},
+      </if>
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -545,6 +727,24 @@
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maRate != null">
+        ma_rate = #{maRate,jdbcType=VARCHAR},
+      </if>
+      <if test="maSaleNum != null">
+        ma_sale_num = #{maSaleNum,jdbcType=INTEGER},
+      </if>
+      <if test="tips != null">
+        tips = #{tips,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuto != null">
+        is_auto = #{isAuto,jdbcType=VARCHAR},
+      </if>
+      <if test="maUrl != null">
+        ma_url = #{maUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>

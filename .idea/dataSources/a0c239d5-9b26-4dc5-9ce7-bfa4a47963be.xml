@@ -1207,24 +1207,54 @@ SELECT|sys.sys_config
       <Comment>创造时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <key id="364" parent="299" name="PRIMARY">
+    <column id="364" parent="299" name="ma_rate">
+      <Position>12</Position>
+      <Comment>评分</Comment>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="365" parent="299" name="ma_sale_num">
+      <Position>13</Position>
+      <Comment>售卖份数</Comment>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="366" parent="299" name="tips">
+      <Position>14</Position>
+      <Comment>标签</Comment>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="367" parent="299" name="user_name">
+      <Position>15</Position>
+      <Comment>作者名称</Comment>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="368" parent="299" name="is_auto">
+      <Position>16</Position>
+      <Comment>是否是官方来源</Comment>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="369" parent="299" name="ma_url">
+      <Position>17</Position>
+      <Comment>脚本图片</Comment>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <key id="370" parent="299" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ma_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="365" parent="300" name="mission_all_history_id">
+    <column id="371" parent="300" name="mission_all_history_id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="366" parent="300" name="mission_all_id">
+    <column id="372" parent="300" name="mission_all_id">
       <Position>2</Position>
       <Comment>总任务id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="367" parent="300" name="mission_state">
+    <column id="373" parent="300" name="mission_state">
       <Position>3</Position>
       <Comment>任务执行状态&#xd;
 0 或空 异常状态&#xd;
@@ -1234,42 +1264,42 @@ SELECT|sys.sys_config
 4 执行完成但失败</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="368" parent="300" name="mission_result_url">
+    <column id="374" parent="300" name="mission_result_url">
       <Position>4</Position>
       <Comment>执行完成文件地址</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="369" parent="300" name="user_id">
+    <column id="375" parent="300" name="user_id">
       <Position>5</Position>
       <Comment>用户id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="370" parent="300" name="mission_fail_reason">
+    <column id="376" parent="300" name="mission_fail_reason">
       <Position>6</Position>
       <Comment>失败原因</Comment>
       <DataType>varchar(5000)|0s</DataType>
     </column>
-    <column id="371" parent="300" name="sent_time">
+    <column id="377" parent="300" name="sent_time">
       <Position>7</Position>
       <Comment>发送执行时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="372" parent="300" name="finish_time">
+    <column id="378" parent="300" name="finish_time">
       <Position>8</Position>
       <Comment>完成时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="373" parent="300" name="mission_all_name">
+    <column id="379" parent="300" name="mission_all_name">
       <Position>9</Position>
       <Comment>任务名称</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="374" parent="300" name="mission_all_dis">
+    <column id="380" parent="300" name="mission_all_dis">
       <Position>10</Position>
       <Comment>任务作用</Comment>
       <DataType>varchar(1020)|0s</DataType>
     </column>
-    <column id="375" parent="300" name="on_sale">
+    <column id="381" parent="300" name="on_sale">
       <Position>11</Position>
       <Comment>0 未上架&#xd;
 1 已上架&#xd;
@@ -1277,822 +1307,857 @@ SELECT|sys.sys_config
       <DataType>varchar(255)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="376" parent="300" name="sale_price">
+    <column id="382" parent="300" name="sale_price">
       <Position>12</Position>
       <Comment>出售价格&#xd;
 </Comment>
       <DataType>decimal(10,2 digit)|0s</DataType>
     </column>
-    <key id="377" parent="300" name="PRIMARY">
+    <column id="383" parent="300" name="sale_rate">
+      <Position>13</Position>
+      <Comment>评分</Comment>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="384" parent="300" name="sale_num">
+      <Position>14</Position>
+      <Comment>出售份数</Comment>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="385" parent="300" name="tips">
+      <Position>15</Position>
+      <Comment>标签</Comment>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="386" parent="300" name="user_name">
+      <Position>16</Position>
+      <Comment>作者名称</Comment>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="387" parent="300" name="is_aoto">
+      <Position>17</Position>
+      <Comment>是否是官方来源</Comment>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="388" parent="300" name="hs_url">
+      <Position>18</Position>
+      <Comment>图片</Comment>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <key id="389" parent="300" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>mission_all_history_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="378" parent="301" name="mission_state_id">
+    <column id="390" parent="301" name="mission_state_id">
       <Position>1</Position>
       <Comment>历史状态id</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="379" parent="301" name="mission_id">
+    <column id="391" parent="301" name="mission_id">
       <Position>2</Position>
       <Comment>历史任务id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="380" parent="301" name="mission_time">
+    <column id="392" parent="301" name="mission_time">
       <Position>3</Position>
       <Comment>执行时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="381" parent="301" name="content">
+    <column id="393" parent="301" name="content">
       <Position>4</Position>
       <Comment>备注</Comment>
       <DataType>varchar(1000)|0s</DataType>
     </column>
-    <column id="382" parent="301" name="mission_all_id">
+    <column id="394" parent="301" name="mission_all_id">
       <Position>5</Position>
       <Comment>历史总任务id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <key id="383" parent="301" name="PRIMARY">
+    <key id="395" parent="301" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>mission_state_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="384" parent="302" name="mission_order_id">
+    <column id="396" parent="302" name="mission_order_id">
       <Position>1</Position>
       <Comment>主键id</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="385" parent="302" name="mo_mission_id">
+    <column id="397" parent="302" name="mo_mission_id">
       <Position>2</Position>
       <Comment>任务组id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="386" parent="302" name="mo_mission_all_id">
+    <column id="398" parent="302" name="mo_mission_all_id">
       <Position>3</Position>
       <Comment>主任务id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="387" parent="302" name="mo_add_time">
+    <column id="399" parent="302" name="mo_add_time">
       <Position>4</Position>
       <Comment>添加时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="388" parent="302" name="mo_rank">
+    <column id="400" parent="302" name="mo_rank">
       <Position>5</Position>
       <Comment>任务顺序</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <key id="389" parent="302" name="PRIMARY">
+    <key id="401" parent="302" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>mission_order_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="390" parent="303" name="pragram_id">
+    <column id="402" parent="303" name="pragram_id">
       <Position>1</Position>
       <Comment>字段id主键</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="391" parent="303" name="mission_id">
+    <column id="403" parent="303" name="mission_id">
       <Position>2</Position>
       <Comment>任务组id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="392" parent="303" name="action_id">
+    <column id="404" parent="303" name="action_id">
       <Position>3</Position>
       <Comment>动作id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="393" parent="303" name="pragram_type">
+    <column id="405" parent="303" name="pragram_type">
       <Position>4</Position>
       <Comment>值的数据类型 int  decimal  string  date  variable  page</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="394" parent="303" name="pragram_accuracy">
+    <column id="406" parent="303" name="pragram_accuracy">
       <Position>5</Position>
       <Comment>如果值为 decimal 的小数位数 最大值为5位</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="395" parent="303" name="is_ramdom">
+    <column id="407" parent="303" name="is_ramdom">
       <Position>6</Position>
       <Comment>0 为否  1 为是</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="396" parent="303" name="up_num">
+    <column id="408" parent="303" name="up_num">
       <Position>7</Position>
       <Comment>上区间 随机数</Comment>
       <DataType>decimal(20,5 digit)|0s</DataType>
     </column>
-    <column id="397" parent="303" name="down_num">
+    <column id="409" parent="303" name="down_num">
       <Position>8</Position>
       <Comment>下区间 随机数</Comment>
       <DataType>decimal(20,5 digit)|0s</DataType>
     </column>
-    <column id="398" parent="303" name="pragram_value">
+    <column id="410" parent="303" name="pragram_value">
       <Position>9</Position>
       <Comment>字段值</Comment>
       <DataType>varchar(5000)|0s</DataType>
     </column>
-    <column id="399" parent="303" name="mission_all_id">
+    <column id="411" parent="303" name="mission_all_id">
       <Position>10</Position>
       <Comment>主任务进程id 监控全进程id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="400" parent="303" name="program_content">
+    <column id="412" parent="303" name="program_content">
       <Position>11</Position>
       <Comment>字段别名 </Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <key id="401" parent="303" name="PRIMARY">
+    <key id="413" parent="303" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>pragram_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="402" parent="304" name="user_id">
+    <column id="414" parent="304" name="user_id">
       <Position>1</Position>
       <Comment>id</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="403" parent="304" name="username">
+    <column id="415" parent="304" name="username">
       <Position>2</Position>
       <Comment>账号</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="404" parent="304" name="password">
+    <column id="416" parent="304" name="password">
       <Position>3</Position>
       <Comment>密码</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="405" parent="304" name="create_time">
+    <column id="417" parent="304" name="create_time">
       <Position>4</Position>
       <Comment>建立时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="406" parent="304" name="user_token">
+    <column id="418" parent="304" name="user_token">
       <Position>5</Position>
       <Comment>用户标记 用于记录登录情况</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="407" parent="304" name="user_type">
+    <column id="419" parent="304" name="user_type">
       <Position>6</Position>
       <Comment>用户类型 用于记录用户类型&#xd;
 1001： root 类型&#xd;
 1002：customer 类型</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <key id="408" parent="304" name="PRIMARY">
+    <key id="420" parent="304" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="409" parent="305" name="user_assets_id">
+    <column id="421" parent="305" name="user_assets_id">
       <Position>1</Position>
       <Comment>用户资产id</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="410" parent="305" name="user_id">
+    <column id="422" parent="305" name="user_id">
       <Position>2</Position>
       <Comment>用户id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="411" parent="305" name="corn_num">
+    <column id="423" parent="305" name="corn_num">
       <Position>3</Position>
       <Comment>硬币数目</Comment>
       <DataType>decimal(15,2 digit)|0s</DataType>
     </column>
-    <column id="412" parent="305" name="gold_num">
+    <column id="424" parent="305" name="gold_num">
       <Position>4</Position>
       <Comment>金币数目</Comment>
       <DataType>decimal(15,2 digit)|0s</DataType>
     </column>
-    <key id="413" parent="305" name="PRIMARY">
+    <key id="425" parent="305" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_assets_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="414" parent="306" name="user_detail_id">
+    <column id="426" parent="306" name="user_detail_id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="415" parent="306" name="user_real_name">
+    <column id="427" parent="306" name="user_real_name">
       <Position>2</Position>
       <Comment>真名</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="416" parent="306" name="user_nick_name">
+    <column id="428" parent="306" name="user_nick_name">
       <Position>3</Position>
       <Comment>小名</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="417" parent="306" name="user_image_url">
+    <column id="429" parent="306" name="user_image_url">
       <Position>4</Position>
       <Comment>头像url</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="418" parent="306" name="user_des">
+    <column id="430" parent="306" name="user_des">
       <Position>5</Position>
       <Comment>描述-签名</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="419" parent="306" name="user_id">
+    <column id="431" parent="306" name="user_id">
       <Position>6</Position>
       <Comment>关连建</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="420" parent="306" name="user_email">
+    <column id="432" parent="306" name="user_email">
       <Position>7</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="421" parent="306" name="user_phone">
+    <column id="433" parent="306" name="user_phone">
       <Position>8</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <key id="422" parent="306" name="PRIMARY">
+    <key id="434" parent="306" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_detail_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="423" parent="307" name="order_id">
+    <column id="435" parent="307" name="order_id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="424" parent="307" name="user_id">
+    <column id="436" parent="307" name="user_id">
       <Position>2</Position>
       <DataType>int|0s</DataType>
     </column>
-    <column id="425" parent="307" name="mission_all_id">
+    <column id="437" parent="307" name="mission_all_id">
       <Position>3</Position>
       <DataType>int|0s</DataType>
     </column>
-    <column id="426" parent="307" name="create_time">
+    <column id="438" parent="307" name="create_time">
       <Position>4</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <key id="427" parent="307" name="PRIMARY">
+    <key id="439" parent="307" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>order_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="428" parent="308" name="order_id">
+    <column id="440" parent="308" name="order_id">
       <Position>1</Position>
       <Comment>订单号</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="429" parent="308" name="owner_user_id">
+    <column id="441" parent="308" name="owner_user_id">
       <Position>2</Position>
       <Comment>持有者id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="430" parent="308" name="customer_user_id">
+    <column id="442" parent="308" name="customer_user_id">
       <Position>3</Position>
       <Comment>购买者id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="431" parent="308" name="create_time">
+    <column id="443" parent="308" name="create_time">
       <Position>4</Position>
       <Comment>完成时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="432" parent="308" name="finish_price">
+    <column id="444" parent="308" name="finish_price">
       <Position>5</Position>
       <Comment>完成价格</Comment>
       <DataType>decimal(10,2 digit)|0s</DataType>
     </column>
-    <column id="433" parent="308" name="score">
+    <column id="445" parent="308" name="score">
       <Position>6</Position>
       <Comment>分数</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="434" parent="308" name="ma_id">
+    <column id="446" parent="308" name="ma_id">
       <Position>7</Position>
       <Comment>总任务id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <key id="435" parent="308" name="PRIMARY">
+    <column id="447" parent="308" name="des">
+      <Position>8</Position>
+      <Comment>评价内容</Comment>
+      <DataType>varchar(2000)|0s</DataType>
+    </column>
+    <key id="448" parent="308" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>order_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="436" parent="309" name="order_id">
+    <column id="449" parent="309" name="order_id">
       <Position>1</Position>
       <Comment>订单id</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="437" parent="309" name="owner_user_id">
+    <column id="450" parent="309" name="owner_user_id">
       <Position>2</Position>
       <Comment>持有者用户id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="438" parent="309" name="mh_id">
+    <column id="451" parent="309" name="mh_id">
       <Position>3</Position>
       <Comment>历史id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="439" parent="309" name="create_time">
+    <column id="452" parent="309" name="create_time">
       <Position>4</Position>
       <Comment>购买时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="440" parent="309" name="customer_user_id">
+    <column id="453" parent="309" name="customer_user_id">
       <Position>5</Position>
       <Comment>顾客id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="441" parent="309" name="finish_price">
+    <column id="454" parent="309" name="finish_price">
       <Position>6</Position>
       <Comment>购买时价格</Comment>
       <DataType>decimal(10,2 digit)|0s</DataType>
     </column>
-    <column id="442" parent="309" name="score">
+    <column id="455" parent="309" name="score">
       <Position>7</Position>
       <Comment>用户评分</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="443" parent="309" name="des">
+    <column id="456" parent="309" name="des">
       <Position>8</Position>
       <Comment>用户评价</Comment>
       <DataType>varchar(1020)|0s</DataType>
     </column>
-    <key id="444" parent="309" name="PRIMARY">
+    <key id="457" parent="309" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>order_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="445" parent="310" name="setting_id">
+    <column id="458" parent="310" name="setting_id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="446" parent="310" name="setting_value">
+    <column id="459" parent="310" name="setting_value">
       <Position>2</Position>
       <DataType>varchar(1000)|0s</DataType>
     </column>
-    <column id="447" parent="310" name="bios_id">
+    <column id="460" parent="310" name="bios_id">
       <Position>3</Position>
       <Comment>设备主板id</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="448" parent="310" name="setting_type">
+    <column id="461" parent="310" name="setting_type">
       <Position>4</Position>
       <Comment>1 .浏览器的执行器位置</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <key id="449" parent="310" name="PRIMARY">
+    <key id="462" parent="310" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>setting_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="450" parent="311" name="TASK_EXECUTION_ID">
+    <column id="463" parent="311" name="TASK_EXECUTION_ID">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="451" parent="311" name="START_TIME">
+    <column id="464" parent="311" name="START_TIME">
       <Position>2</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="452" parent="311" name="END_TIME">
+    <column id="465" parent="311" name="END_TIME">
       <Position>3</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="453" parent="311" name="TASK_NAME">
+    <column id="466" parent="311" name="TASK_NAME">
       <Position>4</Position>
       <DataType>varchar(100)|0s</DataType>
     </column>
-    <column id="454" parent="311" name="EXIT_CODE">
+    <column id="467" parent="311" name="EXIT_CODE">
       <Position>5</Position>
       <DataType>int|0s</DataType>
     </column>
-    <column id="455" parent="311" name="EXIT_MESSAGE">
+    <column id="468" parent="311" name="EXIT_MESSAGE">
       <Position>6</Position>
       <DataType>varchar(2500)|0s</DataType>
     </column>
-    <column id="456" parent="311" name="ERROR_MESSAGE">
+    <column id="469" parent="311" name="ERROR_MESSAGE">
       <Position>7</Position>
       <DataType>varchar(2500)|0s</DataType>
     </column>
-    <column id="457" parent="311" name="LAST_UPDATED">
+    <column id="470" parent="311" name="LAST_UPDATED">
       <Position>8</Position>
       <DataType>timestamp|0s</DataType>
     </column>
-    <column id="458" parent="311" name="EXTERNAL_EXECUTION_ID">
+    <column id="471" parent="311" name="EXTERNAL_EXECUTION_ID">
       <Position>9</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="459" parent="311" name="PARENT_EXECUTION_ID">
+    <column id="472" parent="311" name="PARENT_EXECUTION_ID">
       <Position>10</Position>
       <DataType>bigint|0s</DataType>
     </column>
-    <key id="460" parent="311" name="PRIMARY">
+    <key id="473" parent="311" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>TASK_EXECUTION_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="461" parent="312" name="TASK_EXECUTION_ID">
+    <column id="474" parent="312" name="TASK_EXECUTION_ID">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="462" parent="312" name="TASK_PARAM">
+    <column id="475" parent="312" name="TASK_PARAM">
       <Position>2</Position>
       <DataType>varchar(2500)|0s</DataType>
     </column>
-    <index id="463" parent="312" name="TASK_EXEC_PARAMS_FK">
+    <index id="476" parent="312" name="TASK_EXEC_PARAMS_FK">
       <ColNames>TASK_EXECUTION_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <foreign-key id="464" parent="312" name="TASK_EXEC_PARAMS_FK">
+    <foreign-key id="477" parent="312" name="TASK_EXEC_PARAMS_FK">
       <ColNames>TASK_EXECUTION_ID</ColNames>
       <RefTableName>task_execution</RefTableName>
       <RefColNames>TASK_EXECUTION_ID</RefColNames>
     </foreign-key>
-    <column id="465" parent="313" name="LOCK_KEY">
+    <column id="478" parent="313" name="LOCK_KEY">
       <Position>1</Position>
       <DataType>char(36)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="466" parent="313" name="REGION">
+    <column id="479" parent="313" name="REGION">
       <Position>2</Position>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="467" parent="313" name="CLIENT_ID">
+    <column id="480" parent="313" name="CLIENT_ID">
       <Position>3</Position>
       <DataType>char(36)|0s</DataType>
     </column>
-    <column id="468" parent="313" name="CREATED_DATE">
+    <column id="481" parent="313" name="CREATED_DATE">
       <Position>4</Position>
       <DataType>datetime(6)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="469" parent="313" name="PRIMARY">
+    <key id="482" parent="313" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>LOCK_KEY
 REGION</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="470" parent="314" name="ID">
+    <column id="483" parent="314" name="ID">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="471" parent="314" name="UNIQUE_KEY">
+    <column id="484" parent="314" name="UNIQUE_KEY">
       <Position>2</Position>
       <DataType>char(1)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="472" parent="314" name="UNIQUE_KEY_UN">
+    <index id="485" parent="314" name="UNIQUE_KEY_UN">
       <ColNames>UNIQUE_KEY</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="473" parent="314" name="UNIQUE_KEY_UN">
+    <key id="486" parent="314" name="UNIQUE_KEY_UN">
       <ColNames>UNIQUE_KEY</ColNames>
       <UnderlyingIndexName>UNIQUE_KEY_UN</UnderlyingIndexName>
     </key>
-    <column id="474" parent="315" name="TASK_EXECUTION_ID">
+    <column id="487" parent="315" name="TASK_EXECUTION_ID">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="475" parent="315" name="JOB_EXECUTION_ID">
+    <column id="488" parent="315" name="JOB_EXECUTION_ID">
       <Position>2</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="476" parent="315" name="TASK_EXEC_BATCH_FK">
+    <index id="489" parent="315" name="TASK_EXEC_BATCH_FK">
       <ColNames>TASK_EXECUTION_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <foreign-key id="477" parent="315" name="TASK_EXEC_BATCH_FK">
+    <foreign-key id="490" parent="315" name="TASK_EXEC_BATCH_FK">
       <ColNames>TASK_EXECUTION_ID</ColNames>
       <RefTableName>task_execution</RefTableName>
       <RefColNames>TASK_EXECUTION_ID</RefColNames>
     </foreign-key>
-    <column id="478" parent="316" name="id">
+    <column id="491" parent="316" name="id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="479" parent="316" name="kente_id">
+    <column id="492" parent="316" name="kente_id">
       <Position>2</Position>
       <DataType>int|0s</DataType>
     </column>
-    <column id="480" parent="316" name="approve_one">
+    <column id="493" parent="316" name="approve_one">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="481" parent="316" name="approve_two">
+    <column id="494" parent="316" name="approve_two">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="482" parent="316" name="approve_three">
+    <column id="495" parent="316" name="approve_three">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="483" parent="316" name="approve_four">
+    <column id="496" parent="316" name="approve_four">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="484" parent="316" name="approve_five">
+    <column id="497" parent="316" name="approve_five">
       <Position>7</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="485" parent="316" name="approve_six">
+    <column id="498" parent="316" name="approve_six">
       <Position>8</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <key id="486" parent="316" name="PRIMARY">
+    <key id="499" parent="316" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="487" parent="317" name="id">
+    <column id="500" parent="317" name="id">
       <Position>1</Position>
       <Comment>主键id</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="488" parent="317" name="mouth">
+    <column id="501" parent="317" name="mouth">
       <Position>2</Position>
       <Comment>月份</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="489" parent="317" name="date">
+    <column id="502" parent="317" name="date">
       <Position>3</Position>
       <Comment>日期</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="490" parent="317" name="business_creater">
+    <column id="503" parent="317" name="business_creater">
       <Position>4</Position>
       <Comment>商务制作人</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="491" parent="317" name="tech_creater">
+    <column id="504" parent="317" name="tech_creater">
       <Position>5</Position>
       <Comment>技术制作人</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="492" parent="317" name="industry">
+    <column id="505" parent="317" name="industry">
       <Position>6</Position>
       <Comment>行业分类</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="493" parent="317" name="lv">
+    <column id="506" parent="317" name="lv">
       <Position>7</Position>
       <Comment>级别</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="494" parent="317" name="type">
+    <column id="507" parent="317" name="type">
       <Position>8</Position>
       <Comment>项目类别</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="495" parent="317" name="pro_name">
+    <column id="508" parent="317" name="pro_name">
       <Position>9</Position>
       <Comment>产品名称</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="496" parent="317" name="name">
+    <column id="509" parent="317" name="name">
       <Position>10</Position>
       <Comment>项目名称</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="497" parent="317" name="customer">
+    <column id="510" parent="317" name="customer">
       <Position>11</Position>
       <Comment>招标单位</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="498" parent="317" name="need_num">
+    <column id="511" parent="317" name="need_num">
       <Position>12</Position>
       <Comment>数量</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="499" parent="317" name="need_price">
+    <column id="512" parent="317" name="need_price">
       <Position>13</Position>
       <Comment>招标金额</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="500" parent="317" name="after_result">
+    <column id="513" parent="317" name="after_result">
       <Position>14</Position>
       <Comment>投标结果</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="501" parent="317" name="after_price">
+    <column id="514" parent="317" name="after_price">
       <Position>15</Position>
       <Comment>中标金额</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="502" parent="317" name="after_reason">
+    <column id="515" parent="317" name="after_reason">
       <Position>16</Position>
       <Comment>未中原因</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="503" parent="317" name="after_company">
+    <column id="516" parent="317" name="after_company">
       <Position>17</Position>
       <Comment>中标单位</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="504" parent="317" name="price">
+    <column id="517" parent="317" name="price">
       <Position>18</Position>
       <Comment>金额</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="505" parent="317" name="can_not_reason">
+    <column id="518" parent="317" name="can_not_reason">
       <Position>19</Position>
       <Comment>未中标原因分析</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="506" parent="317" name="department">
+    <column id="519" parent="317" name="department">
       <Position>20</Position>
       <Comment>部门</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="507" parent="317" name="sale_area">
+    <column id="520" parent="317" name="sale_area">
       <Position>21</Position>
       <Comment>销售区域</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="508" parent="317" name="sale_man">
+    <column id="521" parent="317" name="sale_man">
       <Position>22</Position>
       <Comment>销售</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="509" parent="317" name="task_id">
+    <column id="522" parent="317" name="task_id">
       <Position>23</Position>
       <Comment>任务id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <key id="510" parent="317" name="PRIMARY">
+    <key id="523" parent="317" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="511" parent="318" name="id">
+    <column id="524" parent="318" name="id">
       <Position>1</Position>
       <Comment>id</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="512" parent="318" name="mouth">
+    <column id="525" parent="318" name="mouth">
       <Position>2</Position>
       <Comment>月份</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="513" parent="318" name="start_time">
+    <column id="526" parent="318" name="start_time">
       <Position>3</Position>
       <Comment>开标日期</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="514" parent="318" name="type">
+    <column id="527" parent="318" name="type">
       <Position>4</Position>
       <Comment>行业分类</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="515" parent="318" name="lv">
+    <column id="528" parent="318" name="lv">
       <Position>5</Position>
       <Comment>级别</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="516" parent="318" name="obj_type">
+    <column id="529" parent="318" name="obj_type">
       <Position>6</Position>
       <Comment>项目类别</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="517" parent="318" name="pro_type">
+    <column id="530" parent="318" name="pro_type">
       <Position>7</Position>
       <Comment>产品类别</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="518" parent="318" name="other_name">
+    <column id="531" parent="318" name="other_name">
       <Position>8</Position>
       <Comment>代理商名称</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="519" parent="318" name="project_id">
+    <column id="532" parent="318" name="project_id">
       <Position>9</Position>
       <Comment>项目编号</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="520" parent="318" name="project_name">
+    <column id="533" parent="318" name="project_name">
       <Position>10</Position>
       <Comment>项目名称</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="521" parent="318" name="final_user_name">
+    <column id="534" parent="318" name="final_user_name">
       <Position>11</Position>
       <Comment>终端用户名称</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="522" parent="318" name="need_num">
+    <column id="535" parent="318" name="need_num">
       <Position>12</Position>
       <Comment>招标数量</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="523" parent="318" name="need_price">
+    <column id="536" parent="318" name="need_price">
       <Position>13</Position>
       <Comment>招标金额</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="524" parent="318" name="need_res">
+    <column id="537" parent="318" name="need_res">
       <Position>14</Position>
       <Comment>投标结果</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="525" parent="318" name="final_win">
+    <column id="538" parent="318" name="final_win">
       <Position>15</Position>
       <Comment>中标单位</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="526" parent="318" name="not_reason">
+    <column id="539" parent="318" name="not_reason">
       <Position>16</Position>
       <Comment>未中标原因</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="527" parent="318" name="final_price">
+    <column id="540" parent="318" name="final_price">
       <Position>17</Position>
       <Comment>中标金额</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="528" parent="318" name="not_reason_detail">
+    <column id="541" parent="318" name="not_reason_detail">
       <Position>18</Position>
       <Comment>未中标原因 详细</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="529" parent="318" name="have_contract">
+    <column id="542" parent="318" name="have_contract">
       <Position>19</Position>
       <Comment>KenteExcel</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="530" parent="318" name="contract_price">
+    <column id="543" parent="318" name="contract_price">
       <Position>20</Position>
       <Comment>合同金额</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="531" parent="318" name="department">
+    <column id="544" parent="318" name="department">
       <Position>21</Position>
       <Comment>部门</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="532" parent="318" name="sale_area">
+    <column id="545" parent="318" name="sale_area">
       <Position>22</Position>
       <Comment>销售区域</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="533" parent="318" name="sale_man">
+    <column id="546" parent="318" name="sale_man">
       <Position>23</Position>
       <Comment>销售</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="534" parent="318" name="un_tract_num">
+    <column id="547" parent="318" name="un_tract_num">
       <Position>24</Position>
       <Comment>未中次数</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="535" parent="318" name="task_id">
+    <column id="548" parent="318" name="task_id">
       <Position>25</Position>
       <Comment>任务id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <key id="536" parent="318" name="PRIMARY">
+    <key id="549" parent="318" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="537" parent="319" name="id">
+    <column id="550" parent="319" name="id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="538" parent="319" name="operate_time">
+    <column id="551" parent="319" name="operate_time">
       <Position>2</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <key id="539" parent="319" name="PRIMARY">
+    <key id="552" parent="319" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

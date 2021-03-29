@@ -1,5 +1,6 @@
 package dam.jsoup.updatereport.updatreport.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -80,8 +81,45 @@ public class JsoupMissionAll implements Serializable {
     /**
      * 创造时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "创造时间")
     private Date createTime;
+
+    /**
+     * 评分
+     */
+    @ApiModelProperty(value = "评分")
+    private String maRate;
+
+    /**
+     * 售卖份数
+     */
+    @ApiModelProperty(value = "售卖份数")
+    private Integer maSaleNum;
+
+    /**
+     * 标签
+     */
+    @ApiModelProperty(value = "标签")
+    private String tips;
+
+    /**
+     * 作者名称
+     */
+    @ApiModelProperty(value = "作者名称")
+    private String userName;
+
+    /**
+     * 是否是官方来源
+     */
+    @ApiModelProperty(value = "是否是官方来源")
+    private String isAuto;
+
+    /**
+     * 脚本图片
+     */
+    @ApiModelProperty(value = "脚本图片")
+    private String maUrl;
 
     private static final long serialVersionUID = 1L;
 }

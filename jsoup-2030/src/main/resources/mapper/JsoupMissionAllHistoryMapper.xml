@@ -16,6 +16,12 @@
     <result column="mission_all_dis" jdbcType="VARCHAR" property="missionAllDis" />
     <result column="on_sale" jdbcType="VARCHAR" property="onSale" />
     <result column="sale_price" jdbcType="DECIMAL" property="salePrice" />
+    <result column="sale_rate" jdbcType="VARCHAR" property="saleRate" />
+    <result column="sale_num" jdbcType="INTEGER" property="saleNum" />
+    <result column="tips" jdbcType="VARCHAR" property="tips" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="is_aoto" jdbcType="VARCHAR" property="isAoto" />
+    <result column="hs_url" jdbcType="VARCHAR" property="hsUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated-->
@@ -81,7 +87,7 @@
     <!--@mbg.generated-->
     mission_all_history_id, mission_all_id, mission_state, mission_result_url, user_id, 
     mission_fail_reason, sent_time, finish_time, mission_all_name, mission_all_dis, on_sale, 
-    sale_price
+    sale_price, sale_rate, sale_num, tips, user_name, is_aoto, hs_url
   </sql>
   <select id="selectByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistoryExample" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -122,11 +128,15 @@
     insert into jsoup_mission_all_history (mission_all_id, mission_state, mission_result_url, 
       user_id, mission_fail_reason, sent_time, 
       finish_time, mission_all_name, mission_all_dis, 
-      on_sale, sale_price)
+      on_sale, sale_price, sale_rate, 
+      sale_num, tips, user_name, 
+      is_aoto, hs_url)
     values (#{missionAllId,jdbcType=INTEGER}, #{missionState,jdbcType=VARCHAR}, #{missionResultUrl,jdbcType=VARCHAR}, 
       #{userId,jdbcType=INTEGER}, #{missionFailReason,jdbcType=VARCHAR}, #{sentTime,jdbcType=TIMESTAMP}, 
       #{finishTime,jdbcType=TIMESTAMP}, #{missionAllName,jdbcType=VARCHAR}, #{missionAllDis,jdbcType=VARCHAR}, 
-      #{onSale,jdbcType=VARCHAR}, #{salePrice,jdbcType=DECIMAL})
+      #{onSale,jdbcType=VARCHAR}, #{salePrice,jdbcType=DECIMAL}, #{saleRate,jdbcType=VARCHAR}, 
+      #{saleNum,jdbcType=INTEGER}, #{tips,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{isAoto,jdbcType=VARCHAR}, #{hsUrl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="mission_all_history_id" keyProperty="missionAllHistoryId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -165,6 +175,24 @@
       <if test="salePrice != null">
         sale_price,
       </if>
+      <if test="saleRate != null">
+        sale_rate,
+      </if>
+      <if test="saleNum != null">
+        sale_num,
+      </if>
+      <if test="tips != null">
+        tips,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="isAoto != null">
+        is_aoto,
+      </if>
+      <if test="hsUrl != null">
+        hs_url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="missionAllId != null">
@@ -199,6 +227,24 @@
       </if>
       <if test="salePrice != null">
         #{salePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="saleRate != null">
+        #{saleRate,jdbcType=VARCHAR},
+      </if>
+      <if test="saleNum != null">
+        #{saleNum,jdbcType=INTEGER},
+      </if>
+      <if test="tips != null">
+        #{tips,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAoto != null">
+        #{isAoto,jdbcType=VARCHAR},
+      </if>
+      <if test="hsUrl != null">
+        #{hsUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -249,6 +295,24 @@
       <if test="record.salePrice != null">
         sale_price = #{record.salePrice,jdbcType=DECIMAL},
       </if>
+      <if test="record.saleRate != null">
+        sale_rate = #{record.saleRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleNum != null">
+        sale_num = #{record.saleNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.tips != null">
+        tips = #{record.tips,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isAoto != null">
+        is_aoto = #{record.isAoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hsUrl != null">
+        hs_url = #{record.hsUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -268,7 +332,13 @@
       mission_all_name = #{record.missionAllName,jdbcType=VARCHAR},
       mission_all_dis = #{record.missionAllDis,jdbcType=VARCHAR},
       on_sale = #{record.onSale,jdbcType=VARCHAR},
-      sale_price = #{record.salePrice,jdbcType=DECIMAL}
+      sale_price = #{record.salePrice,jdbcType=DECIMAL},
+      sale_rate = #{record.saleRate,jdbcType=VARCHAR},
+      sale_num = #{record.saleNum,jdbcType=INTEGER},
+      tips = #{record.tips,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      is_aoto = #{record.isAoto,jdbcType=VARCHAR},
+      hs_url = #{record.hsUrl,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -310,6 +380,24 @@
       <if test="salePrice != null">
         sale_price = #{salePrice,jdbcType=DECIMAL},
       </if>
+      <if test="saleRate != null">
+        sale_rate = #{saleRate,jdbcType=VARCHAR},
+      </if>
+      <if test="saleNum != null">
+        sale_num = #{saleNum,jdbcType=INTEGER},
+      </if>
+      <if test="tips != null">
+        tips = #{tips,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAoto != null">
+        is_aoto = #{isAoto,jdbcType=VARCHAR},
+      </if>
+      <if test="hsUrl != null">
+        hs_url = #{hsUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     where mission_all_history_id = #{missionAllHistoryId,jdbcType=INTEGER}
   </update>
@@ -326,7 +414,13 @@
       mission_all_name = #{missionAllName,jdbcType=VARCHAR},
       mission_all_dis = #{missionAllDis,jdbcType=VARCHAR},
       on_sale = #{onSale,jdbcType=VARCHAR},
-      sale_price = #{salePrice,jdbcType=DECIMAL}
+      sale_price = #{salePrice,jdbcType=DECIMAL},
+      sale_rate = #{saleRate,jdbcType=VARCHAR},
+      sale_num = #{saleNum,jdbcType=INTEGER},
+      tips = #{tips,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      is_aoto = #{isAoto,jdbcType=VARCHAR},
+      hs_url = #{hsUrl,jdbcType=VARCHAR}
     where mission_all_history_id = #{missionAllHistoryId,jdbcType=INTEGER}
   </update>
   <update id="updateBatch" parameterType="java.util.List">
@@ -388,6 +482,36 @@
           when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.salePrice,jdbcType=DECIMAL}
         </foreach>
       </trim>
+      <trim prefix="sale_rate = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.saleRate,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="sale_num = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.saleNum,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="tips = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.tips,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="user_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.userName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="is_aoto = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.isAoto,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="hs_url = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.hsUrl,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
     </trim>
     where mission_all_history_id in
     <foreach close=")" collection="list" item="item" open="(" separator=", ">
@@ -398,13 +522,16 @@
     <!--@mbg.generated-->
     insert into jsoup_mission_all_history
     (mission_all_id, mission_state, mission_result_url, user_id, mission_fail_reason, 
-      sent_time, finish_time, mission_all_name, mission_all_dis, on_sale, sale_price)
+      sent_time, finish_time, mission_all_name, mission_all_dis, on_sale, sale_price, 
+      sale_rate, sale_num, tips, user_name, is_aoto, hs_url)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.missionAllId,jdbcType=INTEGER}, #{item.missionState,jdbcType=VARCHAR}, #{item.missionResultUrl,jdbcType=VARCHAR}, 
         #{item.userId,jdbcType=INTEGER}, #{item.missionFailReason,jdbcType=VARCHAR}, #{item.sentTime,jdbcType=TIMESTAMP}, 
         #{item.finishTime,jdbcType=TIMESTAMP}, #{item.missionAllName,jdbcType=VARCHAR}, 
-        #{item.missionAllDis,jdbcType=VARCHAR}, #{item.onSale,jdbcType=VARCHAR}, #{item.salePrice,jdbcType=DECIMAL}
+        #{item.missionAllDis,jdbcType=VARCHAR}, #{item.onSale,jdbcType=VARCHAR}, #{item.salePrice,jdbcType=DECIMAL}, 
+        #{item.saleRate,jdbcType=VARCHAR}, #{item.saleNum,jdbcType=INTEGER}, #{item.tips,jdbcType=VARCHAR}, 
+        #{item.userName,jdbcType=VARCHAR}, #{item.isAoto,jdbcType=VARCHAR}, #{item.hsUrl,jdbcType=VARCHAR}
         )
     </foreach>
   </insert>
@@ -426,6 +553,12 @@
       mission_all_dis,
       on_sale,
       sale_price,
+      sale_rate,
+      sale_num,
+      tips,
+      user_name,
+      is_aoto,
+      hs_url,
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -443,6 +576,12 @@
       #{missionAllDis,jdbcType=VARCHAR},
       #{onSale,jdbcType=VARCHAR},
       #{salePrice,jdbcType=DECIMAL},
+      #{saleRate,jdbcType=VARCHAR},
+      #{saleNum,jdbcType=INTEGER},
+      #{tips,jdbcType=VARCHAR},
+      #{userName,jdbcType=VARCHAR},
+      #{isAoto,jdbcType=VARCHAR},
+      #{hsUrl,jdbcType=VARCHAR},
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -460,6 +599,12 @@
       mission_all_dis = #{missionAllDis,jdbcType=VARCHAR},
       on_sale = #{onSale,jdbcType=VARCHAR},
       sale_price = #{salePrice,jdbcType=DECIMAL},
+      sale_rate = #{saleRate,jdbcType=VARCHAR},
+      sale_num = #{saleNum,jdbcType=INTEGER},
+      tips = #{tips,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      is_aoto = #{isAoto,jdbcType=VARCHAR},
+      hs_url = #{hsUrl,jdbcType=VARCHAR},
     </trim>
   </insert>
   <insert id="insertOrUpdateSelective" keyColumn="mission_all_history_id" keyProperty="missionAllHistoryId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory" useGeneratedKeys="true">
@@ -502,6 +647,24 @@
       <if test="salePrice != null">
         sale_price,
       </if>
+      <if test="saleRate != null">
+        sale_rate,
+      </if>
+      <if test="saleNum != null">
+        sale_num,
+      </if>
+      <if test="tips != null">
+        tips,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="isAoto != null">
+        is_aoto,
+      </if>
+      <if test="hsUrl != null">
+        hs_url,
+      </if>
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -541,6 +704,24 @@
       <if test="salePrice != null">
         #{salePrice,jdbcType=DECIMAL},
       </if>
+      <if test="saleRate != null">
+        #{saleRate,jdbcType=VARCHAR},
+      </if>
+      <if test="saleNum != null">
+        #{saleNum,jdbcType=INTEGER},
+      </if>
+      <if test="tips != null">
+        #{tips,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAoto != null">
+        #{isAoto,jdbcType=VARCHAR},
+      </if>
+      <if test="hsUrl != null">
+        #{hsUrl,jdbcType=VARCHAR},
+      </if>
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -579,6 +760,24 @@
       </if>
       <if test="salePrice != null">
         sale_price = #{salePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="saleRate != null">
+        sale_rate = #{saleRate,jdbcType=VARCHAR},
+      </if>
+      <if test="saleNum != null">
+        sale_num = #{saleNum,jdbcType=INTEGER},
+      </if>
+      <if test="tips != null">
+        tips = #{tips,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAoto != null">
+        is_aoto = #{isAoto,jdbcType=VARCHAR},
+      </if>
+      <if test="hsUrl != null">
+        hs_url = #{hsUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
