@@ -4,7 +4,6 @@ import dam.jsoup.updatereport.updatreport.util.mId.ExecCmd;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 public class ExceCmdDemo {
     @Test
     void go() {

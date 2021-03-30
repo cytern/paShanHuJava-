@@ -18,15 +18,21 @@ spring:
     restart:
       enabled: true
       additional-paths: src/mian/java
-  #  eureka 配置
-eureka:
-  client:
-    service-url:
-      defaultZone: http://10.147.19.98:2020/eureka/  #注册位置
-  instance:
-    instance-id: spring-cloud-server-2040
-    prefer-ip-address: true
+#  #  eureka 配置
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://10.147.19.98:2020/eureka/  #注册位置
+#  instance:
+#    instance-id: spring-cloud-server-2040
+#    prefer-ip-address: true
 
+task:
+  pool:
+    corePoolSize: 5 #设置核心线程数
+    maxPoolSize: 20  #设置最大线程数
+    keepAliveSeconds: 300 #设置线程活跃时间（秒）
+    queueCapacity: 50 #设置队列容量
   #info 配置
 info:
   app.name: 服务端
