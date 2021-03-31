@@ -8,23 +8,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.boot.ApplicationArguments;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Scope(scopeName = "prototype")
 @Service
 @Slf4j
 public class ExcutorServiceImpl implements ExcutorService {
 
-
-    private final ApplicationArguments applicationArguments;
-
-    public ExcutorServiceImpl(ApplicationArguments applicationArguments) {
-        this.applicationArguments = applicationArguments;
-    }
 
     /**
      * 执行脚本
