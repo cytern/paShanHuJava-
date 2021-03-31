@@ -42,12 +42,17 @@ public class RunJsoupServiceImpl implements RunJsoupService {
             /**
              * 循环执行 获取 任务 执行任务的程序
              */
-          getNewTask();
+            try {
+                getNewTask();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                log.info("线程休眠错误");
+            }
         }
     }
 
 
-    private void getNewTask(){
+    private void getNewTask() throws InterruptedException {
         //准备请求的参数
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         //cpu 识别码 未来可能替换成为token
@@ -58,9 +63,10 @@ public class RunJsoupServiceImpl implements RunJsoupService {
         while (getData) {
             try {
                 missionAllData = HttpUtils.getDataApi(configBean.getGetTask(),params);
-                Thread.sleep(30000);
+                getData = false;
             } catch (Exception e) {
-               log.error("获取数据失败",e);
+               log.error("网络请求失败");
+                Thread.sleep(30000);
             }
         }
         Map map = new HashMap();
@@ -79,9 +85,10 @@ public class RunJsoupServiceImpl implements RunJsoupService {
         while (sendData) {
             try {
                 sendData = !HttpUtils.sendDataApi(configBean.getReturnTask(),map);
-                Thread.sleep(30000);
+                sendData = false;
             } catch (Exception e) {
-                log.error("网络请求失败",e);
+                log.error("网络请求失败");
+                Thread.sleep(30000);
             }
         }
 

@@ -38,6 +38,9 @@ public class HttpUtils {
             e.printStackTrace();
             throw new Exception(e);
         }
+        if (missionAllData == null){
+            throw new Exception("无效的数据");
+        }
 
 
         return missionAllData;

@@ -19,13 +19,13 @@ spring:
       enabled: true
       additional-paths: src/mian/java
 #  #  eureka 配置
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://10.147.19.98:2020/eureka/  #注册位置
-#  instance:
-#    instance-id: spring-cloud-server-2040
-#    prefer-ip-address: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://10.147.19.98:2020/eureka/  #注册位置
+  instance:
+    instance-id: spring-cloud-server-2040
+    prefer-ip-address: true
 
 task:
   pool:
