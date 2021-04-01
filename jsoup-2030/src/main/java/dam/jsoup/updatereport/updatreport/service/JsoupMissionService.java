@@ -85,4 +85,15 @@ public interface JsoupMissionService {
      * @return
      */
     Map byMh(Integer userId,Integer mhId);
+
+    /**
+     * 通过 ma 或者 mh 的id 获取 一个详细信息
+     * @param id id
+     * @param type 类型 1 为 ma 2 为mh
+     * @return
+     */
+    Map getGoodUserDetail(Integer id,Integer type);
+
+
+    List getGoodOrderDetail(Integer id,Integer type);
 }

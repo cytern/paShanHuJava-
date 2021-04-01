@@ -270,4 +270,34 @@ public class OrderServiceController {
     }
 
 
+    @GetMapping("customer/getGoodDetailUsaer/{id}/{type}")
+    Map getGoodDetailUser(@PathVariable Integer id,@PathVariable Integer type) {
+        log.info("************ 商品详情 用户信息***************");
+        Map map = null;
+        try {
+            map = missionService.getGoodUserDetail(id, type);
+        } catch (Exception e) {
+            map = MyResponse.myResponseError(e.getMessage());
+            log.error("购买脚本失败,错误原因=[{}],用户id=[{}],maId =[{}]", e, id, type);
+            map = MyResponse.myResponseError("获取信息失败");
+        }
+        return map;
+    }
+
+    @GetMapping("customer/getSalesMh/{id}/{type}/{pageSize}/{index}")
+    Map getGoodDetailOrder(@PathVariable Integer pageSize, @PathVariable Integer index,@PathVariable Integer id,@PathVariable Integer type) {
+        log.info("************ 商品详情 评价信息***************");
+        Map map = new HashMap();
+        List list = new ArrayList<>();
+        try {
+            list = missionService.getGoodOrderDetail(id,type);
+            map = PageHelper.page(list, pageSize, index, "desList");
+        } catch (Exception e) {
+            log.error("************ 获取商品详情 评价信息 失败***************", e);
+            map = MyResponse.myResponseError("获取信息失败");
+        }
+        return map;
+
+    }
+
 }

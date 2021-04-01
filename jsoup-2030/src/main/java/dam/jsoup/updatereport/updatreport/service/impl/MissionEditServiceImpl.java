@@ -31,12 +31,13 @@ public class MissionEditServiceImpl implements JsoupMissionService {
     private final OrderJsoupMaMapper orderJsoupMaMapper;
     private final OrderJsoupMhMapper orderJsoupMhMapper;
     private final JsoupUserAssetsMapper assetsMapper;
+    private final JsoupUserDetailMapper userDetailMapper;
 
 
 
 
 
-    public MissionEditServiceImpl(JsoupMissionAllMapper jsoupMissionAllMapper, JsoupMissionMapper jsoupMissionMapper, JsoupPragramMapper pragramMapper, JsoupMissionOrderMapper orderMapper, JsoupActionService actionEditService, JsoupUserOrderMapper userOrderMapper, JsoupMissionAllHistoryMapper missionAllHistoryMapper, JsoupActionOrderMapper actionOrderMapper, JsoupActionMapper actionMapper, OrderJsoupMaMapper orderJsoupMaMapper, OrderJsoupMhMapper orderJsoupMhMapper, JsoupUserAssetsMapper assetsMapper) {
+    public MissionEditServiceImpl(JsoupMissionAllMapper jsoupMissionAllMapper, JsoupMissionMapper jsoupMissionMapper, JsoupPragramMapper pragramMapper, JsoupMissionOrderMapper orderMapper, JsoupActionService actionEditService, JsoupUserOrderMapper userOrderMapper, JsoupMissionAllHistoryMapper missionAllHistoryMapper, JsoupActionOrderMapper actionOrderMapper, JsoupActionMapper actionMapper, OrderJsoupMaMapper orderJsoupMaMapper, OrderJsoupMhMapper orderJsoupMhMapper, JsoupUserAssetsMapper assetsMapper, JsoupUserDetailMapper userDetailMapper) {
         this.jsoupMissionAllMapper = jsoupMissionAllMapper;
         this.jsoupMissionMapper = jsoupMissionMapper;
         this.pragramMapper = pragramMapper;
@@ -49,6 +50,7 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         this.orderJsoupMaMapper = orderJsoupMaMapper;
         this.orderJsoupMhMapper = orderJsoupMhMapper;
         this.assetsMapper = assetsMapper;
+        this.userDetailMapper = userDetailMapper;
     }
 
 
@@ -453,6 +455,51 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         orderJsoupMhMapper.insertSelective(jsoupMh);
         return MyResponse.myResponseOk("购买成功");
 
+    }
+
+    /**
+     * 通过 ma 或者 mh 的id 获取 一个详细信息
+     *
+     * @param id   id
+     * @param type 类型 1 为 ma 2 为mh
+     * @return
+     */
+    @Override
+    public Map getGoodUserDetail(Integer id, Integer type) {
+        Map res = new HashMap();
+        Integer userId = 0;
+        //获取历史订单从而获取评价
+        if (type == 1) {
+            JsoupMissionAll missionAll = jsoupMissionAllMapper.selectByPrimaryKey(id);
+            userId = missionAll.getUserId();
+        }else {
+            JsoupMissionAllHistory history = missionAllHistoryMapper.selectByPrimaryKey(id);
+            userId = history.getUserId();
+        }
+        //获取用户详细信息
+        JsoupUserDetailExample detailExample = new JsoupUserDetailExample();
+        detailExample.createCriteria().andUserIdEqualTo(userId);
+        List<JsoupUserDetail> jsoupUserDetails = userDetailMapper.selectByExample(detailExample);
+        if (jsoupUserDetails.size() <1) {
+            return MyResponse.myResponseError("无效的数据");
+        }else {
+            res.put("userDetail",jsoupUserDetails.get(0));
+           return  MyResponse.myResponseOk(res);
+        }
+    }
+
+    @Override
+    public List getGoodOrderDetail(Integer id, Integer type) {
+
+        if (type == 1) {
+           OrderJsoupMaExample example = new OrderJsoupMaExample();
+           example.createCriteria().andMaIdEqualTo(id);
+            return orderJsoupMaMapper.selectByExample(example);
+        }else {
+            OrderJsoupMhExample example = new OrderJsoupMhExample();
+            example.createCriteria().andMhIdEqualTo(id);
+            return  orderJsoupMhMapper.selectByExample(example);
+        }
     }
 
 }

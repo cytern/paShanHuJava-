@@ -54,5 +54,23 @@ public class JsoupUserDetail implements Serializable {
     @ApiModelProperty(value = "")
     private String userPhone;
 
+    /**
+     * 用户销售脚本数量
+     */
+    @ApiModelProperty(value = "用户销售脚本数量")
+    private Integer userSalenum;
+
+    /**
+     * 用户好评率
+     */
+    @ApiModelProperty(value = "用户好评率")
+    private String userGoodrate;
+
+    /**
+     * 用户等级
+     */
+    @ApiModelProperty(value = "用户等级")
+    private String userLever;
+
     private static final long serialVersionUID = 1L;
 }
