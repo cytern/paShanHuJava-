@@ -12,6 +12,9 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
     <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_saleNum" jdbcType="INTEGER" property="userSalenum" />
+    <result column="user_goodRate" jdbcType="VARCHAR" property="userGoodrate" />
+    <result column="user_lever" jdbcType="VARCHAR" property="userLever" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated-->
@@ -76,7 +79,7 @@
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     user_detail_id, user_real_name, user_nick_name, user_image_url, user_des, user_id, 
-    user_email, user_phone
+    user_email, user_phone, user_saleNum, user_goodRate, user_lever
   </sql>
   <select id="selectByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupUserDetailExample" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -116,10 +119,12 @@
     <!--@mbg.generated-->
     insert into jsoup_user_detail (user_real_name, user_nick_name, user_image_url, 
       user_des, user_id, user_email, 
-      user_phone)
+      user_phone, user_saleNum, user_goodRate, 
+      user_lever)
     values (#{userRealName,jdbcType=VARCHAR}, #{userNickName,jdbcType=VARCHAR}, #{userImageUrl,jdbcType=VARCHAR}, 
       #{userDes,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{userEmail,jdbcType=VARCHAR}, 
-      #{userPhone,jdbcType=VARCHAR})
+      #{userPhone,jdbcType=VARCHAR}, #{userSalenum,jdbcType=INTEGER}, #{userGoodrate,jdbcType=VARCHAR}, 
+      #{userLever,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="user_detail_id" keyProperty="userDetailId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupUserDetail" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -146,6 +151,15 @@
       <if test="userPhone != null">
         user_phone,
       </if>
+      <if test="userSalenum != null">
+        user_saleNum,
+      </if>
+      <if test="userGoodrate != null">
+        user_goodRate,
+      </if>
+      <if test="userLever != null">
+        user_lever,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userRealName != null">
@@ -168,6 +182,15 @@
       </if>
       <if test="userPhone != null">
         #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userSalenum != null">
+        #{userSalenum,jdbcType=INTEGER},
+      </if>
+      <if test="userGoodrate != null">
+        #{userGoodrate,jdbcType=VARCHAR},
+      </if>
+      <if test="userLever != null">
+        #{userLever,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -206,6 +229,15 @@
       <if test="record.userPhone != null">
         user_phone = #{record.userPhone,jdbcType=VARCHAR},
       </if>
+      <if test="record.userSalenum != null">
+        user_saleNum = #{record.userSalenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.userGoodrate != null">
+        user_goodRate = #{record.userGoodrate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userLever != null">
+        user_lever = #{record.userLever,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -221,7 +253,10 @@
       user_des = #{record.userDes,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=INTEGER},
       user_email = #{record.userEmail,jdbcType=VARCHAR},
-      user_phone = #{record.userPhone,jdbcType=VARCHAR}
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      user_saleNum = #{record.userSalenum,jdbcType=INTEGER},
+      user_goodRate = #{record.userGoodrate,jdbcType=VARCHAR},
+      user_lever = #{record.userLever,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -251,6 +286,15 @@
       <if test="userPhone != null">
         user_phone = #{userPhone,jdbcType=VARCHAR},
       </if>
+      <if test="userSalenum != null">
+        user_saleNum = #{userSalenum,jdbcType=INTEGER},
+      </if>
+      <if test="userGoodrate != null">
+        user_goodRate = #{userGoodrate,jdbcType=VARCHAR},
+      </if>
+      <if test="userLever != null">
+        user_lever = #{userLever,jdbcType=VARCHAR},
+      </if>
     </set>
     where user_detail_id = #{userDetailId,jdbcType=INTEGER}
   </update>
@@ -263,7 +307,10 @@
       user_des = #{userDes,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=INTEGER},
       user_email = #{userEmail,jdbcType=VARCHAR},
-      user_phone = #{userPhone,jdbcType=VARCHAR}
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_saleNum = #{userSalenum,jdbcType=INTEGER},
+      user_goodRate = #{userGoodrate,jdbcType=VARCHAR},
+      user_lever = #{userLever,jdbcType=VARCHAR}
     where user_detail_id = #{userDetailId,jdbcType=INTEGER}
   </update>
   <update id="updateBatch" parameterType="java.util.List">
@@ -305,6 +352,21 @@
           when user_detail_id = #{item.userDetailId,jdbcType=INTEGER} then #{item.userPhone,jdbcType=VARCHAR}
         </foreach>
       </trim>
+      <trim prefix="user_saleNum = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when user_detail_id = #{item.userDetailId,jdbcType=INTEGER} then #{item.userSalenum,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="user_goodRate = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when user_detail_id = #{item.userDetailId,jdbcType=INTEGER} then #{item.userGoodrate,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="user_lever = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when user_detail_id = #{item.userDetailId,jdbcType=INTEGER} then #{item.userLever,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
     </trim>
     where user_detail_id in
     <foreach close=")" collection="list" item="item" open="(" separator=", ">
@@ -314,13 +376,14 @@
   <insert id="batchInsert" keyColumn="user_detail_id" keyProperty="userDetailId" parameterType="map" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into jsoup_user_detail
-    (user_real_name, user_nick_name, user_image_url, user_des, user_id, user_email, user_phone
-      )
+    (user_real_name, user_nick_name, user_image_url, user_des, user_id, user_email, user_phone, 
+      user_saleNum, user_goodRate, user_lever)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.userRealName,jdbcType=VARCHAR}, #{item.userNickName,jdbcType=VARCHAR}, #{item.userImageUrl,jdbcType=VARCHAR}, 
         #{item.userDes,jdbcType=VARCHAR}, #{item.userId,jdbcType=INTEGER}, #{item.userEmail,jdbcType=VARCHAR}, 
-        #{item.userPhone,jdbcType=VARCHAR})
+        #{item.userPhone,jdbcType=VARCHAR}, #{item.userSalenum,jdbcType=INTEGER}, #{item.userGoodrate,jdbcType=VARCHAR}, 
+        #{item.userLever,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="insertOrUpdate" keyColumn="user_detail_id" keyProperty="userDetailId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupUserDetail" useGeneratedKeys="true">
@@ -337,6 +400,9 @@
       user_id,
       user_email,
       user_phone,
+      user_saleNum,
+      user_goodRate,
+      user_lever,
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -350,6 +416,9 @@
       #{userId,jdbcType=INTEGER},
       #{userEmail,jdbcType=VARCHAR},
       #{userPhone,jdbcType=VARCHAR},
+      #{userSalenum,jdbcType=INTEGER},
+      #{userGoodrate,jdbcType=VARCHAR},
+      #{userLever,jdbcType=VARCHAR},
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -363,6 +432,9 @@
       user_id = #{userId,jdbcType=INTEGER},
       user_email = #{userEmail,jdbcType=VARCHAR},
       user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_saleNum = #{userSalenum,jdbcType=INTEGER},
+      user_goodRate = #{userGoodrate,jdbcType=VARCHAR},
+      user_lever = #{userLever,jdbcType=VARCHAR},
     </trim>
   </insert>
   <insert id="insertOrUpdateSelective" keyColumn="user_detail_id" keyProperty="userDetailId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupUserDetail" useGeneratedKeys="true">
@@ -393,6 +465,15 @@
       <if test="userPhone != null">
         user_phone,
       </if>
+      <if test="userSalenum != null">
+        user_saleNum,
+      </if>
+      <if test="userGoodrate != null">
+        user_goodRate,
+      </if>
+      <if test="userLever != null">
+        user_lever,
+      </if>
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -420,6 +501,15 @@
       <if test="userPhone != null">
         #{userPhone,jdbcType=VARCHAR},
       </if>
+      <if test="userSalenum != null">
+        #{userSalenum,jdbcType=INTEGER},
+      </if>
+      <if test="userGoodrate != null">
+        #{userGoodrate,jdbcType=VARCHAR},
+      </if>
+      <if test="userLever != null">
+        #{userLever,jdbcType=VARCHAR},
+      </if>
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -446,6 +536,15 @@
       </if>
       <if test="userPhone != null">
         user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userSalenum != null">
+        user_saleNum = #{userSalenum,jdbcType=INTEGER},
+      </if>
+      <if test="userGoodrate != null">
+        user_goodRate = #{userGoodrate,jdbcType=VARCHAR},
+      </if>
+      <if test="userLever != null">
+        user_lever = #{userLever,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
