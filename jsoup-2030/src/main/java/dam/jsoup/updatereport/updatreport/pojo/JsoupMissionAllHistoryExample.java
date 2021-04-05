@@ -1295,6 +1295,196 @@ public class JsoupMissionAllHistoryExample {
             addCriterion("hs_url not between", value1, value2, "hsUrl");
             return (Criteria) this;
         }
+
+        public Criteria andIsTimeTaskIsNull() {
+            addCriterion("is_time_task is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsTimeTaskIsNotNull() {
+            addCriterion("is_time_task is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsTimeTaskEqualTo(Integer value) {
+            addCriterion("is_time_task =", value, "isTimeTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsTimeTaskNotEqualTo(Integer value) {
+            addCriterion("is_time_task <>", value, "isTimeTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsTimeTaskGreaterThan(Integer value) {
+            addCriterion("is_time_task >", value, "isTimeTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsTimeTaskGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_time_task >=", value, "isTimeTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsTimeTaskLessThan(Integer value) {
+            addCriterion("is_time_task <", value, "isTimeTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsTimeTaskLessThanOrEqualTo(Integer value) {
+            addCriterion("is_time_task <=", value, "isTimeTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsTimeTaskIn(List<Integer> values) {
+            addCriterion("is_time_task in", values, "isTimeTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsTimeTaskNotIn(List<Integer> values) {
+            addCriterion("is_time_task not in", values, "isTimeTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsTimeTaskBetween(Integer value1, Integer value2) {
+            addCriterion("is_time_task between", value1, value2, "isTimeTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsTimeTaskNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_time_task not between", value1, value2, "isTimeTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNumIsNull() {
+            addCriterion("time_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNumIsNotNull() {
+            addCriterion("time_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNumEqualTo(Integer value) {
+            addCriterion("time_num =", value, "timeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNumNotEqualTo(Integer value) {
+            addCriterion("time_num <>", value, "timeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNumGreaterThan(Integer value) {
+            addCriterion("time_num >", value, "timeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("time_num >=", value, "timeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNumLessThan(Integer value) {
+            addCriterion("time_num <", value, "timeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNumLessThanOrEqualTo(Integer value) {
+            addCriterion("time_num <=", value, "timeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNumIn(List<Integer> values) {
+            addCriterion("time_num in", values, "timeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNumNotIn(List<Integer> values) {
+            addCriterion("time_num not in", values, "timeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNumBetween(Integer value1, Integer value2) {
+            addCriterion("time_num between", value1, value2, "timeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("time_num not between", value1, value2, "timeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeCornIsNull() {
+            addCriterion("time_corn is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeCornIsNotNull() {
+            addCriterion("time_corn is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeCornEqualTo(String value) {
+            addCriterion("time_corn =", value, "timeCorn");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeCornNotEqualTo(String value) {
+            addCriterion("time_corn <>", value, "timeCorn");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeCornGreaterThan(String value) {
+            addCriterion("time_corn >", value, "timeCorn");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeCornGreaterThanOrEqualTo(String value) {
+            addCriterion("time_corn >=", value, "timeCorn");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeCornLessThan(String value) {
+            addCriterion("time_corn <", value, "timeCorn");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeCornLessThanOrEqualTo(String value) {
+            addCriterion("time_corn <=", value, "timeCorn");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeCornLike(String value) {
+            addCriterion("time_corn like", value, "timeCorn");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeCornNotLike(String value) {
+            addCriterion("time_corn not like", value, "timeCorn");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeCornIn(List<String> values) {
+            addCriterion("time_corn in", values, "timeCorn");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeCornNotIn(List<String> values) {
+            addCriterion("time_corn not in", values, "timeCorn");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeCornBetween(String value1, String value2) {
+            addCriterion("time_corn between", value1, value2, "timeCorn");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeCornNotBetween(String value1, String value2) {
+            addCriterion("time_corn not between", value1, value2, "timeCorn");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

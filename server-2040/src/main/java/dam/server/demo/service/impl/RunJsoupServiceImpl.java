@@ -75,6 +75,7 @@ public class RunJsoupServiceImpl implements RunJsoupService {
             List result = excutorService.doExcutor(missionAllData);
             map = MyResponse.myResponseOk("执行成功");
             map.put("result",result);
+            map.put("missionAllData",missionAllData);
         } catch (Exception e) {
             log.error("有问题啊 你写的脚本 :   ******",e);
             map = MyResponse.myResponseError(e.getMessage());
@@ -84,7 +85,7 @@ public class RunJsoupServiceImpl implements RunJsoupService {
 //       循环执行 直到发送成功
         while (sendData) {
             try {
-                sendData = !HttpUtils.sendDataApi(configBean.getReturnTask(),map);
+                 HttpUtils.sendDataApi(configBean.getReturnTask(),map);
                 sendData = false;
             } catch (Exception e) {
                 log.error("网络请求失败");

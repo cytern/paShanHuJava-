@@ -22,6 +22,9 @@
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="is_aoto" jdbcType="VARCHAR" property="isAoto" />
     <result column="hs_url" jdbcType="VARCHAR" property="hsUrl" />
+    <result column="is_time_task" jdbcType="INTEGER" property="isTimeTask" />
+    <result column="time_num" jdbcType="INTEGER" property="timeNum" />
+    <result column="time_corn" jdbcType="VARCHAR" property="timeCorn" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated-->
@@ -87,7 +90,8 @@
     <!--@mbg.generated-->
     mission_all_history_id, mission_all_id, mission_state, mission_result_url, user_id, 
     mission_fail_reason, sent_time, finish_time, mission_all_name, mission_all_dis, on_sale, 
-    sale_price, sale_rate, sale_num, tips, user_name, is_aoto, hs_url
+    sale_price, sale_rate, sale_num, tips, user_name, is_aoto, hs_url, is_time_task, 
+    time_num, time_corn
   </sql>
   <select id="selectByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistoryExample" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -130,13 +134,15 @@
       finish_time, mission_all_name, mission_all_dis, 
       on_sale, sale_price, sale_rate, 
       sale_num, tips, user_name, 
-      is_aoto, hs_url)
+      is_aoto, hs_url, is_time_task, 
+      time_num, time_corn)
     values (#{missionAllId,jdbcType=INTEGER}, #{missionState,jdbcType=VARCHAR}, #{missionResultUrl,jdbcType=VARCHAR}, 
       #{userId,jdbcType=INTEGER}, #{missionFailReason,jdbcType=VARCHAR}, #{sentTime,jdbcType=TIMESTAMP}, 
       #{finishTime,jdbcType=TIMESTAMP}, #{missionAllName,jdbcType=VARCHAR}, #{missionAllDis,jdbcType=VARCHAR}, 
       #{onSale,jdbcType=VARCHAR}, #{salePrice,jdbcType=DECIMAL}, #{saleRate,jdbcType=VARCHAR}, 
       #{saleNum,jdbcType=INTEGER}, #{tips,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{isAoto,jdbcType=VARCHAR}, #{hsUrl,jdbcType=VARCHAR})
+      #{isAoto,jdbcType=VARCHAR}, #{hsUrl,jdbcType=VARCHAR}, #{isTimeTask,jdbcType=INTEGER}, 
+      #{timeNum,jdbcType=INTEGER}, #{timeCorn,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="mission_all_history_id" keyProperty="missionAllHistoryId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -193,6 +199,15 @@
       <if test="hsUrl != null">
         hs_url,
       </if>
+      <if test="isTimeTask != null">
+        is_time_task,
+      </if>
+      <if test="timeNum != null">
+        time_num,
+      </if>
+      <if test="timeCorn != null">
+        time_corn,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="missionAllId != null">
@@ -245,6 +260,15 @@
       </if>
       <if test="hsUrl != null">
         #{hsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isTimeTask != null">
+        #{isTimeTask,jdbcType=INTEGER},
+      </if>
+      <if test="timeNum != null">
+        #{timeNum,jdbcType=INTEGER},
+      </if>
+      <if test="timeCorn != null">
+        #{timeCorn,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -313,6 +337,15 @@
       <if test="record.hsUrl != null">
         hs_url = #{record.hsUrl,jdbcType=VARCHAR},
       </if>
+      <if test="record.isTimeTask != null">
+        is_time_task = #{record.isTimeTask,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeNum != null">
+        time_num = #{record.timeNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeCorn != null">
+        time_corn = #{record.timeCorn,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -338,7 +371,10 @@
       tips = #{record.tips,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
       is_aoto = #{record.isAoto,jdbcType=VARCHAR},
-      hs_url = #{record.hsUrl,jdbcType=VARCHAR}
+      hs_url = #{record.hsUrl,jdbcType=VARCHAR},
+      is_time_task = #{record.isTimeTask,jdbcType=INTEGER},
+      time_num = #{record.timeNum,jdbcType=INTEGER},
+      time_corn = #{record.timeCorn,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -398,6 +434,15 @@
       <if test="hsUrl != null">
         hs_url = #{hsUrl,jdbcType=VARCHAR},
       </if>
+      <if test="isTimeTask != null">
+        is_time_task = #{isTimeTask,jdbcType=INTEGER},
+      </if>
+      <if test="timeNum != null">
+        time_num = #{timeNum,jdbcType=INTEGER},
+      </if>
+      <if test="timeCorn != null">
+        time_corn = #{timeCorn,jdbcType=VARCHAR},
+      </if>
     </set>
     where mission_all_history_id = #{missionAllHistoryId,jdbcType=INTEGER}
   </update>
@@ -420,7 +465,10 @@
       tips = #{tips,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       is_aoto = #{isAoto,jdbcType=VARCHAR},
-      hs_url = #{hsUrl,jdbcType=VARCHAR}
+      hs_url = #{hsUrl,jdbcType=VARCHAR},
+      is_time_task = #{isTimeTask,jdbcType=INTEGER},
+      time_num = #{timeNum,jdbcType=INTEGER},
+      time_corn = #{timeCorn,jdbcType=VARCHAR}
     where mission_all_history_id = #{missionAllHistoryId,jdbcType=INTEGER}
   </update>
   <update id="updateBatch" parameterType="java.util.List">
@@ -512,6 +560,21 @@
           when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.hsUrl,jdbcType=VARCHAR}
         </foreach>
       </trim>
+      <trim prefix="is_time_task = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.isTimeTask,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="time_num = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.timeNum,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="time_corn = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when mission_all_history_id = #{item.missionAllHistoryId,jdbcType=INTEGER} then #{item.timeCorn,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
     </trim>
     where mission_all_history_id in
     <foreach close=")" collection="list" item="item" open="(" separator=", ">
@@ -523,7 +586,8 @@
     insert into jsoup_mission_all_history
     (mission_all_id, mission_state, mission_result_url, user_id, mission_fail_reason, 
       sent_time, finish_time, mission_all_name, mission_all_dis, on_sale, sale_price, 
-      sale_rate, sale_num, tips, user_name, is_aoto, hs_url)
+      sale_rate, sale_num, tips, user_name, is_aoto, hs_url, is_time_task, time_num, 
+      time_corn)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.missionAllId,jdbcType=INTEGER}, #{item.missionState,jdbcType=VARCHAR}, #{item.missionResultUrl,jdbcType=VARCHAR}, 
@@ -531,7 +595,8 @@
         #{item.finishTime,jdbcType=TIMESTAMP}, #{item.missionAllName,jdbcType=VARCHAR}, 
         #{item.missionAllDis,jdbcType=VARCHAR}, #{item.onSale,jdbcType=VARCHAR}, #{item.salePrice,jdbcType=DECIMAL}, 
         #{item.saleRate,jdbcType=VARCHAR}, #{item.saleNum,jdbcType=INTEGER}, #{item.tips,jdbcType=VARCHAR}, 
-        #{item.userName,jdbcType=VARCHAR}, #{item.isAoto,jdbcType=VARCHAR}, #{item.hsUrl,jdbcType=VARCHAR}
+        #{item.userName,jdbcType=VARCHAR}, #{item.isAoto,jdbcType=VARCHAR}, #{item.hsUrl,jdbcType=VARCHAR}, 
+        #{item.isTimeTask,jdbcType=INTEGER}, #{item.timeNum,jdbcType=INTEGER}, #{item.timeCorn,jdbcType=VARCHAR}
         )
     </foreach>
   </insert>
@@ -559,6 +624,9 @@
       user_name,
       is_aoto,
       hs_url,
+      is_time_task,
+      time_num,
+      time_corn,
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -582,6 +650,9 @@
       #{userName,jdbcType=VARCHAR},
       #{isAoto,jdbcType=VARCHAR},
       #{hsUrl,jdbcType=VARCHAR},
+      #{isTimeTask,jdbcType=INTEGER},
+      #{timeNum,jdbcType=INTEGER},
+      #{timeCorn,jdbcType=VARCHAR},
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -605,6 +676,9 @@
       user_name = #{userName,jdbcType=VARCHAR},
       is_aoto = #{isAoto,jdbcType=VARCHAR},
       hs_url = #{hsUrl,jdbcType=VARCHAR},
+      is_time_task = #{isTimeTask,jdbcType=INTEGER},
+      time_num = #{timeNum,jdbcType=INTEGER},
+      time_corn = #{timeCorn,jdbcType=VARCHAR},
     </trim>
   </insert>
   <insert id="insertOrUpdateSelective" keyColumn="mission_all_history_id" keyProperty="missionAllHistoryId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory" useGeneratedKeys="true">
@@ -665,6 +739,15 @@
       <if test="hsUrl != null">
         hs_url,
       </if>
+      <if test="isTimeTask != null">
+        is_time_task,
+      </if>
+      <if test="timeNum != null">
+        time_num,
+      </if>
+      <if test="timeCorn != null">
+        time_corn,
+      </if>
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -722,6 +805,15 @@
       <if test="hsUrl != null">
         #{hsUrl,jdbcType=VARCHAR},
       </if>
+      <if test="isTimeTask != null">
+        #{isTimeTask,jdbcType=INTEGER},
+      </if>
+      <if test="timeNum != null">
+        #{timeNum,jdbcType=INTEGER},
+      </if>
+      <if test="timeCorn != null">
+        #{timeCorn,jdbcType=VARCHAR},
+      </if>
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -778,6 +870,15 @@
       </if>
       <if test="hsUrl != null">
         hs_url = #{hsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isTimeTask != null">
+        is_time_task = #{isTimeTask,jdbcType=INTEGER},
+      </if>
+      <if test="timeNum != null">
+        time_num = #{timeNum,jdbcType=INTEGER},
+      </if>
+      <if test="timeCorn != null">
+        time_corn = #{timeCorn,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>

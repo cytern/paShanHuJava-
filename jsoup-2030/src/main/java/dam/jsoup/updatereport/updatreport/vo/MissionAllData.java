@@ -1,6 +1,7 @@
 package dam.jsoup.updatereport.updatreport.vo;
 
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll;
+import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionOrder;
 import lombok.Data;
 
@@ -32,6 +33,10 @@ public class MissionAllData {
      * 是否有通过的测试集
      */
     private Integer isSuccess;
+    /**
+     * 任务历史数据
+     */
+    private JsoupMissionAllHistory missionAllHistory;
 
 
 }

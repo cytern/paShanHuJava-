@@ -33,6 +33,14 @@ public class MissionAllData {
      * 是否是拥有者{可否修改}
      */
     private Integer isOwner;
+    /**
+     * 是否有通过的测试集
+     */
+    private Integer isSuccess;
+    /**
+     * 任务历史数据
+     */
+    private JsoupMissionAllHistory missionAllHistory;
 
 }
 

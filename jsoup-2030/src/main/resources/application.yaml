@@ -34,7 +34,7 @@ spring:
   mail:
     host: smtp.qq.com #发送邮件服务器
     username: cytern@qq.com #发送邮件的邮箱地址
-    password: qxqpanugbokcdiii #客户端授权码
+    password: uwxflasqnnsueafh #客户端授权码
     properties.mail.smtp.port: 465 #端口号
     properties.mail.smtp.starttls.enable: true
     properties.mail.smtp.starttls.required: true
@@ -74,6 +74,12 @@ hystrix:
 ribbon:
   ReadTimeout: 300000
   ConnectTimeout: 300000
+task:
+  pool:
+    corePoolSize: 5 #设置核心线程数
+    maxPoolSize: 20  #设置最大线程数
+    keepAliveSeconds: 300 #设置线程活跃时间（秒）
+    queueCapacity: 50 #设置队列容量
 
 
 

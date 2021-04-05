@@ -1,13 +1,14 @@
-package dam.jsoup.updatereport.updatreport.pojo;
+package dam.server.demo.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 @ApiModel(value = "dam-jsoup-updatereport-updatreport-pojo-JsoupMissionAllHistory")
 @Data
