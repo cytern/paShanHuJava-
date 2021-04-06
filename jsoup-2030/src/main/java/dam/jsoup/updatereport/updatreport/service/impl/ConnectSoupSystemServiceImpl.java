@@ -55,6 +55,10 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
         httpMissionDataVo.setMissionAllData(missionAllData);
         httpMissionDataVo.setJsoupMissionAllHistory(oneWaitToDoTask);
         httpMissionDataVo.setState(1);
+        //返回前需要将任务状态重新设置  已经被任务器拿走 状态修改为2 执行中 添加现在时间为finish time
+        oneWaitToDoTask.setMissionState("2");
+        oneWaitToDoTask.setFinishTime(new Date());
+        historyMapper.updateByPrimaryKeySelective(oneWaitToDoTask);
         return httpMissionDataVo;
     }
 
