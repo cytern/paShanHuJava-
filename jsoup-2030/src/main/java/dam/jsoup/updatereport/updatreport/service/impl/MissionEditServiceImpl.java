@@ -380,7 +380,6 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         if (missionAll == null || !missionAll.getMaState().equals(2)  ||  missionAll.getUserId().equals(userId)){
             return MyResponse.myResponseError("无效的商品");
         }else {
-            //TODO 判断是否是用户持有的脚本
             OrderJsoupMaExample example = new OrderJsoupMaExample();
             example.createCriteria().andCustomerUserIdEqualTo(userId).andMaIdEqualTo(maId);
             List<OrderJsoupMa> orderJsoupMas = orderJsoupMaMapper.selectByExample(example);
@@ -395,7 +394,14 @@ public class MissionEditServiceImpl implements JsoupMissionService {
                //钱不够
                return MyResponse.myResponseError("余额不足");
             }else {
-               //扣除钱
+                //脚本销售量加一
+                Integer maSaleNum =  missionAll.getMaSaleNum();
+                if (maSaleNum == null ) {
+                    maSaleNum = 0;
+                }
+                missionAll.setMaSaleNum(maSaleNum+1);
+                jsoupMissionAllMapper.updateByPrimaryKeySelective(missionAll);
+                //扣除钱
                 jsoupUserAssets.get(0).setCornNum(jsoupUserAssets.get(0).getCornNum().subtract(missionAll.getMaPrice()));
                 assetsMapper.updateByPrimaryKeySelective(jsoupUserAssets.get(0));
                 //将商品加入订单
