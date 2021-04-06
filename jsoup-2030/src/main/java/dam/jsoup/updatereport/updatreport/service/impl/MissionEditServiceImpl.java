@@ -450,6 +450,13 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         //扣钱
         jsoupUserAssets.get(0).setCornNum(jsoupUserAssets.get(0).getCornNum().subtract(history.getSalePrice()));
         assetsMapper.updateByPrimaryKeySelective(jsoupUserAssets.get(0));
+        //销售量增加一
+        Integer saleNum = history.getSaleNum();
+        if (saleNum == null) {
+            saleNum = 0;
+        }
+        history.setSaleNum(saleNum + 1);
+        missionAllHistoryMapper.updateByPrimaryKeySelective(history);
         //加入订单
         OrderJsoupMh jsoupMh = new OrderJsoupMh();
         jsoupMh.setCreateTime(new Date());
