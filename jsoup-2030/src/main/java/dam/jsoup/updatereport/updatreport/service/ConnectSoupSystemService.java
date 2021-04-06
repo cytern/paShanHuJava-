@@ -1,6 +1,7 @@
 package dam.jsoup.updatereport.updatreport.service;
 
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
+import dam.jsoup.updatereport.updatreport.vo.HttpMissionDataVo;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
 
 import java.util.List;
@@ -14,10 +15,10 @@ public interface ConnectSoupSystemService {
      * 获取待执行服务
      * @return
      */
-    JsoupMissionAllHistory getOneWaitService();
+    HttpMissionDataVo getOneWaitService();
     /**
      * 接受执行完毕数据
      */
-    void storeBackData(List result, MissionAllData missionAllData);
+    void storeBackData(HttpMissionDataVo httpMissionDataVo);
 
 }

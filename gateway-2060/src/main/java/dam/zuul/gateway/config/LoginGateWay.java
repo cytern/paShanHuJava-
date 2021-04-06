@@ -57,7 +57,7 @@ public class LoginGateWay extends ZuulFilter {
         if (request.getMethod().equals("OPTIONS")) {
             return false;
         }
-        if(requestURI.contains("login" ) || requestURI.contains("everyone") || requestURI.contains("download")
+        if(requestURI.contains("login" ) || requestURI.contains("everyone") || requestURI.contains("download") || requestURI.contains("system")
         ){
             return false;
         }else{

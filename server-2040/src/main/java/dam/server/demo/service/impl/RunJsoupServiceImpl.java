@@ -6,6 +6,7 @@ import dam.server.demo.pojo.ResultVO;
 import dam.server.demo.service.ExcutorService;
 import dam.server.demo.service.RunJsoupService;
 import dam.server.demo.utils.HttpUtils;
+import dam.server.demo.vo.HttpMissionDataVo;
 import dam.server.demo.vo.MissionAllData;
 import dam.server.demo.vo.MyResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,6 @@ import java.util.Map;
 @Service
 @Slf4j
 public class RunJsoupServiceImpl implements RunJsoupService {
-    private MissionAllData missionAllData;
     @Autowired
     private ExcutorService excutorService;
     @Autowired
@@ -44,6 +44,7 @@ public class RunJsoupServiceImpl implements RunJsoupService {
              */
             try {
                 getNewTask();
+                Thread.sleep(30000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 log.info("线程休眠错误");
@@ -53,43 +54,49 @@ public class RunJsoupServiceImpl implements RunJsoupService {
 
 
     private void getNewTask() throws InterruptedException {
+        log.info("  脚本执行线程   开始一次新的任务循环");
         //准备请求的参数
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         //cpu 识别码 未来可能替换成为token
         params.add("code",configBean.getCpuCoreId());
         //发送请求
-        MissionAllData missionAllData = null;
-        Boolean getData = true;
-        while (getData) {
+        HttpMissionDataVo missionAllData = null;
             try {
+                //联网获取数据
+                log.info("  脚本执行线程   获取执行脚本数据");
                 missionAllData = HttpUtils.getDataApi(configBean.getGetTask(),params);
-                getData = false;
             } catch (Exception e) {
-               log.error("网络请求失败");
-                Thread.sleep(30000);
+               log.error("网络请求失败",e);
+                return;
             }
+         //判断数据是否正确
+        if (missionAllData.getState() != 1) {
+            log.error("接受数据错误");
+            return;
         }
-        Map map = new HashMap();
-        log.info("开始执行任务");
-        try {
-            List result = excutorService.doExcutor(missionAllData);
-            map = MyResponse.myResponseOk("执行成功");
-            map.put("result",result);
-            map.put("missionAllData",missionAllData);
-        } catch (Exception e) {
-            log.error("有问题啊 你写的脚本 :   ******",e);
-            map = MyResponse.myResponseError(e.getMessage());
-        }
+        log.info("  脚本执行线程   开始执行脚本 ");
+            List result = null;
+            try {
+                result = excutorService.doExcutor(missionAllData.getMissionAllData());
+                //取值正常 则 进行处理
+                missionAllData.setResult(result);
+                missionAllData.setState(1);
+            } catch (Exception e) {
+               //异常 包装
+                missionAllData.setException(e.getMessage());
+                missionAllData.setState(2);
+            }
+
         Boolean sendData =true;
-        log.info("任务执行完毕");
-//       循环执行 直到发送成功
+        log.info("  脚本执行线程   开始发送结果集 ");
+//       循环执行 直到发送成功 十秒间隔
         while (sendData) {
             try {
-                 HttpUtils.sendDataApi(configBean.getReturnTask(),map);
+                 HttpUtils.sendDataApi(configBean.getReturnTask(),missionAllData);
                 sendData = false;
             } catch (Exception e) {
                 log.error("网络请求失败");
-                Thread.sleep(30000);
+                Thread.sleep(10000);
             }
         }
 

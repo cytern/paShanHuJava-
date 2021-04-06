@@ -3,6 +3,7 @@ package dam.server.demo.utils;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dam.server.demo.pojo.ResultVO;
+import dam.server.demo.vo.HttpMissionDataVo;
 import dam.server.demo.vo.MissionAllData;
 import org.springframework.http.*;
 import org.springframework.util.MultiValueMap;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class HttpUtils {
-    public static MissionAllData getDataApi(String url, MultiValueMap<String, String> params) throws Exception {
+    public static HttpMissionDataVo getDataApi(String url, MultiValueMap<String, String> params) throws Exception {
         RestTemplate client = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         HttpMethod method = HttpMethod.POST;
@@ -24,7 +25,7 @@ public class HttpUtils {
         //执行HTTP请求，将返回的结构使用ResultVO类格式化
         ResponseEntity<String> response = client.exchange(url, method, requestEntity, String.class);
         ObjectMapper objectMapper = new ObjectMapper();
-        MissionAllData missionAllData = null;
+        HttpMissionDataVo missionAllData = null;
         String strBody;
         if(response.getStatusCodeValue()==200){    //判断返回的状态码
             strBody=response.getBody();
@@ -32,7 +33,7 @@ public class HttpUtils {
             throw new Exception("网络请求失败 状态码异常");
         }
         try {
-           missionAllData = objectMapper.readValue(strBody,MissionAllData.class);
+           missionAllData = objectMapper.readValue(strBody,HttpMissionDataVo.class);
         }catch (Exception e
         ){
             e.printStackTrace();
@@ -48,8 +49,8 @@ public class HttpUtils {
 
 
 
-    public static boolean sendDataApi(String url, Map acc) throws InterruptedException {
-        JSONObject jsonObject = new JSONObject(acc);
+    public static boolean sendDataApi(String url, HttpMissionDataVo httpMissionDataVo) {
+        JSONObject jsonObject = (JSONObject) JSONObject.toJSON(httpMissionDataVo);
         RestTemplate client = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         HttpMethod method = HttpMethod.POST;

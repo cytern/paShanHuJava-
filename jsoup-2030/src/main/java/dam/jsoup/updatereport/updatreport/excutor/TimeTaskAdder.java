@@ -26,9 +26,10 @@ public  class TimeTaskAdder{
         log.info("初始化 开始检索定时任务 ");
         while (true) {
             try {
+                Thread.sleep(90000);
                 log.info("等待结束 开始检索任务  ");
                 timeTaskService.setTaskService();
-                Thread.sleep(180000);
+                Thread.sleep(90000);
             } catch (Exception e) {
               log.error("定时任务检查  失败 ",e);
             }

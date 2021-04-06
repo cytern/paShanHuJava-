@@ -22,7 +22,8 @@ public class ConfigBean {
     /**
      * 总地址
      */
-    private final String baseUrl = "http://62.234.29.109";
+//    private final String baseUrl = "http://62.234.29.109:2060";
+    private final String baseUrl = "http://localhost:2060";
     /**
      * cpu核心参数
      */
@@ -51,13 +52,13 @@ public class ConfigBean {
         /**
          * 获取任务数据的信息
          */
-        return baseUrl + "/system/getOneTask";
+        return baseUrl + "/server/system/getOneTask";
     }
 
     public String getReturnTask() {
         /**
          * 返回任务数据的信息
          */
-        return baseUrl + "/system/sentTaskResult";
+        return baseUrl + "/server/system/sentTaskResult";
     }
 }
