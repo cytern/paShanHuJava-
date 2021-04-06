@@ -35,8 +35,6 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
 
     /**
      * 获取待执行服务
-     *
-     * @return
      */
     @Override
     public HttpMissionDataVo getOneWaitService() {
@@ -87,11 +85,16 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
             return;
         }
         //生成文件服务
-        String fileName = null;
+        String fileName;
         try {
             //获取任务总情况
             JsoupMissionAll missionAll = missionAllMapper.selectByPrimaryKey(mh.getMissionAllId());
             fileName = fileExcutorService.fileInput(httpMissionDataVo.getResult(), dir, missionAll.getMaSuccessFileName());
+            //将文件名保存在his内
+            mh.setMissionState("3");
+            mh.setMissionResultUrl(fileName);
+            mh.setFinishTime(new Date());
+            historyMapper.updateByPrimaryKeySelective(mh);
         } catch (Exception e) {
             mh.setMissionState("4");
             if (e.getMessage().contains("Invalid cell range") || e.getMessage().contains("Merged region")) {
@@ -103,12 +106,9 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
             } else {
                 mh.setMissionFailReason(e.getMessage());
             }
+            mh.setFinishTime(new Date());
             historyMapper.updateByPrimaryKeySelective(mh);
         }
-        //将文件名保存在his内
-        mh.setMissionState("3");
-        mh.setMissionResultUrl(fileName);
-        mh.setFinishTime(new Date());
-        historyMapper.updateByPrimaryKeySelective(mh);
+
     }
 }
