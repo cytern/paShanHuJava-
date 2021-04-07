@@ -9,8 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>dam.eureka</groupId>
-    <artifactId>demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>eureka</artifactId>
+    <version>dev</version>
     <name>eureka</name>
     <description>注册发现中心控制器</description>
     <properties>
