@@ -284,7 +284,7 @@ public class OrderServiceController {
         return map;
     }
 
-    @GetMapping("customer/getSalesMh/{id}/{type}/{pageSize}/{index}")
+    @GetMapping("customer/getGoodDetailComment/{id}/{type}/{pageSize}/{index}")
     Map getGoodDetailOrder(@PathVariable Integer pageSize, @PathVariable Integer index,@PathVariable Integer id,@PathVariable Integer type) {
         log.info("************ 商品详情 评价信息***************");
         Map map = new HashMap();
