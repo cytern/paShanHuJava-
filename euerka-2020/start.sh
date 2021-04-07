@@ -10,11 +10,12 @@ else
  kill -9 "$pid12345"
 fi
 
-echo "mvn install gateway"
+echo "************************************安装euerka****************************************"
 mvn clean install -Pdev -Dmaven.test.skip=true
-echo "delete project gateway"
+echo "************************************删除原来的jar包****************************************"
 # 删除 原来位置的jar包
 rm -rf /export/project/javaJar/$jarName
 cp -rf ./target/$jarName /export/project/javaJar
 #启动项目
 nohup java -jar /export/project/javaJar/$jarName &
+echo "===================================安装euerka完毕======================================"
