@@ -272,7 +272,7 @@ public class OrderServiceController {
 
     @GetMapping("customer/getGoodDetailUsaer/{id}/{type}")
     Map getGoodDetailUser(@PathVariable Integer id,@PathVariable Integer type) {
-        log.info("************ 商品详情 用户信息***************");
+        log.info("************ 商品详情 开发者信息***************");
         Map map = null;
         try {
             map = missionService.getGoodUserDetail(id, type);
