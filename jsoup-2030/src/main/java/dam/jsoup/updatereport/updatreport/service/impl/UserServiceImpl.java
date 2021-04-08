@@ -3,6 +3,7 @@ package dam.jsoup.updatereport.updatreport.service.impl;
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.ShearCaptcha;
 import cn.hutool.core.util.IdUtil;
+import dam.jsoup.updatereport.updatreport.config.ServerConfig;
 import dam.jsoup.updatereport.updatreport.dao.JsoupUserAssetsMapper;
 import dam.jsoup.updatereport.updatreport.dao.JsoupUserDetailMapper;
 import dam.jsoup.updatereport.updatreport.dao.JsoupUserMapper;
@@ -30,15 +31,18 @@ public class UserServiceImpl implements UserService {
     private final JsoupUserMapper jsoupUserMapper;
     private final JsoupUserDetailMapper detailMapper;
     private final JsoupUserAssetsMapper assetsMapper;
-    private static final String link = "http://localhost:2060/server/everyone/wakeUser/";
+    private final ServerConfig serverConfig;
+    private  final String link;
     private final SendEmail sendEmail;
 
-    public UserServiceImpl(UserDataService userDataService, JsoupUserMapper jsoupUserMapper, JsoupUserDetailMapper detailMapper, JsoupUserAssetsMapper assetsMapper, SendEmail sendEmail) {
+    public UserServiceImpl(UserDataService userDataService, JsoupUserMapper jsoupUserMapper, JsoupUserDetailMapper detailMapper, JsoupUserAssetsMapper assetsMapper, ServerConfig serverConfig, SendEmail sendEmail) {
         this.userDataService = userDataService;
         this.jsoupUserMapper = jsoupUserMapper;
         this.detailMapper = detailMapper;
         this.assetsMapper = assetsMapper;
+        this.serverConfig = serverConfig;
         this.sendEmail = sendEmail;
+        this.link = "http://"+ serverConfig.getBaseIp() +":2060/server/everyone/wakeUser/";
     }
 
     /**

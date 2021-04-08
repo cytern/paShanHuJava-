@@ -1,5 +1,6 @@
 package dam.jsoup.updatereport.updatreport.excutor;
 
+import dam.jsoup.updatereport.updatreport.config.TaskThreadPoolConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

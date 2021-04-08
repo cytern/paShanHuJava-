@@ -17,7 +17,7 @@ spring:
   application:
     name: javaServer
   datasource:
-    username: root
+    username: cytern
     password: zhenlong
     url: jdbc:mysql://localhost:3306/jsoup?useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -80,6 +80,10 @@ task:
     maxPoolSize: 20  #设置最大线程数
     keepAliveSeconds: 300 #设置线程活跃时间（秒）
     queueCapacity: 50 #设置队列容量
+
+#其余配置
+dam:
+  serverIp: 62.234.29.109
 
 
 

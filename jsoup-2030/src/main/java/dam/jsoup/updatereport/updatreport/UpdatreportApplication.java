@@ -1,7 +1,7 @@
 package dam.jsoup.updatereport.updatreport;
 
 
-import dam.jsoup.updatereport.updatreport.excutor.TaskThreadPoolConfig;
+import dam.jsoup.updatereport.updatreport.config.TaskThreadPoolConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

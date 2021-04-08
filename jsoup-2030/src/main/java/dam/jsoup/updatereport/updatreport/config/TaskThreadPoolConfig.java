@@ -1,4 +1,4 @@
-package dam.jsoup.updatereport.updatreport.excutor;
+package dam.jsoup.updatereport.updatreport.config;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
