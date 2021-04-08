@@ -17,5 +17,6 @@ echo "************************************删除原来的jar包*****************
 rm -rf /export/project/javaJar/$jarName
 cp -rf ./target/$jarName /export/project/javaJar
 #启动项目
+BUILD_ID=dontKillMe
 nohup java -jar /export/project/javaJar/$jarName &
 echo "===================================安装server完毕======================================"
