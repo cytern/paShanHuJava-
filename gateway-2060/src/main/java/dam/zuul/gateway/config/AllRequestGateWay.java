@@ -42,10 +42,12 @@ public class AllRequestGateWay extends ZuulFilter {
     @Override
     public Object run() throws ZuulException {
         log.info("*****************总请求校验开始*****************");
+//        String[] header= {"http://localhost",
+//                "http://62.234.29.109"};
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletResponse response = ctx.getResponse();
         HttpServletRequest request = ctx.getRequest();
-        response.addHeader("Access-Control-Allow-Origin","http://62.234.29.109,http://loaclhost");
+        response.addHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         response.addHeader("Access-Control-Allow-Credentials","true");
         response.addHeader("Access-Control-Allow-Headers","authorization, content-type, accessToken");
         response.addHeader("Access-Control-Allow-Methods","GET, POST,PUT, DELETE");
