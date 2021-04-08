@@ -11,7 +11,7 @@ spring:
 eureka:
     client:
       service-url:
-        defaultZone: http://10.147.19.98:2020/eureka/  #注册位置
+        defaultZone: http://62.234.29.109:2020/eureka/  #注册位置
     instance:
       instance-id: spring-cloud-gateway-2060
       prefer-ip-address: true
@@ -31,11 +31,11 @@ zuul:
       path: /file/**
     jsoup:
       serviceId: javaServer
-      url: http://10.147.19.0:2030
+      url: http://62.234.29.109:2030
       path: /server/**
     excutor:
       serviceId: excutor
-      url: http://10.147.19.0:2040
+      url: http://62.234.29.109:2040
       path: /jsoup/**
   host:
     connect-timeout-millis: 30000
