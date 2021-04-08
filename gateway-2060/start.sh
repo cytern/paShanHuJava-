@@ -4,7 +4,7 @@ jarPort="2060"
 pid12345=`lsof -i:$jarPort | sed -n "2, 1p" | awk '{print $2}'`
 if [ "$pid12345" = "" ]
 then
- echo "端口未占用"
+ echo "2060端口未占用"
 else
  echo "端口已占用，尝试关闭"
  kill -9 "$pid12345"
