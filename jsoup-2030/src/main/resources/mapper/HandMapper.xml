@@ -19,7 +19,8 @@
                ojm.des commentDes,
                 jud.user_des userDes,
                ojm.up_num upNum,
-            ojm.down_num downNum
+            ojm.down_num downNum,
+            count(*) count
 
         from jsoup.order_jsoup_ma ojm
         left join jsoup.jsoup_mission_all jma on jma.ma_id = ojm.ma_id
@@ -39,7 +40,8 @@
         ojm.des commentDes,
         jud.user_des userDes,
         ojm.up_num upNum,
-        ojm.down_num downNum
+        ojm.down_num downNum,
+        count(*) count
 
         from jsoup.order_jsoup_mh ojm
         left join jsoup.jsoup_mission_all_history jma on jma.mission_all_history_id = ojm.mh_id

@@ -22,4 +22,6 @@ public class CommentVo {
     private String upNum;
 //    点踩数目
     private String downNum;
+//    总条目数
+    private Integer count;
 }
