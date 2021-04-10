@@ -1,4 +1,4 @@
-package dam.jsoup.updatereport.updatreport.service;
+package dam.jsoup.updatereport.updatreport.service.order;
 
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;

@@ -1,9 +1,9 @@
-package dam.jsoup.updatereport.updatreport.service.impl;
+package dam.jsoup.updatereport.updatreport.service.order.impl;
 
 import dam.jsoup.updatereport.updatreport.dao.*;
 import dam.jsoup.updatereport.updatreport.pojo.*;
 import dam.jsoup.updatereport.updatreport.service.JsoupActionService;
-import dam.jsoup.updatereport.updatreport.service.JsoupMissionService;
+import dam.jsoup.updatereport.updatreport.service.order.JsoupMissionService;
 import dam.jsoup.updatereport.updatreport.util.MyResponse;
 import dam.jsoup.updatereport.updatreport.vo.ActionVo;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
@@ -501,6 +501,12 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         }
     }
 
+    /**
+     * 获取评论列表
+     * @param id
+     * @param type
+     * @return
+     */
     @Override
     public List getGoodOrderDetail(Integer id, Integer type) {
 

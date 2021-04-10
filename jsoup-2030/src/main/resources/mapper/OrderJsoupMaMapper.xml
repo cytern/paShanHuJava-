@@ -11,6 +11,10 @@
     <result column="finish_price" jdbcType="DECIMAL" property="finishPrice" />
     <result column="score" jdbcType="INTEGER" property="score" />
     <result column="ma_id" jdbcType="INTEGER" property="maId" />
+    <result column="des" jdbcType="VARCHAR" property="des" />
+    <result column="up_num" jdbcType="INTEGER" property="upNum" />
+    <result column="down_num" jdbcType="INTEGER" property="downNum" />
+    <result column="mark_time" jdbcType="TIMESTAMP" property="markTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated-->
@@ -74,7 +78,8 @@
   </sql>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    order_id, owner_user_id, customer_user_id, create_time, finish_price, score, ma_id
+    order_id, owner_user_id, customer_user_id, create_time, finish_price, score, ma_id, 
+    des, up_num, down_num, mark_time
   </sql>
   <select id="selectByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.OrderJsoupMaExample" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -113,11 +118,13 @@
   <insert id="insert" keyColumn="order_id" keyProperty="orderId" parameterType="dam.jsoup.updatereport.updatreport.pojo.OrderJsoupMa" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into order_jsoup_ma (owner_user_id, customer_user_id, create_time, 
-      finish_price, score, ma_id
-      )
+      finish_price, score, ma_id, 
+      des, up_num, down_num, 
+      mark_time)
     values (#{ownerUserId,jdbcType=INTEGER}, #{customerUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{finishPrice,jdbcType=DECIMAL}, #{score,jdbcType=INTEGER}, #{maId,jdbcType=INTEGER}
-      )
+      #{finishPrice,jdbcType=DECIMAL}, #{score,jdbcType=INTEGER}, #{maId,jdbcType=INTEGER}, 
+      #{des,jdbcType=VARCHAR}, #{upNum,jdbcType=INTEGER}, #{downNum,jdbcType=INTEGER}, 
+      #{markTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="order_id" keyProperty="orderId" parameterType="dam.jsoup.updatereport.updatreport.pojo.OrderJsoupMa" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -141,6 +148,18 @@
       <if test="maId != null">
         ma_id,
       </if>
+      <if test="des != null">
+        des,
+      </if>
+      <if test="upNum != null">
+        up_num,
+      </if>
+      <if test="downNum != null">
+        down_num,
+      </if>
+      <if test="markTime != null">
+        mark_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="ownerUserId != null">
@@ -160,6 +179,18 @@
       </if>
       <if test="maId != null">
         #{maId,jdbcType=INTEGER},
+      </if>
+      <if test="des != null">
+        #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="upNum != null">
+        #{upNum,jdbcType=INTEGER},
+      </if>
+      <if test="downNum != null">
+        #{downNum,jdbcType=INTEGER},
+      </if>
+      <if test="markTime != null">
+        #{markTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -195,6 +226,18 @@
       <if test="record.maId != null">
         ma_id = #{record.maId,jdbcType=INTEGER},
       </if>
+      <if test="record.des != null">
+        des = #{record.des,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upNum != null">
+        up_num = #{record.upNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.downNum != null">
+        down_num = #{record.downNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.markTime != null">
+        mark_time = #{record.markTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -209,7 +252,11 @@
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       finish_price = #{record.finishPrice,jdbcType=DECIMAL},
       score = #{record.score,jdbcType=INTEGER},
-      ma_id = #{record.maId,jdbcType=INTEGER}
+      ma_id = #{record.maId,jdbcType=INTEGER},
+      des = #{record.des,jdbcType=VARCHAR},
+      up_num = #{record.upNum,jdbcType=INTEGER},
+      down_num = #{record.downNum,jdbcType=INTEGER},
+      mark_time = #{record.markTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -236,6 +283,18 @@
       <if test="maId != null">
         ma_id = #{maId,jdbcType=INTEGER},
       </if>
+      <if test="des != null">
+        des = #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="upNum != null">
+        up_num = #{upNum,jdbcType=INTEGER},
+      </if>
+      <if test="downNum != null">
+        down_num = #{downNum,jdbcType=INTEGER},
+      </if>
+      <if test="markTime != null">
+        mark_time = #{markTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
@@ -247,7 +306,11 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       finish_price = #{finishPrice,jdbcType=DECIMAL},
       score = #{score,jdbcType=INTEGER},
-      ma_id = #{maId,jdbcType=INTEGER}
+      ma_id = #{maId,jdbcType=INTEGER},
+      des = #{des,jdbcType=VARCHAR},
+      up_num = #{upNum,jdbcType=INTEGER},
+      down_num = #{downNum,jdbcType=INTEGER},
+      mark_time = #{markTime,jdbcType=TIMESTAMP}
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
   <update id="updateBatch" parameterType="java.util.List">
@@ -284,6 +347,26 @@
           when order_id = #{item.orderId,jdbcType=INTEGER} then #{item.maId,jdbcType=INTEGER}
         </foreach>
       </trim>
+      <trim prefix="des = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when order_id = #{item.orderId,jdbcType=INTEGER} then #{item.des,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="up_num = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when order_id = #{item.orderId,jdbcType=INTEGER} then #{item.upNum,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="down_num = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when order_id = #{item.orderId,jdbcType=INTEGER} then #{item.downNum,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="mark_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when order_id = #{item.orderId,jdbcType=INTEGER} then #{item.markTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
     </trim>
     where order_id in
     <foreach close=")" collection="list" item="item" open="(" separator=", ">
@@ -293,12 +376,14 @@
   <insert id="batchInsert" keyColumn="order_id" keyProperty="orderId" parameterType="map" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into order_jsoup_ma
-    (owner_user_id, customer_user_id, create_time, finish_price, score, ma_id)
+    (owner_user_id, customer_user_id, create_time, finish_price, score, ma_id, des, up_num, 
+      down_num, mark_time)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.ownerUserId,jdbcType=INTEGER}, #{item.customerUserId,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, 
-        #{item.finishPrice,jdbcType=DECIMAL}, #{item.score,jdbcType=INTEGER}, #{item.maId,jdbcType=INTEGER}
-        )
+        #{item.finishPrice,jdbcType=DECIMAL}, #{item.score,jdbcType=INTEGER}, #{item.maId,jdbcType=INTEGER}, 
+        #{item.des,jdbcType=VARCHAR}, #{item.upNum,jdbcType=INTEGER}, #{item.downNum,jdbcType=INTEGER}, 
+        #{item.markTime,jdbcType=TIMESTAMP})
     </foreach>
   </insert>
   <insert id="insertOrUpdate" keyColumn="order_id" keyProperty="orderId" parameterType="dam.jsoup.updatereport.updatreport.pojo.OrderJsoupMa" useGeneratedKeys="true">
@@ -314,6 +399,10 @@
       finish_price,
       score,
       ma_id,
+      des,
+      up_num,
+      down_num,
+      mark_time,
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -326,6 +415,10 @@
       #{finishPrice,jdbcType=DECIMAL},
       #{score,jdbcType=INTEGER},
       #{maId,jdbcType=INTEGER},
+      #{des,jdbcType=VARCHAR},
+      #{upNum,jdbcType=INTEGER},
+      #{downNum,jdbcType=INTEGER},
+      #{markTime,jdbcType=TIMESTAMP},
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -338,6 +431,10 @@
       finish_price = #{finishPrice,jdbcType=DECIMAL},
       score = #{score,jdbcType=INTEGER},
       ma_id = #{maId,jdbcType=INTEGER},
+      des = #{des,jdbcType=VARCHAR},
+      up_num = #{upNum,jdbcType=INTEGER},
+      down_num = #{downNum,jdbcType=INTEGER},
+      mark_time = #{markTime,jdbcType=TIMESTAMP},
     </trim>
   </insert>
   <insert id="insertOrUpdateSelective" keyColumn="order_id" keyProperty="orderId" parameterType="dam.jsoup.updatereport.updatreport.pojo.OrderJsoupMa" useGeneratedKeys="true">
@@ -365,6 +462,18 @@
       <if test="maId != null">
         ma_id,
       </if>
+      <if test="des != null">
+        des,
+      </if>
+      <if test="upNum != null">
+        up_num,
+      </if>
+      <if test="downNum != null">
+        down_num,
+      </if>
+      <if test="markTime != null">
+        mark_time,
+      </if>
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -389,6 +498,18 @@
       <if test="maId != null">
         #{maId,jdbcType=INTEGER},
       </if>
+      <if test="des != null">
+        #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="upNum != null">
+        #{upNum,jdbcType=INTEGER},
+      </if>
+      <if test="downNum != null">
+        #{downNum,jdbcType=INTEGER},
+      </if>
+      <if test="markTime != null">
+        #{markTime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -412,6 +533,18 @@
       </if>
       <if test="maId != null">
         ma_id = #{maId,jdbcType=INTEGER},
+      </if>
+      <if test="des != null">
+        des = #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="upNum != null">
+        up_num = #{upNum,jdbcType=INTEGER},
+      </if>
+      <if test="downNum != null">
+        down_num = #{downNum,jdbcType=INTEGER},
+      </if>
+      <if test="markTime != null">
+        mark_time = #{markTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>

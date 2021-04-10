@@ -1,5 +1,6 @@
 package dam.jsoup.updatereport.updatreport.service;
 
+import dam.jsoup.updatereport.updatreport.service.order.JsoupMissionService;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

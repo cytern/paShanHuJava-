@@ -2,7 +2,7 @@ server:
   port: 2060
 spring:
   application:
-    name: javaGateWay
+    name:
   devtools:
     restart:
       enabled: true
@@ -11,7 +11,7 @@ spring:
 eureka:
     client:
       service-url:
-        defaultZone: http://10.147.19.98:2024/eureka/  #注册位置
+        defaultZone: http://62.234.29.109:2024//eureka/  #注册位置
     instance:
       instance-id: spring-cloud-gateway-2060
       prefer-ip-address: true

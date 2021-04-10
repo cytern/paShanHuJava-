@@ -19,7 +19,7 @@ spring:
   datasource:
     username: cytern
     password: zhenlong
-    url: jdbc:mysql://localhost:3306/jsoup?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://62.234.29.109:3306/jsoup?useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   servlet:
@@ -54,7 +54,7 @@ eureka:
     service-url:
       defaultZone: http://62.234.29.109:2020/eureka/  #注册位置
   instance:
-    instance-id: spring-cloud-server-2021
+    instance-id: spring-cloud-server-2030
     prefer-ip-address: true
 
 #info 配置

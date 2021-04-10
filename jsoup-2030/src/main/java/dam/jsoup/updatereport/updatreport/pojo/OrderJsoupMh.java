@@ -62,5 +62,23 @@ public class OrderJsoupMh implements Serializable {
     @ApiModelProperty(value = "用户评价")
     private String des;
 
+    /**
+     * 点赞数目
+     */
+    @ApiModelProperty(value = "点赞数目")
+    private Integer upNum;
+
+    /**
+     * 点踩数目
+     */
+    @ApiModelProperty(value = "点踩数目")
+    private Integer downNum;
+
+    /**
+     * 点评时间
+     */
+    @ApiModelProperty(value = "点评时间")
+    private Date markTime;
+
     private static final long serialVersionUID = 1L;
 }

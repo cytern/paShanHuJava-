@@ -5,7 +5,7 @@ import dam.jsoup.updatereport.updatreport.dao.JsoupUserMapper;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupUserDetail;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupUserDetailExample;
 import dam.jsoup.updatereport.updatreport.service.HttpExcutorService;
-import dam.jsoup.updatereport.updatreport.service.JsoupMissionService;
+import dam.jsoup.updatereport.updatreport.service.order.JsoupMissionService;
 import dam.jsoup.updatereport.updatreport.service.SendEmail;
 import dam.jsoup.updatereport.updatreport.service.SendExcutorServcie;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;

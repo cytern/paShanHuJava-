@@ -2,12 +2,12 @@ package dam.jsoup.updatereport.updatreport.service.impl;
 
 import dam.jsoup.updatereport.updatreport.dao.JsoupMissionAllHistoryMapper;
 import dam.jsoup.updatereport.updatreport.dao.JsoupMissionAllMapper;
-import dam.jsoup.updatereport.updatreport.dao.MhMapper;
+import dam.jsoup.updatereport.updatreport.dao.HandMapper;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
 import dam.jsoup.updatereport.updatreport.service.ConnectSoupSystemService;
 import dam.jsoup.updatereport.updatreport.service.FileExcutorService;
-import dam.jsoup.updatereport.updatreport.service.JsoupMissionService;
+import dam.jsoup.updatereport.updatreport.service.order.JsoupMissionService;
 import dam.jsoup.updatereport.updatreport.vo.HttpMissionDataVo;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
 import lombok.extern.slf4j.Slf4j;
@@ -18,14 +18,14 @@ import java.util.Date;
 @Service
 @Slf4j
 public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
-    private final MhMapper mapper;
+    private final HandMapper mapper;
     private final JsoupMissionAllHistoryMapper historyMapper;
     private final FileExcutorService fileExcutorService;
     private final String dir = "E:\\projects\\excelData\\";
     private final JsoupMissionAllMapper missionAllMapper;
     private final JsoupMissionService missionService;
 
-    public ConnectSoupSystemServiceImpl(MhMapper mapper, JsoupMissionAllHistoryMapper historyMapper, FileExcutorService fileExcutorService, JsoupMissionAllMapper missionAllMapper, JsoupMissionService missionService) {
+    public ConnectSoupSystemServiceImpl(HandMapper mapper, JsoupMissionAllHistoryMapper historyMapper, FileExcutorService fileExcutorService, JsoupMissionAllMapper missionAllMapper, JsoupMissionService missionService) {
         this.mapper = mapper;
         this.historyMapper = historyMapper;
         this.fileExcutorService = fileExcutorService;

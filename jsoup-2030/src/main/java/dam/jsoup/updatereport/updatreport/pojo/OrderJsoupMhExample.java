@@ -595,6 +595,186 @@ public class OrderJsoupMhExample {
             addCriterion("des not between", value1, value2, "des");
             return (Criteria) this;
         }
+
+        public Criteria andUpNumIsNull() {
+            addCriterion("up_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpNumIsNotNull() {
+            addCriterion("up_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpNumEqualTo(Integer value) {
+            addCriterion("up_num =", value, "upNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpNumNotEqualTo(Integer value) {
+            addCriterion("up_num <>", value, "upNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpNumGreaterThan(Integer value) {
+            addCriterion("up_num >", value, "upNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("up_num >=", value, "upNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpNumLessThan(Integer value) {
+            addCriterion("up_num <", value, "upNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpNumLessThanOrEqualTo(Integer value) {
+            addCriterion("up_num <=", value, "upNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpNumIn(List<Integer> values) {
+            addCriterion("up_num in", values, "upNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpNumNotIn(List<Integer> values) {
+            addCriterion("up_num not in", values, "upNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpNumBetween(Integer value1, Integer value2) {
+            addCriterion("up_num between", value1, value2, "upNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("up_num not between", value1, value2, "upNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumIsNull() {
+            addCriterion("down_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumIsNotNull() {
+            addCriterion("down_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumEqualTo(Integer value) {
+            addCriterion("down_num =", value, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumNotEqualTo(Integer value) {
+            addCriterion("down_num <>", value, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumGreaterThan(Integer value) {
+            addCriterion("down_num >", value, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("down_num >=", value, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumLessThan(Integer value) {
+            addCriterion("down_num <", value, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumLessThanOrEqualTo(Integer value) {
+            addCriterion("down_num <=", value, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumIn(List<Integer> values) {
+            addCriterion("down_num in", values, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumNotIn(List<Integer> values) {
+            addCriterion("down_num not in", values, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumBetween(Integer value1, Integer value2) {
+            addCriterion("down_num between", value1, value2, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("down_num not between", value1, value2, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkTimeIsNull() {
+            addCriterion("mark_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkTimeIsNotNull() {
+            addCriterion("mark_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkTimeEqualTo(Date value) {
+            addCriterion("mark_time =", value, "markTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkTimeNotEqualTo(Date value) {
+            addCriterion("mark_time <>", value, "markTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkTimeGreaterThan(Date value) {
+            addCriterion("mark_time >", value, "markTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("mark_time >=", value, "markTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkTimeLessThan(Date value) {
+            addCriterion("mark_time <", value, "markTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkTimeLessThanOrEqualTo(Date value) {
+            addCriterion("mark_time <=", value, "markTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkTimeIn(List<Date> values) {
+            addCriterion("mark_time in", values, "markTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkTimeNotIn(List<Date> values) {
+            addCriterion("mark_time not in", values, "markTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkTimeBetween(Date value1, Date value2) {
+            addCriterion("mark_time between", value1, value2, "markTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkTimeNotBetween(Date value1, Date value2) {
+            addCriterion("mark_time not between", value1, value2, "markTime");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

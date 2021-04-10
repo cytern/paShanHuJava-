@@ -1,7 +1,6 @@
 package dam.jsoup.updatereport.updatreport.controller;
 
 import dam.jsoup.updatereport.updatreport.service.ConnectSoupSystemService;
-import dam.jsoup.updatereport.updatreport.service.JsoupMissionService;
 import dam.jsoup.updatereport.updatreport.vo.HttpMissionDataVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
