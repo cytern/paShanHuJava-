@@ -184,12 +184,15 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Map updateUser(UserVo userVo) {
-        JsoupUserAssets assets = userVo.getJsoupUserAssets();
-        JsoupUserDetail detail = userVo.getJsoupUserDetail();
-        assets.setUserId(userVo.getJsoupUser().getUserId());
-        detail.setUserId(userVo.getJsoupUser().getUserId());
-        assetsMapper.updateByPrimaryKeySelective(assets);
-        detailMapper.updateByPrimaryKeySelective(detail);
+        JsoupUserDetailExample detailExample = new JsoupUserDetailExample();
+        detailExample.createCriteria().andUserIdEqualTo(userVo.getJsoupUser().getUserId());
+        List<JsoupUserDetail> jsoupUserDetails = detailMapper.selectByExample(detailExample);
+        JsoupUserDetail detail1 = jsoupUserDetails.get(0);
+        detail1.setUserDes(userVo.getJsoupUserDetail().getUserDes());
+        detail1.setUserNickName(userVo.getJsoupUserDetail().getUserNickName());
+        detail1.setUserRealName(userVo.getJsoupUserDetail().getUserRealName());
+        detail1.setUserPhone(userVo.getJsoupUserDetail().getUserPhone());
+        detailMapper.updateByPrimaryKeySelective(detail1);
         return MyResponse.myResponseOk("更新成功");
     }
 

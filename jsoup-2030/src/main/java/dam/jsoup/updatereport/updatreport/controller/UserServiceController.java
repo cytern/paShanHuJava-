@@ -97,6 +97,23 @@ public class UserServiceController {
             return MyResponse.myResponseError("系统内部异常");}
     }
 
+    @PostMapping("customer/updateUserInfo")
+    Map updateUserInfo (@RequestBody UserVo userVo) {
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        log.info("用户 [{}],修改用户信息",userId);
+        Map map = null;
+        try {
+            map = userService.updateUser(userVo);
+        } catch (Exception e) {
+           log.error("修改用户信息失败",e);
+           map= MyResponse.myResponseError("修改失败");
+        }
+        return map;
+    }
+
+
+
 
 
 }
