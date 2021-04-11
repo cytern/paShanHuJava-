@@ -255,7 +255,7 @@ public class UserServiceImpl implements UserService {
             jsoupUserMapper.updateByPrimaryKey(user);
             //获取用户注册时的邮箱
             JsoupUserDetailExample example1 = new JsoupUserDetailExample();
-            example.createCriteria().andUserIdEqualTo(user.getUserId());
+            example1.createCriteria().andUserIdEqualTo(user.getUserId());
             List<JsoupUserDetail> jsoupUserDetails = detailMapper.selectByExample(example1);
 
             //发送邮件验证码
