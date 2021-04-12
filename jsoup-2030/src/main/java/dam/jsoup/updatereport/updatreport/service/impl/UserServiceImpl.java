@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -142,6 +143,8 @@ public class UserServiceImpl implements UserService {
         //注入主键
             userVo.getJsoupUserDetail().setUserId(user.getUserId());
             userVo.getJsoupUserAssets().setUserId(user.getUserId());
+            userVo.getJsoupUserAssets().setCornNum(new BigDecimal(1000));
+            userVo.getJsoupUserAssets().setGoldNum(new BigDecimal(1000));
             detailMapper.insert(userVo.getJsoupUserDetail());
             assetsMapper.insert(userVo.getJsoupUserAssets());
         userVo.setJsoupUser(user);
