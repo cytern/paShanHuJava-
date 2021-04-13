@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -199,6 +200,10 @@ public class MissionEditServiceImpl implements JsoupMissionService {
             //不存在首先添加新任务
             missionAllData.getJsoupMissionAll().setUserId(userId);
             missionAllData.getJsoupMissionAll().setCreateTime(new Date());
+            //存入初始数据
+            missionAllData.getJsoupMissionAll().setMaSaleNum(0);
+            missionAllData.getJsoupMissionAll().setMaPrice(new BigDecimal(200));
+            missionAllData.getJsoupMissionAll().setMaRate("0");
             jsoupMissionAllMapper.insertSelective(missionAllData.getJsoupMissionAll());
             maId = missionAllData.getJsoupMissionAll().getMaId();
         }else {

@@ -11,6 +11,7 @@ import dam.jsoup.updatereport.updatreport.service.SendExcutorServcie;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -84,6 +85,9 @@ public class RunJavaSoupImpl implements RunJavaSoup {
         history.setUserId(userId);
         history.setMissionAllName(jsoupMissionAll.getMaName());
         history.setMissionAllDis(jsoupMissionAll.getMaTip());
+        history.setSaleNum(0);
+        history.setSalePrice(new BigDecimal(200));
+        history.setSaleRate("0");
         jsoupMissionAllHistoryMapper.insertSelective(history);
     }
 }
