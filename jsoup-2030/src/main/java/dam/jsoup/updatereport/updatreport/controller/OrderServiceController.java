@@ -300,8 +300,8 @@ public class OrderServiceController {
 
     }
 
-    @GetMapping("customer/addTimeTaskMission/{maId}/{corn}/{times}")
-    Map addTimeTaskMission(@PathVariable Integer maId, @PathVariable String corn,@PathVariable Integer times) {
+    @GetMapping("customer/addTimeTaskMission")
+    Map addTimeTaskMission(@RequestParam("maId") Integer maId, @RequestParam("corn") String corn,@RequestParam("times") Integer times) {
         log.info("************ 添加定时任务 脚本信息***************");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         Integer userId = Integer.valueOf(request.getHeader("userId"));
@@ -316,8 +316,8 @@ public class OrderServiceController {
 
     }
 
-    @GetMapping("customer/updateTimeTaskMission/{mhId}/{corn}/{times}")
-    Map updateTimeTaskMission(@PathVariable Integer mhId, @PathVariable String corn,@PathVariable Integer times) {
+    @GetMapping("customer/updateTimeTaskMission")
+    Map updateTimeTaskMission(@RequestParam("mhId") Integer mhId, @RequestParam("corn") String corn,@RequestParam("times") Integer times) {
         log.info("************ 修改定时任务 脚本信息***************");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         Integer userId = Integer.valueOf(request.getHeader("userId"));
