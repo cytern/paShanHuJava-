@@ -4,6 +4,7 @@ import dam.jsoup.updatereport.updatreport.dao.*;
 import dam.jsoup.updatereport.updatreport.pojo.*;
 import dam.jsoup.updatereport.updatreport.service.JsoupActionService;
 import dam.jsoup.updatereport.updatreport.service.order.JsoupMissionService;
+import dam.jsoup.updatereport.updatreport.util.CronUtil;
 import dam.jsoup.updatereport.updatreport.util.MyResponse;
 import dam.jsoup.updatereport.updatreport.vo.ActionVo;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
@@ -523,6 +524,88 @@ public class MissionEditServiceImpl implements JsoupMissionService {
             OrderJsoupMhExample example = new OrderJsoupMhExample();
             example.createCriteria().andMhIdEqualTo(id);
             return  orderJsoupMhMapper.selectByExample(example);
+        }
+    }
+
+    /**
+     * 发送一个定时任务脚本
+     *
+     * @param maId
+     * @param userId
+     * @param corn
+     * @return
+     */
+    @Override
+    public Map addAutoWorkMission(Integer maId, Integer userId, String corn,Integer times) {
+        if (!CronUtil.canAdd(corn)){
+            return MyResponse.myResponseError("最小两次任务执行间隔为五分钟！");
+        }
+        //添加一个序列5 的 missionOrder
+        JsoupMissionAll jsoupMissionAll = jsoupMissionAllMapper.selectByPrimaryKey(maId);
+        if (jsoupMissionAll.getUserId() != userId) {
+            OrderJsoupMaExample example = new OrderJsoupMaExample();
+            example.createCriteria().andCustomerUserIdEqualTo(userId);
+            List<OrderJsoupMa> orderJsoupMas = orderJsoupMaMapper.selectByExample(example);
+            if (orderJsoupMas.size()<1) {
+                return MyResponse.myResponseError("非法操作");
+            }
+        }
+        JsoupMissionAllHistory history = new JsoupMissionAllHistory();
+        history.setSentTime(new Date());
+        history.setMissionAllId(jsoupMissionAll.getMaId());
+        history.setMissionState("5");
+        history.setUserId(userId);
+        history.setMissionAllName(jsoupMissionAll.getMaName());
+        history.setMissionAllDis(jsoupMissionAll.getMaTip());
+        history.setSaleNum(0);
+        history.setSalePrice(new BigDecimal(200));
+        history.setIsTimeTask(1);
+        history.setTimeCorn(corn);
+        history.setTimeNum(times);
+        history.setSaleRate("0");
+        missionAllHistoryMapper.insertSelective(history);
+        return MyResponse.myResponseOk("添加成功!");
+    }
+
+    /**
+     * 删除一个定时任务
+     *
+     * @param mhId
+     * @param userId
+     * @return
+     */
+    @Override
+    public Map deleteAutoWorkMission(Integer mhId, Integer userId) {
+        JsoupMissionAllHistory missionAllHistory = missionAllHistoryMapper.selectByPrimaryKey(mhId);
+        if (missionAllHistory == null || !missionAllHistory.getMissionState().equals("5") || missionAllHistory.getUserId()!= userId) {
+            return MyResponse.myResponseError("无效的数据");
+        }else {
+            missionAllHistoryMapper.deleteByPrimaryKey(mhId);
+            return MyResponse.myResponseOk("删除成功");
+        }
+    }
+
+    /**
+     * 更新一个定时任务
+     *
+     * @param mhId
+     * @param corn
+     * @return
+     */
+    @Override
+    public Map updateAutoWorkMission(Integer mhId, String corn,Integer times,Integer userId) {
+        JsoupMissionAllHistory missionAllHistory = missionAllHistoryMapper.selectByPrimaryKey(mhId);
+        if (missionAllHistory == null || !missionAllHistory.getMissionState().equals("5") || missionAllHistory.getUserId()!= userId) {
+            return MyResponse.myResponseError("无效的数据");
+        }else {
+           if (corn == null || CronUtil.canAdd(corn)) {
+               missionAllHistory.setTimeNum(times);
+               missionAllHistory.setTimeCorn(corn);
+               missionAllHistoryMapper.insertSelective(missionAllHistory);
+               return MyResponse.myResponseOk("修改成功");
+           }else {
+               return MyResponse.myResponseError("最小两次任务执行间隔为五分钟！");
+           }
         }
     }
 

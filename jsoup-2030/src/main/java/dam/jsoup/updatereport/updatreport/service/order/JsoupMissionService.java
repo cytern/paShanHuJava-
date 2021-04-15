@@ -94,6 +94,37 @@ public interface JsoupMissionService {
      */
     Map getGoodUserDetail(Integer id,Integer type);
 
-
+    /**
+     * 获取商品详情
+     * @param id
+     * @param type
+     * @return
+     */
     List getGoodOrderDetail(Integer id,Integer type);
+
+    /**
+     * 发送一个定时任务脚本
+     * @param maId
+     * @param userId
+     * @param corn
+     * @return
+     */
+    Map addAutoWorkMission(Integer maId,Integer userId,String corn,Integer times);
+
+    /**
+     * 删除一个定时任务
+     * @param mhId
+     * @param userId
+     * @return
+     */
+    Map deleteAutoWorkMission(Integer mhId,Integer userId);
+
+    /**
+     * 更新一个定时任务
+     * @param mhId
+     * @param corn
+     * @return
+     */
+    Map updateAutoWorkMission(Integer mhId,String corn,Integer times,Integer userId);
+
 }

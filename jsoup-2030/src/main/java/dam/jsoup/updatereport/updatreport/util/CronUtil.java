@@ -33,4 +33,24 @@ public class CronUtil {
         }
 
     }
+
+    public static boolean canAdd(String corn) {
+        final CronSequenceGenerator g = new CronSequenceGenerator(corn);
+        Date date = new Date();
+        Date next = g.next(date);
+        Date nextNext = g.next(g.next(date));
+        Calendar c1=Calendar.getInstance();
+        Calendar c2=Calendar.getInstance();
+        Calendar c3= Calendar.getInstance();
+        c1.setTime(nextNext);
+        c2.setTime(next);
+        c3.setTime(next);
+        c3.add(Calendar.MINUTE,5);
+//        两次间隔小于5分钟
+        if (c3.after(c1)){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

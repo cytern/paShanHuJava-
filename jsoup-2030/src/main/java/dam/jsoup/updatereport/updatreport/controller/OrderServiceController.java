@@ -300,4 +300,51 @@ public class OrderServiceController {
 
     }
 
+    @GetMapping("customer/addTimeTaskMission/{maId}/{corn}/{times}")
+    Map addTimeTaskMission(@PathVariable Integer maId, @PathVariable String corn,@PathVariable Integer times) {
+        log.info("************ 添加定时任务 脚本信息***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map map = new HashMap();
+        try {
+            map = missionService.addAutoWorkMission(maId,userId,corn,times);
+        } catch (Exception e) {
+            log.error("************ 添加定时任务  失败***************", e);
+            map = MyResponse.myResponseError("添加失败");
+        }
+        return map;
+
+    }
+
+    @GetMapping("customer/updateTimeTaskMission/{mhId}/{corn}/{times}")
+    Map updateTimeTaskMission(@PathVariable Integer mhId, @PathVariable String corn,@PathVariable Integer times) {
+        log.info("************ 修改定时任务 脚本信息***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map map = new HashMap();
+        try {
+            map = missionService.updateAutoWorkMission(mhId,corn,times,userId);
+        } catch (Exception e) {
+            log.error("************修改定时任务  失败***************", e);
+            map = MyResponse.myResponseError("修改失败");
+        }
+        return map;
+
+    }
+    @GetMapping("customer/deleteTimeTaskMission/{mhId}")
+    Map deleteTimeTaskMission(@PathVariable Integer mhId) {
+        log.info("************ 删除定时任务 脚本信息***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map map = new HashMap();
+        try {
+            map = missionService.deleteAutoWorkMission(mhId,userId);
+        } catch (Exception e) {
+            log.error("************删除定时任务  失败***************", e);
+            map = MyResponse.myResponseError("删除失败");
+        }
+        return map;
+
+    }
+
 }
