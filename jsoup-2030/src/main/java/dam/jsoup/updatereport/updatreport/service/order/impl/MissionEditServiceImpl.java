@@ -577,7 +577,7 @@ public class MissionEditServiceImpl implements JsoupMissionService {
     @Override
     public Map deleteAutoWorkMission(Integer mhId, Integer userId) {
         JsoupMissionAllHistory missionAllHistory = missionAllHistoryMapper.selectByPrimaryKey(mhId);
-        if (missionAllHistory == null || !missionAllHistory.getMissionState().equals("5") || missionAllHistory.getUserId()!= userId) {
+        if (missionAllHistory == null || missionAllHistory.getUserId()!= userId) {
             return MyResponse.myResponseError("无效的数据");
         }else {
             missionAllHistoryMapper.deleteByPrimaryKey(mhId);
