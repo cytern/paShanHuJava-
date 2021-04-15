@@ -8,6 +8,7 @@ import dam.jsoup.updatereport.updatreport.service.RunJavaSoup;
 import dam.jsoup.updatereport.updatreport.util.MyResponse;
 import dam.jsoup.updatereport.updatreport.util.PageHelper;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
+import dam.jsoup.updatereport.updatreport.vo.TimeTaskVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -300,14 +301,14 @@ public class OrderServiceController {
 
     }
 
-    @GetMapping("customer/addTimeTaskMission")
-    Map addTimeTaskMission(@RequestParam("maId") Integer maId, @RequestParam("corn") String corn,@RequestParam("times") Integer times) {
+    @PostMapping("customer/addTimeTaskMission")
+    Map addTimeTaskMission(@RequestBody TimeTaskVo timeTaskVo) {
         log.info("************ 添加定时任务 脚本信息***************");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         Integer userId = Integer.valueOf(request.getHeader("userId"));
         Map map = new HashMap();
         try {
-            map = missionService.addAutoWorkMission(maId,userId,corn,times);
+            map = missionService.addAutoWorkMission(timeTaskVo.getId(),userId,timeTaskVo.getCorn(),timeTaskVo.getTimes());
         } catch (Exception e) {
             log.error("************ 添加定时任务  失败***************", e);
             map = MyResponse.myResponseError("添加失败");
@@ -316,14 +317,14 @@ public class OrderServiceController {
 
     }
 
-    @GetMapping("customer/updateTimeTaskMission")
-    Map updateTimeTaskMission(@RequestParam("mhId") Integer mhId, @RequestParam("corn") String corn,@RequestParam("times") Integer times) {
+    @PostMapping("customer/updateTimeTaskMission")
+    Map updateTimeTaskMission(@RequestBody TimeTaskVo timeTaskVo) {
         log.info("************ 修改定时任务 脚本信息***************");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         Integer userId = Integer.valueOf(request.getHeader("userId"));
         Map map = new HashMap();
         try {
-            map = missionService.updateAutoWorkMission(mhId,corn,times,userId);
+            map = missionService.updateAutoWorkMission(timeTaskVo.getId(),timeTaskVo.getCorn(),timeTaskVo.getTimes(),userId);
         } catch (Exception e) {
             log.error("************修改定时任务  失败***************", e);
             map = MyResponse.myResponseError("修改失败");
