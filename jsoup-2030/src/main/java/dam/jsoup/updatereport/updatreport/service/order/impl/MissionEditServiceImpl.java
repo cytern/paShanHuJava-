@@ -538,11 +538,12 @@ public class MissionEditServiceImpl implements JsoupMissionService {
     @Override
     public Map addAutoWorkMission(Integer maId, Integer userId, String corn,Integer times) {
         if (!CronUtil.canAdd(corn)){
+            log.error("最小时间间隔太小，无法完成添加");
             return MyResponse.myResponseError("最小两次任务执行间隔为五分钟！");
         }
         //添加一个序列5 的 missionOrder
         JsoupMissionAll jsoupMissionAll = jsoupMissionAllMapper.selectByPrimaryKey(maId);
-        if (jsoupMissionAll.getUserId() != userId) {
+        if (!jsoupMissionAll.getUserId().equals(userId)) {
             OrderJsoupMaExample example = new OrderJsoupMaExample();
             example.createCriteria().andCustomerUserIdEqualTo(userId);
             List<OrderJsoupMa> orderJsoupMas = orderJsoupMaMapper.selectByExample(example);
@@ -577,7 +578,7 @@ public class MissionEditServiceImpl implements JsoupMissionService {
     @Override
     public Map deleteAutoWorkMission(Integer mhId, Integer userId) {
         JsoupMissionAllHistory missionAllHistory = missionAllHistoryMapper.selectByPrimaryKey(mhId);
-        if (missionAllHistory == null || missionAllHistory.getUserId()!= userId) {
+        if (missionAllHistory == null || !missionAllHistory.getUserId().equals(userId)) {
             return MyResponse.myResponseError("无效的数据");
         }else {
             missionAllHistoryMapper.deleteByPrimaryKey(mhId);
@@ -595,13 +596,13 @@ public class MissionEditServiceImpl implements JsoupMissionService {
     @Override
     public Map updateAutoWorkMission(Integer mhId, String corn,Integer times,Integer userId) {
         JsoupMissionAllHistory missionAllHistory = missionAllHistoryMapper.selectByPrimaryKey(mhId);
-        if (missionAllHistory == null || !missionAllHistory.getMissionState().equals("5") || missionAllHistory.getUserId()!= userId) {
+        if (missionAllHistory == null || !missionAllHistory.getUserId().equals(userId)) {
             return MyResponse.myResponseError("无效的数据");
         }else {
            if (corn == null || CronUtil.canAdd(corn)) {
                missionAllHistory.setTimeNum(times);
                missionAllHistory.setTimeCorn(corn);
-               missionAllHistoryMapper.insertSelective(missionAllHistory);
+               missionAllHistoryMapper.updateByPrimaryKeySelective(missionAllHistory);
                return MyResponse.myResponseOk("修改成功");
            }else {
                return MyResponse.myResponseError("最小两次任务执行间隔为五分钟！");

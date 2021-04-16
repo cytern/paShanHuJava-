@@ -71,6 +71,7 @@ public class TimeTaskServiceImpl implements TimeTaskService {
                         }
 
                         //添加新的mission任务  清空任务id  设置状态为1
+                        allHistory.setSentTime(new Date());
                         allHistory.setMissionAllHistoryId(null);
                         allHistory.setMissionState("1");
                         allHistory.setIsTimeTask(0);
