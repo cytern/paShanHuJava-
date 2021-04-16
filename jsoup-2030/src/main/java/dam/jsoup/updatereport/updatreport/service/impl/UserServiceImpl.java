@@ -328,4 +328,25 @@ public class UserServiceImpl implements UserService {
         map.put("userVo",userVo);
         return map;
     }
+
+    /**
+     * 商品出售成功 获取收益
+     *
+     * @param cornNum
+     */
+    @Override
+    public void saleSuccess(BigDecimal cornNum,Integer userId) {
+        //获取用户资产表
+        JsoupUserAssetsExample assetsExample = new JsoupUserAssetsExample();
+        assetsExample.createCriteria().andUserIdEqualTo(userId);
+        JsoupUserAssets assets = assetsMapper.selectByExample(assetsExample).get(0);
+        //获取用户详情表
+        JsoupUserDetailExample detailExample = new JsoupUserDetailExample();
+        detailExample.createCriteria().andUserIdEqualTo(userId);
+        JsoupUserDetail detail = detailMapper.selectByExample(detailExample).get(0);
+        assets.setCornNum(assets.getCornNum().add(cornNum.multiply(new BigDecimal(0.9))));
+        assetsMapper.updateByPrimaryKeySelective(assets);
+        detail.setUserSalenum(detail.getUserSalenum() + 1);
+        detailMapper.updateByPrimaryKeySelective(detail);
+    }
 }

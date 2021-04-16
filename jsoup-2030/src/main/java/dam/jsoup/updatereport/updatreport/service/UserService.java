@@ -6,6 +6,7 @@ import dam.jsoup.updatereport.updatreport.vo.UserVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 /**
@@ -82,4 +83,8 @@ public interface UserService {
      * @return 用户信息
      */
     Map getUserInfo(Integer userId);
+    /**
+     * 商品出售成功 获取收益
+     */
+    void saleSuccess (BigDecimal cornNum,Integer userId);
 }

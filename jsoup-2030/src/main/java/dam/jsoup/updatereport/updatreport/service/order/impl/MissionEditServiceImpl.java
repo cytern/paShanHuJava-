@@ -3,6 +3,7 @@ package dam.jsoup.updatereport.updatreport.service.order.impl;
 import dam.jsoup.updatereport.updatreport.dao.*;
 import dam.jsoup.updatereport.updatreport.pojo.*;
 import dam.jsoup.updatereport.updatreport.service.JsoupActionService;
+import dam.jsoup.updatereport.updatreport.service.UserService;
 import dam.jsoup.updatereport.updatreport.service.order.JsoupMissionService;
 import dam.jsoup.updatereport.updatreport.util.CronUtil;
 import dam.jsoup.updatereport.updatreport.util.MyResponse;
@@ -34,12 +35,13 @@ public class MissionEditServiceImpl implements JsoupMissionService {
     private final OrderJsoupMhMapper orderJsoupMhMapper;
     private final JsoupUserAssetsMapper assetsMapper;
     private final JsoupUserDetailMapper userDetailMapper;
+    private final UserService userService;
 
 
 
 
 
-    public MissionEditServiceImpl(JsoupMissionAllMapper jsoupMissionAllMapper, JsoupMissionMapper jsoupMissionMapper, JsoupPragramMapper pragramMapper, JsoupMissionOrderMapper orderMapper, JsoupActionService actionEditService, JsoupUserOrderMapper userOrderMapper, JsoupMissionAllHistoryMapper missionAllHistoryMapper, JsoupActionOrderMapper actionOrderMapper, JsoupActionMapper actionMapper, OrderJsoupMaMapper orderJsoupMaMapper, OrderJsoupMhMapper orderJsoupMhMapper, JsoupUserAssetsMapper assetsMapper, JsoupUserDetailMapper userDetailMapper) {
+    public MissionEditServiceImpl(JsoupMissionAllMapper jsoupMissionAllMapper, JsoupMissionMapper jsoupMissionMapper, JsoupPragramMapper pragramMapper, JsoupMissionOrderMapper orderMapper, JsoupActionService actionEditService, JsoupUserOrderMapper userOrderMapper, JsoupMissionAllHistoryMapper missionAllHistoryMapper, JsoupActionOrderMapper actionOrderMapper, JsoupActionMapper actionMapper, OrderJsoupMaMapper orderJsoupMaMapper, OrderJsoupMhMapper orderJsoupMhMapper, JsoupUserAssetsMapper assetsMapper, JsoupUserDetailMapper userDetailMapper, UserService userService) {
         this.jsoupMissionAllMapper = jsoupMissionAllMapper;
         this.jsoupMissionMapper = jsoupMissionMapper;
         this.pragramMapper = pragramMapper;
@@ -53,6 +55,7 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         this.orderJsoupMhMapper = orderJsoupMhMapper;
         this.assetsMapper = assetsMapper;
         this.userDetailMapper = userDetailMapper;
+        this.userService = userService;
     }
 
 
@@ -407,6 +410,8 @@ public class MissionEditServiceImpl implements JsoupMissionService {
                 }
                 missionAll.setMaSaleNum(maSaleNum+1);
                 jsoupMissionAllMapper.updateByPrimaryKeySelective(missionAll);
+                //持有者加钱
+                userService.saleSuccess(missionAll.getMaPrice(),missionAll.getUserId());
                 //扣除钱
                 jsoupUserAssets.get(0).setCornNum(jsoupUserAssets.get(0).getCornNum().subtract(missionAll.getMaPrice()));
                 assetsMapper.updateByPrimaryKeySelective(jsoupUserAssets.get(0));
@@ -463,6 +468,8 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         }
         history.setSaleNum(saleNum + 1);
         missionAllHistoryMapper.updateByPrimaryKeySelective(history);
+        //持有者加钱
+        userService.saleSuccess(history.getSalePrice(),history.getUserId());
         //加入订单
         OrderJsoupMh jsoupMh = new OrderJsoupMh();
         jsoupMh.setCreateTime(new Date());
