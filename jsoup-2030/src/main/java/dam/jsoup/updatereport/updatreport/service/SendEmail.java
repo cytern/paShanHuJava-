@@ -44,4 +44,7 @@ public interface SendEmail {
 
 
     void sendResEmail(String email, String codeMsg,String maName,String failReason);
+
+
+    void sendNoticeEmail(Integer userId,String title,String notice);
 }

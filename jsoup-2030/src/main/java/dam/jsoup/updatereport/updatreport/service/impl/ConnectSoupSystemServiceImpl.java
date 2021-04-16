@@ -3,17 +3,24 @@ package dam.jsoup.updatereport.updatreport.service.impl;
 import dam.jsoup.updatereport.updatreport.dao.JsoupMissionAllHistoryMapper;
 import dam.jsoup.updatereport.updatreport.dao.JsoupMissionAllMapper;
 import dam.jsoup.updatereport.updatreport.dao.HandMapper;
+import dam.jsoup.updatereport.updatreport.dao.JsoupUserAssetsMapper;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
+import dam.jsoup.updatereport.updatreport.pojo.JsoupUserAssets;
+import dam.jsoup.updatereport.updatreport.pojo.JsoupUserAssetsExample;
 import dam.jsoup.updatereport.updatreport.service.ConnectSoupSystemService;
 import dam.jsoup.updatereport.updatreport.service.FileExcutorService;
+import dam.jsoup.updatereport.updatreport.service.SendEmail;
 import dam.jsoup.updatereport.updatreport.service.order.JsoupMissionService;
+import dam.jsoup.updatereport.updatreport.util.MissionDataRunPriceUtil;
 import dam.jsoup.updatereport.updatreport.vo.HttpMissionDataVo;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -21,16 +28,20 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
     private final HandMapper mapper;
     private final JsoupMissionAllHistoryMapper historyMapper;
     private final FileExcutorService fileExcutorService;
-    private final String dir = "E:\\projects\\excelData\\";
+    private final String dir = "/export/data/";
     private final JsoupMissionAllMapper missionAllMapper;
     private final JsoupMissionService missionService;
+    private final JsoupUserAssetsMapper jsoupUserAssetsMapper;
+    private final SendEmail sendEmail;
 
-    public ConnectSoupSystemServiceImpl(HandMapper mapper, JsoupMissionAllHistoryMapper historyMapper, FileExcutorService fileExcutorService, JsoupMissionAllMapper missionAllMapper, JsoupMissionService missionService) {
+    public ConnectSoupSystemServiceImpl(HandMapper mapper, JsoupMissionAllHistoryMapper historyMapper, FileExcutorService fileExcutorService, JsoupMissionAllMapper missionAllMapper, JsoupMissionService missionService, JsoupUserAssetsMapper jsoupUserAssetsMapper, SendEmail sendEmail) {
         this.mapper = mapper;
         this.historyMapper = historyMapper;
         this.fileExcutorService = fileExcutorService;
         this.missionAllMapper = missionAllMapper;
         this.missionService = missionService;
+        this.jsoupUserAssetsMapper = jsoupUserAssetsMapper;
+        this.sendEmail = sendEmail;
     }
 
     /**
@@ -49,6 +60,29 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
         }
         //通过maId 序列化得到missionAll
         MissionAllData missionAllData = missionService.getMissionAllData(oneWaitToDoTask.getMissionAllId(), 1);
+//        判断用户余额足以支持执行脚本
+        BigDecimal bigDecimal = MissionDataRunPriceUtil.checkMissionAllDataPrice(missionAllData);
+        JsoupUserAssetsExample assetsExample = new JsoupUserAssetsExample();
+        assetsExample.createCriteria().andUserIdEqualTo(oneWaitToDoTask.getUserId());
+        List<JsoupUserAssets> jsoupUserAssets = jsoupUserAssetsMapper.selectByExample(assetsExample);
+        JsoupUserAssets userAssets = jsoupUserAssets.get(0);
+        if (userAssets.getCornNum().compareTo(bigDecimal) <0  ) {
+
+//            金币是否充足  1：:1000
+            if (userAssets.getGoldNum().multiply(new BigDecimal(1000)).compareTo(bigDecimal) <0){
+                sendEmail.sendNoticeEmail(oneWaitToDoTask.getUserId(),"对不起，您的余额不足","您的余额不足以支持执行此次任务。您的点数剩余:  " + userAssets.getCornNum().toString() + "   您的金币剩余:  " +userAssets.getGoldNum().toString() + "需要消耗的金额为: " +bigDecimal.toString());
+            }else {
+//                扣除金币
+                userAssets.setGoldNum(userAssets.getGoldNum().subtract(bigDecimal.multiply(new BigDecimal(0.001))));
+                jsoupUserAssetsMapper.updateByPrimaryKeySelective(userAssets);
+            }
+
+             }else {
+//            扣钱
+            userAssets.setCornNum(userAssets.getCornNum().subtract(bigDecimal));
+            jsoupUserAssetsMapper.updateByPrimaryKeySelective(userAssets);
+        }
+        sendEmail.sendNoticeEmail(oneWaitToDoTask.getUserId(),"您的任务"+missionAllData.getJsoupMissionAll().getMaName() +"开始执行","执行耗费为:  " + bigDecimal.toString());
         HttpMissionDataVo httpMissionDataVo = new HttpMissionDataVo();
         httpMissionDataVo.setMissionAllData(missionAllData);
         httpMissionDataVo.setJsoupMissionAllHistory(oneWaitToDoTask);
