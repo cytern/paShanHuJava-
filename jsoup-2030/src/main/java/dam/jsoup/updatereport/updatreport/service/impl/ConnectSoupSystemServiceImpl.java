@@ -1,29 +1,27 @@
 package dam.jsoup.updatereport.updatreport.service.impl;
 
-import dam.jsoup.updatereport.updatreport.dao.JsoupMissionAllHistoryMapper;
-import dam.jsoup.updatereport.updatreport.dao.JsoupMissionAllMapper;
-import dam.jsoup.updatereport.updatreport.dao.HandMapper;
-import dam.jsoup.updatereport.updatreport.dao.JsoupUserAssetsMapper;
-import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll;
-import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
-import dam.jsoup.updatereport.updatreport.pojo.JsoupUserAssets;
-import dam.jsoup.updatereport.updatreport.pojo.JsoupUserAssetsExample;
+import dam.jsoup.updatereport.updatreport.dao.*;
+import dam.jsoup.updatereport.updatreport.pojo.*;
 import dam.jsoup.updatereport.updatreport.service.ConnectSoupSystemService;
 import dam.jsoup.updatereport.updatreport.service.FileExcutorService;
 import dam.jsoup.updatereport.updatreport.service.SendEmail;
 import dam.jsoup.updatereport.updatreport.service.order.JsoupMissionService;
 import dam.jsoup.updatereport.updatreport.util.MissionDataRunPriceUtil;
+import dam.jsoup.updatereport.updatreport.util.MyResponse;
 import dam.jsoup.updatereport.updatreport.vo.HttpMissionDataVo;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
     private final HandMapper mapper;
     private final JsoupMissionAllHistoryMapper historyMapper;
@@ -33,16 +31,7 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
     private final JsoupMissionService missionService;
     private final JsoupUserAssetsMapper jsoupUserAssetsMapper;
     private final SendEmail sendEmail;
-
-    public ConnectSoupSystemServiceImpl(HandMapper mapper, JsoupMissionAllHistoryMapper historyMapper, FileExcutorService fileExcutorService, JsoupMissionAllMapper missionAllMapper, JsoupMissionService missionService, JsoupUserAssetsMapper jsoupUserAssetsMapper, SendEmail sendEmail) {
-        this.mapper = mapper;
-        this.historyMapper = historyMapper;
-        this.fileExcutorService = fileExcutorService;
-        this.missionAllMapper = missionAllMapper;
-        this.missionService = missionService;
-        this.jsoupUserAssetsMapper = jsoupUserAssetsMapper;
-        this.sendEmail = sendEmail;
-    }
+    private final JsoupExcutorMapper excutorMapper;
 
     /**
      * 获取待执行服务
@@ -144,5 +133,33 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
             historyMapper.updateByPrimaryKeySelective(mh);
         }
 
+    }
+
+    /**
+     * 心跳包维持
+     *
+     */
+    @Override
+    public Map heartHit(String excutorCode,String excutorToken) {
+        log.info("进入执行器注册程序  入参= [{}]",excutorCode+"    ========     " + excutorToken);
+        JsoupExcutor excutorByToekn = mapper.getExcutorByToekn(excutorToken);
+        if (excutorByToekn == null ) {
+            log.error("查无此注册执行器");
+            return MyResponse.myResponseError("无效的执行器");
+        }
+        if (excutorByToekn.getExcutorCode()!= null &&!excutorByToekn.getExcutorCode().equals(excutorCode)) {
+            log.info("此注册器识别码不一致");
+            return MyResponse.myResponseError("识别码不一致");
+        }
+        //注册新的执行器
+        if (excutorByToekn.getExcutorCode() == null) {
+            excutorByToekn.setExcutorCode(excutorCode);
+            excutorByToekn.setCreateTime(new Date());
+        }
+        excutorByToekn.setLiveUpdateTime(new Date());
+        excutorByToekn.setStatus("1");
+        //更新服务状态
+        mapper.updateExcutorByExcutorToken(excutorByToekn);
+        return MyResponse.myResponseOk("心跳续约成功");
     }
 }

@@ -9,15 +9,17 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TimedTaskExcutor implements ApplicationListener<ContextRefreshedEvent> {
-    private final TimeTaskAdder timeTaskAdder;
+    private final AllTimeService allTimeService;
 
-    public TimedTaskExcutor(TimeTaskAdder timeTaskAdder) {
-        this.timeTaskAdder = timeTaskAdder;
+    public TimedTaskExcutor(AllTimeService allTimeService) {
+        this.allTimeService = allTimeService;
     }
 
     //开启线程池
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-           timeTaskAdder.run();
+        //这里要做两件事 第一件是 开启定时任务注入线程池
+        //第二件事 开启检测存活执行器线程池
+        allTimeService.addTimeTask();
     }
 }

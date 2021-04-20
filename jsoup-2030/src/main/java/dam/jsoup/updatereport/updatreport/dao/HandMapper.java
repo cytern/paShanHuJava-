@@ -1,5 +1,6 @@
 package dam.jsoup.updatereport.updatreport.dao;
 
+import dam.jsoup.updatereport.updatreport.pojo.JsoupExcutor;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
 import dam.jsoup.updatereport.updatreport.vo.CommentVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -34,5 +35,23 @@ public interface HandMapper {
      * @return 评价
      */
     List<CommentVo> getMhComment(@Param("maId") Integer maId,@Param("pre") Integer pre,@Param("last") Integer last);
+
+
+    /**
+     * 获取待执行任务数量
+     */
+    Integer getWaitExecutorNum ();
+
+    /**
+     * 获取唯一的执行器
+     * @param token token
+     * @param code code
+     * @return
+     */
+   JsoupExcutor getExcutorByCpuCodeAndToken(@Param("token") String token,@Param("code") String code);
+
+   JsoupExcutor getExcutorByToekn(@Param("token")String token);
+
+   Integer updateExcutorByExcutorToken(JsoupExcutor excutor);
 
 }

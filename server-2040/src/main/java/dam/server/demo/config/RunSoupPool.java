@@ -6,6 +6,9 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+/**
+ * 任务启动后 发送心跳包
+ */
 @Component
 public class RunSoupPool implements ApplicationListener<ContextRefreshedEvent> {
     /**
@@ -16,7 +19,6 @@ public class RunSoupPool implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-            runJsoupService.run();
-            runJsoupService.run();
+
     }
 }

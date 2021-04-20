@@ -20,5 +20,11 @@ public interface ConnectSoupSystemService {
      * 接受执行完毕数据
      */
     void storeBackData(HttpMissionDataVo httpMissionDataVo);
+    /**
+     * 心跳包维持
+     */
+    Map heartHit(String code,String token);
+
+
 
 }

@@ -34,22 +34,21 @@ public class RunJsoupServiceImpl implements RunJsoupService {
     /**
      * 异步执行服务
      */
-    @Async
+    @Async("taskExecutor")
     @Override
     public void run() {
         //循环执行任务
-        while (true) {
+
             /**
-             * 循环执行 获取 任务 执行任务的程序
+             *  获取 任务 执行任务的程序
              */
             try {
                 getNewTask();
-                Thread.sleep(30000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 log.info("线程休眠错误");
             }
-        }
+
     }
 
 
