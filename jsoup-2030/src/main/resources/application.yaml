@@ -84,6 +84,7 @@ task:
 #其余配置
 dam:
   serverIp: 62.234.29.109
+  checkDateTime: 5
 
 
 

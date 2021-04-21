@@ -1485,6 +1485,206 @@ public class JsoupMissionAllHistoryExample {
             addCriterion("time_corn not between", value1, value2, "timeCorn");
             return (Criteria) this;
         }
+
+        public Criteria andExcutorCodeIsNull() {
+            addCriterion("excutor_code is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorCodeIsNotNull() {
+            addCriterion("excutor_code is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorCodeEqualTo(String value) {
+            addCriterion("excutor_code =", value, "excutorCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorCodeNotEqualTo(String value) {
+            addCriterion("excutor_code <>", value, "excutorCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorCodeGreaterThan(String value) {
+            addCriterion("excutor_code >", value, "excutorCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("excutor_code >=", value, "excutorCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorCodeLessThan(String value) {
+            addCriterion("excutor_code <", value, "excutorCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorCodeLessThanOrEqualTo(String value) {
+            addCriterion("excutor_code <=", value, "excutorCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorCodeLike(String value) {
+            addCriterion("excutor_code like", value, "excutorCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorCodeNotLike(String value) {
+            addCriterion("excutor_code not like", value, "excutorCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorCodeIn(List<String> values) {
+            addCriterion("excutor_code in", values, "excutorCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorCodeNotIn(List<String> values) {
+            addCriterion("excutor_code not in", values, "excutorCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorCodeBetween(String value1, String value2) {
+            addCriterion("excutor_code between", value1, value2, "excutorCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorCodeNotBetween(String value1, String value2) {
+            addCriterion("excutor_code not between", value1, value2, "excutorCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorTokenIsNull() {
+            addCriterion("excutor_token is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorTokenIsNotNull() {
+            addCriterion("excutor_token is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorTokenEqualTo(String value) {
+            addCriterion("excutor_token =", value, "excutorToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorTokenNotEqualTo(String value) {
+            addCriterion("excutor_token <>", value, "excutorToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorTokenGreaterThan(String value) {
+            addCriterion("excutor_token >", value, "excutorToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorTokenGreaterThanOrEqualTo(String value) {
+            addCriterion("excutor_token >=", value, "excutorToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorTokenLessThan(String value) {
+            addCriterion("excutor_token <", value, "excutorToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorTokenLessThanOrEqualTo(String value) {
+            addCriterion("excutor_token <=", value, "excutorToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorTokenLike(String value) {
+            addCriterion("excutor_token like", value, "excutorToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorTokenNotLike(String value) {
+            addCriterion("excutor_token not like", value, "excutorToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorTokenIn(List<String> values) {
+            addCriterion("excutor_token in", values, "excutorToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorTokenNotIn(List<String> values) {
+            addCriterion("excutor_token not in", values, "excutorToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorTokenBetween(String value1, String value2) {
+            addCriterion("excutor_token between", value1, value2, "excutorToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcutorTokenNotBetween(String value1, String value2) {
+            addCriterion("excutor_token not between", value1, value2, "excutorToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumIsNull() {
+            addCriterion("down_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumIsNotNull() {
+            addCriterion("down_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumEqualTo(Integer value) {
+            addCriterion("down_num =", value, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumNotEqualTo(Integer value) {
+            addCriterion("down_num <>", value, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumGreaterThan(Integer value) {
+            addCriterion("down_num >", value, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("down_num >=", value, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumLessThan(Integer value) {
+            addCriterion("down_num <", value, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumLessThanOrEqualTo(Integer value) {
+            addCriterion("down_num <=", value, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumIn(List<Integer> values) {
+            addCriterion("down_num in", values, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumNotIn(List<Integer> values) {
+            addCriterion("down_num not in", values, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumBetween(Integer value1, Integer value2) {
+            addCriterion("down_num between", value1, value2, "downNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("down_num not between", value1, value2, "downNum");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

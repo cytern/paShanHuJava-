@@ -68,4 +68,39 @@ public class HttpUtils {
           return false;
         }
     }
+
+
+    public static Map<String,Object> sendHeartHit (String url,String code,String token) throws Exception {
+        RestTemplate client = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        HttpMethod method = HttpMethod.POST;
+        JSONObject jsonObject = new JSONObject();
+        // 以表单的方式提交
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        url = url + "/" + code + "/" +token;
+        HashMap<String,Object> map;
+        //将请求头部和参数合成一个请求
+        HttpEntity requestEntity = new HttpEntity<>(jsonObject, headers);
+        //执行HTTP请求，将返回的结构使用ResultVO类格式化
+        ResponseEntity<String> response = client.exchange(url, method, requestEntity, String.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        HttpMissionDataVo missionAllData = null;
+        String strBody;
+        if (response.getStatusCodeValue() == 200) {    //判断返回的状态码
+            strBody = response.getBody();
+        } else {
+            throw new Exception("网络请求失败 状态码异常");
+        }
+        try {
+           map = objectMapper.readValue(strBody, HashMap.class);
+        } catch (Exception e
+        ) {
+            e.printStackTrace();
+            throw new Exception(e);
+        }
+        if (map == null) {
+            throw new Exception("无效的数据");
+        }
+        return map;
+    }
 }

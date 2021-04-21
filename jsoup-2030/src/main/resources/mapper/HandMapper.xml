@@ -87,4 +87,10 @@
         </trim>
         where excutor_token = #{excutorToken,jdbcType=VARCHAR}
     </update>
+
+    <select id="getAllLiveExcutor" resultType="dam.jsoup.updatereport.updatreport.pojo.JsoupExcutor">
+        select * from jsoup.jsoup_excutor
+        where status='1'
+    </select>
+
 </mapper>

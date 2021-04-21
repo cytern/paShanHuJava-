@@ -6,6 +6,7 @@ import dam.jsoup.updatereport.updatreport.service.ConnectSoupSystemService;
 import dam.jsoup.updatereport.updatreport.service.FileExcutorService;
 import dam.jsoup.updatereport.updatreport.service.SendEmail;
 import dam.jsoup.updatereport.updatreport.service.order.JsoupMissionService;
+import dam.jsoup.updatereport.updatreport.util.BusyUtil;
 import dam.jsoup.updatereport.updatreport.util.MissionDataRunPriceUtil;
 import dam.jsoup.updatereport.updatreport.util.MyResponse;
 import dam.jsoup.updatereport.updatreport.vo.HttpMissionDataVo;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -142,6 +144,7 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
     @Override
     public Map heartHit(String excutorCode,String excutorToken) {
         log.info("进入执行器注册程序  入参= [{}]",excutorCode+"    ========     " + excutorToken);
+        Map<String,Object> map = new HashMap<>();
         JsoupExcutor excutorByToekn = mapper.getExcutorByToekn(excutorToken);
         if (excutorByToekn == null ) {
             log.error("查无此注册执行器");
@@ -160,6 +163,9 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
         excutorByToekn.setStatus("1");
         //更新服务状态
         mapper.updateExcutorByExcutorToken(excutorByToekn);
-        return MyResponse.myResponseOk("心跳续约成功");
+        Integer num = mapper.getWaitExecutorNum();
+        Integer integer = BusyUtil.backStatus(num);
+        map.put("status",integer);
+        return MyResponse.myResponseOk(map,"心跳续约成功");
     }
 }

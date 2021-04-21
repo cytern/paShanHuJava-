@@ -66,6 +66,6 @@ public class ConfigBean {
      * 心跳包地址
      */
     public String getHeartPag () {
-        return baseUrl + "/server/system/sendHeart";
+        return baseUrl + "/server/system/heartHit";
     }
 }
