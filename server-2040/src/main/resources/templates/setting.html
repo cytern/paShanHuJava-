@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+</head>
+
+<body>
+<div id="app">
+<!--  vue + thymeleaf 写法 狗看了都哭了-->
+    <!--        标题-->
+    <el-row style="margin-bottom: 30px">
+        <el-col :span="24">
+            <span style="font-size: larger">管理页面</span>
+        </el-col>
+    </el-row>
+<!--    分割线-->
+    <el-divider></el-divider>
+    <el-row style="margin-bottom: 10px">
+        <el-col :span="1">
+            <span style="font-size: large;color: coral">状态:</span>
+        </el-col>
+        <el-col :span="6">
+            <el-tag v-if="live == 1" type="success">正常</el-tag>
+            <el-tag v-else type="danger">掉线</el-tag>
+        </el-col>
+    </el-row>
+    <el-row :gutter="5">
+<!--        存活线程-->
+        <el-col :span="8">
+            <el-row>
+                <el-col :span="24">
+                <el-progress type="dashboard"  :percentage="liveProcess" :color="colors"></el-progress>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="24">
+                    <el-button type="primary">执行器状态</el-button>
+                </el-col>
+            </el-row>
+        </el-col>
+        <!-- 服务其载荷-->
+        <el-col :span="8">
+            <el-row>
+                <el-col :span="24">
+                    <el-progress type="dashboard"  :percentage="status" :color="colors"></el-progress>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="24">
+                    <el-button type="primary">服务器状态</el-button>
+                </el-col>
+            </el-row>
+        </el-col>
+<!--设置最大功率-->
+        <el-col :span="8">
+            <el-row>
+                <el-col :span="24">
+                    <el-progress type="dashboard" :percentage="maxPoolSize" :color="colors"></el-progress>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="24">
+                    <el-row><el-col style="margin-left: 5px">功率</el-col></el-row>
+                    <el-row>
+                        <el-col>
+                            <el-button-group>
+                                <el-button icon="el-icon-minus" @click="decrease"></el-button>
+                                <el-button icon="el-icon-plus" @click="increase"></el-button>
+                            </el-button-group>
+                        </el-col>
+                    </el-row>
+
+                </el-col>
+            </el-row>
+        </el-col>
+    </el-row>
+    <el-divider></el-divider>
+    <el-row style="margin-top: 20px">
+        <el-col :span="12">
+            密钥: <el-input style="width: 50%"  v-model="token"></el-input>
+        </el-col>
+        <el-col :span="12">
+             <el-button  type="success" @click="sendToken">设置密钥</el-button>
+        </el-col>
+    </el-row>
+    <el-row style="margin-top: 20px">
+        <el-col :span="12">
+            执行器地址: <el-input style="width: 50%"  v-model="executorUrl"></el-input>
+        </el-col>
+        <el-col :span="12">
+            <el-button  type="success" @click="sendToken">确定地址</el-button>
+        </el-col>
+    </el-row>
+<!--    第二行为设置页面-->
+
+</div>
+</body>
+
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                visible: false,
+                colors: [
+                    {color: '#ffffff', percentage: 0},
+                    {color: '#e6a23c', percentage: 20},
+                    {color: '#5cb87a', percentage: 40},
+                    {color: '#1989fa', percentage: 60},
+                    {color: '#6f7ad3', percentage: 80},
+                    {color: '#a500fa', percentage: 100},
+                ],
+                liveProcess: 0,
+                status: 0,
+                maxPoolSize: 50,
+                token: null,
+                live: 0,
+                executorUrl : null,
+            }
+        },
+        mounted(){
+           this.getConfig()
+        },
+        methods: {
+            decrease: function () {
+                console.log("1111")
+                this.maxPoolSize = this.maxPoolSize - 10;
+            },
+            increase: function () {
+                this.maxPoolSize = this.maxPoolSize +10;
+            },
+            sendToken: function () {
+
+            },
+            getConfig: function () {
+                $.ajax({
+                    url: "http://localhost:2040/getConfig",
+
+                    dataType: "json",
+                    type: "get",
+
+                    success: function(result) {  //这里就是我出错的地方
+                        this.liveProcess = result.runStatus
+                        this.status = result.serveStatus
+                        this.maxPoolSize = result.workStatus
+                        this.live = result.live
+                    },
+                    error: function(data) {
+                        alert("请求出错");
+                        alert(data);
+                    }
+                });
+            }
+         }
+    })
+</script>
+
+</html>

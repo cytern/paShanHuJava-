@@ -14,7 +14,7 @@ public class TaskThreadPool {
     private TaskThreadPoolConfig config;
 
     @Bean("taskExecutor")
-    public Executor taskExecutor() {
+    public ThreadPoolTaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         //核心线程池大小
         executor.setCorePoolSize(config.getCorePoolSize());

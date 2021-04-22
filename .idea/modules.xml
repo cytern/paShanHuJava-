@@ -3,8 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/demo.iml" filepath="$PROJECT_DIR$/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/excel-2050/demo (1) (com.kente).iml" filepath="$PROJECT_DIR$/excel-2050/demo (1) (com.kente).iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-2040/demo (2) (dam.server).iml" filepath="$PROJECT_DIR$/server-2040/demo (2) (dam.server).iml" />
       <module fileurl="file://$PROJECT_DIR$/euerka-2020/euerka-2020.iml" filepath="$PROJECT_DIR$/euerka-2020/euerka-2020.iml" />
+      <module fileurl="file://$PROJECT_DIR$/euerka-2020/eureka.iml" filepath="$PROJECT_DIR$/euerka-2020/eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/excel-2050/excel-2050.iml" filepath="$PROJECT_DIR$/excel-2050/excel-2050.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gateway-2060/gateway.iml" filepath="$PROJECT_DIR$/gateway-2060/gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/gateway-2060/gateway-2060.iml" filepath="$PROJECT_DIR$/gateway-2060/gateway-2060.iml" />
       <module fileurl="file://$PROJECT_DIR$/jsoup-2030/jsoup-2030.iml" filepath="$PROJECT_DIR$/jsoup-2030/jsoup-2030.iml" />
       <module fileurl="file://$PROJECT_DIR$/server-2040/server-2040.iml" filepath="$PROJECT_DIR$/server-2040/server-2040.iml" />

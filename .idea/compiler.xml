@@ -7,18 +7,26 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="excel-2050" />
         <module name="euerka-2020" />
         <module name="jsoup-2030" />
+        <module name="eureka" />
+        <module name="demo (1) (com.kente)" />
+        <module name="excel-2050" />
+        <module name="demo (2) (dam.server)" />
         <module name="server-2040" />
         <module name="gateway-2060" />
         <module name="demo" />
+        <module name="gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="demo" target="1.8" />
+      <module name="demo (1) (com.kente)" target="8" />
+      <module name="demo (2) (dam.server)" target="1.8" />
       <module name="euerka-2020" target="1.8" />
+      <module name="eureka" target="1.8" />
       <module name="excel-2050" target="8" />
+      <module name="gateway" target="1.8" />
       <module name="gateway-2060" target="1.8" />
       <module name="jsoup-2030" target="1.8" />
       <module name="kente-2050" target="8" />
@@ -28,8 +36,12 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="demo" options="-parameters" />
+      <module name="demo (1) (com.kente)" options="-parameters" />
+      <module name="demo (2) (dam.server)" options="-parameters" />
       <module name="euerka-2020" options="-parameters" />
+      <module name="eureka" options="-parameters" />
       <module name="excel-2050" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="gateway-2060" options="-parameters" />
       <module name="jsoup-2030" options="-parameters" />
       <module name="kente-2050" options="-parameters" />
