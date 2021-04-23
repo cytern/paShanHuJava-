@@ -28,14 +28,9 @@ public class JsoupMissionAllHistory implements Serializable {
     private Integer missionAllId;
 
     /**
-     * 任务执行状态
-     * 0 或空 异常状态
-     * 2 执行中
-     * 1 排队执行中
-     * 3 执行完成且成功
-     * 4 执行完成但失败
+     * 任务执行状态0 或空 异常状态2 执行中1 排队执行中3 执行完成且成功4 执行完成但失败5 定时任务原数据
      */
-    @ApiModelProperty(value = "任务执行状态,0 或空 异常状态,2 执行中,1 排队执行中,3 执行完成且成功,4 执行完成但失败")
+    @ApiModelProperty(value = "任务执行状态0 或空 异常状态2 执行中1 排队执行中3 执行完成且成功4 执行完成但失败5 定时任务原数据")
     private String missionState;
 
     /**
@@ -81,10 +76,9 @@ public class JsoupMissionAllHistory implements Serializable {
     private String missionAllDis;
 
     /**
-     * 0 未上架
-     * 1 已上架
+     * 0 未上架1 已上架
      */
-    @ApiModelProperty(value = "0 未上架,1 已上架,")
+    @ApiModelProperty(value = "0 未上架1 已上架,")
     private String onSale;
 
     /**
@@ -146,6 +140,24 @@ public class JsoupMissionAllHistory implements Serializable {
      */
     @ApiModelProperty(value = "定时任务表达式")
     private String timeCorn;
+
+    /**
+     * 执行器cpu标识码
+     */
+    @ApiModelProperty(value = "执行器cpu标识码")
+    private String excutorCode;
+
+    /**
+     * 执行器token值
+     */
+    @ApiModelProperty(value = "执行器token值")
+    private String excutorToken;
+
+    /**
+     * 点踩数
+     */
+    @ApiModelProperty(value = "点踩数")
+    private Integer downNum;
 
     private static final long serialVersionUID = 1L;
 }
