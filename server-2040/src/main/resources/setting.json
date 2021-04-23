@@ -2,7 +2,7 @@
   "executor": {
     "token": "88888888",
     "userName" : null,
-    "executorUrl" : null
+    "executorUrl" : "C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe"
   },
   "pool": {
     "corePoolSize": 5 ,

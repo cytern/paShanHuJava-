@@ -1,7 +1,9 @@
 package dam.server.demo.service.impl;
 
+import dam.server.demo.config.ConfigBean;
 import dam.server.demo.service.ExcutorService;
 import dam.server.demo.vo.*;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,7 +20,9 @@ import java.util.stream.Collectors;
 @Scope(scopeName = "prototype")
 @Service
 @Slf4j
+@AllArgsConstructor
 public class ExcutorServiceImpl implements ExcutorService {
+    private final ConfigBean configBean;
 
 
     /**
@@ -42,7 +46,7 @@ public class ExcutorServiceImpl implements ExcutorService {
         List<MissionData> collect = missionDataList.stream().sorted(Comparator.comparing(e -> e.getJsoupMissionOrder().getMoRank())).collect(Collectors.toList());
         //打开全新的一个服务浏览器
 //        String dir = applicationArguments.getNonOptionArgs().get(0);
-        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", configBean.getJsoupSetting().getExecutor().getExecutorUrl());
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("-headless");
         WebDriver webDriver = new ChromeDriver(chromeOptions);

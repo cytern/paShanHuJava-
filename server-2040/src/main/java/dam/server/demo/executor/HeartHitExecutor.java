@@ -38,7 +38,7 @@ public class HeartHitExecutor {
                     if ("success".equals(map.get("code"))){
                         Integer status = (Integer) map.get("status");
                         for (int i = 0; i < status; i++) {
-                           if (taskExecutor.getActiveCount()>4) {
+                           if (taskExecutor.getActiveCount()>6) {
                                break;
                            }else {
                                runJsoupService.run();

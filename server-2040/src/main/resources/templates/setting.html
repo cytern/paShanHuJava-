@@ -57,32 +57,32 @@
             </el-row>
         </el-col>
 <!--设置最大功率-->
-        <el-col :span="8">
-            <el-row>
-                <el-col :span="24">
-                    <el-progress type="dashboard" :percentage="maxPoolSize" :color="colors"></el-progress>
-                </el-col>
-            </el-row>
-            <el-row>
-                <el-col :span="24">
-                    <el-row><el-col style="margin-left: 5px">功率</el-col></el-row>
-                    <el-row>
-                        <el-col>
-                            <el-button-group>
-                                <el-button icon="el-icon-minus" @click="decrease"></el-button>
-                                <el-button icon="el-icon-plus" @click="increase"></el-button>
-                            </el-button-group>
-                        </el-col>
-                    </el-row>
+<!--        <el-col :span="8">-->
+<!--            <el-row>-->
+<!--                <el-col :span="24">-->
+<!--                    <el-progress type="dashboard" :percentage="jsoupSetting.pool.maxPoolSize" :color="colors"></el-progress>-->
+<!--                </el-col>-->
+<!--            </el-row>-->
+<!--            <el-row>-->
+<!--                <el-col :span="24">-->
+<!--                    <el-row><el-col style="margin-left: 5px">功率</el-col></el-row>-->
+<!--                    <el-row>-->
+<!--                        <el-col>-->
+<!--                            <el-button-group>-->
+<!--                                <el-button icon="el-icon-minus" @click="decrease"></el-button>-->
+<!--                                <el-button icon="el-icon-plus" @click="increase"></el-button>-->
+<!--                            </el-button-group>-->
+<!--                        </el-col>-->
+<!--                    </el-row>-->
 
-                </el-col>
-            </el-row>
-        </el-col>
+<!--                </el-col>-->
+<!--            </el-row>-->
+<!--        </el-col>-->
     </el-row>
     <el-divider></el-divider>
     <el-row style="margin-top: 20px">
         <el-col :span="12">
-            密钥: <el-input style="width: 50%"  v-model="token"></el-input>
+            密钥: <el-input style="width: 50%"  v-model="jsoupSetting.executor.token"></el-input>
         </el-col>
         <el-col :span="12">
              <el-button  type="success" @click="sendToken">设置密钥</el-button>
@@ -90,7 +90,7 @@
     </el-row>
     <el-row style="margin-top: 20px">
         <el-col :span="12">
-            执行器地址: <el-input style="width: 50%"  v-model="executorUrl"></el-input>
+            执行器地址: <el-input style="width: 50%"  v-model="jsoupSetting.executor.executorUrl"></el-input>
         </el-col>
         <el-col :span="12">
             <el-button  type="success" @click="sendToken">确定地址</el-button>
@@ -123,6 +123,7 @@
                 token: null,
                 live: 0,
                 executorUrl : null,
+                jsoupSetting: null
             }
         },
         mounted(){
@@ -137,7 +138,19 @@
                 this.maxPoolSize = this.maxPoolSize +10;
             },
             sendToken: function () {
-
+               let jsoupSetting = this.jsoupSetting
+                $.ajax({
+                    type: 'POST',
+                    url: "http://localhost:2040" +
+                         "setConfig",
+                    data: jsoupSetting,
+                    success: function (res) {
+                        if (res.code == "success") {
+                            this.$message.success("res.msg")
+                        }
+                    },
+                });
+               this.getConfig()
             },
             getConfig: function () {
                 $.ajax({
@@ -147,7 +160,10 @@
                     type: "get",
 
                     success: function(result) {  //这里就是我出错的地方
-                        console.log(result)
+                       this.live = result.live
+                        this.liveProcess = result.runStatus
+                        this.status = result.serveStatus
+                        this.jsoupSetting = result.jsoupSetting
                     },
                     error: function(data) {
                         alert("请求出错");
