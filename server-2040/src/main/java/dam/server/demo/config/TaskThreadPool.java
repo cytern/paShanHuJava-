@@ -11,19 +11,19 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 public class TaskThreadPool {
     @Autowired
-    private TaskThreadPoolConfig config;
+    private ConfigBean config;
 
     @Bean("taskExecutor")
     public ThreadPoolTaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         //核心线程池大小
-        executor.setCorePoolSize(config.getCorePoolSize());
+        executor.setCorePoolSize(config.getJsoupSetting().getPool().getCorePoolSize());
         //最大线程数
-        executor.setMaxPoolSize(config.getMaxPoolSize());
+        executor.setMaxPoolSize(config.getJsoupSetting().getPool().getMaxPoolSize());
         //队列容量
-        executor.setQueueCapacity(config.getQueueCapacity());
+        executor.setQueueCapacity(config.getJsoupSetting().getPool().getQueueCapacity());
         //活跃时间
-        executor.setKeepAliveSeconds(config.getKeepAliveSeconds());
+        executor.setKeepAliveSeconds(config.getJsoupSetting().getPool().getKeepAliveSeconds());
         //线程名字前缀
         executor.setThreadNamePrefix("JsoupExecutePool-");
 

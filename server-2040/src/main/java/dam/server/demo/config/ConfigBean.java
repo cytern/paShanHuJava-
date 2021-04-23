@@ -1,6 +1,8 @@
 package dam.server.demo.config;
 
+import dam.server.demo.pojo.JsoupSetting;
 import dam.server.demo.utils.ExecCmd;
+import dam.server.demo.utils.SettinglUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -23,11 +25,6 @@ public class ConfigBean {
      */
     private final String cpuCoreId;
 //    private final String baseUrl = "http://localhost:2060";
-    private Integer poolSize;
-    /**
-     * token值
-     */
-    private String token;
     /**
      *
      */
@@ -36,6 +33,7 @@ public class ConfigBean {
      * 运行状况
      */
     private Integer status;
+    private JsoupSetting jsoupSetting;
 
     /**
      * 构造方法内初始化cpu参数
@@ -43,11 +41,20 @@ public class ConfigBean {
     public ConfigBean() {
         log.info("*****************加载系统环境数据*****************");
         ExecCmd execCmd = new ExecCmd("wmic csproduct get uuid");
+        SettinglUtil settinglUtil = new SettinglUtil();
         execCmd.run();
         this.cpuCoreId = execCmd.getComment().get(1).replaceAll("[ \t\n]*", "");
-//        this.token = YamlUtil.getToken();
-        this.token = "test";
-        log.info("*****************加载系统环境数据完毕*****************");
+        JsoupSetting settingMap = settinglUtil.getSettingMap();
+        this.jsoupSetting = settingMap;
+        log.info("*****************加载系统环境数据完毕*****************加载参数=[{}]",jsoupSetting);
+    }
+
+    public JsoupSetting getJsoupSetting() {
+        return jsoupSetting;
+    }
+
+    public void setJsoupSetting(JsoupSetting jsoupSetting) {
+        this.jsoupSetting = jsoupSetting;
     }
 
     @Bean
@@ -55,21 +62,6 @@ public class ConfigBean {
         return builder.build();
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public Integer getPoolSize() {
-        return poolSize;
-    }
-
-    public void setPoolSize(Integer poolSize) {
-        this.poolSize = poolSize;
-    }
 
     public Integer getStatus() {
         return status;

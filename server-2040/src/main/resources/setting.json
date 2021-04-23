@@ -1,0 +1,12 @@
+{
+  "executor": {
+    "token": "88888888",
+    "userName" : ""
+  },
+  "pool": {
+    "corePoolSize": 5 ,
+    "maxPoolSize": 20  ,
+    "keepAliveSeconds": 300 ,
+    "queueCapacity": 50
+  }
+}

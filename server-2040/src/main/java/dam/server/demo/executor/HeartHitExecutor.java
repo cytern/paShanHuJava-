@@ -29,7 +29,7 @@ public class HeartHitExecutor {
                 Map<String, Object> map = null;
                 //发送心跳包
                 try {
-                    map = HttpUtils.sendHeartHit(configBean.getHeartPag(), configBean.getCpuCoreId(), configBean.getToken());
+                    map = HttpUtils.sendHeartHit(configBean.getHeartPag(), configBean.getCpuCoreId(), configBean.getJsoupSetting().getExecutor().getToken());
                     log.info("********* 心跳返回结果  *********** =[{}]",map);
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -39,7 +39,7 @@ public class PageController {
         Map<String,Object> map = new HashMap<>();
         map.put("runStatus",taskExecutor.getActiveCount()==0?0:taskExecutor.getActiveCount()*20);
         map.put("serveStatus",configBean.getStatus()==null?0:configBean.getStatus()*20);
-       map.put("workStatus",configBean.getPoolSize()==null?0:configBean.getPoolSize()*20);
+       map.put("workStatus",configBean.getJsoupSetting().getPool().getMaxPoolSize()==null?0:configBean.getJsoupSetting().getPool().getMaxPoolSize()*20);
        map.put("live",configBean.getLive());
        return map;
     }
