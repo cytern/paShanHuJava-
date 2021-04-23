@@ -58,6 +58,7 @@ public class RunJsoupServiceImpl implements RunJsoupService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         //cpu 识别码 未来可能替换成为token
         params.add("code",configBean.getCpuCoreId());
+        params.add("token",configBean.getJsoupSetting().getExecutor().getToken());
         //发送请求
         HttpMissionDataVo missionAllData = null;
             try {

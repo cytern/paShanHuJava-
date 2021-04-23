@@ -39,7 +39,15 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
      * 获取待执行服务
      */
     @Override
-    public HttpMissionDataVo getOneWaitService() {
+    public HttpMissionDataVo getOneWaitService(String code,String token) {
+        //校验code与token
+        JsoupExcutor excutor = mapper.getExcutorByCpuCodeAndToken(token, code);
+        if (excutor == null) {
+            HttpMissionDataVo httpMissionDataVo = new HttpMissionDataVo();
+            httpMissionDataVo.setState(0);
+            httpMissionDataVo.setException("无效的执行器");
+            return httpMissionDataVo;
+        }
         //获取一个待执行任务
         JsoupMissionAllHistory oneWaitToDoTask = mapper.getOneWaitToDoTask();
         if (oneWaitToDoTask == null) {
@@ -81,6 +89,8 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
         //返回前需要将任务状态重新设置  已经被任务器拿走 状态修改为2 执行中 添加现在时间为finish time
         oneWaitToDoTask.setMissionState("2");
         oneWaitToDoTask.setFinishTime(new Date());
+        oneWaitToDoTask.setExcutorCode(code);
+        oneWaitToDoTask.setExcutorToken(token);
         historyMapper.updateByPrimaryKeySelective(oneWaitToDoTask);
         return httpMissionDataVo;
     }
@@ -106,6 +116,10 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
             }else {
                 mh.setMissionFailReason(e);
             }
+            //获取脚本执行器
+            JsoupExcutor excutorByToekn = mapper.getExcutorByToekn(mh.getExcutorToken());
+            excutorByToekn.setExcutorTimes(excutorByToekn.getExcutorTimes() +1);
+            excutorMapper.updateByPrimaryKeySelective(excutorByToekn);
             historyMapper.updateByPrimaryKeySelective(mh);
             return;
         }
@@ -132,6 +146,10 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
                 mh.setMissionFailReason(e.getMessage());
             }
             mh.setFinishTime(new Date());
+            JsoupExcutor excutorByToekn = mapper.getExcutorByToekn(mh.getExcutorToken());
+            excutorByToekn.setExcutorTimes(excutorByToekn.getExcutorTimes() +1);
+            excutorByToekn.setSuccessTimes(excutorByToekn.getSuccessTimes() +1);
+            excutorMapper.updateByPrimaryKeySelective(excutorByToekn);
             historyMapper.updateByPrimaryKeySelective(mh);
         }
 
@@ -158,6 +176,8 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
         if (excutorByToekn.getExcutorCode() == null) {
             excutorByToekn.setExcutorCode(excutorCode);
             excutorByToekn.setCreateTime(new Date());
+            excutorByToekn.setSuccessTimes(0);
+            excutorByToekn.setExcutorTimes(0);
         }
         excutorByToekn.setLiveUpdateTime(new Date());
         excutorByToekn.setStatus("1");

@@ -15,7 +15,7 @@ public interface ConnectSoupSystemService {
      * 获取待执行服务
      * @return
      */
-    HttpMissionDataVo getOneWaitService();
+    HttpMissionDataVo getOneWaitService(String code,String token);
     /**
      * 接受执行完毕数据
      */

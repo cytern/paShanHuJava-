@@ -28,9 +28,9 @@ public class SystemConnectController {
      */
     @PostMapping("system/getOneTask")
     @ResponseBody
-    public HttpMissionDataVo getOneTask(@RequestParam("code")String code){
+    public HttpMissionDataVo getOneTask(@RequestParam("code")String code,@RequestParam("token") String token){
         log.info("  执行器  编码 code =[{}]  发送请求 期望获取待执行脚本 ",code);
-        HttpMissionDataVo oneWaitService = soupSystemService.getOneWaitService();
+        HttpMissionDataVo oneWaitService = soupSystemService.getOneWaitService(code,token);
         return oneWaitService;
     }
     @PostMapping("system/sentTaskResult")
