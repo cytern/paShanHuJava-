@@ -6,6 +6,8 @@ package dam.server.demo.pojo;
  * @create :2021-04-23 10:16:00
  */
  public  class Executor {
+
+
     public String getToken() {
         return token;
     }
@@ -24,4 +26,14 @@ package dam.server.demo.pojo;
 
     private String token;
     private String userName;
+
+    private String executorUrl;
+
+    public String getExecutorUrl() {
+        return executorUrl;
+    }
+
+    public void setExecutorUrl(String executorUrl) {
+        this.executorUrl = executorUrl;
+    }
 }

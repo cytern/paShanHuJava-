@@ -71,7 +71,7 @@
     <update id="updateExcutorByExcutorToken" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupExcutor">
         update jsoup.jsoup_excutor
         <set>
-            <if test="createTime != null and createTime != ''">
+            <if test="createTime != null">
                  create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="excutorCode != null and excutorCode != ''">

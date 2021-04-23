@@ -1,12 +1,15 @@
 package dam.server.demo.controller;
 
 import dam.server.demo.config.ConfigBean;
+import dam.server.demo.pojo.JsoupSetting;
 import dam.server.demo.service.RunJsoupService;
+import dam.server.demo.utils.SettinglUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -37,10 +40,20 @@ public class PageController {
     @ResponseBody
     public Map<String,Object> getConfig() {
         Map<String,Object> map = new HashMap<>();
-        map.put("runStatus",taskExecutor.getActiveCount()==0?0:taskExecutor.getActiveCount()*20);
-        map.put("serveStatus",configBean.getStatus()==null?0:configBean.getStatus()*20);
-       map.put("workStatus",configBean.getJsoupSetting().getPool().getMaxPoolSize()==null?0:configBean.getJsoupSetting().getPool().getMaxPoolSize()*20);
-       map.put("live",configBean.getLive());
+        map.put("taskExecutor",taskExecutor);
+        map.put("configBean",configBean);
        return map;
+    }
+    @GetMapping("setConfig")
+    @ResponseBody
+    public Map<String,Object> setConfig(@RequestBody ConfigBean configBean) {
+        JsoupSetting jsoupSetting = configBean.getJsoupSetting();
+        SettinglUtil settinglUtil = new SettinglUtil();
+        settinglUtil.setSettingMap(jsoupSetting);
+        this.configBean.setJsoupSetting(jsoupSetting);
+        Map<String,Object> map = new HashMap<>();
+        map.put("code","success");
+        map.put("msg","修改成功");
+        return map;
     }
 }

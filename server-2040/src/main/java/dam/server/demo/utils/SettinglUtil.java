@@ -38,7 +38,7 @@ public class SettinglUtil {
     }
 
 
-    public static void setSettingMap (JsoupSetting jsoupSetting) {
+    public  void setSettingMap (JsoupSetting jsoupSetting) {
         try {
             String json = JSONObject.toJSONString(jsoupSetting);
             String src = ResourceUtils.CLASSPATH_URL_PREFIX + "setting.json";

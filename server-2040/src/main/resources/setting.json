@@ -1,7 +1,8 @@
 {
   "executor": {
     "token": "88888888",
-    "userName" : ""
+    "userName" : null,
+    "executorUrl" : null
   },
   "pool": {
     "corePoolSize": 5 ,

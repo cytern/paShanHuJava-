@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -147,10 +147,7 @@
                     type: "get",
 
                     success: function(result) {  //这里就是我出错的地方
-                        this.liveProcess = result.runStatus
-                        this.status = result.serveStatus
-                        this.maxPoolSize = result.workStatus
-                        this.live = result.live
+                        console.log(result)
                     },
                     error: function(data) {
                         alert("请求出错");
