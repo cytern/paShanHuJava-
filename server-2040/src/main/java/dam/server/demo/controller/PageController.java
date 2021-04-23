@@ -40,9 +40,11 @@ public class PageController {
     @ResponseBody
     public Map<String,Object> getConfig() {
         Map<String,Object> map = new HashMap<>();
-        map.put("taskExecutor",taskExecutor);
-        map.put("configBean",configBean);
-       return map;
+        map.put("runStatus",taskExecutor.getActiveCount()==0?0:taskExecutor.getActiveCount()*20);
+        map.put("serveStatus",configBean.getStatus()==null?0:configBean.getStatus()*20);
+        map.put("jsoupSetting",configBean.getJsoupSetting());
+        map.put("live",configBean.getLive());
+        return map;
     }
     @GetMapping("setConfig")
     @ResponseBody

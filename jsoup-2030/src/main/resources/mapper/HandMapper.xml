@@ -81,7 +81,7 @@
                 live_update_time = #{liveUpdateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="status != null and status != ''">
-                status = #{status}
+                status = #{status},
             </if>
         </set>>
         where excutor_token = #{excutorToken,jdbcType=VARCHAR}
