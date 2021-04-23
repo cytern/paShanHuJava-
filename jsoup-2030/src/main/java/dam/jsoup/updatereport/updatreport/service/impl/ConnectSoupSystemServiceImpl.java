@@ -44,7 +44,7 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
         JsoupExcutor excutor = mapper.getExcutorByCpuCodeAndToken(token, code);
         if (excutor == null) {
             HttpMissionDataVo httpMissionDataVo = new HttpMissionDataVo();
-            httpMissionDataVo.setState(0);
+            httpMissionDataVo.setState(2);
             httpMissionDataVo.setException("无效的执行器");
             return httpMissionDataVo;
         }
