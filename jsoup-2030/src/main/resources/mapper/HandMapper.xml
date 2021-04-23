@@ -83,7 +83,7 @@
             <if test="status != null and status != ''">
                 status = #{status},
             </if>
-        </set>>
+        </set>
         where excutor_token = #{excutorToken,jdbcType=VARCHAR}
     </update>
 
