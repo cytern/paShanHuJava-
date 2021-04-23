@@ -69,7 +69,14 @@ public class HttpUtils {
         }
     }
 
-
+    /**
+     * 发送心跳包
+     * @param url 地址
+     * @param code cpuCode
+     * @param token token值
+     * @return
+     * @throws Exception
+     */
     public static Map<String,Object> sendHeartHit (String url,String code,String token) throws Exception {
         RestTemplate client = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
