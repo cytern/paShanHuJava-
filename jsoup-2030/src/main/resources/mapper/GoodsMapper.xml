@@ -42,7 +42,7 @@
         <if test="currentUser != null">
             oa.customer_user_id = #{currentUser,jdbcType=INTEGER} and
         </if>
-                1 = 1
+        ma.user_id != #{currentUser,jdbcType=INTEGER}
                 order by
         <if test="sortByDownload == 1">
             saleNum,
@@ -93,7 +93,7 @@
         <if test="currentUser != null">
             oa.customer_user_id = #{currentUser,jdbcType=INTEGER} and
         </if>
-        1 = 1
+            ma.user_id != #{currentUser,jdbcType=INTEGER}
         order by
         <if test="sortByDownload == 1">
             saleNum,
