@@ -34,40 +34,38 @@ public class TimeTaskServiceImpl implements TimeTaskService {
         //确定是定时任务 且定时任务执行次数拥有剩余 或者无限执行 - 并且状态为定时任务 元数据
         example.createCriteria().andIsTimeTaskEqualTo(1).andTimeNumNotEqualTo(0).andMissionStateEqualTo("5");
         List<JsoupMissionAllHistory> histories = missionAllHistoryMapper.selectByExample(example);
-        Date date = new Date();
+        Date nowDate = new Date();
         if (histories.size()<1){
             return;
         }else {
             //对定时任务进行筛选 corn 时间是否达到
             for (int i = 0; i < histories.size(); i++) {
                 JsoupMissionAllHistory allHistory = histories.get(i);
-                //时间包含在近五分钟内
-                if (CronUtil.needAdd(date,allHistory.getTimeCorn())){
+                Date updateTime = allHistory.getFinishTime();
+                Calendar c1=Calendar.getInstance();
+                c1.setTime(updateTime);
+                c1.add(Calendar.MINUTE,5);
+                //当前时间还小于 五分钟后的添加时间 不应该添加
+                if (nowDate.before(c1.getTime())) {
+                    continue;
+                }
+                //判断是否最近添加过时间
+                if (CronUtil.needAdd(updateTime,allHistory.getTimeCorn())){
                     //不在近五分钟内添加的任务 否则视为已经添加过
-                    example.clear();
-                    Calendar c1=Calendar.getInstance();
-                    c1.setTime(date);
-                    c1.add(Calendar.MINUTE,-5);
-                    //定时任务  总任务id 与userId 相同  最近五分钟刚添加
-                    example.createCriteria().andIsTimeTaskEqualTo(1)
-                            .andMissionAllIdEqualTo(allHistory.getMissionAllId())
-                            .andUserIdEqualTo(allHistory.getUserId())
-                            //出于现在与 过去的五分钟内
-                            .andSentTimeBetween(c1.getTime(),date);
-                    List<JsoupMissionAllHistory> histories1 = missionAllHistoryMapper.selectByExample(example);
-                    if (histories1.size()>0){
-                        continue;
-                    }else {
                         //原数据的执行次数是否需要递减
                         if (allHistory.getTimeNum()!= -1){
                             //任务不正确
-                            if (allHistory.getTimeNum() <=0){
+                            if (allHistory.getTimeNum() <0){
                                 throw new MybatisPlusException("数据异常 小于0却不等于-1的定时任务.    id:  "+allHistory.getMissionAllHistoryId());
                             }else {
                                 //更新原始数据
                                 allHistory.setTimeNum(allHistory.getTimeNum() -1);
+                                allHistory.setFinishTime(nowDate);
                                 missionAllHistoryMapper.updateByPrimaryKeySelective(allHistory);
                             }
+                        }else {
+                            allHistory.setFinishTime(nowDate);
+                            missionAllHistoryMapper.updateByPrimaryKeySelective(allHistory);
                         }
 
                         //添加新的mission任务  清空任务id  设置状态为1
@@ -86,5 +84,5 @@ public class TimeTaskServiceImpl implements TimeTaskService {
 
         }
 
-    }
+
 }

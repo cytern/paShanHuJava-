@@ -563,6 +563,7 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         history.setMissionAllId(jsoupMissionAll.getMaId());
         history.setMissionState("5");
         history.setUserId(userId);
+        history.setFinishTime(new Date());
         history.setMissionAllName(jsoupMissionAll.getMaName());
         history.setMissionAllDis(jsoupMissionAll.getMaTip());
         history.setSaleNum(0);
