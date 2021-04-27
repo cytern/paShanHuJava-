@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 @RestController
 @Slf4j
@@ -58,6 +58,10 @@ public class GoodController {
                                   @PathVariable Integer index,
                                   @PathVariable Integer type,
                                   @RequestBody SearchGoodsVo searchGoodsVo ) {
+        log.info("************ 获取商品列表***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        searchGoodsVo.setCurrentUser(userId);
         List<GoodList> list = new ArrayList<>();
         Map map = new HashMap();
         try {
