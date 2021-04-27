@@ -13,7 +13,8 @@
                  ma.user_id ownerId,
                  ma.ma_id  id,
                  jud.user_nick_name createUser,
-                 oa.ma_id have
+                 oa.ma_id have,
+                 ma.ma_price price
           from jsoup_mission_all ma
                    left join jsoup_user_detail jud
                              on ma.user_id = jud.user_id
@@ -38,6 +39,9 @@
         <if test="rightDate != null">
             sendTime &lt;  #{rightDate,jdbcType=TIMESTAMP} and
         </if>
+        <if test="currentUser != null">
+            oa.customer_user_id = #{currentUser,jdbcType=INTEGER} and
+        </if>
                 1 = 1
                 order by
         <if test="sortByDownload == 1">
@@ -60,7 +64,8 @@
         ma.user_id ownerId,
         ma.mission_all_history_id  id,
         jud.user_nick_name createUser,
-        oa.ma_id have
+        oa.mh_id have,
+        ma.sale_price price
         from jsoup_mission_all_history ma
         left join jsoup_user_detail jud
         on ma.user_id = jud.user_id
@@ -84,6 +89,9 @@
         </if>
         <if test="rightDate != null">
             sendTime &lt;  #{rightDate,jdbcType=TIMESTAMP} and
+        </if>
+        <if test="currentUser != null">
+            oa.customer_user_id = #{currentUser,jdbcType=INTEGER} and
         </if>
         1 = 1
         order by

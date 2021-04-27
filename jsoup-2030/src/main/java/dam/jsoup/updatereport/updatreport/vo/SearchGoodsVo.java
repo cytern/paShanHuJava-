@@ -52,5 +52,15 @@ public class SearchGoodsVo {
      */
     private Integer pageEnd;
 
+    /**
+     * 当前用户id
+     */
+    private Integer currentUser;
+
+
+    public void resPageData(Integer pageSize,Integer index) {
+        pageStart = (index-1)*pageSize;
+        pageEnd = index*pageSize;
+    }
 
 }

@@ -1,26 +1,31 @@
 package dam.jsoup.updatereport.updatreport.controller;
 
 import dam.jsoup.updatereport.updatreport.service.order.GoodService;
+import dam.jsoup.updatereport.updatreport.service.order.impl.GoodsListService;
 import dam.jsoup.updatereport.updatreport.util.MyResponse;
 import dam.jsoup.updatereport.updatreport.vo.CommentVo;
+import dam.jsoup.updatereport.updatreport.vo.GoodList;
 import dam.jsoup.updatereport.updatreport.vo.PageSizeVo;
+import dam.jsoup.updatereport.updatreport.vo.SearchGoodsVo;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @Slf4j
+@AllArgsConstructor
 public class GoodController {
     private final GoodService goodService;
+    private final GoodsListService goodsListService;
 
-    public GoodController(GoodService goodService) {
-        this.goodService = goodService;
-    }
 
     @PostMapping("customer/getGoodDetailComment/{id}/{type}/{pageSize}/{index}")
    public Map getComment(@PathVariable("id")Integer id,
@@ -46,5 +51,23 @@ public class GoodController {
         }
         return map;
 
+    }
+
+    @PostMapping("customer/getGoodsList/{pageSize}/{index}/{type}")
+    public Map<String, Object> getList(@PathVariable Integer pageSize,
+                                  @PathVariable Integer index,
+                                  @PathVariable Integer type,
+                                  @RequestBody SearchGoodsVo searchGoodsVo ) {
+        List<GoodList> list = new ArrayList<>();
+        Map map = new HashMap();
+        try {
+            list = goodsListService.getList(searchGoodsVo, pageSize, index, type);
+           map = MyResponse.myResponseOk("成功");
+        } catch (Exception e) {
+            map = MyResponse.myResponseError("系统内部异常");
+            log.error("查询商品列表错误",e);
+        }
+        map.put("list",list);
+        return map;
     }
 }

@@ -2,6 +2,7 @@ package dam.jsoup.updatereport.updatreport.vo;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -47,8 +48,17 @@ public class GoodList {
      * 持有者id
      */
     private Integer ownerId;
-
+    /**
+     * 商品主键
+     */
     private Integer id;
-
+    /**
+     * 是否拥有
+     */
     private Integer have;
+    /**
+     * 价格
+     */
+    private BigDecimal price;
+
 }

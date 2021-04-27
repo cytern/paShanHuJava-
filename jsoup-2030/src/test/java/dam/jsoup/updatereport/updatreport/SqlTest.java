@@ -21,5 +21,7 @@ public class SqlTest {
         searchGoodsVo.setPageEnd(10);
         List<GoodList> maList = goodsMapper.getMaList(searchGoodsVo);
         System.out.println(maList);
+        List<GoodList> mhList = goodsMapper.getMhList(searchGoodsVo);
+        System.out.println(mhList);
     }
 }
