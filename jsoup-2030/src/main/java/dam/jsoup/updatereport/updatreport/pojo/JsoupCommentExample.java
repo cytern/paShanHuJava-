@@ -654,6 +654,126 @@ public class JsoupCommentExample {
             addCriterion("cteate_time not between", value1, value2, "cteateTime");
             return (Criteria) this;
         }
+
+        public Criteria andRootIdIsNull() {
+            addCriterion("root_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRootIdIsNotNull() {
+            addCriterion("root_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRootIdEqualTo(Integer value) {
+            addCriterion("root_id =", value, "rootId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRootIdNotEqualTo(Integer value) {
+            addCriterion("root_id <>", value, "rootId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRootIdGreaterThan(Integer value) {
+            addCriterion("root_id >", value, "rootId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRootIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("root_id >=", value, "rootId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRootIdLessThan(Integer value) {
+            addCriterion("root_id <", value, "rootId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRootIdLessThanOrEqualTo(Integer value) {
+            addCriterion("root_id <=", value, "rootId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRootIdIn(List<Integer> values) {
+            addCriterion("root_id in", values, "rootId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRootIdNotIn(List<Integer> values) {
+            addCriterion("root_id not in", values, "rootId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRootIdBetween(Integer value1, Integer value2) {
+            addCriterion("root_id between", value1, value2, "rootId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRootIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("root_id not between", value1, value2, "rootId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepIsNull() {
+            addCriterion("deep is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepIsNotNull() {
+            addCriterion("deep is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepEqualTo(Integer value) {
+            addCriterion("deep =", value, "deep");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepNotEqualTo(Integer value) {
+            addCriterion("deep <>", value, "deep");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepGreaterThan(Integer value) {
+            addCriterion("deep >", value, "deep");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepGreaterThanOrEqualTo(Integer value) {
+            addCriterion("deep >=", value, "deep");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepLessThan(Integer value) {
+            addCriterion("deep <", value, "deep");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepLessThanOrEqualTo(Integer value) {
+            addCriterion("deep <=", value, "deep");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepIn(List<Integer> values) {
+            addCriterion("deep in", values, "deep");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepNotIn(List<Integer> values) {
+            addCriterion("deep not in", values, "deep");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepBetween(Integer value1, Integer value2) {
+            addCriterion("deep between", value1, value2, "deep");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepNotBetween(Integer value1, Integer value2) {
+            addCriterion("deep not between", value1, value2, "deep");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

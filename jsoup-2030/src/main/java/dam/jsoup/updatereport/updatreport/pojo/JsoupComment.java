@@ -8,64 +8,76 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@ApiModel(value="dam-jsoup-updatereport-updatreport-pojo-JsoupComment")
+@ApiModel(value = "dam-jsoup-updatereport-updatreport-pojo-JsoupComment")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class JsoupComment implements Serializable {
     /**
-    * 主键
-    */
-    @ApiModelProperty(value="主键")
+     * 主键
+     */
+    @ApiModelProperty(value = "主键")
     private Integer id;
 
     /**
-    * 关联主键：是否是楼中楼
-    */
-    @ApiModelProperty(value="关联主键：是否是楼中楼")
+     * 关联主键：是否是楼中楼
+     */
+    @ApiModelProperty(value = "关联主键：是否是楼中楼")
     private Integer fatherId;
 
     /**
-    * 1：脚本 2：数据 3：帖子
-    */
-    @ApiModelProperty(value="1：脚本 2：数据 3：帖子")
+     * 1：脚本 2：数据 3：帖子
+     */
+    @ApiModelProperty(value = "1：脚本 2：数据 3：帖子")
     private Integer typeId;
 
     /**
-    * 评价
-    */
-    @ApiModelProperty(value="评价")
+     * 评价
+     */
+    @ApiModelProperty(value = "评价")
     private String comment;
 
     /**
-    * 点赞数
-    */
-    @ApiModelProperty(value="点赞数")
+     * 点赞数
+     */
+    @ApiModelProperty(value = "点赞数")
     private Integer upNum;
 
     /**
-    * 点差数
-    */
-    @ApiModelProperty(value="点差数")
+     * 点差数
+     */
+    @ApiModelProperty(value = "点差数")
     private Integer downNum;
 
     /**
-    * 用户名
-    */
-    @ApiModelProperty(value="用户名")
+     * 用户名
+     */
+    @ApiModelProperty(value = "用户名")
     private Integer userId;
 
     /**
-    * 关联键主键id
-    */
-    @ApiModelProperty(value="关联键主键id")
+     * 关联键主键id
+     */
+    @ApiModelProperty(value = "关联键主键id")
     private Integer connectId;
 
     /**
-    * 创建日期
-    */
-    @ApiModelProperty(value="创建日期")
+     * 创建日期
+     */
+    @ApiModelProperty(value = "创建日期")
     private Date cteateTime;
+
+    /**
+     * 最初id
+     */
+    @ApiModelProperty(value = "最初id")
+    private Integer rootId;
+
+    /**
+     * 深度
+     */
+    @ApiModelProperty(value = "深度")
+    private Integer deep;
 
     private static final long serialVersionUID = 1L;
 }

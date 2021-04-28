@@ -14,6 +14,7 @@ public interface JsoupCommentMapper {
 
     /**
      * delete by primary key
+     *
      * @param id primaryKey
      * @return deleteCount
      */
@@ -21,6 +22,7 @@ public interface JsoupCommentMapper {
 
     /**
      * insert record to table
+     *
      * @param record the record
      * @return insert count
      */
@@ -32,6 +34,7 @@ public interface JsoupCommentMapper {
 
     /**
      * insert record to table selective
+     *
      * @param record the record
      * @return insert count
      */
@@ -41,6 +44,7 @@ public interface JsoupCommentMapper {
 
     /**
      * select by primary key
+     *
      * @param id primary key
      * @return object by primary key
      */
@@ -52,6 +56,7 @@ public interface JsoupCommentMapper {
 
     /**
      * update record selective
+     *
      * @param record the updated record
      * @return update count
      */
@@ -59,6 +64,7 @@ public interface JsoupCommentMapper {
 
     /**
      * update record
+     *
      * @param record the updated record
      * @return update count
      */
