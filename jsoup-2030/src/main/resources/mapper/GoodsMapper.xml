@@ -102,4 +102,54 @@
         sendTime DESC
         LIMIT #{pageStart},#{pageEnd}
     </select>
+    <select id="getMaDetail" resultType="dam.jsoup.updatereport.updatreport.vo.GoodDetailVo">
+        select ma.ma_id id,
+               ma.ma_name name,
+               ma.ma_tip des,
+               ma.create_time as 'time',
+               ma.ma_price price,
+               ma.ma_rate rate,
+               ma.tips tips,
+               ud.user_nick_name,
+               ma.ma_sale_num saleNum,
+               1 type,
+               ma.user_id userId
+        from jsoup_mission_all ma
+        left join jsoup_user_detail ud
+           on ud.user_id = ma.user_id
+         where ma.ma_id = #{maId}
+    </select>
+    <select id="getMhDetail" resultType="dam.jsoup.updatereport.updatreport.vo.GoodDetailVo">
+        select ma.mission_all_history_id id,
+               ma.mission_all_name name,
+               ma.mission_all_dis des,
+               ma.sent_time as 'time',
+               ma.sale_price price,
+               ma.sale_rate rate,
+               ma.tips tips,
+               ud.user_nick_name,
+               ma.sale_num saleNum,
+               1 type,
+               ma.user_id userId
+        from jsoup_mission_all_history ma
+                 left join jsoup_user_detail ud
+                           on ud.user_id = ma.user_id
+        where ma.mission_all_history_id = #{mhId}
+    </select>
+    <select id="getComment" resultType="dam.jsoup.updatereport.updatreport.vo.CommentVo">
+        select jc.*,
+               ud.user_nick_name userName,
+               ud.user_des userDes,
+               ud.user_lever userLever
+
+        from jsoup_comment
+        left join jsoup_user_detail ud
+           on jc.user_id = ud.user_id
+        where
+         jc.type_id = #{type} and
+              jc.root_id = #{rootId} and
+              jc.deep = 0
+         limit #{start} ,#{end}
+
+    </select>
 </mapper>

@@ -12,7 +12,7 @@ public class GoodDetailVo {
    private String time;
    private BigDecimal price;
    private String rate;
-   private String[] tips;
+   private String tips;
    private String userName;
    private String isAuto;
    private String url;
