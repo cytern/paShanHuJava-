@@ -22,27 +22,26 @@
                              on oa.ma_id = ma.ma_id
           where
           <if test="tip != null and tip != ''">
-              tips like concat('%',#{tip,jdbcType=VARCHAR},'%') and
+              ma.tips like concat('%',#{tip,jdbcType=VARCHAR},'%') and
           </if>
           <if test="name != null and tip != ''">
-            goodName like concat('%',#{name,jdbcType=VARCHAR},'%') and
+              ma.ma_name like concat('%',#{name,jdbcType=VARCHAR},'%') and
           </if>
           <if test="id != null">
-            id = #{id} and
+              ma.ma_id = #{id} and
           </if>
         <if test="userId != null">
-            ownerId =#{userId} and
+            ma.user_id =#{userId} and
         </if>
         <if test="leftDate != null">
-            sendTime  &gt;  #{leftDate,jdbcType=TIMESTAMP} and
+            ma.create_time  &gt;  #{leftDate,jdbcType=TIMESTAMP} and
         </if>
         <if test="rightDate != null">
-            sendTime &lt;  #{rightDate,jdbcType=TIMESTAMP} and
+            ma.create_time &lt;  #{rightDate,jdbcType=TIMESTAMP} and
         </if>
-        <if test="currentUser != null">
-            oa.customer_user_id = #{currentUser,jdbcType=INTEGER} and
-        </if>
-        ma.user_id != #{currentUser,jdbcType=INTEGER}
+            oa.customer_user_id != #{currentUser,jdbcType=INTEGER} and
+        ma.user_id != #{currentUser,jdbcType=INTEGER} and
+                ma.ma_state = 2
                 order by
         <if test="sortByDownload == 1">
             saleNum,
@@ -73,27 +72,26 @@
         on oa.mh_id = ma.mission_all_history_id
         where
         <if test="tip != null and tip != ''">
-            tips like concat('%',#{tip,jdbcType=VARCHAR},'%') and
+            ma.tips like concat('%',#{tip,jdbcType=VARCHAR},'%') and
         </if>
         <if test="name != null and tip != ''">
-            goodName like concat('%',#{name,jdbcType=VARCHAR},'%') and
+            ma.mission_all_name like concat('%',#{name,jdbcType=VARCHAR},'%') and
         </if>
         <if test="id != null">
-            id = #{id} and
+            ma.mission_all_history_id  = #{id} and
         </if>
         <if test="userId != null">
-            ownerId =#{userId} and
+            ma.user_id =#{userId} and
         </if>
         <if test="leftDate != null">
-            sendTime  &gt;  #{leftDate,jdbcType=TIMESTAMP} and
+            ma.sent_time  &gt;  #{leftDate,jdbcType=TIMESTAMP} and
         </if>
         <if test="rightDate != null">
-            sendTime &lt;  #{rightDate,jdbcType=TIMESTAMP} and
+            ma.sent_time &lt;  #{rightDate,jdbcType=TIMESTAMP} and
         </if>
-        <if test="currentUser != null">
-            oa.customer_user_id = #{currentUser,jdbcType=INTEGER} and
-        </if>
-            ma.user_id != #{currentUser,jdbcType=INTEGER}
+            oa.customer_user_id != #{currentUser,jdbcType=INTEGER} and
+            ma.user_id != #{currentUser,jdbcType=INTEGER}  and
+        ma.on_sale = '1'
         order by
         <if test="sortByDownload == 1">
             saleNum,
