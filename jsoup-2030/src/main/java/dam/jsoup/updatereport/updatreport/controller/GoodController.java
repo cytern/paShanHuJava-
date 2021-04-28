@@ -59,9 +59,8 @@ public class GoodController {
                                   @PathVariable Integer type,
                                   @RequestBody SearchGoodsVo searchGoodsVo ) {
         log.info("************ 获取商品列表***************");
-//        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-//        Integer userId = Integer.valueOf(request.getHeader("userId"));
-        Integer userId = 4;
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
         searchGoodsVo.setCurrentUser(userId);
         List<GoodList> list = new ArrayList<>();
         Map map = new HashMap();
