@@ -90,6 +90,36 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="jsoup:jsoup_article">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupArticle" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:jsoup_comment">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupComment" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="jsoup:jsoup_complaint">
               <value>
                 <TableGenerateConfig>
@@ -199,6 +229,21 @@
                   <option name="insertOnDuplicateKey" value="true" />
                   <option name="javaModelName" value="JsoupPragram" />
                   <option name="moduleName" value="jsoup-2030" />
+                  <option name="updateBatch" value="true" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="jsoup:jsoup_up_down">
+              <value>
+                <TableGenerateConfig>
+                  <option name="batchInsert" value="true" />
+                  <option name="generatedKey" value="" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="JsoupUpDown" />
+                  <option name="moduleName" value="jsoup-2030" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
                   <option name="updateBatch" value="true" />
                   <option name="useActualColumnName" value="false" />
                 </TableGenerateConfig>

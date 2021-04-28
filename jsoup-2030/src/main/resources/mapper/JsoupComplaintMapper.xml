@@ -4,11 +4,10 @@
   <resultMap id="BaseResultMap" type="dam.jsoup.updatereport.updatreport.pojo.JsoupComplaint">
     <!--@mbg.generated-->
     <!--@Table jsoup_complaint-->
-    <id column="complaint_id" jdbcType="INTEGER" property="complaintId" />
-    <result column="complaint_type" jdbcType="VARCHAR" property="complaintType" />
-    <result column="good_id" jdbcType="INTEGER" property="goodId" />
-    <result column="send_user_id" jdbcType="INTEGER" property="sendUserId" />
-    <result column="get_user_id" jdbcType="INTEGER" property="getUserId" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+    <result column="connect_id" jdbcType="INTEGER" property="connectId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="des_type" jdbcType="VARCHAR" property="desType" />
     <result column="des" jdbcType="VARCHAR" property="des" />
     <result column="status" jdbcType="VARCHAR" property="status" />
@@ -77,8 +76,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    complaint_id, complaint_type, good_id, send_user_id, get_user_id, des_type, des, 
-    `status`, sent_time, update_time
+    id, type_id, connect_id, user_id, des_type, des, `status`, sent_time, update_time
   </sql>
   <select id="selectByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupComplaintExample" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -100,12 +98,12 @@
     select 
     <include refid="Base_Column_List" />
     from jsoup_complaint
-    where complaint_id = #{complaintId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
     delete from jsoup_complaint
-    where complaint_id = #{complaintId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupComplaintExample">
     <!--@mbg.generated-->
@@ -114,32 +112,32 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="complaint_id" keyProperty="complaintId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupComplaint" useGeneratedKeys="true">
+  <insert id="insert" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupComplaint">
     <!--@mbg.generated-->
-    insert into jsoup_complaint (complaint_type, good_id, send_user_id, 
-      get_user_id, des_type, des, 
+    insert into jsoup_complaint (id, type_id, connect_id, 
+      user_id, des_type, des, 
       `status`, sent_time, update_time
       )
-    values (#{complaintType,jdbcType=VARCHAR}, #{goodId,jdbcType=INTEGER}, #{sendUserId,jdbcType=INTEGER}, 
-      #{getUserId,jdbcType=INTEGER}, #{desType,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{typeId,jdbcType=VARCHAR}, #{connectId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{desType,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{sentTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="complaint_id" keyProperty="complaintId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupComplaint" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupComplaint">
     <!--@mbg.generated-->
     insert into jsoup_complaint
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="complaintType != null">
-        complaint_type,
+      <if test="id != null">
+        id,
       </if>
-      <if test="goodId != null">
-        good_id,
+      <if test="typeId != null">
+        type_id,
       </if>
-      <if test="sendUserId != null">
-        send_user_id,
+      <if test="connectId != null">
+        connect_id,
       </if>
-      <if test="getUserId != null">
-        get_user_id,
+      <if test="userId != null">
+        user_id,
       </if>
       <if test="desType != null">
         des_type,
@@ -158,17 +156,17 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="complaintType != null">
-        #{complaintType,jdbcType=VARCHAR},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="goodId != null">
-        #{goodId,jdbcType=INTEGER},
+      <if test="typeId != null">
+        #{typeId,jdbcType=VARCHAR},
       </if>
-      <if test="sendUserId != null">
-        #{sendUserId,jdbcType=INTEGER},
+      <if test="connectId != null">
+        #{connectId,jdbcType=INTEGER},
       </if>
-      <if test="getUserId != null">
-        #{getUserId,jdbcType=INTEGER},
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="desType != null">
         #{desType,jdbcType=VARCHAR},
@@ -198,20 +196,17 @@
     <!--@mbg.generated-->
     update jsoup_complaint
     <set>
-      <if test="record.complaintId != null">
-        complaint_id = #{record.complaintId,jdbcType=INTEGER},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.complaintType != null">
-        complaint_type = #{record.complaintType,jdbcType=VARCHAR},
+      <if test="record.typeId != null">
+        type_id = #{record.typeId,jdbcType=VARCHAR},
       </if>
-      <if test="record.goodId != null">
-        good_id = #{record.goodId,jdbcType=INTEGER},
+      <if test="record.connectId != null">
+        connect_id = #{record.connectId,jdbcType=INTEGER},
       </if>
-      <if test="record.sendUserId != null">
-        send_user_id = #{record.sendUserId,jdbcType=INTEGER},
-      </if>
-      <if test="record.getUserId != null">
-        get_user_id = #{record.getUserId,jdbcType=INTEGER},
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.desType != null">
         des_type = #{record.desType,jdbcType=VARCHAR},
@@ -236,11 +231,10 @@
   <update id="updateByExample" parameterType="map">
     <!--@mbg.generated-->
     update jsoup_complaint
-    set complaint_id = #{record.complaintId,jdbcType=INTEGER},
-      complaint_type = #{record.complaintType,jdbcType=VARCHAR},
-      good_id = #{record.goodId,jdbcType=INTEGER},
-      send_user_id = #{record.sendUserId,jdbcType=INTEGER},
-      get_user_id = #{record.getUserId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      type_id = #{record.typeId,jdbcType=VARCHAR},
+      connect_id = #{record.connectId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
       des_type = #{record.desType,jdbcType=VARCHAR},
       des = #{record.des,jdbcType=VARCHAR},
       `status` = #{record.status,jdbcType=VARCHAR},
@@ -254,17 +248,14 @@
     <!--@mbg.generated-->
     update jsoup_complaint
     <set>
-      <if test="complaintType != null">
-        complaint_type = #{complaintType,jdbcType=VARCHAR},
+      <if test="typeId != null">
+        type_id = #{typeId,jdbcType=VARCHAR},
       </if>
-      <if test="goodId != null">
-        good_id = #{goodId,jdbcType=INTEGER},
+      <if test="connectId != null">
+        connect_id = #{connectId,jdbcType=INTEGER},
       </if>
-      <if test="sendUserId != null">
-        send_user_id = #{sendUserId,jdbcType=INTEGER},
-      </if>
-      <if test="getUserId != null">
-        get_user_id = #{getUserId,jdbcType=INTEGER},
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="desType != null">
         des_type = #{desType,jdbcType=VARCHAR},
@@ -282,156 +273,120 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where complaint_id = #{complaintId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupComplaint">
     <!--@mbg.generated-->
     update jsoup_complaint
-    set complaint_type = #{complaintType,jdbcType=VARCHAR},
-      good_id = #{goodId,jdbcType=INTEGER},
-      send_user_id = #{sendUserId,jdbcType=INTEGER},
-      get_user_id = #{getUserId,jdbcType=INTEGER},
+    set type_id = #{typeId,jdbcType=VARCHAR},
+      connect_id = #{connectId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
       des_type = #{desType,jdbcType=VARCHAR},
       des = #{des,jdbcType=VARCHAR},
       `status` = #{status,jdbcType=VARCHAR},
       sent_time = #{sentTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where complaint_id = #{complaintId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateBatch" parameterType="java.util.List">
     <!--@mbg.generated-->
     update jsoup_complaint
     <trim prefix="set" suffixOverrides=",">
-      <trim prefix="complaint_type = case" suffix="end,">
+      <trim prefix="type_id = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when complaint_id = #{item.complaintId,jdbcType=INTEGER} then #{item.complaintType,jdbcType=VARCHAR}
+          when id = #{item.id,jdbcType=INTEGER} then #{item.typeId,jdbcType=VARCHAR}
         </foreach>
       </trim>
-      <trim prefix="good_id = case" suffix="end,">
+      <trim prefix="connect_id = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when complaint_id = #{item.complaintId,jdbcType=INTEGER} then #{item.goodId,jdbcType=INTEGER}
+          when id = #{item.id,jdbcType=INTEGER} then #{item.connectId,jdbcType=INTEGER}
         </foreach>
       </trim>
-      <trim prefix="send_user_id = case" suffix="end,">
+      <trim prefix="user_id = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when complaint_id = #{item.complaintId,jdbcType=INTEGER} then #{item.sendUserId,jdbcType=INTEGER}
-        </foreach>
-      </trim>
-      <trim prefix="get_user_id = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when complaint_id = #{item.complaintId,jdbcType=INTEGER} then #{item.getUserId,jdbcType=INTEGER}
+          when id = #{item.id,jdbcType=INTEGER} then #{item.userId,jdbcType=INTEGER}
         </foreach>
       </trim>
       <trim prefix="des_type = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when complaint_id = #{item.complaintId,jdbcType=INTEGER} then #{item.desType,jdbcType=VARCHAR}
+          when id = #{item.id,jdbcType=INTEGER} then #{item.desType,jdbcType=VARCHAR}
         </foreach>
       </trim>
       <trim prefix="des = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when complaint_id = #{item.complaintId,jdbcType=INTEGER} then #{item.des,jdbcType=VARCHAR}
+          when id = #{item.id,jdbcType=INTEGER} then #{item.des,jdbcType=VARCHAR}
         </foreach>
       </trim>
       <trim prefix="`status` = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when complaint_id = #{item.complaintId,jdbcType=INTEGER} then #{item.status,jdbcType=VARCHAR}
+          when id = #{item.id,jdbcType=INTEGER} then #{item.status,jdbcType=VARCHAR}
         </foreach>
       </trim>
       <trim prefix="sent_time = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when complaint_id = #{item.complaintId,jdbcType=INTEGER} then #{item.sentTime,jdbcType=TIMESTAMP}
+          when id = #{item.id,jdbcType=INTEGER} then #{item.sentTime,jdbcType=TIMESTAMP}
         </foreach>
       </trim>
       <trim prefix="update_time = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when complaint_id = #{item.complaintId,jdbcType=INTEGER} then #{item.updateTime,jdbcType=TIMESTAMP}
+          when id = #{item.id,jdbcType=INTEGER} then #{item.updateTime,jdbcType=TIMESTAMP}
         </foreach>
       </trim>
     </trim>
-    where complaint_id in
+    where id in
     <foreach close=")" collection="list" item="item" open="(" separator=", ">
-      #{item.complaintId,jdbcType=INTEGER}
+      #{item.id,jdbcType=INTEGER}
     </foreach>
   </update>
-  <insert id="batchInsert" keyColumn="complaint_id" keyProperty="complaintId" parameterType="map" useGeneratedKeys="true">
+  <insert id="batchInsert" parameterType="map">
     <!--@mbg.generated-->
     insert into jsoup_complaint
-    (complaint_type, good_id, send_user_id, get_user_id, des_type, des, `status`, sent_time, 
-      update_time)
+    (id, type_id, connect_id, user_id, des_type, des, `status`, sent_time, update_time
+      )
     values
     <foreach collection="list" item="item" separator=",">
-      (#{item.complaintType,jdbcType=VARCHAR}, #{item.goodId,jdbcType=INTEGER}, #{item.sendUserId,jdbcType=INTEGER}, 
-        #{item.getUserId,jdbcType=INTEGER}, #{item.desType,jdbcType=VARCHAR}, #{item.des,jdbcType=VARCHAR}, 
+      (#{item.id,jdbcType=INTEGER}, #{item.typeId,jdbcType=VARCHAR}, #{item.connectId,jdbcType=INTEGER}, 
+        #{item.userId,jdbcType=INTEGER}, #{item.desType,jdbcType=VARCHAR}, #{item.des,jdbcType=VARCHAR}, 
         #{item.status,jdbcType=VARCHAR}, #{item.sentTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}
         )
     </foreach>
   </insert>
-  <insert id="insertOrUpdate" keyColumn="complaint_id" keyProperty="complaintId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupComplaint" useGeneratedKeys="true">
+  <insert id="insertOrUpdate" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupComplaint">
     <!--@mbg.generated-->
     insert into jsoup_complaint
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="complaintId != null">
-        complaint_id,
-      </if>
-      complaint_type,
-      good_id,
-      send_user_id,
-      get_user_id,
-      des_type,
-      des,
-      `status`,
-      sent_time,
-      update_time,
-    </trim>
+    (id, type_id, connect_id, user_id, des_type, des, `status`, sent_time, update_time
+      )
     values
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="complaintId != null">
-        #{complaintId,jdbcType=INTEGER},
-      </if>
-      #{complaintType,jdbcType=VARCHAR},
-      #{goodId,jdbcType=INTEGER},
-      #{sendUserId,jdbcType=INTEGER},
-      #{getUserId,jdbcType=INTEGER},
-      #{desType,jdbcType=VARCHAR},
-      #{des,jdbcType=VARCHAR},
-      #{status,jdbcType=VARCHAR},
-      #{sentTime,jdbcType=TIMESTAMP},
-      #{updateTime,jdbcType=TIMESTAMP},
-    </trim>
+    (#{id,jdbcType=INTEGER}, #{typeId,jdbcType=VARCHAR}, #{connectId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{desType,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{sentTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
     on duplicate key update 
-    <trim suffixOverrides=",">
-      <if test="complaintId != null">
-        complaint_id = #{complaintId,jdbcType=INTEGER},
-      </if>
-      complaint_type = #{complaintType,jdbcType=VARCHAR},
-      good_id = #{goodId,jdbcType=INTEGER},
-      send_user_id = #{sendUserId,jdbcType=INTEGER},
-      get_user_id = #{getUserId,jdbcType=INTEGER},
-      des_type = #{desType,jdbcType=VARCHAR},
-      des = #{des,jdbcType=VARCHAR},
-      `status` = #{status,jdbcType=VARCHAR},
-      sent_time = #{sentTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-    </trim>
+    id = #{id,jdbcType=INTEGER}, 
+    type_id = #{typeId,jdbcType=VARCHAR}, 
+    connect_id = #{connectId,jdbcType=INTEGER}, 
+    user_id = #{userId,jdbcType=INTEGER}, 
+    des_type = #{desType,jdbcType=VARCHAR}, 
+    des = #{des,jdbcType=VARCHAR}, 
+    `status` = #{status,jdbcType=VARCHAR}, 
+    sent_time = #{sentTime,jdbcType=TIMESTAMP}, 
+    update_time = #{updateTime,jdbcType=TIMESTAMP}
   </insert>
-  <insert id="insertOrUpdateSelective" keyColumn="complaint_id" keyProperty="complaintId" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupComplaint" useGeneratedKeys="true">
+  <insert id="insertOrUpdateSelective" parameterType="dam.jsoup.updatereport.updatreport.pojo.JsoupComplaint">
     <!--@mbg.generated-->
     insert into jsoup_complaint
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="complaintId != null">
-        complaint_id,
+      <if test="id != null">
+        id,
       </if>
-      <if test="complaintType != null">
-        complaint_type,
+      <if test="typeId != null">
+        type_id,
       </if>
-      <if test="goodId != null">
-        good_id,
+      <if test="connectId != null">
+        connect_id,
       </if>
-      <if test="sendUserId != null">
-        send_user_id,
-      </if>
-      <if test="getUserId != null">
-        get_user_id,
+      <if test="userId != null">
+        user_id,
       </if>
       <if test="desType != null">
         des_type,
@@ -451,20 +406,17 @@
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="complaintId != null">
-        #{complaintId,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="complaintType != null">
-        #{complaintType,jdbcType=VARCHAR},
+      <if test="typeId != null">
+        #{typeId,jdbcType=VARCHAR},
       </if>
-      <if test="goodId != null">
-        #{goodId,jdbcType=INTEGER},
+      <if test="connectId != null">
+        #{connectId,jdbcType=INTEGER},
       </if>
-      <if test="sendUserId != null">
-        #{sendUserId,jdbcType=INTEGER},
-      </if>
-      <if test="getUserId != null">
-        #{getUserId,jdbcType=INTEGER},
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="desType != null">
         #{desType,jdbcType=VARCHAR},
@@ -484,20 +436,17 @@
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
-      <if test="complaintId != null">
-        complaint_id = #{complaintId,jdbcType=INTEGER},
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
       </if>
-      <if test="complaintType != null">
-        complaint_type = #{complaintType,jdbcType=VARCHAR},
+      <if test="typeId != null">
+        type_id = #{typeId,jdbcType=VARCHAR},
       </if>
-      <if test="goodId != null">
-        good_id = #{goodId,jdbcType=INTEGER},
+      <if test="connectId != null">
+        connect_id = #{connectId,jdbcType=INTEGER},
       </if>
-      <if test="sendUserId != null">
-        send_user_id = #{sendUserId,jdbcType=INTEGER},
-      </if>
-      <if test="getUserId != null">
-        get_user_id = #{getUserId,jdbcType=INTEGER},
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="desType != null">
         des_type = #{desType,jdbcType=VARCHAR},

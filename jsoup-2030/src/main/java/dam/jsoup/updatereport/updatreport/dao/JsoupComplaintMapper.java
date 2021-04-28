@@ -14,13 +14,15 @@ public interface JsoupComplaintMapper {
 
     /**
      * delete by primary key
-     * @param complaintId primaryKey
+     *
+     * @param id primaryKey
      * @return deleteCount
      */
-    int deleteByPrimaryKey(Integer complaintId);
+    int deleteByPrimaryKey(Integer id);
 
     /**
      * insert record to table
+     *
      * @param record the record
      * @return insert count
      */
@@ -32,6 +34,7 @@ public interface JsoupComplaintMapper {
 
     /**
      * insert record to table selective
+     *
      * @param record the record
      * @return insert count
      */
@@ -41,10 +44,11 @@ public interface JsoupComplaintMapper {
 
     /**
      * select by primary key
-     * @param complaintId primary key
+     *
+     * @param id primary key
      * @return object by primary key
      */
-    JsoupComplaint selectByPrimaryKey(Integer complaintId);
+    JsoupComplaint selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") JsoupComplaint record, @Param("example") JsoupComplaintExample example);
 
@@ -52,6 +56,7 @@ public interface JsoupComplaintMapper {
 
     /**
      * update record selective
+     *
      * @param record the updated record
      * @return update count
      */
@@ -59,6 +64,7 @@ public interface JsoupComplaintMapper {
 
     /**
      * update record
+     *
      * @param record the updated record
      * @return update count
      */
