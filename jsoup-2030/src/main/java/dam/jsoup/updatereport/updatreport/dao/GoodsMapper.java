@@ -1,9 +1,6 @@
 package dam.jsoup.updatereport.updatreport.dao;
 
-import dam.jsoup.updatereport.updatreport.vo.CommentVo;
-import dam.jsoup.updatereport.updatreport.vo.GoodDetailVo;
-import dam.jsoup.updatereport.updatreport.vo.GoodList;
-import dam.jsoup.updatereport.updatreport.vo.SearchGoodsVo;
+import dam.jsoup.updatereport.updatreport.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -51,9 +48,12 @@ public interface GoodsMapper {
       * @param start
       * @param end
       * @param type
-      * @param rootId
+      * @param connectId
       * @return
       */
      List<CommentVo> getComment(@Param("start") Integer start,@Param("end") Integer end,
-                                 @Param("type") Integer type,@Param("rootId") Integer rootId);
+                                 @Param("type") Integer type,@Param("connectId") Integer connectId);
+
+
+     List<ArticleTitleVo> getArticleTitleList (ArticleSearchVo articleSearchVo);
 }

@@ -1,7 +1,7 @@
 package dam.jsoup.updatereport.updatreport.controller;
 
 import dam.jsoup.updatereport.updatreport.service.order.GoodService;
-import dam.jsoup.updatereport.updatreport.service.order.impl.GoodsListService;
+import dam.jsoup.updatereport.updatreport.service.order.impl.GoodsSSService;
 import dam.jsoup.updatereport.updatreport.util.MyResponse;
 import dam.jsoup.updatereport.updatreport.vo.CommentVo;
 import dam.jsoup.updatereport.updatreport.vo.GoodList;
@@ -24,7 +24,7 @@ import java.util.*;
 @AllArgsConstructor
 public class GoodController {
     private final GoodService goodService;
-    private final GoodsListService goodsListService;
+    private final GoodsSSService goodsSSService;
 
 
     @PostMapping("customer/getGoodDetailComment/{id}/{type}/{pageSize}/{index}")
@@ -65,7 +65,7 @@ public class GoodController {
         List<GoodList> list = new ArrayList<>();
         Map map = new HashMap();
         try {
-            list = goodsListService.getList(searchGoodsVo, pageSize, index, type);
+            list = goodsSSService.getGoodList(searchGoodsVo, pageSize, index, type);
            map = MyResponse.myResponseOk("成功");
         } catch (Exception e) {
             map = MyResponse.myResponseError("系统内部异常");

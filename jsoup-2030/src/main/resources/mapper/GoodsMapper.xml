@@ -147,9 +147,29 @@
            on jc.user_id = ud.user_id
         where
          jc.type_id = #{type} and
-              jc.root_id = #{rootId} and
+              jc.connectId = #{connectId} and
               jc.deep = 0
          limit #{start} ,#{end}
 
     </select>
+    <select id="getArticleTitleList" resultType="dam.jsoup.updatereport.updatreport.vo.ArticleTitleVo" parameterType="dam.jsoup.updatereport.updatreport.vo.ArticleSearchVo">
+        select act.title title,
+               act.user_id userId,
+               act.id id,
+               act.update_time updateTime,
+               ud.user_nick_name user_defined_type_name
+        from jsoup_article act
+        left join
+            jsoup_user_detial ud
+             on act.user_id = ud.user_id
+           where
+           <if test="articleSearchVo.userId != null">
+               act.user_id = #{articleSearchVo.userId} and
+           </if>
+                 <if test="articleSearchVo.title != null and articleSearchVo.title != '' ">
+                     act.title = concat('%',#{articleSearchVo.title},'%') and
+                 </if>
+                 1 = 1
+               limit #{articleSearchVo.pageStart},#{articleSearchVo.pageEnd}
+               </select>
 </mapper>
