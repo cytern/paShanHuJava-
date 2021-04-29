@@ -35,7 +35,7 @@ public class ComplaintServiceImpl implements ComplaintService {
     @Override
     public Map addNewComplaintService(JsoupComplaint complaint) {
        complaintMapper.insertSelective(complaint);
-       sendEmail.sendNoticeEmail(complaint.getSendUserId(),"您的举报已经被受理","您的举报已经受理，我们将尽快审核，并将结果通知与您。感谢您对平台环境的维护与支持！");
+       sendEmail.sendNoticeEmail(complaint.getUserId(),"您的举报已经被受理","您的举报已经受理，我们将尽快审核，并将结果通知与您。感谢您对平台环境的维护与支持！");
        return MyResponse.myResponseOk("举报成功");
     }
 
