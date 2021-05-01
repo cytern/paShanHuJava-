@@ -23,7 +23,6 @@ import java.util.*;
 @Slf4j
 @AllArgsConstructor
 public class GoodController {
-    private final GoodService goodService;
     private final GoodsSSService goodsSSService;
 
 
@@ -35,29 +34,25 @@ public class GoodController {
         log.info("*********************开始获取商品评价*************************");
         Map map = new HashMap();
         PageSizeVo pageSizeVo = new PageSizeVo(index,pageSize);
+
         try {
-            if (type.equals(1)){
-                List<CommentVo> maComment = goodService.getMaComment(id, pageSizeVo.getPre(), pageSizeVo.getLast());
-                map = MyResponse.myResponseOk("查询成功");
-                map.put("list",maComment);
-            }else {
-                List<CommentVo> mhComment = goodService.getMhComment(id, pageSizeVo.getPre(), pageSizeVo.getLast());
-                map = MyResponse.myResponseOk("查询成功");
-                map.put("list",mhComment);
-            }
+            List<CommentVo> maComment = goodsSSService.getCommentList(type,pageSizeVo.getPre(),pageSizeVo.getLast(),id);
+            map = MyResponse.myResponseOk("查询成功");
+            map.put("list",maComment);
         } catch (Exception e) {
-            log.error("*********************获取商品评价失败*************************",e);
-           map = MyResponse.myResponseError("系统内部异常");
+            map = MyResponse.myResponseError("查询评价列表失败");
+            log.error("查询评价列表失败",e);
         }
+
         return map;
 
     }
 
     @PostMapping("customer/getGoodsList/{pageSize}/{index}/{type}")
-    public Map<String, Object> getList(@PathVariable Integer pageSize,
-                                  @PathVariable Integer index,
-                                  @PathVariable Integer type,
-                                  @RequestBody SearchGoodsVo searchGoodsVo ) {
+    public Map<String, Object> getGoodList(@PathVariable Integer pageSize,
+                                           @PathVariable Integer index,
+                                           @PathVariable Integer type,
+                                           @RequestBody SearchGoodsVo searchGoodsVo ) {
         log.info("************ 获取商品列表***************");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         Integer userId = Integer.valueOf(request.getHeader("userId"));
@@ -74,4 +69,23 @@ public class GoodController {
         map.put("list",list);
         return map;
     }
+    @PostMapping("customer/sendUpOrDown/{type}/{connectId}/{upDown}")
+    public Map<String, Object> sendUpOrDown(@PathVariable Integer type,
+                                            @PathVariable Integer connectId,
+                                            @PathVariable Integer upDown) {
+        log.info("************ 用户点赞 或者点踩 ***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map<String, Object> map = null;
+        try {
+            map = goodsSSService.sendUpOrDown(type, userId, connectId, upDown);
+        } catch (Exception e) {
+            map = MyResponse.myResponseError("评价失败");
+            log.error("评价失败",e);
+        }
+        return map;
+
+    }
+
+
 }

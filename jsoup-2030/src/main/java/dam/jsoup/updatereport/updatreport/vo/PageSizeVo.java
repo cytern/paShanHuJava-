@@ -2,6 +2,9 @@ package dam.jsoup.updatereport.updatreport.vo;
 
 import lombok.Data;
 
+/**
+ * 获取页面
+ */
 @Data
 public class PageSizeVo {
     private int index;
