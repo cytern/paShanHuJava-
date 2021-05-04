@@ -3,16 +3,10 @@ package dam.jsoup.updatereport.updatreport.controller;
 import dam.jsoup.updatereport.updatreport.service.order.GoodService;
 import dam.jsoup.updatereport.updatreport.service.order.impl.GoodsSSService;
 import dam.jsoup.updatereport.updatreport.util.MyResponse;
-import dam.jsoup.updatereport.updatreport.vo.CommentVo;
-import dam.jsoup.updatereport.updatreport.vo.GoodList;
-import dam.jsoup.updatereport.updatreport.vo.PageSizeVo;
-import dam.jsoup.updatereport.updatreport.vo.SearchGoodsVo;
+import dam.jsoup.updatereport.updatreport.vo.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -86,6 +80,60 @@ public class GoodController {
         return map;
 
     }
+
+    @PostMapping("customer/sendComment/{typeId}/{connectId}")
+    public Map<String, Object> sendComment(@PathVariable Integer typeId,
+                                           @PathVariable Integer connectId,
+                                           @RequestParam("comment") String comment){
+        log.info("************ 用户发送评论  ***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map<String, Object> map = null;
+        try {
+            map = goodsSSService.sendComment(comment, typeId, connectId, userId);
+        } catch (Exception e) {
+            map = MyResponse.myResponseError("发送评论失败");
+            log.error("发送评论失败",e);
+        }
+        return map;
+    }
+
+    @PostMapping("customer/getArticleList/{index}/{pageSize}")
+    public Map<String, Object> getArticleList(@RequestBody ArticleSearchVo articleSearchVo,
+                                              @PathVariable Integer index,
+                                              @PathVariable Integer pageSize){
+        log.info("************ 获取文章列表  ***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map<String, Object> map = null;
+        try {
+            map = MyResponse.myResponseOk("获取文章列表成功");
+            List<ArticleTitleVo> articleList = goodsSSService.getArticleList(articleSearchVo, pageSize, index);
+            map.put("list",articleList);
+        } catch (Exception e) {
+            map = MyResponse.myResponseError("获取文章列表失败");
+            log.error("获取文章列表失败",e);
+        }
+        return map;
+    }
+    @PostMapping("customer/getArticleDetail/{articleId}")
+    public Map<String, Object> getArticleDetail(@PathVariable Integer articleId){
+        log.info("************ 获取文章详情  ***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map<String, Object> map = null;
+        try {
+            map = MyResponse.myResponseOk("获取文章详情成功");
+            ArticleVo articleDetail = goodsSSService.getArticleDetail(articleId);
+            map.put("detail",articleDetail);
+        } catch (Exception e) {
+            map = MyResponse.myResponseError("获取文章详情失败");
+            log.error("获取文章详情失败",e);
+        }
+        return map;
+    }
+
+
 
 
 }

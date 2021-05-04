@@ -1,0 +1,58 @@
+server:
+  port: 2060
+spring:
+  application:
+    name: javaGateWay
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/mian/java
+#  eureka 配置
+eureka:
+    client:
+      service-url:
+        defaultZone: http://localhost:2020/eureka/  #注册位置
+    instance:
+      instance-id: spring-cloud-gateway-2060
+      prefer-ip-address: true
+
+  #info 配置
+info:
+  app.name: 网关
+  app.author: dam
+zuul:
+  routes:
+#    javaServer:
+#      url: http://10.147.19.0:2060/server
+#    excutor:
+#      url: http://10.147.19.0:2060/jsoup
+    server:
+      serviceId: excel
+      path: /file/**
+    jsoup:
+      serviceId: javaServer
+      url: http://localhost:2030
+      path: /server/**
+    excutor:
+      serviceId: excutor
+      url: http://localhost:2040
+      path: /jsoup/**
+  host:
+    connect-timeout-millis: 30000
+    socket-timeout-millis: 30000
+  ignored-services: "*"
+# 请求处理超时时间
+ribbon:
+  ReadTimeout: 30000
+  # 请求连接超时时间
+  ConnectTimeout: 30000
+  # 断路器超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+
+

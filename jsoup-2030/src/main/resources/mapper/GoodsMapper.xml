@@ -39,7 +39,6 @@
         <if test="rightDate != null">
             ma.create_time &lt;  #{rightDate,jdbcType=TIMESTAMP} and
         </if>
-            oa.customer_user_id != #{currentUser,jdbcType=INTEGER} and
         ma.user_id != #{currentUser,jdbcType=INTEGER} and
                 ma.ma_state = 2
                 order by
@@ -89,7 +88,6 @@
         <if test="rightDate != null">
             ma.sent_time &lt;  #{rightDate,jdbcType=TIMESTAMP} and
         </if>
-            oa.customer_user_id != #{currentUser,jdbcType=INTEGER} and
             ma.user_id != #{currentUser,jdbcType=INTEGER}  and
         ma.on_sale = '1'
         order by

@@ -1,6 +1,8 @@
 package dam.jsoup.updatereport.updatreport.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -39,6 +41,7 @@ public class GoodList {
     /**
      * 上架日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date sendTime;
     /**
      * 标签

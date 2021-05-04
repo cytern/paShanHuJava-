@@ -20,8 +20,18 @@ public class SettinglUtil {
     public JsoupSetting getSettingMap() {
         JsoupSetting jsoupSetting = new JsoupSetting();
         try {
-            String src =  this.getClass().getResource("/setting.json").getPath();
-             jsoupSetting = JSONObject.parseObject(new FileInputStream(src), JsoupSetting.class, Feature.AutoCloseSource,
+            String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+            String[] pathSplit = path.split("/");
+            String jarName = pathSplit[pathSplit.length - 1];
+            String jarPath = path.replace(jarName, "");
+            String pathName=jarPath+"setting.json";
+             System.out.println("配置文件路径："+jarPath);
+             File file = new File(pathName);
+             if (file == null) {
+
+             }
+
+             jsoupSetting = JSONObject.parseObject(new FileInputStream(pathName), JsoupSetting.class, Feature.AutoCloseSource,
                     // 允许注释
                     Feature.AllowComment,
                     // 允许单引号

@@ -99,6 +99,7 @@ public class RunJsoupServiceImpl implements RunJsoupService {
                 Thread.sleep(10000);
             }
         }
+        log.info("脚本执行线程 发送成功");
 
 
     }
