@@ -140,12 +140,12 @@
                ud.user_des userDes,
                ud.user_lever userLever
 
-        from jsoup_comment
+        from jsoup_comment jc
         left join jsoup_user_detail ud
            on jc.user_id = ud.user_id
         where
          jc.type_id = #{type} and
-              jc.connectId = #{connectId} and
+              jc.connect_id = #{connectId} and
               jc.deep = 0
          limit #{start} ,#{end}
 
