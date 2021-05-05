@@ -29,7 +29,7 @@ public class GoodList {
     /**
      * 评分
      */
-    private Integer rate;
+    private BigDecimal rate;
     /**
      * 创造用户名
      */

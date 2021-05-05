@@ -3,12 +3,14 @@ package dam.jsoup.updatereport.updatreport.service.order.impl;
 
 import dam.jsoup.updatereport.updatreport.dao.*;
 import dam.jsoup.updatereport.updatreport.pojo.*;
+import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
 import dam.jsoup.updatereport.updatreport.util.MyResponse;
 import dam.jsoup.updatereport.updatreport.vo.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +27,8 @@ public class GoodsSSService {
     private final JsoupCommentMapper commentMapper;
     private final JsoupArticleMapper articleMapper;
     private final JsoupUserDetailMapper detailMapper;
+    private final JsoupMissionAllMapper maMapper;
+    private final JsoupMissionAllHistoryMapper mhMapper;
 
     /**
      * 获取商品列表
@@ -90,10 +94,6 @@ public class GoodsSSService {
      * @return
      */
     public Map<String, Object> sendComment(String comment,Integer typeId,Integer connectId,Integer userId)  {
-        boolean b = doIHaveThis(typeId, userId, connectId);
-        if (!b) {
-            return MyResponse.myResponseError("无法评价未购买的商品");
-        }
         JsoupCommentExample commentExample = new JsoupCommentExample();
         commentExample.createCriteria().andTypeIdEqualTo(typeId).andConnectIdEqualTo(connectId).andUserIdEqualTo(userId).andDeepEqualTo(0);
         JsoupComment jsoupComment = commentMapper.selectByExample(commentExample).get(0);
@@ -152,6 +152,40 @@ public class GoodsSSService {
            jsoup.setTypeId(type);
            upDownMapper.insertSelective(jsoup);
            return MyResponse.myResponseOk("成功");
+        }
+    }
+
+    /**
+     * 设置订单评价
+     * @param rate
+     * @param type
+     * @param connectId
+     */
+    public void setOrderRate (Integer rate, Integer type, Integer connectId) {
+        if (type == 1){
+            OrderJsoupMa orderJsoupMa = orderJsoupMaMapper.selectByPrimaryKey(connectId);
+            if (orderJsoupMa != null) {
+                orderJsoupMa.setScore(rate);
+                orderJsoupMaMapper.updateByPrimaryKeySelective(orderJsoupMa);
+                JsoupMissionAll jsoupMissionAll = maMapper.selectByPrimaryKey(orderJsoupMa.getMaId());
+                BigDecimal nowRate = new BigDecimal(jsoupMissionAll.getMaRate());
+                BigDecimal addOrDown = new BigDecimal(rate -5).divide(new BigDecimal(jsoupMissionAll.getMaSaleNum()));
+                BigDecimal afterRate = nowRate.subtract(addOrDown);
+                jsoupMissionAll.setMaRate(afterRate.toString());
+                maMapper.updateByPrimaryKeySelective(jsoupMissionAll);
+            }
+        }else if (type == 2) {
+            OrderJsoupMh orderJsoupMa = orderJsoupMhMapper.selectByPrimaryKey(connectId);
+            if (orderJsoupMa != null) {
+                orderJsoupMa.setScore(rate);
+                orderJsoupMhMapper.updateByPrimaryKeySelective(orderJsoupMa);
+                JsoupMissionAllHistory jsoupMissionAllHistory = mhMapper.selectByPrimaryKey(orderJsoupMa.getMhId());
+                BigDecimal nowRate = new BigDecimal(jsoupMissionAllHistory.getSaleRate());
+                BigDecimal addOrDown = new BigDecimal(rate -5).divide(new BigDecimal(jsoupMissionAllHistory.getSaleNum()));
+                BigDecimal afterRate = nowRate.subtract(addOrDown);
+                jsoupMissionAllHistory.setSaleRate(afterRate.toString());
+                mhMapper.updateByPrimaryKeySelective(jsoupMissionAllHistory);
+            }
         }
     }
 

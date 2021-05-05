@@ -84,13 +84,18 @@ public class GoodController {
     @PostMapping("customer/sendComment/{typeId}/{connectId}")
     public Map<String, Object> sendComment(@PathVariable Integer typeId,
                                            @PathVariable Integer connectId,
-                                           @RequestParam("comment") String comment){
+                                           @RequestBody SendCommentRequest sendCommentRequest){
         log.info("************ 用户发送评论  ***************");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         Integer userId = Integer.valueOf(request.getHeader("userId"));
         Map<String, Object> map = null;
         try {
-            map = goodsSSService.sendComment(comment, typeId, connectId, userId);
+            boolean b = goodsSSService.doIHaveThis(typeId, userId, connectId);
+            if (!b) {
+                return MyResponse.myResponseError("无法评价未购买的商品");
+            }
+            goodsSSService.setOrderRate(sendCommentRequest.getRate(),typeId,connectId);
+            map = goodsSSService.sendComment(sendCommentRequest.getComment(), typeId, connectId, userId);
         } catch (Exception e) {
             map = MyResponse.myResponseError("发送评论失败");
             log.error("发送评论失败",e);
