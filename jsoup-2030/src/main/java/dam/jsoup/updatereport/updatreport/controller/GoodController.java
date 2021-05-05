@@ -1,5 +1,7 @@
 package dam.jsoup.updatereport.updatreport.controller;
 
+import dam.jsoup.updatereport.updatreport.dao.JsoupComplaintMapper;
+import dam.jsoup.updatereport.updatreport.pojo.JsoupComplaint;
 import dam.jsoup.updatereport.updatreport.service.order.GoodService;
 import dam.jsoup.updatereport.updatreport.service.order.impl.GoodsSSService;
 import dam.jsoup.updatereport.updatreport.util.MyResponse;
@@ -18,6 +20,7 @@ import java.util.*;
 @AllArgsConstructor
 public class GoodController {
     private final GoodsSSService goodsSSService;
+    private final JsoupComplaintMapper complaintMapper;
 
 
     @PostMapping("customer/getGoodDetailComment/{id}/{type}/{pageSize}/{index}")
@@ -121,6 +124,12 @@ public class GoodController {
         }
         return map;
     }
+
+    /**
+     * 获取文章详情
+     * @param articleId
+     * @return
+     */
     @PostMapping("customer/getArticleDetail/{articleId}")
     public Map<String, Object> getArticleDetail(@PathVariable Integer articleId){
         log.info("************ 获取文章详情  ***************");
@@ -136,6 +145,28 @@ public class GoodController {
             log.error("获取文章详情失败",e);
         }
         return map;
+    }
+
+    /**
+     * 发送投诉
+     * @param complaint
+     * @return
+     */
+    @PostMapping("customer/sendComplaint")
+    public Map<String, Object> sendComplaint (@RequestBody JsoupComplaint complaint){
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map<String, Object> map = null;
+        boolean b = goodsSSService.doIHaveThis(Integer.valueOf(complaint.getTypeId()), userId, complaint.getConnectId());
+        if (!b) {
+            return MyResponse.myResponseError("不能投诉非购买项目");
+        }
+        complaint.setUserId(userId);
+        complaint.setSentTime(new Date());
+        complaint.setUpdateTime(new Date());
+        complaint.setStatus("0");
+        complaintMapper.insertSelective(complaint);
+        return MyResponse.myResponseOk("投诉成功，将会尽快受理");
     }
 
 

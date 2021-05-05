@@ -1,5 +1,6 @@
 package dam.jsoup.updatereport.updatreport.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -53,12 +54,14 @@ public class JsoupMissionAllHistory implements Serializable {
     /**
      * 发送执行时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "发送执行时间")
     private Date sentTime;
 
     /**
      * 完成时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "完成时间")
     private Date finishTime;
 
