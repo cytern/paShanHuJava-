@@ -11,6 +11,8 @@ server:
       encoding: UTF-8
     uri-encoding: UTF-8
 spring:
+  jackson:
+    time-zone: GMT+8
   cloud:
     config:
       enabled: false

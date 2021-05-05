@@ -74,7 +74,7 @@ public class RunJsoupServiceImpl implements RunJsoupService {
             log.error("接受数据错误");
             return;
         }
-        log.info("  脚本执行线程   开始执行脚本 ");
+        log.info("  脚本执行线程   开始执行脚本  执行数据=[{}]",missionAllData);
             List result = null;
             try {
                 result = excutorService.doExcutor(missionAllData.getMissionAllData());

@@ -81,7 +81,7 @@ public class JsoupMissionAll implements Serializable {
     /**
      * 创造时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "创造时间")
     private Date createTime;
 
