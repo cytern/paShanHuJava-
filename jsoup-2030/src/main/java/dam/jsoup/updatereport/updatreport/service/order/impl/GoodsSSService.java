@@ -212,6 +212,16 @@ public class GoodsSSService {
     }
 
     /**
+     * 发布文章
+     * @param jsoupArticle
+     * @return
+     */
+    public Map<String, Object> sendArticle(JsoupArticle jsoupArticle) {
+        articleMapper.insertSelective(jsoupArticle);
+        return MyResponse.myResponseOk("发布成功");
+    }
+
+    /**
      * 我是否拥有这个脚本/数据
      * @param type
      * @param userId

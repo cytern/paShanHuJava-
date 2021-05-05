@@ -1,6 +1,7 @@
 package dam.jsoup.updatereport.updatreport.controller;
 
 import dam.jsoup.updatereport.updatreport.dao.JsoupComplaintMapper;
+import dam.jsoup.updatereport.updatreport.pojo.JsoupArticle;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupComplaint;
 import dam.jsoup.updatereport.updatreport.service.order.GoodService;
 import dam.jsoup.updatereport.updatreport.service.order.impl.GoodsSSService;
@@ -182,6 +183,24 @@ public class GoodController {
         }
         return map;
     }
+
+   @PostMapping("customer/sendArticle")
+   public Map<String, Object> sendArticle (@RequestBody JsoupArticle jsoupArticle) {
+       HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+       Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map<String, Object> map = null;
+       try {
+           jsoupArticle.setCreateTime(new Date());
+           jsoupArticle.setDownNum(0);
+           jsoupArticle.setUpNum(0);
+           jsoupArticle.setUserId(userId);
+           jsoupArticle.setUpdateTime(new Date());
+           map = goodsSSService.sendArticle(jsoupArticle);
+       } catch (Exception e) {
+           log.error("保存文章失败",e);
+       }
+       return map;
+   }
 
 
 
