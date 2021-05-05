@@ -169,6 +169,20 @@ public class GoodController {
         return MyResponse.myResponseOk("投诉成功，将会尽快受理");
     }
 
+    @PostMapping("customer/getGoodsOrder")
+    public Map<String, Object> getGoodsOrder() {
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map<String, Object> map = null;
+        try {
+            map = goodsSSService.getOnesOrder(userId);
+        } catch (Exception e) {
+            map = MyResponse.myResponseError("查询失败");
+            log.error("查询失败",e);
+        }
+        return map;
+    }
+
 
 
 

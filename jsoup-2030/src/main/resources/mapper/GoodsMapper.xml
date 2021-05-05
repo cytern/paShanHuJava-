@@ -134,18 +134,19 @@
                            on ud.user_id = ma.user_id
         where ma.mission_all_history_id = #{mhId}
     </select>
-    <select id="getComment" resultType="dam.jsoup.updatereport.updatreport.vo.CommentVo">
+    <select id="getMhComment" resultType="dam.jsoup.updatereport.updatreport.vo.CommentVo">
         select jc.*,
                ud.user_nick_name userName,
                ud.user_des userDes,
                ud.user_lever userLever
-
         from jsoup_comment jc
+        left join order_jsoup_mh oh
+        on oh.order_id = jc.connent_id
         left join jsoup_user_detail ud
            on jc.user_id = ud.user_id
         where
          jc.type_id = #{type} and
-              jc.connect_id = #{connectId} and
+              oh.mh_id = #{connectId} and
               jc.deep = 0
          limit #{start} ,#{end}
 
@@ -170,4 +171,75 @@
                  1 = 1
                limit #{articleSearchVo.pageStart},#{articleSearchVo.pageEnd}
                </select>
+
+    <select id="getMaOrder" resultType="dam.jsoup.updatereport.updatreport.vo.GoodList">
+        select oa.create_time sendTime,
+               ma.ma_name goodName,
+               jc.comment des,
+                1  type,
+                ud.user_nick_name createUser,
+               oa.finish_price price,
+               oa.order_id id
+        from order_jsoup_ma oa
+        left join jsoup_mission_all ma
+        on ma.ma_id = oa.ma_id
+        left join jsoup_user_detail ud
+        on ud.user_id = ma.user_id
+        left join jsoup_comment jc
+        on jc.connect_id = oa.order_id
+        and jc.type_id = 1
+        and jc.user_id = #{userId}
+        where oa.customer_user_id = #{userId}
+    </select>
+
+    <select id="getMhOrder" resultType="dam.jsoup.updatereport.updatreport.vo.GoodList">
+        select oa.create_time sendTime,
+        ma.mission_all_name goodName,
+        jc.comment des,
+        2  type,
+        ud.user_nick_name createUser,
+        oa.finish_price price,
+        oa.order_id id
+        from order_jsoup_mh oa
+        left join jsoup_mission_all_history ma
+        on ma.mission_all_history_id = oa.mh_id
+        left join jsoup_user_detail ud
+        on ud.user_id = ma.user_id
+        left join jsoup_comment jc
+        on jc.connect_id = oa.order_id
+        and jc.type_id = 2
+        and jc.user_id = #{userId}
+        where oa.customer_user_id = #{userId}
+    </select>
+    <select id="getMaComment" resultType="dam.jsoup.updatereport.updatreport.vo.CommentVo">
+        select jc.*,
+        ud.user_nick_name userName,
+        ud.user_des userDes,
+        ud.user_lever userLever
+        from jsoup_comment jc
+        left join order_jsoup_ma oh
+        on oh.order_id = jc.connent_id
+        left join jsoup_user_detail ud
+        on jc.user_id = ud.user_id
+        where
+        jc.type_id = #{type} and
+        oh.ma_id = #{connectId} and
+        jc.deep = 0
+        limit #{start} ,#{end}
+    </select>
+
+    <select id="getArticleComment" resultType="dam.jsoup.updatereport.updatreport.vo.CommentVo">
+        select jc.*,
+        ud.user_nick_name userName,
+        ud.user_des userDes,
+        ud.user_lever userLever
+        from jsoup_comment jc
+        left join jsoup_user_detail ud
+        on jc.user_id = ud.user_id
+        where
+        jc.type_id = #{type} and
+        jc.connect_id = #{connectId} and
+        jc.deep = 0
+        limit #{start} ,#{end}
+    </select>
 </mapper>

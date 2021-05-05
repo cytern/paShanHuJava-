@@ -51,9 +51,22 @@ public interface GoodsMapper {
       * @param connectId
       * @return
       */
-     List<CommentVo> getComment(@Param("start") Integer start,@Param("end") Integer end,
-                                 @Param("type") Integer type,@Param("connectId") Integer connectId);
+     List<CommentVo> getMaComment(@Param("start") Integer start, @Param("end") Integer end,
+                                  @Param("type") Integer type, @Param("connectId") Integer connectId);
+
+     List<CommentVo> getMhComment(@Param("start") Integer start, @Param("end") Integer end,
+                                  @Param("type") Integer type, @Param("connectId") Integer connectId);
 
 
-     List<ArticleTitleVo> getArticleTitleList (ArticleSearchVo articleSearchVo);
+     List<CommentVo> getArticleComment(@Param("start") Integer start, @Param("end") Integer end,
+                                  @Param("type") Integer type, @Param("connectId") Integer connectId);
+
+
+     List<ArticleTitleVo> getArticleTitleList (@Param("articleSearchVo") ArticleSearchVo articleSearchVo);
+
+
+     List<GoodList> getMaOrder(@Param("userId") Integer userId);
+
+
+     List<GoodList> getMhOrder(@Param("userId") Integer userId);
 }

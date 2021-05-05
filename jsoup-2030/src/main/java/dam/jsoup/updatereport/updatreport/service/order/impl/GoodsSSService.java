@@ -11,10 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -70,7 +67,14 @@ public class GoodsSSService {
      * @return
      */
     public List<CommentVo> getCommentList(Integer type,Integer start,Integer end,Integer connectId){
-        List<CommentVo> comment = goodsMapper.getComment(start, end, type, connectId);
+        List<CommentVo> comment = new ArrayList<>();
+        if (type == 1) {
+        comment = goodsMapper.getMaComment(start, end, type, connectId);
+        }else if (type == 2){
+            comment = goodsMapper.getMhComment(start, end, type, connectId);
+        }else if (type == 3) {
+            comment = goodsMapper.getArticleComment(start, end, type, connectId);
+        }
         return comment;
     }
 
@@ -96,7 +100,12 @@ public class GoodsSSService {
     public Map<String, Object> sendComment(String comment,Integer typeId,Integer connectId,Integer userId)  {
         JsoupCommentExample commentExample = new JsoupCommentExample();
         commentExample.createCriteria().andTypeIdEqualTo(typeId).andConnectIdEqualTo(connectId).andUserIdEqualTo(userId).andDeepEqualTo(0);
-        JsoupComment jsoupComment = commentMapper.selectByExample(commentExample).get(0);
+        JsoupComment jsoupComment = null;
+        try {
+            jsoupComment    = commentMapper.selectByExample(commentExample).get(0);
+        } catch (Exception e) {
+           log.info("插入新的评论");
+        }
         if (jsoupComment == null) {
             jsoupComment = new JsoupComment();
             jsoupComment.setComment(comment);
@@ -187,6 +196,19 @@ public class GoodsSSService {
                 mhMapper.updateByPrimaryKeySelective(jsoupMissionAllHistory);
             }
         }
+    }
+
+    /**
+     * 获取一个人的订单
+     * @return
+     */
+    public Map<String, Object> getOnesOrder(Integer userId) {
+        List<GoodList> maOrder = goodsMapper.getMaOrder(userId);
+        List<GoodList> mhOrder = goodsMapper.getMhOrder(userId);
+        maOrder.addAll(mhOrder);
+        Map map = MyResponse.myResponseOk("查询成功");
+        map.put("list",maOrder);
+        return map;
     }
 
     /**
