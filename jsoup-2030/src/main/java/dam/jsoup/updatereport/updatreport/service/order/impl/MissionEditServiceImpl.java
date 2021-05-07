@@ -641,6 +641,12 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         history.setSaleRate("0");
         missionAllHistoryMapper.insertSelective(history);
         //根据获取的mh_id 执行插入操作
+        for (JsoupPragram pragram : pragrams) {
+            pragram.setFatherId(pragram.getPragramId());
+            pragram.setDeep(1);
+            pragram.setMhId(history.getMissionAllHistoryId());
+            pragramMapper.insertSelective(pragram);
+        }
         addRunningParameter(history.getMissionAllHistoryId());
         return MyResponse.myResponseOk("添加成功!");
     }

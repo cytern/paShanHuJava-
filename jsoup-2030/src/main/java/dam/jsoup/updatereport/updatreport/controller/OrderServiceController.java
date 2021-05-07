@@ -1,7 +1,9 @@
 package dam.jsoup.updatereport.updatreport.controller;
 
+import dam.jsoup.updatereport.updatreport.dao.JsoupMapper;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
+import dam.jsoup.updatereport.updatreport.pojo.JsoupPragram;
 import dam.jsoup.updatereport.updatreport.service.JsoupActionService;
 import dam.jsoup.updatereport.updatreport.service.order.JsoupMissionService;
 import dam.jsoup.updatereport.updatreport.service.RunJavaSoup;
@@ -28,11 +30,13 @@ public class OrderServiceController {
     private final JsoupActionService actionService;
     private final JsoupMissionService missionService;
     private final RunJavaSoup runJavaSoup;
+    private final JsoupMapper jsoupMapper;
 
-    public OrderServiceController(JsoupActionService actionService, JsoupMissionService missionService, RunJavaSoup runJavaSoup) {
+    public OrderServiceController(JsoupActionService actionService, JsoupMissionService missionService, RunJavaSoup runJavaSoup, JsoupMapper jsoupMapper) {
         this.actionService = actionService;
         this.missionService = missionService;
         this.runJavaSoup = runJavaSoup;
+        this.jsoupMapper = jsoupMapper;
     }
 
     /**
@@ -335,7 +339,7 @@ public class OrderServiceController {
 
     }
     @GetMapping("customer/deleteTimeTaskMission/{mhId}")
-    Map deleteTimeTaskMission(@PathVariable Integer mhId) {
+    public Map deleteTimeTaskMission(@PathVariable Integer mhId) {
         log.info("************ 删除定时任务 脚本信息***************");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         Integer userId = Integer.valueOf(request.getHeader("userId"));
@@ -348,6 +352,16 @@ public class OrderServiceController {
         }
         return map;
 
+    }
+    /**
+     * 获取参数列表 添加前修改参数
+     */
+    @PostMapping("customer/getAllParameters/{maId}")
+    public Map<String,Object> getAllParameters(@PathVariable Integer maId) {
+        List<JsoupPragram> allPragramBymaId = jsoupMapper.getAllPragramBymaId(maId);
+        Map<String, Object> map = MyResponse.myResponseOk("查询成功");
+        map.put("list",allPragramBymaId);
+        return map;
     }
 
 }
