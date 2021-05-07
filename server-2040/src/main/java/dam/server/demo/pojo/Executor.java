@@ -1,39 +1,16 @@
 package dam.server.demo.pojo;
 
+import lombok.Data;
+
 /**
  * @author : dam
  * @description :
  * @create :2021-04-23 10:16:00
  */
+@Data
  public  class Executor {
-
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     private String token;
     private String userName;
-
     private String executorUrl;
-
-    public String getExecutorUrl() {
-        return executorUrl;
-    }
-
-    public void setExecutorUrl(String executorUrl) {
-        this.executorUrl = executorUrl;
-    }
+    private Boolean testModel;
 }

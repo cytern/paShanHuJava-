@@ -48,7 +48,9 @@ public class ExcutorServiceImpl implements ExcutorService {
 //        String dir = applicationArguments.getNonOptionArgs().get(0);
         System.setProperty("webdriver.chrome.driver", configBean.getJsoupSetting().getExecutor().getExecutorUrl());
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("-headless");
+        if (!configBean.getJsoupSetting().getExecutor().getTestModel()){
+            chromeOptions.addArguments("-headless");
+        }
         WebDriver webDriver = new ChromeDriver(chromeOptions);
 
 
