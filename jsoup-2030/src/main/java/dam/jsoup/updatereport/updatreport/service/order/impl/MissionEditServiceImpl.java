@@ -36,12 +36,13 @@ public class MissionEditServiceImpl implements JsoupMissionService {
     private final JsoupUserAssetsMapper assetsMapper;
     private final JsoupUserDetailMapper userDetailMapper;
     private final UserService userService;
+    private final JsoupMapper jsoupMapper;
 
 
 
 
 
-    public MissionEditServiceImpl(JsoupMissionAllMapper jsoupMissionAllMapper, JsoupMissionMapper jsoupMissionMapper, JsoupPragramMapper pragramMapper, JsoupMissionOrderMapper orderMapper, JsoupActionService actionEditService, JsoupUserOrderMapper userOrderMapper, JsoupMissionAllHistoryMapper missionAllHistoryMapper, JsoupActionOrderMapper actionOrderMapper, JsoupActionMapper actionMapper, OrderJsoupMaMapper orderJsoupMaMapper, OrderJsoupMhMapper orderJsoupMhMapper, JsoupUserAssetsMapper assetsMapper, JsoupUserDetailMapper userDetailMapper, UserService userService) {
+    public MissionEditServiceImpl(JsoupMissionAllMapper jsoupMissionAllMapper, JsoupMissionMapper jsoupMissionMapper, JsoupPragramMapper pragramMapper, JsoupMissionOrderMapper orderMapper, JsoupActionService actionEditService, JsoupUserOrderMapper userOrderMapper, JsoupMissionAllHistoryMapper missionAllHistoryMapper, JsoupActionOrderMapper actionOrderMapper, JsoupActionMapper actionMapper, OrderJsoupMaMapper orderJsoupMaMapper, OrderJsoupMhMapper orderJsoupMhMapper, JsoupUserAssetsMapper assetsMapper, JsoupUserDetailMapper userDetailMapper, UserService userService, JsoupMapper jsoupMapper) {
         this.jsoupMissionAllMapper = jsoupMissionAllMapper;
         this.jsoupMissionMapper = jsoupMissionMapper;
         this.pragramMapper = pragramMapper;
@@ -56,6 +57,7 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         this.assetsMapper = assetsMapper;
         this.userDetailMapper = userDetailMapper;
         this.userService = userService;
+        this.jsoupMapper = jsoupMapper;
     }
 
 
@@ -121,6 +123,70 @@ public class MissionEditServiceImpl implements JsoupMissionService {
 
         }
         missionAllData.setMissionDataList(missionDataList);
+        return missionAllData;
+    }
+
+    /**
+     * 获取一个执行任务数据
+     *
+     * @param mhId
+     * @return
+     */
+    @Override
+    public MissionAllData getRunningMissionData(Integer mhId) {
+        MissionAllData missionAllData = null;
+       //先获取对应的任务 执行历史
+        JsoupMissionAllHistory missionAllHistory = missionAllHistoryMapper.selectByPrimaryKey(mhId);
+        if (missionAllHistory == null) {
+            log.error("获取脚本数据失败 入参的任务id不正确");
+            return null;
+        }
+        //根据对应的执行任务 获取脚本数据
+        JsoupMissionAll jsoupMissionAll = jsoupMissionAllMapper.selectByPrimaryKey(missionAllHistory.getMissionAllId());
+        if (jsoupMissionAll == null) {
+            log.error("获取脚本数据失败 入参的任务查询不到脚本信息");
+            return null;
+        }
+        missionAllData.setMissionAllHistory(missionAllHistory);
+        missionAllData.setJsoupMissionAll(jsoupMissionAll);
+        missionAllData.setIsOwner(0);
+        missionAllData.setIsOwner(0);
+        //获取对应总脚本下的 任务订单
+        JsoupMissionOrderExample missionOrderExample = new JsoupMissionOrderExample();
+        missionOrderExample.createCriteria().andMoMissionAllIdEqualTo(jsoupMissionAll.getMaId());
+        List<JsoupMissionOrder> jsoupMissionOrders = orderMapper.selectByExample(missionOrderExample);
+        List<MissionData> maDataList = new ArrayList<>();
+        for (JsoupMissionOrder jsoupMissionOrder : jsoupMissionOrders) {
+            MissionData missionData = new MissionData();
+            //获取任务
+            JsoupMission jsoupMission = jsoupMissionMapper.selectByPrimaryKey(jsoupMissionOrder.getMoMissionId());
+            missionData.setJsoupMission(jsoupMission);
+            missionData.setJsoupMissionOrder(jsoupMissionOrder);
+            JsoupActionOrderExample jsoupActionOrderExample = new JsoupActionOrderExample();
+            jsoupActionOrderExample.createCriteria().andMissionIdEqualTo(jsoupMissionOrder.getMoMissionId());
+            List<JsoupActionOrder> jsoupActionOrders = actionOrderMapper.selectByExample(jsoupActionOrderExample);
+            List<ActionVo> actionVoList = new ArrayList<>();
+            for (JsoupActionOrder actionOrder : jsoupActionOrders) {
+                ActionVo actionVo = new ActionVo();
+                //获取行动
+                JsoupAction jsoupAction = actionMapper.selectByPrimaryKey(actionOrder.getActionId());
+                actionVo.setActionOrder(actionOrder);
+                actionVo.setJsoupAction(jsoupAction);
+                //新版查询参数
+                JsoupPragramExample jsoupPragramExample = new JsoupPragramExample();
+                jsoupPragramExample.createCriteria().andMissionIdEqualTo(jsoupMissionOrder.getMoMissionId()).andActionIdEqualTo(actionOrder.getActionId()).andMhIdEqualTo(mhId).andDeepEqualTo(1);
+                List<JsoupPragram> jsoupPragrams = pragramMapper.selectByExample(jsoupPragramExample);
+                if (jsoupPragrams == null || jsoupPragrams.size()<1){
+                    //表明无参数
+                }else {
+                    actionVo.setJsoupPragram(jsoupPragrams.get(0));
+                }
+                actionVoList.add(actionVo);
+            }
+              missionData.setActionVos(actionVoList);
+            maDataList.add(missionData);
+        }
+        missionAllData.setMissionDataList(maDataList);
         return missionAllData;
     }
 
@@ -255,6 +321,7 @@ public class MissionEditServiceImpl implements JsoupMissionService {
                     JsoupPragram pragram = actionVo.getJsoupPragram();
                     pragram.setActionId(actionVo.getJsoupAction().getActionId());
                     pragram.setMissionId(order.getMoMissionId());
+                    pragram.setDeep(0);
                     if (pragram.getPragramId() <= 0){
                         pragramMapper.insertSelective(pragram);
                     }else {
@@ -543,7 +610,7 @@ public class MissionEditServiceImpl implements JsoupMissionService {
      * @return
      */
     @Override
-    public Map addAutoWorkMission(Integer maId, Integer userId, String corn,Integer times) {
+    public Map addAutoWorkMission(Integer maId, Integer userId, String corn,Integer times,List<JsoupPragram> pragrams) {
         if (!CronUtil.canAdd(corn)){
             log.error("最小时间间隔太小，无法完成添加");
             return MyResponse.myResponseError("最小两次任务执行间隔为五分钟！");
@@ -573,6 +640,8 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         history.setTimeNum(times);
         history.setSaleRate("0");
         missionAllHistoryMapper.insertSelective(history);
+        //根据获取的mh_id 执行插入操作
+        addRunningParameter(history.getMissionAllHistoryId());
         return MyResponse.myResponseOk("添加成功!");
     }
 
@@ -616,6 +685,38 @@ public class MissionEditServiceImpl implements JsoupMissionService {
                return MyResponse.myResponseError("最小两次任务执行间隔为五分钟！");
            }
         }
+    }
+
+    /**
+     * 添加参数
+     * @param mhId
+     */
+    public void addRunningParameter(Integer mhId) {
+        //获取mhId
+        JsoupMissionAllHistory jsoupMissionAllHistory = missionAllHistoryMapper.selectByPrimaryKey(mhId);
+        //获取所有构造参数
+        List<JsoupPragram> pragramBymaId = jsoupMapper.getAllPragramBymaId(jsoupMissionAllHistory.getMissionAllId());
+        List<JsoupPragram> allPragramByMhId = jsoupMapper.getAllPragramByMhId(mhId);
+        for (JsoupPragram jsoupPragram : pragramBymaId) {
+            //判断是否在mhId 中拥有
+            boolean flag = false;
+            for (JsoupPragram pragram : allPragramByMhId) {
+                if (pragram.getFatherId().equals(jsoupPragram.getPragramId())){
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                if (jsoupPragram.getNeedAdd() == 1){
+                    throw new RuntimeException("缺少必要的必填参数");
+                }
+                jsoupPragram.setFatherId(jsoupPragram.getPragramId());
+                jsoupPragram.setDeep(1);
+                jsoupPragram.setMhId(mhId);
+                pragramMapper.insertSelective(jsoupPragram);
+            }
+        }
+
     }
 
 }

@@ -1,13 +1,18 @@
 package dam.jsoup.updatereport.updatreport.service.impl;
 
+import dam.jsoup.updatereport.updatreport.dao.JsoupMapper;
 import dam.jsoup.updatereport.updatreport.dao.JsoupMissionAllHistoryMapper;
 import dam.jsoup.updatereport.updatreport.dao.JsoupMissionAllMapper;
+import dam.jsoup.updatereport.updatreport.dao.JsoupPragramMapper;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistoryExample;
+import dam.jsoup.updatereport.updatreport.pojo.JsoupPragram;
 import dam.jsoup.updatereport.updatreport.service.FileExcutorService;
 import dam.jsoup.updatereport.updatreport.service.RunJavaSoup;
 import dam.jsoup.updatereport.updatreport.service.SendExcutorServcie;
+import dam.jsoup.updatereport.updatreport.service.order.JsoupMissionService;
+import dam.jsoup.updatereport.updatreport.vo.TimeTaskRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -23,14 +28,20 @@ public class RunJavaSoupImpl implements RunJavaSoup {
     private final SendExcutorServcie sendExcutorServcie;
     private final JsoupMissionAllHistoryMapper jsoupMissionAllHistoryMapper;
     private final FileExcutorService fileExcutorService;
-    private final String dir = "E:\\projects\\excelData\\";
+    private final String dir = "/export/data/";
     private final JsoupMissionAllMapper missionAllMapper;
+    private final JsoupMissionService jsoupMissionService;
+    private final JsoupMapper jsoupMapper;
+    private final JsoupPragramMapper pragramMapper;
 
-    public RunJavaSoupImpl(SendExcutorServcie sendExcutorServcie, JsoupMissionAllHistoryMapper jsoupMissionAllHistoryMapper, FileExcutorService fileExcutorService, JsoupMissionAllMapper missionAllMapper) {
+    public RunJavaSoupImpl(SendExcutorServcie sendExcutorServcie, JsoupMissionAllHistoryMapper jsoupMissionAllHistoryMapper, FileExcutorService fileExcutorService, JsoupMissionAllMapper missionAllMapper, JsoupMissionService jsoupMissionService, JsoupMapper jsoupMapper, JsoupPragramMapper pragramMapper) {
         this.sendExcutorServcie = sendExcutorServcie;
         this.jsoupMissionAllHistoryMapper = jsoupMissionAllHistoryMapper;
         this.fileExcutorService = fileExcutorService;
         this.missionAllMapper = missionAllMapper;
+        this.jsoupMissionService = jsoupMissionService;
+        this.jsoupMapper = jsoupMapper;
+        this.pragramMapper = pragramMapper;
     }
 
     /**
@@ -75,7 +86,7 @@ public class RunJavaSoupImpl implements RunJavaSoup {
      * @return
      */
     @Override
-    public void sendJavaSoup(Integer maId, Integer userId) {
+    public void sendJavaSoup(Integer maId, Integer userId, TimeTaskRequest timeTaskRequest) {
         //添加一个序列1 的 missionOrder
         JsoupMissionAll jsoupMissionAll = missionAllMapper.selectByPrimaryKey(maId);
         JsoupMissionAllHistory history = new JsoupMissionAllHistory();
@@ -89,5 +100,16 @@ public class RunJavaSoupImpl implements RunJavaSoup {
         history.setSalePrice(new BigDecimal(200));
         history.setSaleRate("0");
         jsoupMissionAllHistoryMapper.insertSelective(history);
+        //获取参数列表 实际上参数列表来源于之前网络请求的参数列表  但是这里需要修改确认参数是否合理
+        List<JsoupPragram> pragrams = timeTaskRequest.getPragrams();
+        for (JsoupPragram pragram : pragrams) {
+            pragram.setFatherId(pragram.getPragramId());
+            pragram.setMhId(history.getMissionAllHistoryId());
+            pragram.setDeep(1);
+            pragram.setNeedAdd(0);
+            pragramMapper.insertSelective(pragram);
+        }
+        jsoupMissionService.addRunningParameter(history.getMissionAllHistoryId());
+
     }
 }

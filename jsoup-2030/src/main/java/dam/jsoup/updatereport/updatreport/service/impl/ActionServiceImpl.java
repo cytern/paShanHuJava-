@@ -152,13 +152,13 @@ public class ActionServiceImpl implements JsoupActionService {
             JsoupAction action = jsoupActionMapper.selectByPrimaryKey(rankOrder.getActionId());
             actionVo.setJsoupAction(action);
             //获取action pragram
-            JsoupPragramExample example1 = new JsoupPragramExample();
-            example1.createCriteria().andActionIdEqualTo(rankOrder.getActionId()).andMissionIdEqualTo(rankOrder.getMissionId());
-            List<JsoupPragram> list = pragramMapper.selectByExample(example1);
-            if (list == null || list.size()<1){
-                actionVo.setJsoupPragram(new JsoupPragram());
+            JsoupPragramExample jsoupPragramExample = new JsoupPragramExample();
+            jsoupPragramExample.createCriteria().andMissionIdEqualTo(rankOrder.getMissionId()).andActionIdEqualTo(rankOrder.getActionId()).andDeepEqualTo(0);
+            List<JsoupPragram> jsoupPragrams = pragramMapper.selectByExample(jsoupPragramExample);
+            if (jsoupPragrams == null || jsoupPragrams.size()<1){
+                //表明无参数
             }else {
-                actionVo.setJsoupPragram(list.get(0));
+                actionVo.setJsoupPragram(jsoupPragrams.get(0));
             }
             //将数据添加至总数据
             actionVos.add(actionVo);

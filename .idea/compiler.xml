@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="euerka-2020" />
+        <module name="jsoup-2030" />
         <module name="eureka" />
         <module name="demo (1) (com.kente)" />
         <module name="excel-2050" />
@@ -16,12 +17,6 @@
         <module name="gateway-2060" />
         <module name="demo" />
         <module name="gateway" />
-      </profile>
-      <profile name="Annotation profile for updatreport" enabled="true">
-        <sourceOutputDir name="../target/generated-sources/annotations" />
-        <sourceTestOutputDir name="../target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="jsoup-2030" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

@@ -6,6 +6,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+
+/**
+ * @author : dam
+ * @description :
+ * @create :2021-05-06 14:32:00
+ */
 @Mapper
 public interface JsoupPragramMapper {
     long countByExample(JsoupPragramExample example);

@@ -58,7 +58,7 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
             return httpMissionDataVo;
         }
         //通过maId 序列化得到missionAll
-        MissionAllData missionAllData = missionService.getMissionAllData(oneWaitToDoTask.getMissionAllId(), 1);
+        MissionAllData missionAllData = missionService.getRunningMissionData(oneWaitToDoTask.getMissionAllHistoryId());
 //        判断用户余额足以支持执行脚本
         BigDecimal bigDecimal = MissionDataRunPriceUtil.checkMissionAllDataPrice(missionAllData);
         JsoupUserAssetsExample assetsExample = new JsoupUserAssetsExample();

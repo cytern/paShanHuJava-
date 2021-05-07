@@ -2,6 +2,7 @@ package dam.jsoup.updatereport.updatreport.service.order;
 
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
+import dam.jsoup.updatereport.updatreport.pojo.JsoupPragram;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
 
 import java.util.List;
@@ -18,6 +19,12 @@ public interface JsoupMissionService {
      */
     MissionAllData getMissionAllData(Integer missionAllId,Integer userId);
 
+    /**
+     * 获取一个执行任务数据
+     * @param mhId
+     * @return
+     */
+    MissionAllData getRunningMissionData(Integer mhId);
     /**
      * 获取某个用户的全部可使用脚本
      * @param userId 用户id
@@ -109,7 +116,7 @@ public interface JsoupMissionService {
      * @param corn
      * @return
      */
-    Map addAutoWorkMission(Integer maId,Integer userId,String corn,Integer times);
+    Map addAutoWorkMission(Integer maId, Integer userId, String corn, Integer times, List<JsoupPragram> jsoupPragrams);
 
     /**
      * 删除一个定时任务
@@ -127,4 +134,6 @@ public interface JsoupMissionService {
      */
     Map updateAutoWorkMission(Integer mhId,String corn,Integer times,Integer userId);
 
+
+     void addRunningParameter(Integer mhId);
 }

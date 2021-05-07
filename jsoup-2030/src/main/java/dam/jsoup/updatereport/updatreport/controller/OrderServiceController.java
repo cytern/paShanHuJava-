@@ -8,6 +8,7 @@ import dam.jsoup.updatereport.updatreport.service.RunJavaSoup;
 import dam.jsoup.updatereport.updatreport.util.MyResponse;
 import dam.jsoup.updatereport.updatreport.util.PageHelper;
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
+import dam.jsoup.updatereport.updatreport.vo.TimeTaskRequest;
 import dam.jsoup.updatereport.updatreport.vo.TimeTaskVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -132,14 +133,15 @@ public class OrderServiceController {
      */
     @PostMapping("customer/runJavaSoup/{maId}")
     @ResponseBody
-    Map runJavaSoup(@PathVariable Integer maId) {
+    Map runJavaSoup(@PathVariable Integer maId,
+                    @RequestBody TimeTaskRequest timeTaskRequest) {
         //执行
         log.info("************ 执行脚本***************");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         Integer userId = Integer.valueOf(request.getHeader("userId"));
         Map map = new HashMap();
         try {
-            runJavaSoup.sendJavaSoup(maId, userId);
+            runJavaSoup.sendJavaSoup(maId, userId,timeTaskRequest);
             map = MyResponse.myResponseOk("发送成功");
         } catch (Exception e) {
             map = MyResponse.myResponseError(e.getMessage());
@@ -302,13 +304,13 @@ public class OrderServiceController {
     }
 
     @PostMapping("customer/addTimeTaskMission")
-    Map addTimeTaskMission(@RequestBody TimeTaskVo timeTaskVo) {
+    Map addTimeTaskMission(@RequestBody TimeTaskRequest timeTaskRequest) {
         log.info("************ 添加定时任务 脚本信息***************");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         Integer userId = Integer.valueOf(request.getHeader("userId"));
         Map map = new HashMap();
         try {
-            map = missionService.addAutoWorkMission(timeTaskVo.getId(),userId,timeTaskVo.getCorn(),timeTaskVo.getTimes());
+            map = missionService.addAutoWorkMission(timeTaskRequest.getTimeTaskVo().getId(),userId,timeTaskRequest.getTimeTaskVo().getCorn(),timeTaskRequest.getTimeTaskVo().getTimes(), timeTaskRequest.getPragrams());
         } catch (Exception e) {
             log.error("************ 添加定时任务  失败***************", e);
             map = MyResponse.myResponseError("添加失败");

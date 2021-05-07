@@ -1,6 +1,7 @@
 package dam.jsoup.updatereport.updatreport.service;
 
 import dam.jsoup.updatereport.updatreport.vo.MissionAllData;
+import dam.jsoup.updatereport.updatreport.vo.TimeTaskRequest;
 
 import java.util.Map;
 
@@ -16,5 +17,5 @@ public interface RunJavaSoup {
     void runJavaSoup(Integer orderId, Integer userId);
 
 
-    void sendJavaSoup(Integer maId,Integer userId);
+    void sendJavaSoup(Integer maId, Integer userId, TimeTaskRequest timeTaskRequest);
 }

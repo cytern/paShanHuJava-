@@ -1,10 +1,14 @@
 package dam.jsoup.updatereport.updatreport.service.impl;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
+import dam.jsoup.updatereport.updatreport.dao.JsoupMapper;
 import dam.jsoup.updatereport.updatreport.dao.JsoupMissionAllHistoryMapper;
+import dam.jsoup.updatereport.updatreport.dao.JsoupPragramMapper;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistoryExample;
+import dam.jsoup.updatereport.updatreport.pojo.JsoupPragram;
 import dam.jsoup.updatereport.updatreport.service.TimeTaskService;
+import dam.jsoup.updatereport.updatreport.service.order.JsoupMissionService;
 import dam.jsoup.updatereport.updatreport.util.CronUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +21,15 @@ import java.util.List;
 public class TimeTaskServiceImpl implements TimeTaskService {
 
     private final JsoupMissionAllHistoryMapper missionAllHistoryMapper;
+    private final JsoupMapper jsoupMapper;
+    private final JsoupMissionService jsoupMissionService;
+    private final JsoupPragramMapper pragramMapper;
 
-    public TimeTaskServiceImpl(JsoupMissionAllHistoryMapper missionAllHistoryMapper) {
+    public TimeTaskServiceImpl(JsoupMissionAllHistoryMapper missionAllHistoryMapper, JsoupMapper jsoupMapper, JsoupMissionService jsoupMissionService, JsoupPragramMapper pragramMapper) {
         this.missionAllHistoryMapper = missionAllHistoryMapper;
+        this.jsoupMapper = jsoupMapper;
+        this.jsoupMissionService = jsoupMissionService;
+        this.pragramMapper = pragramMapper;
     }
 
     /**
@@ -67,7 +77,8 @@ public class TimeTaskServiceImpl implements TimeTaskService {
                             allHistory.setFinishTime(nowDate);
                             missionAllHistoryMapper.updateByPrimaryKeySelective(allHistory);
                         }
-
+                        //获取参数列表
+                    List<JsoupPragram> allPragramByMhId = jsoupMapper.getAllPragramByMhId(allHistory.getMissionAllHistoryId());
                         //添加新的mission任务  清空任务id  设置状态为1
                         allHistory.setSentTime(new Date());
                         allHistory.setMissionAllHistoryId(null);
@@ -77,7 +88,15 @@ public class TimeTaskServiceImpl implements TimeTaskService {
                         allHistory.setTimeCorn(null);
                         //插入数据
                         missionAllHistoryMapper.insertSelective(allHistory);
+                      //将id设置为新增的id
+                    for (JsoupPragram jsoupPragram : allPragramByMhId) {
+                        jsoupPragram.setMhId(allHistory.getMissionAllHistoryId());
+                        pragramMapper.insertSelective(jsoupPragram);
                     }
+                    //判断是否还有缺省参数
+                    jsoupMissionService.addRunningParameter(allHistory.getMissionAllHistoryId());
+
+                }
 
                 }
             }

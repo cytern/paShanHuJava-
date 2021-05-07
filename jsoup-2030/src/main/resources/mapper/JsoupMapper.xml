@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dam.jsoup.updatereport.updatreport.dao.JsoupMapper">
+
+    <select id="getAllPragramBymaId" resultType="dam.jsoup.updatereport.updatreport.pojo.JsoupPragram">
+        select
+                jp.*
+        from jsoup.jsoup_pragram jp
+        inner join jsoup.jsoup_mission_order jo
+        on jo.mo_mission_id = jp.mission_id
+        where jo.mo_mission_all_id = #{maId,jdbcType=INTEGER}
+        and jp.deep = 0
+    </select>
+
+    <select id="getAllPragramByMhId" resultType="dam.jsoup.updatereport.updatreport.pojo.JsoupPragram">
+        select jp.*
+        from jsoup.jsoup_pragram jp
+        where mh_id = #{mhId}
+        and deep = 1
+    </select>
+</mapper>
