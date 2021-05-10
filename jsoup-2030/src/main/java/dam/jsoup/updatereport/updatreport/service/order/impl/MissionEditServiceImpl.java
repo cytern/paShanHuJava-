@@ -134,7 +134,7 @@ public class MissionEditServiceImpl implements JsoupMissionService {
      */
     @Override
     public MissionAllData getRunningMissionData(Integer mhId) {
-        MissionAllData missionAllData = null;
+        MissionAllData missionAllData = new MissionAllData();
        //先获取对应的任务 执行历史
         JsoupMissionAllHistory missionAllHistory = missionAllHistoryMapper.selectByPrimaryKey(mhId);
         if (missionAllHistory == null) {
