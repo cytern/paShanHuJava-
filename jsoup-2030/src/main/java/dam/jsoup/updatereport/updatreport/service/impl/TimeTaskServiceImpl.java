@@ -80,6 +80,7 @@ public class TimeTaskServiceImpl implements TimeTaskService {
                         //获取参数列表
                     List<JsoupPragram> allPragramByMhId = jsoupMapper.getAllPragramByMhId(allHistory.getMissionAllHistoryId());
                         //添加新的mission任务  清空任务id  设置状态为1
+                    allHistory.setMissionAllHistoryId(null);
                         allHistory.setSentTime(new Date());
                         allHistory.setMissionAllHistoryId(null);
                         allHistory.setMissionState("1");

@@ -110,8 +110,16 @@ public class ConnectSoupSystemServiceImpl implements ConnectSoupSystemService {
         if (httpMissionDataVo.getState() != 1) {
             //执行结果异常 不进入文件生成线程 直接弹出
             mh.setMissionState("4");
-            String e = httpMissionDataVo.getException();
-            if (e.contains("interrupt")) {
+            String e = null;
+            try {
+                e = httpMissionDataVo.getException();
+            } catch (Exception exception) {
+                e = "脚本数据存在问题 缺少必备执行参数";
+            }
+            if (e == null) {
+                mh.setMissionFailReason("脚本数据存在问题 缺少必备执行参数");
+            }
+            else if (e.contains("interrupt")) {
                 mh.setMissionFailReason("系统内部异常 脚本执行器");
             }else {
                 mh.setMissionFailReason(e);

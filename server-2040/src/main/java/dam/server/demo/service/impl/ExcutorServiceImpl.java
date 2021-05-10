@@ -61,7 +61,7 @@ public class ExcutorServiceImpl implements ExcutorService {
             List<ActionVo> actionVos1 = actionVos.stream().sorted(Comparator.comparing(e -> e.getActionOrder().getRank())).collect(Collectors.toList());
             for (ActionVo actionVo : actionVos1) {
                 Thread.sleep(1000);
-                log.info("开始执行脚本任务,脚本id=[{}],脚本数据为=[{}]",actionVo.getJsoupAction().getActionId(),actionVo);
+                log.info("开始执行行动任务,行动id=[{}],脚本数据为=[{}]",actionVo.getJsoupAction().getActionId(),actionVo);
                 //判断doType是否为跳转 如果是 则跳转网页
                 if (actionVo.getJsoupAction().getActionDoType().equals("goto")) {
                     webDriver.navigate().to(actionVo.getJsoupPragram().getPragramValue());

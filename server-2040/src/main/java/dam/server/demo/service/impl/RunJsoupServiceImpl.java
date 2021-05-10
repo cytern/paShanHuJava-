@@ -65,6 +65,7 @@ public class RunJsoupServiceImpl implements RunJsoupService {
                 log.info("  脚本执行线程   获取执行脚本数据");
                 missionAllData = HttpUtils.getDataApi(configBean.getGetTask(),params);
             } catch (Exception e) {
+                e.printStackTrace();
                log.error("网络请求失败",e);
                 return;
             }
@@ -79,9 +80,11 @@ public class RunJsoupServiceImpl implements RunJsoupService {
                 result = excutorService.doExcutor(missionAllData.getMissionAllData());
                 //取值正常 则 进行处理
                 missionAllData.setResult(result);
+                missionAllData.setException("执行正常");
                 missionAllData.setState(1);
             } catch (Exception e) {
                //异常 包装
+                e.printStackTrace();
                 missionAllData.setException(e.getMessage());
                 missionAllData.setState(2);
             }
@@ -96,6 +99,7 @@ public class RunJsoupServiceImpl implements RunJsoupService {
             } catch (Exception e) {
                 log.error("网络请求失败");
                 Thread.sleep(10000);
+                e.printStackTrace();
             }
         }
         log.info("脚本执行线程 发送成功");
