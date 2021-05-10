@@ -51,6 +51,7 @@ public class HeartHitExecutor {
                         configBean.setStatus(status);
                         configBean.setLive(1);
                     }
+                }else {
                     configBean.setLive(0);
                 }
                 //五分钟时间 休眠
