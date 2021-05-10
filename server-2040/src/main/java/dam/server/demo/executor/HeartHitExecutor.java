@@ -24,10 +24,14 @@ public class HeartHitExecutor {
     public void heartHitSend ()  {
         ConfigBean configBean = ConfigBean.getInstance();
         try {
-            while (configBean.getJsoupSetting().getExecutor().getExecutorUrl()!= null && !configBean.getJsoupSetting().getExecutor().getExecutorUrl().equals("")) {
+            while (true) {
                 log.info("******** 开始发送心跳包 *********");
                 Map<String, Object> map = null;
                 //发送心跳包
+                if (configBean.getJsoupSetting().getExecutor().getExecutorUrl()== null || configBean.getJsoupSetting().getExecutor().getExecutorUrl().equals("")) {
+                    Thread.sleep(10*1000);
+                    continue;
+                }
                 try {
                     map = HttpUtils.sendHeartHit(configBean.getHeartPag(), configBean.getCpuCoreId(), configBean.getJsoupSetting().getExecutor().getToken());
                     log.info("********* 心跳返回结果  *********** =[{}]",map);

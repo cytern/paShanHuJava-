@@ -1,5 +1,9 @@
 package dam.server.demo;
 
+import dam.server.demo.pojo.JsoupSetting;
+import dam.server.demo.utils.SettinglUtil;
+
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -12,9 +16,8 @@ public class Test {
 
 
     public static void main(String[] args) {
-        String[] acc = {"adad","dadsa","dsadas","dasd"};
-        List<String> ad = Arrays.stream(acc).filter(a -> a.contains("ad") && a.length() > 2).map(b -> b = b + b.length()).collect(Collectors.toList());
-        System.out.println(ad);
+        File file = new File("D:\\projects\\pashanhu\\pashanhujava\\paShanHuJava-\\server-2040\\target\\setting.json");
+        System.out.println(file);
     }
 
 

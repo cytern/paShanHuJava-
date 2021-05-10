@@ -22,13 +22,8 @@ public class SettinglUtil {
     public JsoupSetting getSettingMap() {
         JsoupSetting jsoupSetting = new JsoupSetting();
         try {
-            String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-            String[] pathSplit = path.split("/");
-            String jarName = pathSplit[pathSplit.length - 1];
-            String jarPath = path.replace(jarName, "");
-            String pathName=jarPath+"setting.json";
-             System.out.println("配置文件路径："+jarPath);
-             File file = new File(pathName);
+            String pathName = getPath();
+            File file = new File(pathName);
              if (!file.exists()) {
                  file.createNewFile();
                  Pool pool = new Pool();
@@ -67,11 +62,7 @@ public class SettinglUtil {
     public  void setSettingMap (JsoupSetting jsoupSetting) {
         try {
             String json = JSONObject.toJSONString(jsoupSetting);
-            String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-            String[] pathSplit = path.split("/");
-            String jarName = pathSplit[pathSplit.length - 1];
-            String jarPath = path.replace(jarName, "");
-            String pathName=jarPath+"setting.json";
+            String pathName = getPath();
             File file = new File(pathName);
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -83,5 +74,22 @@ public class SettinglUtil {
             e.printStackTrace();
         }
 
+
+
+
+    }
+    private String getPath () {
+        String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        System.out.println(path);
+        String[] pathSplit = path.split("/");
+        String jarName = pathSplit[pathSplit.length - 1];
+        String jarPath = path.replace(jarName, "");
+        jarPath = jarPath.replace("demo-0.0.1-SNAPSHOT.jar!/BOOT-INF//","");
+        jarPath = jarPath.replaceFirst("/","");
+        jarPath = jarPath.replace("/","\\");
+        String pathName=jarPath+"setting.json";
+        pathName = pathName.replace("file:","");
+        System.out.println("配置文件路径："+pathName);
+        return pathName;
     }
 }
