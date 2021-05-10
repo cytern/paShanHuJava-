@@ -19,10 +19,10 @@ import java.util.Map;
 public class HeartHitExecutor {
     private final ThreadPoolTaskExecutor taskExecutor;
     private final RunJsoupService runJsoupService;
-    private final ConfigBean configBean;
 
     @Async
     public void heartHitSend ()  {
+        ConfigBean configBean = ConfigBean.getInstance();
         try {
             while (configBean.getJsoupSetting().getExecutor().getExecutorUrl()!= null && !configBean.getJsoupSetting().getExecutor().getExecutorUrl().equals("")) {
                 log.info("******** 开始发送心跳包 *********");

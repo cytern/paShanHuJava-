@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @AllArgsConstructor
 public class ExcutorServiceImpl implements ExcutorService {
-    private final ConfigBean configBean;
+
 
 
     /**
@@ -33,7 +33,7 @@ public class ExcutorServiceImpl implements ExcutorService {
      */
     @Override
     public List<Map<String, String>> doExcutor(MissionAllData missionAllData) throws InterruptedException {
-
+        ConfigBean configBean = ConfigBean.getInstance();
         List<Map<String,String>> resultMap = new ArrayList<>();
         Map<String,List<String>> maps = new HashMap<>();
         //通过missionAllData 获得mission的list 并且排序

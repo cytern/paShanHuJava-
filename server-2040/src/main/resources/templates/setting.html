@@ -96,6 +96,14 @@
             <el-button  type="success" @click="sendToken">确定地址</el-button>
         </el-col>
     </el-row>
+    <el-row style="margin-top: 20px">
+        <el-col :span="12">
+            测试模式启动:
+        </el-col>
+        <el-col :span="12">
+           <el-button @click="changeTestModel">{{jsoupSetting.executor.testModel ?"测试模式已启动":"测试模式已关闭"}}</el-button>
+        </el-col>
+    </el-row>
 <!--    第二行为设置页面-->
 
 </div>
@@ -123,7 +131,10 @@
                 token: null,
                 live: 0,
                 executorUrl : null,
-                jsoupSetting: null
+                jsoupSetting: {
+                    jsoupSetting: null,
+                    executor: null
+                }
             }
         },
         mounted(){
@@ -138,21 +149,34 @@
                 this.maxPoolSize = this.maxPoolSize +10;
             },
             sendToken: function () {
-               let jsoupSetting = this.jsoupSetting
+                let that =this;
+               let tempData = {
+                   baseUrl: this.baseUrl,
+                   cpuCoreId: this.cpuCoreId,
+                   live: this.live,
+                   status: this.status,
+                   jsoupSetting: this.jsoupSetting
+               }
                 $.ajax({
                     type: 'POST',
-                    url: "http://localhost:2040" +
-                         "setConfig",
-                    data: jsoupSetting,
+                    url: "http://localhost:2040/setConfig",
+                    dataType: "json",
+                    contentType:'application/json;charset=utf-8',
+                    data: JSON.stringify(tempData),
                     success: function (res) {
                         if (res.code == "success") {
-                            this.$message.success("res.msg")
+                            that.$message.success(res.msg)
+                            that.getConfig()
                         }
                     },
                 });
-               this.getConfig()
+            },
+            changeTestModel() {
+              this.jsoupSetting.executor.testModel = !this.jsoupSetting.executor.testModel
+              this.sendToken()
             },
             getConfig: function () {
+                let that = this
                 $.ajax({
                     url: "http://localhost:2040/getConfig",
 
@@ -160,10 +184,10 @@
                     type: "get",
 
                     success: function(result) {  //这里就是我出错的地方
-                       this.live = result.live
-                        this.liveProcess = result.runStatus
-                        this.status = result.serveStatus
-                        this.jsoupSetting = result.jsoupSetting
+                       that.live = result.live
+                        that.liveProcess = result.runStatus
+                        that.status = result.serveStatus
+                        that.jsoupSetting = result.jsoupSetting
                     },
                     error: function(data) {
                         alert("请求出错");

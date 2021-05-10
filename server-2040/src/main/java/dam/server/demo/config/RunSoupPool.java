@@ -2,6 +2,7 @@ package dam.server.demo.config;
 
 import dam.server.demo.executor.HeartHitExecutor;
 import dam.server.demo.service.RunJsoupService;
+import dam.server.demo.utils.OpenWebUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -22,5 +23,7 @@ public class RunSoupPool implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
           heartHitExecutor.heartHitSend();
+         OpenWebUtil openWebUtil = new OpenWebUtil();
+         openWebUtil.openWeb();
     }
 }

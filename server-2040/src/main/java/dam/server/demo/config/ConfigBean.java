@@ -3,19 +3,23 @@ package dam.server.demo.config;
 import dam.server.demo.pojo.JsoupSetting;
 import dam.server.demo.utils.ExecCmd;
 import dam.server.demo.utils.SettinglUtil;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.web.client.RestTemplate;
 
-/**
- * 配置类 外来也许加入配置文件
- */
-@Configuration
-@Slf4j
-public class ConfigBean {
+import javax.inject.Singleton;
 
+/**
+ * 配置类 外来也许加入配置文件  单例模式改写
+ */
+@Slf4j
+@Data
+public class ConfigBean {
+     private static ConfigBean instance = null;
     /**
      * 总地址
      */
@@ -38,7 +42,7 @@ public class ConfigBean {
     /**
      * 构造方法内初始化cpu参数
      */
-    public ConfigBean() {
+    private ConfigBean() {
         log.info("*****************加载系统环境数据*****************");
         ExecCmd execCmd = new ExecCmd("wmic csproduct get uuid");
         SettinglUtil settinglUtil = new SettinglUtil();
@@ -49,44 +53,16 @@ public class ConfigBean {
         log.info("*****************加载系统环境数据完毕*****************加载参数=[{}]",jsoupSetting);
     }
 
-    public JsoupSetting getJsoupSetting() {
-        return jsoupSetting;
-    }
-
-    public void setJsoupSetting(JsoupSetting jsoupSetting) {
-        this.jsoupSetting = jsoupSetting;
-    }
-
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
-    }
-
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Integer getLive() {
-        return live;
-    }
-
-    public void setLive(Integer live) {
-        this.live = live;
-    }
-
-    public String getBaseUrl() {
-        return baseUrl;
-    }
-
-    public String getCpuCoreId() {
-        return cpuCoreId;
-    }
-
+     public static ConfigBean getInstance() {
+        if (instance == null) {
+            synchronized (ConfigBean.class) {
+                if (instance == null) {
+                    instance = new ConfigBean();
+                }
+            }
+        }
+        return instance;
+     }
     public String getGetTask() {
         /**
          * 获取任务数据的信息

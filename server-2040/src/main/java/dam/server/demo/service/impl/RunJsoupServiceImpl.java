@@ -29,8 +29,6 @@ import java.util.Map;
 public class RunJsoupServiceImpl implements RunJsoupService {
     @Autowired
     private ExcutorService excutorService;
-    @Autowired
-    private ConfigBean configBean;
     /**
      * 异步执行服务
      */
@@ -53,6 +51,7 @@ public class RunJsoupServiceImpl implements RunJsoupService {
 
 
     private void getNewTask() throws InterruptedException {
+        ConfigBean configBean = ConfigBean.getInstance();
         log.info("  脚本执行线程   开始一次新的任务循环");
         //准备请求的参数
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();

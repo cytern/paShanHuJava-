@@ -4,11 +4,13 @@ import dam.server.demo.config.ConfigBean;
 import dam.server.demo.pojo.JsoupSetting;
 import dam.server.demo.service.RunJsoupService;
 import dam.server.demo.utils.SettinglUtil;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -21,15 +23,18 @@ import java.util.Map;
  * @create :2021-04-22 15:45:00
  */
 @Controller
-@AllArgsConstructor
 public class PageController {
-
-    private final ConfigBean configBean;
     private final ThreadPoolTaskExecutor taskExecutor;
     private final RunJsoupService runJsoupService;
 
+    public PageController(@Qualifier("taskExecutor") ThreadPoolTaskExecutor taskExecutor, RunJsoupService runJsoupService) {
+        this.taskExecutor = taskExecutor;
+        this.runJsoupService = runJsoupService;
+    }
+
     @GetMapping("index")
     public String backIndex (Model model) {
+        ConfigBean configBean = ConfigBean.getInstance();
         model.addAttribute("title","管理核心");
         model.addAttribute("config",configBean);
         model.addAttribute("liveNum",taskExecutor.getActiveCount());
@@ -39,6 +44,7 @@ public class PageController {
     @GetMapping("getConfig")
     @ResponseBody
     public Map<String,Object> getConfig() {
+        ConfigBean configBean = ConfigBean.getInstance();
         Map<String,Object> map = new HashMap<>();
         map.put("runStatus",taskExecutor.getActiveCount()==0?0:taskExecutor.getActiveCount()*20);
         map.put("serveStatus",configBean.getStatus()==null?0:configBean.getStatus()*20);
@@ -46,13 +52,14 @@ public class PageController {
         map.put("live",configBean.getLive());
         return map;
     }
-    @GetMapping("setConfig")
+    @PostMapping("setConfig")
     @ResponseBody
     public Map<String,Object> setConfig(@RequestBody ConfigBean configBean) {
+        ConfigBean sysConfigBean = ConfigBean.getInstance();
         JsoupSetting jsoupSetting = configBean.getJsoupSetting();
         SettinglUtil settinglUtil = new SettinglUtil();
         settinglUtil.setSettingMap(jsoupSetting);
-        this.configBean.setJsoupSetting(jsoupSetting);
+        sysConfigBean.setJsoupSetting(jsoupSetting);
         Map<String,Object> map = new HashMap<>();
         map.put("code","success");
         map.put("msg","修改成功");

@@ -10,11 +10,11 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 @Configuration
 public class TaskThreadPool {
-    @Autowired
-    private ConfigBean config;
+
 
     @Bean("taskExecutor")
     public ThreadPoolTaskExecutor taskExecutor() {
+        ConfigBean config = ConfigBean.getInstance();
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         //核心线程池大小
         executor.setCorePoolSize(config.getJsoupSetting().getPool().getCorePoolSize());
