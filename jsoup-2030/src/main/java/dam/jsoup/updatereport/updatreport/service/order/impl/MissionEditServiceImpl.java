@@ -266,6 +266,11 @@ public class MissionEditServiceImpl implements JsoupMissionService {
       log.info("**********开始保存脚本的值 saveMissionAll **********");
         Integer maId = 0;
         //确定任务是否存在
+        //删除之前的全部missionOrder
+        JsoupMissionOrderExample orderExample = new JsoupMissionOrderExample();
+        orderExample.createCriteria().andMoMissionAllIdEqualTo(maId);
+        orderMapper.deleteByExample(orderExample);
+        //删除之前全部的actionOrder
         if (missionAllData.getJsoupMissionAll().getMaId() <= 0){
             //不存在首先添加新任务
             missionAllData.getJsoupMissionAll().setUserId(userId);
@@ -285,26 +290,24 @@ public class MissionEditServiceImpl implements JsoupMissionService {
                 return null;
             }
         }
-        //删除之前的全部missionOrder
-        JsoupMissionOrderExample orderExample = new JsoupMissionOrderExample();
-        orderExample.createCriteria().andMoMissionAllIdEqualTo(maId);
-        orderMapper.deleteByExample(orderExample);
         //修改 或增加 missions  actions
         for (MissionData missionData : missionAllData.getMissionDataList()) {
-            if (missionData.getJsoupMission().getMissionId()<=0){
-                jsoupMissionMapper.insertSelective(missionData.getJsoupMission());
+            //删除actionOrder
+            JsoupActionOrderExample orderExample1 = new JsoupActionOrderExample();
+            orderExample1.createCriteria().andMissionIdEqualTo(missionData.getJsoupMission().getMissionId());
+            actionOrderMapper.deleteByExample(orderExample1);
+            JsoupMission jsoupMission = missionData.getJsoupMission();
+
+            if (jsoupMission.getMissionId()<=0){
+                jsoupMissionMapper.insertSelective(jsoupMission);
             }else {
-                jsoupMissionMapper.updateByPrimaryKeySelective(missionData.getJsoupMission());
+                jsoupMissionMapper.updateByPrimaryKeySelective(jsoupMission);
             }
             JsoupMissionOrder order = missionData.getJsoupMissionOrder();
             order.setMoMissionAllId(maId);
-            order.setMoMissionId(missionData.getJsoupMission().getMissionId());
+            order.setMoMissionId(jsoupMission.getMissionId());
             order.setMoAddTime(new Date());
             orderMapper.insertSelective(order);
-            //删除actionOrders
-            JsoupActionOrderExample orderExample1 = new JsoupActionOrderExample();
-            orderExample1.createCriteria().andMissionIdEqualTo(order.getMoMissionId());
-            actionOrderMapper.deleteByExample(orderExample1);
             //增加action的数据
             for (ActionVo actionVo : missionData.getActionVos()) {
 
