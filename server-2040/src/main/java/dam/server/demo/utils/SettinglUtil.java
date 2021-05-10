@@ -80,7 +80,6 @@ public class SettinglUtil {
     }
     private String getPath () {
         String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-        System.out.println(path);
         String[] pathSplit = path.split("/");
         String jarName = pathSplit[pathSplit.length - 1];
         String jarPath = path.replace(jarName, "");

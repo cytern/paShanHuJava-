@@ -315,6 +315,8 @@ public class MissionEditServiceImpl implements JsoupMissionService {
                     actionMapper.updateByPrimaryKeySelective(actionVo.getJsoupAction());
                 }
                 JsoupActionOrder order1 = actionVo.getActionOrder();
+                order1.setMissionId(missionData.getJsoupMission().getMissionId());
+                order1.setMissionAllId(maId);
                 order1.setActionId(actionVo.getJsoupAction().getActionId());
                 actionOrderMapper.insertSelective(order1);
                 if (actionVo.getJsoupAction().getActionDoType().equals("input") || actionVo.getJsoupAction().getActionDoType().equals("goto")) {
