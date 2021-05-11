@@ -1,6 +1,7 @@
 package dam.jsoup.updatereport.updatreport.controller;
 
 import dam.jsoup.updatereport.updatreport.dao.JsoupMapper;
+import dam.jsoup.updatereport.updatreport.dao.JsoupPragramMapper;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAll;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupMissionAllHistory;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupPragram;
@@ -31,12 +32,14 @@ public class OrderServiceController {
     private final JsoupMissionService missionService;
     private final RunJavaSoup runJavaSoup;
     private final JsoupMapper jsoupMapper;
+    private final JsoupPragramMapper pragramMapper;
 
-    public OrderServiceController(JsoupActionService actionService, JsoupMissionService missionService, RunJavaSoup runJavaSoup, JsoupMapper jsoupMapper) {
+    public OrderServiceController(JsoupActionService actionService, JsoupMissionService missionService, RunJavaSoup runJavaSoup, JsoupMapper jsoupMapper, JsoupPragramMapper pragramMapper) {
         this.actionService = actionService;
         this.missionService = missionService;
         this.runJavaSoup = runJavaSoup;
         this.jsoupMapper = jsoupMapper;
+        this.pragramMapper = pragramMapper;
     }
 
     /**
@@ -362,6 +365,15 @@ public class OrderServiceController {
         Map<String, Object> map = MyResponse.myResponseOk("查询成功");
         map.put("list",allPragramBymaId);
         return map;
+    }
+    @PostMapping("customer/updateOneParameter")
+    public Map<String, Object> updateOneParameter(@RequestBody JsoupPragram jsoupPragram) {
+        int i = pragramMapper.updateByPrimaryKeySelective(jsoupPragram);
+        if (i >0) {
+            return MyResponse.myResponseOk("修改成功");
+        }else {
+            return MyResponse.myResponseError("修改失败");
+        }
     }
 
 }
