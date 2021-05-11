@@ -71,7 +71,7 @@ public class RunJsoupServiceImpl implements RunJsoupService {
             }
          //判断数据是否正确
         if (missionAllData.getState() != 1) {
-            log.error("接受数据错误");
+            log.info("没有获得到待执行任务:" + missionAllData.getException());
             return;
         }
         log.info("  脚本执行线程   开始执行脚本  执行数据=[{}]",missionAllData);
