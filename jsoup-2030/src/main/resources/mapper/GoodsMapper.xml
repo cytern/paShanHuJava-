@@ -20,6 +20,7 @@
                              on ma.user_id = jud.user_id
                    left join order_jsoup_ma oa
                              on oa.ma_id = ma.ma_id
+                             and oa.customer_user_id = #{currentUser}
           where
           <if test="tip != null and tip != ''">
               ma.tips like concat('%',#{tip,jdbcType=VARCHAR},'%') and
@@ -69,6 +70,7 @@
         on ma.user_id = jud.user_id
         left join order_jsoup_mh oa
         on oa.mh_id = ma.mission_all_history_id
+        and oa.customer_user_id = #{currentUser}
         where
         <if test="tip != null and tip != ''">
             ma.tips like concat('%',#{tip,jdbcType=VARCHAR},'%') and
