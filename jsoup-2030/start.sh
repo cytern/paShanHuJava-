@@ -18,5 +18,5 @@ rm -rf /export/project/javaJar/$jarName
 cp -rf ./target/$jarName /export/project/javaJar
 #启动项目
 BUILD_ID=dontKillMe
-sudo nohup java -jar /export/project/javaJar/$jarName > /export/project/javaJar/server-dev.file 2>&1 &
+java -jar /export/project/javaJar/$jarName > /export/project/javaJar/server-dev.file 2>&1 &
 echo "===================================安装server完毕======================================"
