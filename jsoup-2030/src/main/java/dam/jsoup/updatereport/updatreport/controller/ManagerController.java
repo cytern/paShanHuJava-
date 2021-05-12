@@ -33,7 +33,7 @@ public class ManagerController {
     /**
      * 查询执行器列表
      */
-    @GetMapping("getAllExecutors/{index}/{pageSize}")
+    @PostMapping("getAllExecutors/{index}/{pageSize}")
     public Map<String, Object> getAllExecutor(@PathVariable Integer index,@PathVariable Integer pageSize) {
         Map map = new HashMap();
         try {
@@ -63,7 +63,7 @@ public class ManagerController {
     /**
      * 查询用户
      */
-    @GetMapping("getAllUser/{index}/{pageSize}")
+    @PostMapping("getAllUser/{index}/{pageSize}")
     public Map<String,Object> getAllUser(@PathVariable Integer index,@PathVariable Integer pageSize) {
         Map map = new HashMap();
         try {
@@ -95,7 +95,7 @@ public class ManagerController {
     /**
      * 查询脚本
      */
-    @GetMapping("getAllScript/{index}/{pageSize}")
+    @PostMapping("getAllScript/{index}/{pageSize}")
     public Map<String,Object> getAllScript(@PathVariable Integer index,@PathVariable Integer pageSize) {
         Map map = new HashMap();
         try {
@@ -124,7 +124,7 @@ public class ManagerController {
     /**
      * 查询数据
      */
-    @GetMapping("getAllData/{index}/{pageSize}")
+    @PostMapping("getAllData/{index}/{pageSize}")
     public Map<String,Object> getAllData(@PathVariable Integer index,@PathVariable Integer pageSize) {
         Map map = new HashMap();
         try {
@@ -155,7 +155,7 @@ public class ManagerController {
     /**
      * 查询投诉
      */
-    @GetMapping("getAllComplaint/{index}/{pageSize}")
+    @PostMapping("getAllComplaint/{index}/{pageSize}")
     public Map<String,Object> getAllComplaint(@PathVariable Integer index,@PathVariable Integer pageSize) {
         Map map = new HashMap();
         try {
@@ -181,7 +181,7 @@ public class ManagerController {
         }
     }
 
-    @GetMapping("getAllServerStatus")
+    @PostMapping("getAllServerStatus")
     public Map<String, Object> getAllServerStatus () {
         Map map = new HashMap();
         try {
