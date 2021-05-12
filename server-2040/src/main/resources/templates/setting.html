@@ -139,7 +139,8 @@
             }
         },
         mounted(){
-           this.getConfig()
+            this.getConfig()
+            setInterval(this.getConfig,10000)
         },
         methods: {
             decrease: function () {
