@@ -18,5 +18,5 @@ rm -rf /export/project/javaJar/$jarName
 cp -rf ./target/$jarName /export/project/javaJar
 #启动项目
 BUILD_ID=dontKillMe
-java -jar /export/project/javaJar/$jarName > /export/project/javaJar/gateway.file 2>&1 &
+nohup java -jar /export/project/javaJar/$jarName > /export/project/javaJar/gateway.file 2>&1 &
 echo "===================================安装gateWay完毕======================================"
