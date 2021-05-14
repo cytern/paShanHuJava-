@@ -144,6 +144,7 @@ public class GoodController {
         try {
             map = MyResponse.myResponseOk("获取文章详情成功");
             ArticleVo articleDetail = goodsSSService.getArticleDetail(articleId);
+            map = MyResponse.myResponseOk("查询成功");
             map.put("detail",articleDetail);
         } catch (Exception e) {
             map = MyResponse.myResponseError("获取文章详情失败");
