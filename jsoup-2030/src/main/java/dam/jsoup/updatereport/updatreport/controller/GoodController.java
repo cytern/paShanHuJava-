@@ -224,8 +224,10 @@ public class GoodController {
             excutor.setExcutorTimes(0);
             excutor.setSuccessTimes(0);
             excutorMapper.insertSelective(excutor);
+            map = MyResponse.myResponseOk("添加成功");
             map.put("data",excutor);
         } catch (Exception e) {
+            map = MyResponse.myResponseError("添加失败");
             log.error("添加一个新的执行器失败",e);
         }
         return map;
