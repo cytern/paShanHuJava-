@@ -270,7 +270,7 @@ public class MissionEditServiceImpl implements JsoupMissionService {
     @Override
     public Integer saveMissionAll(MissionAllData missionAllData,Integer userId) {
       log.info("**********开始保存脚本的值 saveMissionAll **********");
-        Integer maId = 0;
+        Integer maId = missionAllData.getJsoupMissionAll().getMaId();
         //确定任务是否存在
         //删除之前的全部missionOrder
         JsoupMissionOrderExample orderExample = new JsoupMissionOrderExample();
