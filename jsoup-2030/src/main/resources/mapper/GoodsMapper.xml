@@ -143,7 +143,7 @@
                ud.user_lever userLever
         from jsoup_comment jc
         left join order_jsoup_mh oh
-        on oh.order_id = jc.connent_id
+        on oh.order_id = jc.connect_id
         left join jsoup_user_detail ud
            on jc.user_id = ud.user_id
         where
@@ -220,7 +220,7 @@
         ud.user_lever userLever
         from jsoup_comment jc
         left join order_jsoup_ma oh
-        on oh.order_id = jc.connent_id
+        on oh.order_id = jc.connect_id
         left join jsoup_user_detail ud
         on jc.user_id = ud.user_id
         where
