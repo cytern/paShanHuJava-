@@ -89,7 +89,7 @@ public class LoginGateWay extends ZuulFilter {
                 map.put("isLoginFall","1");
             }else {
                 String idcode = userVo.getJsoupUser().getUserType();
-                if (request.getRequestURI().contains("manager") && !idcode.equals("1002")){
+                if (request.getRequestURI().contains("manager") && !idcode.equals("1001")){
                     map = MyResponse.myResponseError("权限非法");
                 }else {
                     currentContext.setResponseStatusCode(200);

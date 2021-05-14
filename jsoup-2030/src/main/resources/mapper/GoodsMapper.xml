@@ -244,4 +244,16 @@
         jc.deep = 0
         limit #{start} ,#{end}
     </select>
+
+    <select id="findOnesHistory" resultType="dam.jsoup.updatereport.updatreport.vo.JsoupMissionAllHistory">
+        select * from jsoup_mission_all_history mh
+        where mh.user_id = #{userId}
+        order by mh.sent_time DESC
+        limit 0,10
+    </select>
+
+    <select id="getJsoupExcutor" resultType="dam.jsoup.updatereport.updatreport.pojo.JsoupExcutor">
+        select * from jsoup_excutor je
+        where je.user_id = #{userId}
+    </select>
 </mapper>

@@ -1,5 +1,6 @@
 package dam.jsoup.updatereport.updatreport.dao;
 
+import dam.jsoup.updatereport.updatreport.pojo.JsoupExcutor;
 import dam.jsoup.updatereport.updatreport.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -69,4 +70,18 @@ public interface GoodsMapper {
 
 
      List<GoodList> getMhOrder(@Param("userId") Integer userId);
+
+     /**
+      * 获取一个人的最近十次执行历史
+      * @param userId
+      * @return
+      */
+     List<JsoupMissionAllHistory> findOnesHistory(@Param("userId") Integer userId);
+
+     /**
+      * 获取一个人的执行器列表
+      * @param userId
+      * @return
+      */
+     List<JsoupExcutor> getJsoupExcutor(@Param("userId")Integer userId);
 }
