@@ -210,6 +210,7 @@ public class ManagerController {
           JsoupMissionAllHistoryExample historyExample = new JsoupMissionAllHistoryExample();
           historyExample.createCriteria().andMissionStateEqualTo("1");
             List<JsoupMissionAllHistory> jsoupMissionAllHistories = historyMapper.selectByExample(historyExample);
+            map= MyResponse.myResponseOk("查询成功");
             map.put("list",jsoupMissionAllHistories);
         } catch (Exception exception) {
             exception.printStackTrace();
