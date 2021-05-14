@@ -30,6 +30,7 @@ public class ManagerController {
     private final JsoupComplaintMapper complaintMapper;
     private final HandMapper handMapper;
 
+
     /**
      * 查询执行器列表
      */
@@ -192,6 +193,24 @@ public class ManagerController {
             serverStatusVo.setWaitTodo(handMapper.getWaitExecutorNum());
             map  = MyResponse.myResponseOk("查询成功");
             map.put("data",serverStatusVo);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            map = MyResponse.myResponseError("查询失败");
+        }
+        return map;
+
+    }
+
+
+
+    @PostMapping("getAllWaitToDo")
+    public Map<String, Object> getAllWaitToDo () {
+        Map map = new HashMap();
+        try {
+          JsoupMissionAllHistoryExample historyExample = new JsoupMissionAllHistoryExample();
+          historyExample.createCriteria().andMissionStateEqualTo("1");
+            List<JsoupMissionAllHistory> jsoupMissionAllHistories = historyMapper.selectByExample(historyExample);
+            map.put("list",jsoupMissionAllHistories);
         } catch (Exception exception) {
             exception.printStackTrace();
             map = MyResponse.myResponseError("查询失败");
