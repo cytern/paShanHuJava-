@@ -1,8 +1,11 @@
 package dam.jsoup.updatereport.updatreport.controller;
 
+import cn.hutool.core.util.IdUtil;
 import dam.jsoup.updatereport.updatreport.dao.JsoupComplaintMapper;
+import dam.jsoup.updatereport.updatreport.dao.JsoupExcutorMapper;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupArticle;
 import dam.jsoup.updatereport.updatreport.pojo.JsoupComplaint;
+import dam.jsoup.updatereport.updatreport.pojo.JsoupExcutor;
 import dam.jsoup.updatereport.updatreport.service.order.GoodService;
 import dam.jsoup.updatereport.updatreport.service.order.impl.GoodsSSService;
 import dam.jsoup.updatereport.updatreport.util.MyResponse;
@@ -22,6 +25,7 @@ import java.util.*;
 public class GoodController {
     private final GoodsSSService goodsSSService;
     private final JsoupComplaintMapper complaintMapper;
+    private final JsoupExcutorMapper excutorMapper;
 
 
     @PostMapping("customer/getGoodDetailComment/{id}/{type}/{pageSize}/{index}")
@@ -202,6 +206,30 @@ public class GoodController {
        return map;
    }
 
+
+
+    @PostMapping("customer/addNewExecutor")
+    public Map<String, Object> addNewExecutor () {
+        log.info("**************开始添加一个新的执行器****************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map<String, Object> map = null;
+        try {
+            JsoupExcutor excutor = new JsoupExcutor();
+            excutor.setUserId(userId);
+            String uuid = IdUtil.fastSimpleUUID();
+            excutor.setExcutorToken(uuid);
+            excutor.setStatus("0");
+            excutor.setCreateTime(new Date());
+            excutor.setExcutorTimes(0);
+            excutor.setSuccessTimes(0);
+            excutorMapper.insertSelective(excutor);
+            map.put("data",excutor);
+        } catch (Exception e) {
+            log.error("添加一个新的执行器失败",e);
+        }
+        return map;
+    }
 
 
 
