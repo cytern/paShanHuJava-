@@ -158,7 +158,7 @@
                act.user_id userId,
                act.id id,
                act.update_time updateTime,
-               ud.user_nick_name user_defined_type_name
+               ud.user_nick_name userName
         from jsoup_article act
         left join
             jsoup_user_detail ud
