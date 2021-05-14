@@ -27,7 +27,7 @@ import java.util.Objects;
 public class FileInputController {
     private final FileExcutorService fileExcutorService;
     private final JsoupMissionAllHistoryMapper historyMapper;
-    private final String dir = "E:\\projects\\excelData\\";
+    private final String dir = "/export/data/";
     private final SendEmail sendEmail;
 
     public FileInputController(FileExcutorService fileExcutorService, JsoupMissionAllHistoryMapper historyMapper, SendEmail sendEmail) {
