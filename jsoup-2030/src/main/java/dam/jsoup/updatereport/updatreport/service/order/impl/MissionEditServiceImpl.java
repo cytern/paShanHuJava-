@@ -218,8 +218,14 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         //获取总数据
         List<MissionAllData> list = new ArrayList<>();
         for (JsoupMissionAll jsoupMissionAll : collect) {
-            MissionAllData allData = getMissionAllData(jsoupMissionAll.getMaId(),userId);
-            list.add(allData);
+            MissionAllData missionAllData = new MissionAllData();
+            missionAllData.setJsoupMissionAll(jsoupMissionAll);
+            if (jsoupMissionAll.getUserId().equals(userId)) {
+                missionAllData.setIsOwner(1);
+            }else {
+                missionAllData.setIsOwner(0);
+            }
+            list.add(missionAllData);
         }
         return list;
     }
