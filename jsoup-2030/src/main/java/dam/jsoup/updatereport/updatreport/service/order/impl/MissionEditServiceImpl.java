@@ -279,14 +279,17 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         //删除之前全部的actionOrder
         if (missionAllData.getJsoupMissionAll().getMaId() <= 0){
             //不存在首先添加新任务
-            missionAllData.getJsoupMissionAll().setUserId(userId);
-            missionAllData.getJsoupMissionAll().setCreateTime(new Date());
+            JsoupMissionAll  newMissionAll=    missionAllData.getJsoupMissionAll();
+            newMissionAll.setUserId(userId);
+            newMissionAll.setCreateTime(new Date());
             //存入初始数据
-            missionAllData.getJsoupMissionAll().setMaSaleNum(0);
-            missionAllData.getJsoupMissionAll().setMaPrice(new BigDecimal(200));
-            missionAllData.getJsoupMissionAll().setMaRate("0");
-            jsoupMissionAllMapper.insertSelective(missionAllData.getJsoupMissionAll());
-            maId = missionAllData.getJsoupMissionAll().getMaId();
+            newMissionAll.setMaSaleNum(0);
+            newMissionAll.setMaPrice(new BigDecimal(200));
+            newMissionAll.setMaRate("0");
+            newMissionAll.setMaState(0);
+
+            jsoupMissionAllMapper.insertSelective(newMissionAll);
+            maId = newMissionAll.getMaId();
         }else {
             //存在则确定任务是否与用户对应
             maId = missionAllData.getJsoupMissionAll().getMaId();
