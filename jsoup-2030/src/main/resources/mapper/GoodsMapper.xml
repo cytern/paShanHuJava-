@@ -161,7 +161,7 @@
                ud.user_nick_name user_defined_type_name
         from jsoup_article act
         left join
-            jsoup_user_detial ud
+            jsoup_user_detail ud
              on act.user_id = ud.user_id
            where
            <if test="articleSearchVo.userId != null">
