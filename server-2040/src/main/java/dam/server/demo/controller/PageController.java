@@ -1,6 +1,7 @@
 package dam.server.demo.controller;
 
 import dam.server.demo.config.ConfigBean;
+import dam.server.demo.pojo.Executor;
 import dam.server.demo.pojo.JsoupSetting;
 import dam.server.demo.service.RunJsoupService;
 import dam.server.demo.utils.SettinglUtil;
@@ -57,6 +58,8 @@ public class PageController {
     public Map<String,Object> setConfig(@RequestBody ConfigBean configBean) {
         ConfigBean sysConfigBean = ConfigBean.getInstance();
         JsoupSetting jsoupSetting = configBean.getJsoupSetting();
+        Executor executor = jsoupSetting.getExecutor();
+        executor.setExecutorUrl(executor.getExecutorUrl()+ "\\" + "chromedriver.exe");
         SettinglUtil settinglUtil = new SettinglUtil();
         settinglUtil.setSettingMap(jsoupSetting);
         sysConfigBean.setJsoupSetting(jsoupSetting);
