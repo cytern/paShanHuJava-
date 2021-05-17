@@ -60,6 +60,7 @@ public class PageController {
         JsoupSetting jsoupSetting = configBean.getJsoupSetting();
         Executor executor = jsoupSetting.getExecutor();
         executor.setExecutorUrl(executor.getExecutorUrl()+ "\\" + "chromedriver.exe");
+        jsoupSetting.setExecutor(executor);
         SettinglUtil settinglUtil = new SettinglUtil();
         settinglUtil.setSettingMap(jsoupSetting);
         sysConfigBean.setJsoupSetting(jsoupSetting);
