@@ -739,4 +739,35 @@ public class MissionEditServiceImpl implements JsoupMissionService {
 
     }
 
+    @Override
+    public Map copyNewMission(Integer maId, Integer userId) {
+        MissionAllData missionAllData = getMissionAllData(maId, userId);
+        if(missionAllData.getIsOwner().equals(0)) {
+            return MyResponse.myResponseError("非法操作改脚本");
+        }
+        JsoupMissionAll jsoupMissionAll = missionAllData.getJsoupMissionAll();
+        jsoupMissionAll.setMaId(-1);
+        missionAllData.setJsoupMissionAll(jsoupMissionAll);
+        List<MissionData> missionDataList = missionAllData.getMissionDataList();
+        for (MissionData missionData : missionDataList) {
+            JsoupMission jsoupMission = missionData.getJsoupMission();
+            jsoupMission.setMissionId(-1);
+            missionData.setJsoupMission(jsoupMission);
+            List<ActionVo> actionVos = missionData.getActionVos();
+            for (ActionVo actionVo : actionVos) {
+                actionVo.getJsoupAction().setActionId(-1);
+                actionVo.getActionOrder().setActionOrderId(-1);
+                actionVo.getJsoupPragram().setPragramId(-1);
+            }
+        }
+        missionAllData.setMissionDataList(missionDataList);
+        Integer integer = saveMissionAll(missionAllData, userId);
+        if (integer>0) {
+            return MyResponse.myResponseOk("复制成功");
+        }else {
+            return MyResponse.myResponseError("复制失败");
+        }
+
+    }
+
 }

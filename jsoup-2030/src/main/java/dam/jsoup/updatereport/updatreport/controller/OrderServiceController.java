@@ -376,4 +376,13 @@ public class OrderServiceController {
         }
     }
 
+    @PostMapping("customer/copyNewMission/{maId}")
+    public Map<String, Object> copyNewMission(@PathVariable Integer maId) {
+        log.info("************ 复制脚本 脚本信息***************");
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        Integer userId = Integer.valueOf(request.getHeader("userId"));
+        Map map = missionService.copyNewMission(maId, userId);
+        return  map;
+    }
+
 }

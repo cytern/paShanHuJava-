@@ -136,4 +136,6 @@ public interface JsoupMissionService {
 
 
      void addRunningParameter(Integer mhId);
+
+     Map copyNewMission(Integer maId,Integer userId);
 }
