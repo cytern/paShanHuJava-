@@ -365,6 +365,12 @@ public class MissionEditServiceImpl implements JsoupMissionService {
         if (!jsoupMissionAll1.getUserId().equals(userId)){
             return MyResponse.myResponseError("非法的修改");
         }else {
+            JsoupMissionAllHistoryExample example = new JsoupMissionAllHistoryExample();
+            example.createCriteria().andMissionStateEqualTo("3").andMissionAllIdEqualTo(jsoupMissionAll.getMaId());
+            List<JsoupMissionAllHistory> jsoupMissionAllHistories = missionAllHistoryMapper.selectByExample(example);
+            if (jsoupMissionAllHistories == null || jsoupMissionAllHistories.size()<1) {
+                return MyResponse.myResponseError("无有效通过历史记录 无法上架");
+            }
             //如果是已经上架 则不能修改
             jsoupMissionAll1.setMaState(jsoupMissionAll1.getMaState().equals(2)?2:jsoupMissionAll.getMaState());
             jsoupMissionAll1.setMaPrice(jsoupMissionAll.getMaPrice());
