@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.Select;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -125,7 +126,9 @@ public class ExcutorServiceImpl implements ExcutorService {
             }
             resultMap.add(rowMap);
         }
-        webDriver.quit();
+        if (configBean.getJsoupSetting().getExecutor().getTestModel()){
+            webDriver.quit();
+        }
         return resultMap;
 
     }
@@ -253,6 +256,11 @@ public class ExcutorServiceImpl implements ExcutorService {
 
 
                 break;
+            }
+            case "select": {
+                String pragramCode = getPragramCode(actionVo);
+                Select dropList =new Select(element);
+                dropList.selectByVisibleText(pragramCode);
             }
             default: {
                throw new RuntimeException("无效的执行类型:  " + doType);
