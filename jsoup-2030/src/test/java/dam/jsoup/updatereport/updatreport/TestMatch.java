@@ -6,15 +6,17 @@ import java.util.regex.Pattern;
 
 public class TestMatch {
     public static void main(String[] args) {
-        String input = "查分 《Tennis Ryan》 11";
+        String input = "@231213213 查分 《Tennis Ryan》 11";
         String[] s = input.split(" ");
         //说明id 有空格 那他妈的要用“”才行
-        StringBuilder a = new StringBuilder(s[0]);
+        StringBuilder a = new StringBuilder();
         for (int i = 1; i < s.length; i++) {
-            a.append(" ").append(s[i]);
+            a.append(s[i]).append(" ");
         }
-        String substring = a.substring(a.indexOf("《") + 1, a.indexOf("》"));
-        System.out.println(substring);
+
+        System.out.println(a);
+        String[] s1 = a.toString().split(" ");
+        System.out.println(a);
         }
 
 }
