@@ -118,7 +118,7 @@ public class AgeSearchCommand implements CommandReceiver {
                         .append("总胜率: ").append(winPercent).append("\n")
                         .append("总场次: ").append(allTimes).append("\n")
                         .append("全球名次: ").append(rank).append("\n")
-                        .append("查询时间: ").append(DateUtil.now()).append("\n");
+                        .append("查询时间: ").append(DateUtil.today()).append("\n");
                 if (historySearchData == null || historySearchData.size()<1 ) {
                     result.append("群内排名: ").append("绑定账号后显示群内排名 ").append("\n");
                 }else {
