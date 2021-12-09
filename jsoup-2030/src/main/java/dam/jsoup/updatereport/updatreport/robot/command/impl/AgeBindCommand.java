@@ -28,7 +28,11 @@ public class AgeBindCommand implements CommandReceiver {
         String message = messageData.getMessage();
         String[] params = message.split(" ");
         if (!params[0].equals("绑定") || params.length<3) {
-            return "正确的命令应该为  绑定 游戏名 游戏类型";
+            return "正确的绑定命令应该为" +
+                    "@机器人 绑定 游戏名 游戏类型" +"\n" +
+                    "如果您的账号是带有空格的类型 请使用书名号包裹您的id" + "\n" +
+                    "进行绑定游戏账号 请注意 游戏类型为比赛类型 分别为 11 22 33 44 对应 1v1 2v2 等 并非帝国时代1234" +
+                    "请确保手动@机器人而非复制其他人的@";
         }
         String ageUserName = "";
         if (params.length>3) {
@@ -94,9 +98,12 @@ public class AgeBindCommand implements CommandReceiver {
                     return "绑定成功！";
                 }
         }else {
-                return "无效的账号";
+                return "无法查询到该账号的战绩 绑定失败 可能的原因如下" +
+                        "您的id输入错误或者识别错误 《"+ ageUserName+ "》" +"\n" +
+                        "您未在该类型中打满十场比赛 《" + matchType+" 》" + "\n" +
+                        "又或者是您的参数使用方法不正确 请务必确认空格的数量是否正确以及参数是否正确";
             }
-            return "失败";
+            return "绑定失败 未知的原因";
 
 
 

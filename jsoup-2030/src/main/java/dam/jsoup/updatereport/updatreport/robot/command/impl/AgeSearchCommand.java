@@ -40,9 +40,11 @@ public class AgeSearchCommand implements CommandReceiver {
         List<QqAgeList> historySearchData = qqAgeListDao.selectByExample(example);
         QqAgeList defultAgeList = new QqAgeList();
         defultAgeList = backDefultAgeList(historySearchData);
-        if (messageData.getMessage().contains("查分")) {
+        if (messageData.getMessage().equals("查分") || messageData.getMessage().equals(" 查分") || messageData.getMessage().equals("查分 ") || messageData.getMessage().equals(" 查分 ")) {
             if (historySearchData == null || historySearchData.size()<1|| historySearchData.get(0).getAgeName() == null) {
-                return "快捷查询未能找到您账号绑定的游戏账号 请使用  @机器人 绑定 游戏名 游戏类型";
+                return "快捷查询未能找到您账号绑定的游戏账号 请使用  " + "\n" +
+                        "@机器人 绑定 游戏名 游戏类型" +"\n" +
+                        "进行绑定游戏账号 请注意 游戏类型为比赛类型 分别为 11 22 33 44 对应 1v1 2v2 等 并非帝国时代1234";
             }
             userName = defultAgeList.getAgeName();
             matchType = defultAgeList.getType();
@@ -197,19 +199,19 @@ public class AgeSearchCommand implements CommandReceiver {
     private static String addConstantFuckData(Integer elo,Integer times) {
         String backString  = "";
         if (elo <800) {
-            backString = backString + "太粗啊啊啊！！！ ";
+            backString = backString + "粗大的";
         }else if (elo < 1000) {
-            backString = backString + "好粗的！ ";
+            backString = backString + "粗的";
         }else if (elo < 1100) {
-            backString = backString + "刚刚好的~ ";
+            backString = backString + "适宜的";
         }else if (elo< 1200) {
-            backString = backString + "唔~粗重有细 ";
+            backString = backString + "粗中有细的";
         }else if (elo < 1300) {
-            backString = backString + "阿亮 有点细啊！ ";
+            backString = backString + "细小的";
         }else if (elo < 1400) {
-            backString = backString + "哇 它好可爱哦! ";
+            backString = backString + "可爱的";
         }else if (elo <1500) {
-            backString = backString + "啊咧 已经结束了吗? ";
+            backString = backString + "小可爱的";
         }else {
             backString = backString + "神仙";
         }
