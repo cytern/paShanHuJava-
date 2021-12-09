@@ -37,16 +37,24 @@ public class AgeBindCommand implements CommandReceiver {
         }else {
             ageUserName = params[1];
         }
+        String matchType = backMatchType(params);
         QqAgeListExample example = new QqAgeListExample();
        example.createCriteria().andAgeNameEqualTo(ageUserName).andGroupIdEqualTo(messageData.getGroupId());
         List<QqAgeList> lists = qqAgeListDao.selectByExample(example);
-        if (lists != null) {
+        QqAgeList defultAgeList = AgeSearchCommand.backDefultAgeList(lists);
+        if (lists != null && lists.size()>0) {
             if (lists.get(0).getQqId().equals(messageData.getQqId())){
-                return "已经绑定成功啦 输入 查询 试试吧";
+                if (defultAgeList.getType().equals(matchType)) {
+                    return "您已经绑定成功啦 输入查询试试吧";
+                }else {
+                    defultAgeList.setDefult(0);
+                    qqAgeListDao.updateByPrimaryKey(defultAgeList);
+                }
             }else {
                 return "本机觉得你们两肯定有一个人是内鬼 绑定的游戏名已经被另一位群友绑定啦 现在绑定者qq： "  + lists.get(0).getQqId();
             }
-        }else {
+        }
+
             QqAgeList qqAgeList = new QqAgeList();
             AgeSearchData ageSearchData = new AgeSearchData();
             ageSearchData.setMatchType("unranked");
@@ -54,7 +62,7 @@ public class AgeBindCommand implements CommandReceiver {
             ageSearchData.setRegion("7");
             ageSearchData.setVersus("players");
             ageSearchData.setCount(100);
-            ageSearchData.setTeamSize(params[params.length-1]);
+            ageSearchData.setTeamSize(matchType);
             ageSearchData.setSearchPlayer(ageUserName);
             JSONObject jsonObject = AgeSearchApi.searchAgeRank(ageSearchData);
             if (jsonObject != null && jsonObject.get("count")!= null && jsonObject.getInteger("count") >0) {
@@ -72,7 +80,7 @@ public class AgeBindCommand implements CommandReceiver {
                     newAgeList.setWinRate(winPercent);
                     newAgeList.setRank(rank);
                     newAgeList.setElo(elo);
-                    newAgeList.setType(params[params.length-1]);
+                    newAgeList.setType(matchType);
                     newAgeList.setMatchTimes(allTimes);
                     newAgeList.setQqId(messageData.getQqId());
                     newAgeList.setGroupId(messageData.getGroupId());
@@ -80,14 +88,32 @@ public class AgeBindCommand implements CommandReceiver {
                     example.clear();
                     example.createCriteria().andQqIdEqualTo(messageData.getQqId())
                             .andGroupIdEqualTo(messageData.getGroupId())
-                            .andDefultEqualTo(1);
+                            .andTypeEqualTo(matchType);
                     int i = qqAgeListDao.deleteByExample(example);
                     qqAgeListDao.insert(newAgeList);
-                    return "绑定的账号";
+                    return "绑定成功！";
                 }
         }else {
                 return "无效的账号";
             }
             return "失败";
+
+
+
+}
+public static String backMatchType (String[] params) {
+      String rawType =  params[params.length-1];
+    switch (rawType) {
+        case "22":
+            return "2v2";
+        case "33":
+            return "3v3";
+        case "44":
+            return "4v4";
+        default:
+            return "1v1";
     }
-}}
+}
+
+}
+

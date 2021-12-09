@@ -14,7 +14,7 @@ public class AgeSearchApi {
     private static final String url = "https://api.ageofempires.com/api/ageiv/Leaderboard";
 
     public static JSONObject searchAgeRank(AgeSearchData ageSearchData) {
-        log.info("查询帝国时代4 排位分 接口 参数 {}",ageSearchData);
+        log.info("查询帝国时代4 排位分 接口 参数 {}",JSONObject.toJSONString(ageSearchData));
         String body = HttpRequest.post(url)
                 .header(Header.CONTENT_TYPE, "application/json")
                 .body(JSONObject.toJSONString(ageSearchData))

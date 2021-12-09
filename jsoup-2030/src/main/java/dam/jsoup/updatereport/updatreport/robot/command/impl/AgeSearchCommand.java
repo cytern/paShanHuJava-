@@ -36,14 +36,16 @@ public class AgeSearchCommand implements CommandReceiver {
         String userName = "";
         String matchType = "1v1";
         QqAgeListExample example = new QqAgeListExample();
-        example.createCriteria().andQqIdEqualTo(messageData.getQqId()).andDefultEqualTo(1).andGroupIdEqualTo(messageData.getGroupId());
+        example.createCriteria().andQqIdEqualTo(messageData.getQqId()).andGroupIdEqualTo(messageData.getGroupId());
         List<QqAgeList> historySearchData = qqAgeListDao.selectByExample(example);
-        if (messageData.getMessage().equals("查分")) {
-            if (historySearchData == null || historySearchData.get(0).getAgeName() == null) {
+        QqAgeList defultAgeList = new QqAgeList();
+        defultAgeList = backDefultAgeList(historySearchData);
+        if (messageData.getMessage().contains("查分")) {
+            if (historySearchData == null || historySearchData.size()<1|| historySearchData.get(0).getAgeName() == null) {
                 return "快捷查询未能找到您账号绑定的游戏账号 请使用  @机器人 绑定 游戏名 游戏类型";
             }
-            userName = historySearchData.get(0).getAgeName();
-            matchType = historySearchData.get(0).getType();
+            userName = defultAgeList.getAgeName();
+            matchType = defultAgeList.getType();
         }else {
             String[] params = messageData.getMessage().split(" ");
             if (params.length!= 3) {
@@ -115,14 +117,15 @@ public class AgeSearchCommand implements CommandReceiver {
                         .append("总场次: ").append(allTimes).append("\n")
                         .append("全球名次: ").append(rank).append("\n")
                         .append("查询时间: ").append(DateUtil.now()).append("\n");
-                if (historySearchData == null || !historySearchData.get(0).getAgeName().equals(ageUserName)) {
+                if (historySearchData == null || historySearchData.size()<1 ) {
                     result.append("群内排名: ").append("绑定账号后显示群内排名 ").append("\n");
                 }else {
                     result.append("群内排名: ").append(getTimes(groupAgeList,elo)).append("\n");
                 }
+                result.append("本机鉴定: ").append(addConstantFuckData(elo,getTimes(groupAgeList,elo))).append("\n");
                 if (time == 0) {
                    //判断是否需要保存
-                    if (historySearchData != null && historySearchData.get(0).getAgeName().equals(ageUserName)) {
+                    if (historySearchData != null && historySearchData.size()>0 && historySearchData.get(0).getAgeName().equals(ageUserName)) {
                         QqAgeList newAgeList = new QqAgeList();
                         newAgeList.setAgeName(ageUserName);
                         newAgeList.setCreateTime(new Date());
@@ -138,9 +141,9 @@ public class AgeSearchCommand implements CommandReceiver {
                                 .andGroupIdEqualTo(messageData.getGroupId())
                                 .andTypeEqualTo(matchType);
                         int i = qqAgeListDao.deleteByExample(example);
-                        if (i>0) {
-                            newAgeList.setDefult(1);
-                        }
+                       if (defultAgeList.getType().equals(matchType)) {
+                           newAgeList.setDefult(1);
+                       }
                         qqAgeListDao.insert(newAgeList);
                     }
                 }
@@ -166,9 +169,59 @@ public class AgeSearchCommand implements CommandReceiver {
         List<QqAgeList> sortedList = copyList.stream().sorted(Comparator.comparingInt(QqAgeList::getElo).reversed()).collect(Collectors.toList());
         for (int i = 0; i < sortedList.size(); i++) {
             if (sortedList.get(i).getType().equals("查询专用")) {
-                return i +1;
+                return i;
             }
         }
         return 999999;
+    }
+
+    public static QqAgeList backDefultAgeList(List<QqAgeList> historyList) {
+        try {
+            for (QqAgeList qqAgeList : historyList) {
+                if (qqAgeList == null || qqAgeList.getDefult() == null) {
+                    continue;
+                }
+                if (qqAgeList.getDefult().equals(1)){
+                    return qqAgeList;
+                }
+            }
+            return historyList.get(0);
+        } catch (Exception e) {
+            return new QqAgeList();
+        }
+    }
+
+    /**
+     * 添加操蛋的评价
+     */
+    private static String addConstantFuckData(Integer elo,Integer times) {
+        String backString  = "";
+        if (elo <800) {
+            backString = backString + "太粗啊啊啊！！！ ";
+        }else if (elo < 1000) {
+            backString = backString + "好粗的！ ";
+        }else if (elo < 1100) {
+            backString = backString + "刚刚好的~ ";
+        }else if (elo< 1200) {
+            backString = backString + "唔~粗重有细 ";
+        }else if (elo < 1300) {
+            backString = backString + "阿亮 有点细啊！ ";
+        }else if (elo < 1400) {
+            backString = backString + "哇 它好可爱哦! ";
+        }else if (elo <1500) {
+            backString = backString + "啊咧 已经结束了吗? ";
+        }else {
+            backString = backString + "神仙";
+        }
+        if (times < 2){
+            backString = backString  + "鱼塘霸主 ";
+        }else if (times <4 ) {
+            backString = backString + "鱼塘三叉戟 ";
+        }else if (times < 10){
+            backString = backString + "鱼 ";
+        }else {
+            backString = backString + "钓鱼佬 ";
+        }
+        return backString;
     }
 }
