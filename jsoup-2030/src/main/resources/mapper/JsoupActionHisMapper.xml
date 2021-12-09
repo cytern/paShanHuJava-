@@ -271,7 +271,8 @@
       #{item.actionHisId,jdbcType=INTEGER}
     </foreach>
   </update>
-  <insert id="batchInsert" keyColumn="action_his_id" keyProperty="actionHisId" parameterType="map" useGeneratedKeys="true">
+    <update id="updateBatchSelective"></update>
+    <insert id="batchInsert" keyColumn="action_his_id" keyProperty="actionHisId" parameterType="map" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into jsoup_action_his
     (action_his_ele_value, action_his_date, action_his_mission_id, action_his_action_id, 

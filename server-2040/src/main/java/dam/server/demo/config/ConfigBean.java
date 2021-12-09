@@ -24,6 +24,9 @@ public class ConfigBean {
      * 总地址
      */
     private final String baseUrl = "http://62.234.29.109:2060";
+
+
+
     /**
      * cpu核心参数
      */

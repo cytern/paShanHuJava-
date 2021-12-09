@@ -18,7 +18,7 @@ public class TimedTaskExcutor implements ApplicationListener<ContextRefreshedEve
     public void onApplicationEvent(ContextRefreshedEvent event) {
         //这里要做两件事 第一件是 开启定时任务注入线程池
         //第二件事 开启检测存活执行器线程池
-        allTimeService.addTimeTask();
-        checkService.judgeExecutorLive();
+//        allTimeService.addTimeTask();
+//        checkService.judgeExecutorLive();
     }
 }

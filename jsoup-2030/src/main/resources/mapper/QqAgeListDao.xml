@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dam.jsoup.updatereport.updatreport.robot.dto.QqAgeListDao">
+  <resultMap id="BaseResultMap" type="dam.jsoup.updatereport.updatreport.robot.dto.QqAgeList">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="qq_id" jdbcType="VARCHAR" property="qqId" />
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="rank" jdbcType="INTEGER" property="rank" />
+    <result column="elo" jdbcType="INTEGER" property="elo" />
+    <result column="match_times" jdbcType="INTEGER" property="matchTimes" />
+    <result column="win_rate" jdbcType="VARCHAR" property="winRate" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="defult" jdbcType="INTEGER" property="defult" />
+    <result column="age_name" jdbcType="VARCHAR" property="ageName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, qq_id, group_id, `type`, `rank`, elo, match_times, win_rate, create_time, defult, 
+    age_name
+  </sql>
+  <select id="selectByExample" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqAgeListExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from qq_age_list
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from qq_age_list
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from qq_age_list
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqAgeListExample">
+    delete from qq_age_list
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqAgeList" useGeneratedKeys="true">
+    insert into qq_age_list (qq_id, group_id, `type`, 
+      `rank`, elo, match_times, 
+      win_rate, create_time, defult, 
+      age_name)
+    values (#{qqId,jdbcType=VARCHAR}, #{groupId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{rank,jdbcType=INTEGER}, #{elo,jdbcType=INTEGER}, #{matchTimes,jdbcType=INTEGER}, 
+      #{winRate,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{defult,jdbcType=INTEGER}, 
+      #{ageName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqAgeList" useGeneratedKeys="true">
+    insert into qq_age_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="qqId != null">
+        qq_id,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="rank != null">
+        `rank`,
+      </if>
+      <if test="elo != null">
+        elo,
+      </if>
+      <if test="matchTimes != null">
+        match_times,
+      </if>
+      <if test="winRate != null">
+        win_rate,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="defult != null">
+        defult,
+      </if>
+      <if test="ageName != null">
+        age_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="qqId != null">
+        #{qqId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="elo != null">
+        #{elo,jdbcType=INTEGER},
+      </if>
+      <if test="matchTimes != null">
+        #{matchTimes,jdbcType=INTEGER},
+      </if>
+      <if test="winRate != null">
+        #{winRate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="defult != null">
+        #{defult,jdbcType=INTEGER},
+      </if>
+      <if test="ageName != null">
+        #{ageName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqAgeListExample" resultType="java.lang.Long">
+    select count(*) from qq_age_list
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update qq_age_list
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.qqId != null">
+        qq_id = #{record.qqId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupId != null">
+        group_id = #{record.groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        `type` = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rank != null">
+        `rank` = #{record.rank,jdbcType=INTEGER},
+      </if>
+      <if test="record.elo != null">
+        elo = #{record.elo,jdbcType=INTEGER},
+      </if>
+      <if test="record.matchTimes != null">
+        match_times = #{record.matchTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.winRate != null">
+        win_rate = #{record.winRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.defult != null">
+        defult = #{record.defult,jdbcType=INTEGER},
+      </if>
+      <if test="record.ageName != null">
+        age_name = #{record.ageName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update qq_age_list
+    set id = #{record.id,jdbcType=INTEGER},
+      qq_id = #{record.qqId,jdbcType=VARCHAR},
+      group_id = #{record.groupId,jdbcType=VARCHAR},
+      `type` = #{record.type,jdbcType=VARCHAR},
+      `rank` = #{record.rank,jdbcType=INTEGER},
+      elo = #{record.elo,jdbcType=INTEGER},
+      match_times = #{record.matchTimes,jdbcType=INTEGER},
+      win_rate = #{record.winRate,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      defult = #{record.defult,jdbcType=INTEGER},
+      age_name = #{record.ageName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqAgeList">
+    update qq_age_list
+    <set>
+      <if test="qqId != null">
+        qq_id = #{qqId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        `rank` = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="elo != null">
+        elo = #{elo,jdbcType=INTEGER},
+      </if>
+      <if test="matchTimes != null">
+        match_times = #{matchTimes,jdbcType=INTEGER},
+      </if>
+      <if test="winRate != null">
+        win_rate = #{winRate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="defult != null">
+        defult = #{defult,jdbcType=INTEGER},
+      </if>
+      <if test="ageName != null">
+        age_name = #{ageName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqAgeList">
+    update qq_age_list
+    set qq_id = #{qqId,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      `rank` = #{rank,jdbcType=INTEGER},
+      elo = #{elo,jdbcType=INTEGER},
+      match_times = #{matchTimes,jdbcType=INTEGER},
+      win_rate = #{winRate,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      defult = #{defult,jdbcType=INTEGER},
+      age_name = #{ageName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
