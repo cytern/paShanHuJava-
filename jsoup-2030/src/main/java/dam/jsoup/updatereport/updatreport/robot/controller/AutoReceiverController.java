@@ -23,7 +23,13 @@ private final CommandReceiverFactory commandReceiverFactory;
     @RequestMapping("command")
     public String receiverCommandService(@RequestBody MessageData messageData){
         CommandReceiver commandReceiver = commandReceiverFactory.searchService(getCommand(messageData.getMessage()));
-        String andSendBack = commandReceiver.getAndSendBack(messageData);
+        String andSendBack = null;
+        try {
+            andSendBack = commandReceiver.getAndSendBack(messageData);
+        } catch (Exception e) {
+            log.error("执行出错",e);
+            andSendBack = "输入指令有误 无法正确解析您的命令";
+        }
         log.info("来源数据 {} ,返回数据 {}",messageData,andSendBack);
         return andSendBack;
     }

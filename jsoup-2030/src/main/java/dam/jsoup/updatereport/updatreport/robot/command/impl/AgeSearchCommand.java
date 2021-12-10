@@ -50,7 +50,7 @@ public class AgeSearchCommand implements CommandReceiver {
             matchType = defultAgeList.getType();
         }else {
             String[] params = messageData.getMessage().split(" ");
-            if (params.length!= 3) {
+            if (params.length > 3) {
                 //非正常情况查分
                 StringBuilder a = new StringBuilder(params[0]);
                 for (int i = 1; i < params.length; i++) {
@@ -69,6 +69,26 @@ public class AgeSearchCommand implements CommandReceiver {
                 }
                 else if (type.contains("44")) {
                     matchType = "4v4";
+                }
+            }else if (params.length == 2) {
+                if (params[0].contains("查分")){
+                    userName = defultAgeList.getAgeName();
+                    if (params[1].contains("11")) {
+                        matchType = "1v1";
+                    }else if (params[1].contains("22")) {
+                        matchType = "2v2";
+                    }
+                    else if (params[1].contains("33")) {
+                        matchType = "3v3";
+                    }
+                    else if (params[1].contains("44")) {
+                        matchType = "4v4";
+                    }
+                }else {
+                    return "您的指令有误 对于绑定账号的快捷查分 正确指令为" +
+                            "@机器人 查分" +
+                            "或者" +
+                            "@机器人 查分 游戏类型";
                 }
             }else {
                userName = params[1];
