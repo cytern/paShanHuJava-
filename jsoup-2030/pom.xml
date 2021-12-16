@@ -15,7 +15,7 @@
     <name>updatreport</name>
     <description>java爬虫自动填写每日一报</description>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <docker.image.prefix>xdclass</docker.image.prefix>
         <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
     </properties>
@@ -215,7 +215,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-
+                <version>1.5.9.RELEASE</version>
                 <executions>
                     <execution>
                         <goals>
