@@ -1,6 +1,5 @@
 package dam.jsoup.updatereport.updatreport.service.impl;
 
-import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import dam.jsoup.updatereport.updatreport.dao.JsoupMapper;
 import dam.jsoup.updatereport.updatreport.dao.JsoupMissionAllHistoryMapper;
 import dam.jsoup.updatereport.updatreport.dao.JsoupPragramMapper;
@@ -66,7 +65,7 @@ public class TimeTaskServiceImpl implements TimeTaskService {
                         if (allHistory.getTimeNum()!= -1){
                             //任务不正确
                             if (allHistory.getTimeNum() <0){
-                                throw new MybatisPlusException("数据异常 小于0却不等于-1的定时任务.    id:  "+allHistory.getMissionAllHistoryId());
+                                throw new RuntimeException("数据异常 小于0却不等于-1的定时任务.    id:  "+allHistory.getMissionAllHistoryId());
                             }else {
                                 //更新原始数据
                                 allHistory.setTimeNum(allHistory.getTimeNum() -1);
