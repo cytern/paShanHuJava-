@@ -20,14 +20,14 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="demo" target="16" />
+      <module name="demo" target="17" />
       <module name="demo (1) (com.kente)" target="1.5" />
       <module name="demo (2) (dam.server)" target="1.5" />
-      <module name="euerka-2020" target="16" />
+      <module name="euerka-2020" target="17" />
       <module name="eureka" target="1.5" />
       <module name="excel-2050" target="8" />
       <module name="gateway" target="1.5" />
-      <module name="gateway-2060" target="16" />
+      <module name="gateway-2060" target="17" />
       <module name="jsoup-2030" target="1.8" />
       <module name="kente-2050" target="8" />
       <module name="server-2040" target="1.8" />
