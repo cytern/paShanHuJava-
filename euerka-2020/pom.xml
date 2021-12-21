@@ -14,7 +14,7 @@
     <name>eureka</name>
     <description>注册发现中心控制器</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
     </properties>
     <dependencies>

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dam.jsoup.updatereport.updatreport.robot.dto.QqTimeTaskDao">
+  <resultMap id="BaseResultMap" type="dam.jsoup.updatereport.updatreport.robot.dto.QqTimeTask">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mark" jdbcType="VARCHAR" property="mark" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="target_type" jdbcType="INTEGER" property="targetType" />
+    <result column="target_id" jdbcType="VARCHAR" property="targetId" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="cron" jdbcType="VARCHAR" property="cron" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="cycle_type" jdbcType="INTEGER" property="cycleType" />
+    <result column="times" jdbcType="INTEGER" property="times" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, mark, create_by, target_type, target_id, message, cron, create_time, cycle_type, 
+    times
+  </sql>
+  <select id="selectByExample" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqTimeTaskExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from qq_time_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from qq_time_task
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from qq_time_task
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqTimeTaskExample">
+    delete from qq_time_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqTimeTask" useGeneratedKeys="true">
+    insert into qq_time_task (mark, create_by, target_type, 
+      target_id, message, cron, 
+      create_time, cycle_type, times
+      )
+    values (#{mark,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{targetType,jdbcType=INTEGER}, 
+      #{targetId,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{cron,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{cycleType,jdbcType=INTEGER}, #{times,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqTimeTask" useGeneratedKeys="true">
+    insert into qq_time_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mark != null">
+        mark,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="targetType != null">
+        target_type,
+      </if>
+      <if test="targetId != null">
+        target_id,
+      </if>
+      <if test="message != null">
+        message,
+      </if>
+      <if test="cron != null">
+        cron,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="cycleType != null">
+        cycle_type,
+      </if>
+      <if test="times != null">
+        times,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mark != null">
+        #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="targetType != null">
+        #{targetType,jdbcType=INTEGER},
+      </if>
+      <if test="targetId != null">
+        #{targetId,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="cron != null">
+        #{cron,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cycleType != null">
+        #{cycleType,jdbcType=INTEGER},
+      </if>
+      <if test="times != null">
+        #{times,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqTimeTaskExample" resultType="java.lang.Long">
+    select count(*) from qq_time_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update qq_time_task
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.mark != null">
+        mark = #{record.mark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetType != null">
+        target_type = #{record.targetType,jdbcType=INTEGER},
+      </if>
+      <if test="record.targetId != null">
+        target_id = #{record.targetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.message != null">
+        message = #{record.message,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cron != null">
+        cron = #{record.cron,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cycleType != null">
+        cycle_type = #{record.cycleType,jdbcType=INTEGER},
+      </if>
+      <if test="record.times != null">
+        times = #{record.times,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update qq_time_task
+    set id = #{record.id,jdbcType=INTEGER},
+      mark = #{record.mark,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      target_type = #{record.targetType,jdbcType=INTEGER},
+      target_id = #{record.targetId,jdbcType=VARCHAR},
+      message = #{record.message,jdbcType=VARCHAR},
+      cron = #{record.cron,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      cycle_type = #{record.cycleType,jdbcType=INTEGER},
+      times = #{record.times,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqTimeTask">
+    update qq_time_task
+    <set>
+      <if test="mark != null">
+        mark = #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="targetType != null">
+        target_type = #{targetType,jdbcType=INTEGER},
+      </if>
+      <if test="targetId != null">
+        target_id = #{targetId,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="cron != null">
+        cron = #{cron,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cycleType != null">
+        cycle_type = #{cycleType,jdbcType=INTEGER},
+      </if>
+      <if test="times != null">
+        times = #{times,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqTimeTask">
+    update qq_time_task
+    set mark = #{mark,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      target_type = #{targetType,jdbcType=INTEGER},
+      target_id = #{targetId,jdbcType=VARCHAR},
+      message = #{message,jdbcType=VARCHAR},
+      cron = #{cron,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      cycle_type = #{cycleType,jdbcType=INTEGER},
+      times = #{times,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
