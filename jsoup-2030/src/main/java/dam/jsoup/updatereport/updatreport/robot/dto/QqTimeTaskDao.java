@@ -1,10 +1,15 @@
 package dam.jsoup.updatereport.updatreport.robot.dto;
 
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
+@Repository
+@Mapper
 public interface QqTimeTaskDao {
     long countByExample(QqTimeTaskExample example);
 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class TimedTaskExcutor implements ApplicationListener<ContextRefreshedEvent> {
     private final AllTimeService allTimeService;
     private final HeartHitCheckService checkService;
+    private final QqSenderTaskService qqSenderTaskService;
     //开启线程池
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -20,5 +21,6 @@ public class TimedTaskExcutor implements ApplicationListener<ContextRefreshedEve
         //第二件事 开启检测存活执行器线程池
 //        allTimeService.addTimeTask();
 //        checkService.judgeExecutorLive();
+        qqSenderTaskService.jundgeQqTimerTask();
     }
 }

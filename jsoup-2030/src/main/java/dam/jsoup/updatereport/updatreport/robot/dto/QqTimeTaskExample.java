@@ -754,6 +754,146 @@ public class QqTimeTaskExample {
             addCriterion("times not between", value1, value2, "times");
             return (Criteria) this;
         }
+
+        public Criteria andCommandIsNull() {
+            addCriterion("command is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommandIsNotNull() {
+            addCriterion("command is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommandEqualTo(String value) {
+            addCriterion("command =", value, "command");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommandNotEqualTo(String value) {
+            addCriterion("command <>", value, "command");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommandGreaterThan(String value) {
+            addCriterion("command >", value, "command");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommandGreaterThanOrEqualTo(String value) {
+            addCriterion("command >=", value, "command");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommandLessThan(String value) {
+            addCriterion("command <", value, "command");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommandLessThanOrEqualTo(String value) {
+            addCriterion("command <=", value, "command");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommandLike(String value) {
+            addCriterion("command like", value, "command");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommandNotLike(String value) {
+            addCriterion("command not like", value, "command");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommandIn(List<String> values) {
+            addCriterion("command in", values, "command");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommandNotIn(List<String> values) {
+            addCriterion("command not in", values, "command");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommandBetween(String value1, String value2) {
+            addCriterion("command between", value1, value2, "command");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommandNotBetween(String value1, String value2) {
+            addCriterion("command not between", value1, value2, "command");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetGroupIdIsNull() {
+            addCriterion("target_group_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetGroupIdIsNotNull() {
+            addCriterion("target_group_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetGroupIdEqualTo(String value) {
+            addCriterion("target_group_id =", value, "targetGroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetGroupIdNotEqualTo(String value) {
+            addCriterion("target_group_id <>", value, "targetGroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetGroupIdGreaterThan(String value) {
+            addCriterion("target_group_id >", value, "targetGroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetGroupIdGreaterThanOrEqualTo(String value) {
+            addCriterion("target_group_id >=", value, "targetGroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetGroupIdLessThan(String value) {
+            addCriterion("target_group_id <", value, "targetGroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetGroupIdLessThanOrEqualTo(String value) {
+            addCriterion("target_group_id <=", value, "targetGroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetGroupIdLike(String value) {
+            addCriterion("target_group_id like", value, "targetGroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetGroupIdNotLike(String value) {
+            addCriterion("target_group_id not like", value, "targetGroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetGroupIdIn(List<String> values) {
+            addCriterion("target_group_id in", values, "targetGroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetGroupIdNotIn(List<String> values) {
+            addCriterion("target_group_id not in", values, "targetGroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetGroupIdBetween(String value1, String value2) {
+            addCriterion("target_group_id between", value1, value2, "targetGroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetGroupIdNotBetween(String value1, String value2) {
+            addCriterion("target_group_id not between", value1, value2, "targetGroupId");
+            return (Criteria) this;
+        }
     }
 
     /**

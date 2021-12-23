@@ -31,6 +31,11 @@ spring:
     restart:
       enabled: true
       additional-paths: src/mian/java
+  redis:
+    host: 62.234.29.109
+    port: 16379
+    timeout: 20000
+    expire-time: 3600
 
   #        邮箱配置
   mail:

@@ -1,8 +1,9 @@
 package dam.jsoup.updatereport.updatreport.robot.dto;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * qq_time_task
@@ -32,6 +33,10 @@ public class QqTimeTask implements Serializable {
     private Integer cycleType;
 
     private Integer times;
+
+    private String command;
+
+    private String targetGroupId;
 
     private static final long serialVersionUID = 1L;
 }
