@@ -34,21 +34,27 @@ public class CronUtil {
 
     public static boolean canAdd(String corn) {
         final CronSequenceGenerator g = new CronSequenceGenerator(corn);
+        //现在的时间
         Date date = new Date();
+        //下一次定时任务的诗句
         Date next = g.next(date);
-        Date nextNext = g.next(g.next(date));
-        Calendar c1=Calendar.getInstance();
+        Calendar c1 = Calendar.getInstance();
         Calendar c2=Calendar.getInstance();
         Calendar c3= Calendar.getInstance();
-        c1.setTime(nextNext);
+        c1.setTime(date);
         c2.setTime(next);
         c3.setTime(next);
-        c3.add(Calendar.MINUTE,2);
+        c3.add(Calendar.MINUTE,-3);
 //        两次间隔小于5分钟
-        if (c3.before(c1)){
+        if (c1.after(c3)){
             return true;
         }else {
             return false;
         }
+    }
+
+    public static void main(String[] args) {
+        boolean b = canAdd("0 25 * * * ?");
+        System.out.println(b);
     }
 }
