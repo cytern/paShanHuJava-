@@ -45,7 +45,7 @@ public class QqSenderTaskService {
     }
 
     //发现任务
-    private void checkExcutor() {
+    public void checkExcutor() {
         //获取所有定时任务
         QqTimeTaskExample qqTimeTaskExample = new QqTimeTaskExample();
         qqTimeTaskExample.createCriteria().andTimesNotEqualTo(0);
@@ -53,7 +53,6 @@ public class QqSenderTaskService {
         if (taskList == null || taskList.size()<1) {
             return;
         }
-        Date nowDate = new Date();
         //筛选出需要进行操作的定时任务
         List<QqTimeTask> needDoTask = taskList.stream().parallel().filter(t -> {
             if (redisUtil.hasKey(Dict.RedisKey.TimeSave + t.getId())) {
@@ -78,6 +77,7 @@ public class QqSenderTaskService {
                 qqTimeTaskDao.updateByPrimaryKey(t);
             }
         });
+        System.out.println("111");
 
     }
 

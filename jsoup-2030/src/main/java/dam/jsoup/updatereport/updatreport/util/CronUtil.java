@@ -54,7 +54,7 @@ public class CronUtil {
     }
 
     public static void main(String[] args) {
-        boolean b = canAdd("0 25 * * * ?");
+        boolean b = canAdd("0 0 7 * * ?");
         System.out.println(b);
     }
 }
