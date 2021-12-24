@@ -5,6 +5,7 @@ import dam.jsoup.updatereport.updatreport.config.Dict;
 import dam.jsoup.updatereport.updatreport.robot.dto.QqTimeTask;
 import dam.jsoup.updatereport.updatreport.robot.dto.QqTimeTaskDao;
 import dam.jsoup.updatereport.updatreport.robot.dto.QqTimeTaskExample;
+import dam.jsoup.updatereport.updatreport.util.CronUtil;
 import dam.jsoup.updatereport.updatreport.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -33,10 +34,10 @@ public class QqSenderTaskService {
         log.info("初始化 开始检索qq定时任务 ");
         while (true) {
             try {
-                Thread.sleep(30 * 1000);
+                Thread.sleep(60 * 1000);
                 log.info("等待结束 开始检索执行池  ");
                 checkExcutor();
-                Thread.sleep(30 * 1000);
+                Thread.sleep(60 * 1000);
             } catch (Exception e) {
                 log.error("检索执行池  失败 ",e);
             }
@@ -59,14 +60,14 @@ public class QqSenderTaskService {
                 //最近五分钟添加过发送任务
                 return false;
             } else {
-                return needAdd(t.getCreateTime(), t.getCron());
+                return CronUtil.canAdd(t.getCron());
             }
         }).collect(Collectors.toList());
         //对定时任务进行遍历 并标记增加
         needDoTask.forEach(t -> {
             //向redis中注册
             redisUtil.sAdd(Dict.RedisKey.TimeSave + t.getId(), DateUtil.now());
-            redisUtil.expire(Dict.RedisKey.TimeSave + t.getId(),2, TimeUnit.MINUTES);
+            redisUtil.expire(Dict.RedisKey.TimeSave + t.getId(),3, TimeUnit.MINUTES);
             //向任务中心中注册
             redisUtil.lLeftPush(Dict.RedisKey.TimeTask + t.getCreateBy(),t);
             //判断次数是否需要减少

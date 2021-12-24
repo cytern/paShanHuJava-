@@ -43,7 +43,7 @@ public class CronUtil {
         c1.setTime(nextNext);
         c2.setTime(next);
         c3.setTime(next);
-        c3.add(Calendar.MINUTE,5);
+        c3.add(Calendar.MINUTE,2);
 //        两次间隔小于5分钟
         if (c3.before(c1)){
             return true;
