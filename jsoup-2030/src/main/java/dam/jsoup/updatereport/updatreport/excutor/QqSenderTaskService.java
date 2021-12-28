@@ -9,6 +9,7 @@ import dam.jsoup.updatereport.updatreport.util.CronUtil;
 import dam.jsoup.updatereport.updatreport.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Service;
 
@@ -29,19 +30,16 @@ public class QqSenderTaskService {
     }
 
 
-    @Async("taskPool")
+//    @Async("taskPool")
+    @Scheduled(cron = "0 * * * * ?")
     public void jundgeQqTimerTask() {
         log.info("初始化 开始检索qq定时任务 ");
-        while (true) {
             try {
-                Thread.sleep(60 * 1000);
                 log.info("等待结束 开始检索执行池  ");
                 checkExcutor();
-                Thread.sleep(60 * 1000);
             } catch (Exception e) {
                 log.error("检索执行池  失败 ",e);
             }
-        }
     }
 
     //发现任务

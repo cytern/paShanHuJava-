@@ -21,6 +21,6 @@ public class TimedTaskExcutor implements ApplicationListener<ContextRefreshedEve
         //第二件事 开启检测存活执行器线程池
 //        allTimeService.addTimeTask();
 //        checkService.judgeExecutorLive();
-        qqSenderTaskService.jundgeQqTimerTask();
+//        qqSenderTaskService.jundgeQqTimerTask();
     }
 }
