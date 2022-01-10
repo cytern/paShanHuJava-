@@ -1,5 +1,6 @@
 package dam.jsoup.updatereport.updatreport.robot.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import dam.jsoup.updatereport.updatreport.robot.command.CommandReceiver;
 import dam.jsoup.updatereport.updatreport.robot.command.CommandReceiverFactory;
 import dam.jsoup.updatereport.updatreport.robot.pojo.CommandData;
@@ -38,6 +39,7 @@ private final CommandReceiverFactory commandReceiverFactory;
 
     @RequestMapping("command")
     public CommandData receiverCommandService(@RequestBody CommandData commandData) {
+        log.info("远程请求答应参数 {}", JSONObject.toJSONString(commandData));
         CommandReceiver commandReceiver = commandReceiverFactory.searchService(commandData.getCommand());
         CommandData andSendBack = commandReceiver.getAndSendBack(commandData);
         return andSendBack;
