@@ -7,6 +7,7 @@ import dam.jsoup.updatereport.updatreport.robot.api.AgeSearchApi;
 import dam.jsoup.updatereport.updatreport.robot.command.CommandReceiver;
 import dam.jsoup.updatereport.updatreport.robot.dto.*;
 import dam.jsoup.updatereport.updatreport.robot.pojo.AgeSearchData;
+import dam.jsoup.updatereport.updatreport.robot.pojo.CommandData;
 import dam.jsoup.updatereport.updatreport.robot.pojo.MessageData;
 import org.springframework.stereotype.Service;
 
@@ -31,79 +32,39 @@ public class AgeSearchCommand implements CommandReceiver {
     }
 
     @Override
-    public String getAndSendBack(MessageData messageData) {
+    public CommandData getAndSendBack(CommandData commandData) {
         //第一步 语言识别
         String userName = "";
         String matchType = "1v1";
         QqAgeListExample example = new QqAgeListExample();
-        example.createCriteria().andQqIdEqualTo(messageData.getQqId()).andGroupIdEqualTo(messageData.getGroupId());
+        CommandData backData = CommandData.newCopyCommandData(commandData);
+        example.createCriteria().andQqIdEqualTo(commandData.getQqId()).andGroupIdEqualTo(commandData.getGroupId());
         List<QqAgeList> historySearchData = qqAgeListDao.selectByExample(example);
         QqAgeList defultAgeList = new QqAgeList();
         defultAgeList = backDefultAgeList(historySearchData);
-        if (messageData.getMessage().equals("查分") || messageData.getMessage().equals(" 查分") || messageData.getMessage().equals("查分 ") || messageData.getMessage().equals(" 查分 ")) {
+        if (commandData.getMessage().equals("查分") || commandData.getMessage().equals(" 查分") || commandData.getMessage().equals("查分 ") || commandData.getMessage().equals(" 查分 ")) {
             if (historySearchData == null || historySearchData.size()<1|| historySearchData.get(0).getAgeName() == null) {
-                return "快捷查询未能找到您账号绑定的游戏账号 请使用  " + "\n" +
-                        "@机器人 绑定 游戏名 游戏类型" +"\n" +
-                        "进行绑定游戏账号 请注意 游戏类型为比赛类型 分别为 11 22 33 44 对应 1v1 2v2 等 并非帝国时代1234";
+                return backData.backMessage("快捷查询未能找到您账号绑定的游戏账号" + "\n" +
+                        "请先绑定账号 例句:" +"\n" +
+                        "@查分机器人 绑定 咩咩机器人 11");
             }
             userName = defultAgeList.getAgeName();
             matchType = defultAgeList.getType();
         }else {
-            String[] params = messageData.getMessage().split(" ");
+            String[] params = commandData.getMessage().split(" ");
             if (params.length > 3) {
                 //非正常情况查分
                 StringBuilder a = new StringBuilder(params[0]);
                 for (int i = 1; i < params.length; i++) {
                     a.append(" ").append(params[i]);
                 }
-                String substring = a.substring(a.indexOf("《") + 1, a.indexOf("》"));
-                userName = substring;
-                String type = params[params.length-1];
-                if (type.contains("11")) {
-                    matchType = "1v1";
-                }else if (type.contains("22")) {
-                    matchType = "2v2";
-                }
-                else if (type.contains("33")) {
-                    matchType = "3v3";
-                }
-                else if (type.contains("44")) {
-                    matchType = "4v4";
-                }
+                userName = a.substring(a.indexOf("《") + 1, a.indexOf("》"));
             }else if (params.length == 2) {
-                if (params[0].contains("查分")){
                     userName = defultAgeList.getAgeName();
-                    if (params[1].contains("11")) {
-                        matchType = "1v1";
-                    }else if (params[1].contains("22")) {
-                        matchType = "2v2";
-                    }
-                    else if (params[1].contains("33")) {
-                        matchType = "3v3";
-                    }
-                    else if (params[1].contains("44")) {
-                        matchType = "4v4";
-                    }
-                }else {
-                    return "您的指令有误 对于绑定账号的快捷查分 正确指令为" +
-                            "@机器人 查分" +
-                            "或者" +
-                            "@机器人 查分 游戏类型";
-                }
             }else {
                userName = params[1];
-                if (params[2].contains("11")) {
-                    matchType = "1v1";
-                }else if (params[2].contains("22")) {
-                    matchType = "2v2";
-                }
-                else if (params[2].contains("33")) {
-                    matchType = "3v3";
-                }
-                else if (params[2].contains("44")) {
-                    matchType = "4v4";
-                }
             }
+            matchType = AgeBindCommand.backMatchType(params);
         }
         AgeSearchData ageSearchData = new AgeSearchData();
         ageSearchData.setMatchType("unranked");
@@ -116,7 +77,7 @@ public class AgeSearchCommand implements CommandReceiver {
         JSONObject jsonObject = AgeSearchApi.searchAgeRank(ageSearchData);
         //查询群内 群友的全部成绩
         example.clear();
-        example.createCriteria().andGroupIdEqualTo(messageData.getGroupId()).andTypeEqualTo(matchType);
+        example.createCriteria().andGroupIdEqualTo(commandData.getGroupId()).andTypeEqualTo(matchType);
         List<QqAgeList> groupAgeList = qqAgeListDao.selectByExample(example);
         if (jsonObject != null && jsonObject.get("count")!= null && jsonObject.getInteger("count") >0) {
             JSONArray items  = jsonObject.getJSONArray("items");
@@ -125,7 +86,8 @@ public class AgeSearchCommand implements CommandReceiver {
                 result.append("id出现重名 数据可能并非准确 请自行判断").append("\n");
             }
             Integer time = 0;
-            for (Object obj : items) {
+            for (int i = 0; i < (Math.min(items.size(), 3)); i++) {
+                Object obj = items.get(i);
                 JSONObject item = JSONObject.parseObject(JSONObject.toJSONString(obj));
                 String ageUserName = item.getString("userName");
                 Integer allTimes = item.getInteger("wins") +  item.getInteger("losses");
@@ -156,13 +118,13 @@ public class AgeSearchCommand implements CommandReceiver {
                         newAgeList.setElo(elo);
                         newAgeList.setType(matchType);
                         newAgeList.setMatchTimes(allTimes);
-                        newAgeList.setQqId(messageData.getQqId());
-                        newAgeList.setGroupId(messageData.getGroupId());
+                        newAgeList.setQqId(commandData.getQqId());
+                        newAgeList.setGroupId(commandData.getGroupId());
                         example.clear();
-                        example.createCriteria().andQqIdEqualTo(messageData.getQqId())
-                                .andGroupIdEqualTo(messageData.getGroupId())
+                        example.createCriteria().andQqIdEqualTo(commandData.getQqId())
+                                .andGroupIdEqualTo(commandData.getGroupId())
                                 .andTypeEqualTo(matchType);
-                        int i = qqAgeListDao.deleteByExample(example);
+                        qqAgeListDao.deleteByExample(example);
                        if (defultAgeList.getType().equals(matchType)) {
                            newAgeList.setDefult(1);
                        }
@@ -171,13 +133,16 @@ public class AgeSearchCommand implements CommandReceiver {
                 }
                 time ++;
             }
-            return result.toString();
+            return  backData.backMessage(result.toString());
         }else {
-            return "暂时未能查询到您的战绩" + "\n" +
-                    "正确的查询格式为" + "\n" +
-                    "查分 id 比赛类型" + "\n" +
-                    "查分 《id》 比赛类型 (id中含有空格)" + "\n " +
-                    "同类型比赛十次以上方可查询成绩" ;
+            return backData.backMessage( "无法查询到该账号的战绩 查分失败 可能的原因如下\n" +
+                    "您的id输入错误或者识别错误 《"+ userName+ "》" +"\n" +
+                    "类型输入错误或者识别错误 《" + matchType+" 》" + "\n" +
+                    "又或者是您的参数使用方法不正确 请务必确认空格的数量是否正确以及参数是否正确 例句：\n" +
+                    "@查分机器人 查分 咩咩机器人 11\n" +
+                    "@查分机器人 查分 咩咩机器人 11\n"+
+                    "@查分机器人 查分 《我 超 勇 的》 11\n"+
+                    "@查分机器人 查分");
         }
 
     }
