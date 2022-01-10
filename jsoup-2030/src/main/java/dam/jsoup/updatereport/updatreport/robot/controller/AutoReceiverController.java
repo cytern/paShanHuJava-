@@ -39,10 +39,7 @@ private final CommandReceiverFactory commandReceiverFactory;
 
     @RequestMapping("command")
     public CommandData receiverCommandService(@RequestBody CommandData commandData) {
-        log.info("远程请求答应参数 {}", JSONObject.toJSONString(commandData));
-        CommandReceiver commandReceiver = commandReceiverFactory.searchService(commandData.getCommand());
-        CommandData andSendBack = commandReceiver.getAndSendBack(commandData);
-        return andSendBack;
+        return   commandReceiverFactory.resolveData(commandData);
     }
 
 
