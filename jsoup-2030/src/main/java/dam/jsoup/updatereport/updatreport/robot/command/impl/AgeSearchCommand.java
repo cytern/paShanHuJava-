@@ -44,12 +44,22 @@ public class AgeSearchCommand implements CommandReceiver {
         defultAgeList = backDefultAgeList(historySearchData);
         if (commandData.getMessage().equals("查分") || commandData.getMessage().equals(" 查分") || commandData.getMessage().equals("查分 ") || commandData.getMessage().equals(" 查分 ")) {
             if (historySearchData == null || historySearchData.size()<1|| historySearchData.get(0).getAgeName() == null) {
-                return backData.backMessage("快捷查询未能找到您账号绑定的游戏账号" + "\n" +
-                        "请先绑定账号 例句:" +"\n" +
-                        "@查分机器人 绑定 咩咩机器人 11");
+                //使用群名片进行沟通
+                String userNickName = commandData.getOtherDataMap().getString("userNickName");
+                if (userNickName == null || userNickName.equals("")) {
+                    return backData.backMessage("快捷查询未能找到您账号绑定的游戏账号" + "\n" +
+                            "请先绑定账号 例句:" +"\n" +
+                            "@查分机器人 绑定 咩咩机器人 11");
+                }else {
+                    //默认查分类型是4v4
+                    userName = userNickName;
+                    matchType = "4v4";
+                }
+
+            }else {
+                userName = defultAgeList.getAgeName();
+                matchType = defultAgeList.getType();
             }
-            userName = defultAgeList.getAgeName();
-            matchType = defultAgeList.getType();
         }else {
             String[] params = commandData.getMessage().split(" ");
             if (params.length > 3) {
@@ -60,7 +70,22 @@ public class AgeSearchCommand implements CommandReceiver {
                 }
                 userName = a.substring(a.indexOf("《") + 1, a.indexOf("》"));
             }else if (params.length == 2) {
+                //应该和快捷查分一致
+                if (historySearchData == null || historySearchData.size()<1|| historySearchData.get(0).getAgeName() == null) {
+                    //使用群名片进行沟通
+                    String userNickName = commandData.getOtherDataMap().getString("userNickName");
+                    if (userNickName == null || userNickName.equals("")) {
+                        return backData.backMessage("快捷查询未能找到您账号绑定的游戏账号" + "\n" +
+                                "请先绑定账号 例句:" +"\n" +
+                                "@查分机器人 绑定 咩咩机器人 11");
+                    }else {
+                        //默认查分类型是4v4
+                        userName = userNickName;
+                    }
+
+                }else {
                     userName = defultAgeList.getAgeName();
+                }
             }else {
                userName = params[1];
             }
@@ -136,11 +161,11 @@ public class AgeSearchCommand implements CommandReceiver {
             return  backData.backMessage(result.toString());
         }else {
             return backData.backMessage( "无法查询到该账号的战绩 查分失败 可能的原因如下\n" +
+                    "未在该类型比赛进行十场以上" + "\n" +
                     "您的id输入错误或者识别错误 《"+ userName+ "》" +"\n" +
                     "类型输入错误或者识别错误 《" + matchType+" 》" + "\n" +
                     "又或者是您的参数使用方法不正确 请务必确认空格的数量是否正确以及参数是否正确 例句：\n" +
                     "@查分机器人 查分 咩咩机器人 11\n" +
-                    "@查分机器人 查分 咩咩机器人 11\n"+
                     "@查分机器人 查分 《我 超 勇 的》 11\n"+
                     "@查分机器人 查分");
         }
