@@ -45,14 +45,13 @@ public class AgeSearchCommand implements CommandReceiver {
         if (commandData.getMessage().equals("查分") || commandData.getMessage().equals(" 查分") || commandData.getMessage().equals("查分 ") || commandData.getMessage().equals(" 查分 ")) {
             if (historySearchData == null || historySearchData.size()<1|| historySearchData.get(0).getAgeName() == null) {
                 //使用群名片进行沟通
-                String userNickName = commandData.getOtherDataMap().getString("userNickName");
-                if (userNickName == null || userNickName.equals("")) {
+                if (commandData.getOtherDataMap() == null || commandData.getOtherDataMap().getString("userNickName") == null || commandData.getOtherDataMap().getString("userNickName").equals("")) {
                     return backData.backMessage("快捷查询未能找到您账号绑定的游戏账号" + "\n" +
                             "请先绑定账号 例句:" +"\n" +
                             "@查分机器人 绑定 咩咩机器人 11");
                 }else {
                     //默认查分类型是4v4
-                    userName = userNickName;
+                    userName = commandData.getOtherDataMap().getString("userNickName");;
                     matchType = "4v4";
                 }
 
