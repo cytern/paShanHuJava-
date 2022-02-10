@@ -43,7 +43,7 @@ public class CommandReceiverFactory {
             return commandReceiver.getAndSendBack(commandData);
         } catch (Exception e) {
             log.error("远程处理 错误 异常原因 ",e);
-            return commandData.backMessage(e.getMessage());
+            return commandData.backMessage("输入的指令有误~咩咩？ \n" + e.getMessage());
         }
     }
 }
