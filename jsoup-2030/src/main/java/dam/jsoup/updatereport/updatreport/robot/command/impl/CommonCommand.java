@@ -21,7 +21,7 @@ public class CommonCommand implements CommandReceiver {
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("key",key);
         paramMap.put("appid",appId);
-        paramMap.put("msg",commandData.getCommand());
+        paramMap.put("msg",commandData.getMessage());
         JSONObject body = JSONObject.parseObject(HttpRequest.get(QYUrl).form(paramMap).execute().body());
         String content = body.getString("content");
         if (content != null && !content.equals("")){
