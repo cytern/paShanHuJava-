@@ -102,7 +102,7 @@ public class AgeSearchCommand implements CommandReceiver {
         List<JSONObject> blackList = qqAgeListDao.findBlackList();
         if (blackList != null) {
             List<JSONObject> ageName = blackList.stream().filter(t -> {
-                return (t.getString("ageName").equals(ageSearchData.getSearchPlayer()) || t.getString("qqId").equals(commandData.getQqId()));
+                return (ageSearchData.getSearchPlayer().equals(t.getString("ageName")) || commandData.getQqId().equals(t.getString("qqId")));
             }).collect(Collectors.toList());
             if (ageName.size() > 0) {
                 return backData.backMessage("挂狗还来查分？ 你全家户口本就一页纸了，有空去烧点纸看看你家里人吧 还隔着查分？");
