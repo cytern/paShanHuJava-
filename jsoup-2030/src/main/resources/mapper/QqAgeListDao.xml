@@ -189,6 +189,14 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <select id="findBlackList" resultType="com.alibaba.fastjson.JSONObject">
+    select id as id,
+           age_name as ageName,
+           qq_id as qqId,
+           del_flag as delFlag
+           from qq_black_list
+
+  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update qq_age_list
     <set>

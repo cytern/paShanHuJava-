@@ -1,6 +1,7 @@
 package dam.jsoup.updatereport.updatreport.robot.dto;
 
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -30,4 +31,6 @@ public interface QqAgeListDao {
     int updateByPrimaryKeySelective(QqAgeList record);
 
     int updateByPrimaryKey(QqAgeList record);
+
+    List<JSONObject> findBlackList();
 }
