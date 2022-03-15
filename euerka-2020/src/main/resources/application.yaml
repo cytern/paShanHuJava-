@@ -4,7 +4,7 @@ server:
   #eureka ����
 eureka:
   instance:
-    hostname: 62.234.29.109 #eureka
+    hostname: 82.157.40.205 #eureka
   client:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/  #

@@ -19,7 +19,7 @@ spring:
   datasource:
     username: cytern
     password: zhenlong
-    url: jdbc:mysql://62.234.29.109:3306/jsoup?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://82.157.40.205:3306/jsoup?useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   servlet:
@@ -81,7 +81,7 @@ task:
     keepAliveSeconds: 300 #设置线程活跃时间（秒）
     queueCapacity: 50 #设置队列容量
 dam:
-  serverIp: 62.234.29.109
+  serverIp: 82.157.40.205
 
 
 

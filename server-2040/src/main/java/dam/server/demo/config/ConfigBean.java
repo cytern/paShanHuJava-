@@ -23,7 +23,7 @@ public class ConfigBean {
     /**
      * 总地址
      */
-    private final String baseUrl = "http://62.234.29.109:2060";
+    private final String baseUrl = "http://82.157.40.205:2060";
 
 
 

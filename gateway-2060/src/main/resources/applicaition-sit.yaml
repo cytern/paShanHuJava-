@@ -11,7 +11,7 @@ spring:
 eureka:
     client:
       service-url:
-        defaultZone: http://62.234.29.109:2024//eureka/  #注册位置
+        defaultZone: http://82.157.40.205:2024//eureka/  #注册位置
     instance:
       instance-id: spring-cloud-gateway-2060
       prefer-ip-address: true
