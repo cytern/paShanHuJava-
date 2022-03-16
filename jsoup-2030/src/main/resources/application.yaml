@@ -36,6 +36,7 @@ spring:
     port: 16379
     timeout: 20000
     expire-time: 3600
+    password: cytern2020
 
   #        邮箱配置
   mail:
