@@ -108,7 +108,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>1.5.9.RELEASE</version>
                 <configuration>
-                    <mainClass>dam.eureka.eureka.EurekaApplication</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
