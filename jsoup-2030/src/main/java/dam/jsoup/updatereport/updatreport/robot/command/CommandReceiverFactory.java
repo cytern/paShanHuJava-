@@ -24,11 +24,11 @@ public class CommandReceiverFactory {
         this.picAgeSearchCommand = picAgeSearchCommand;
     }
     public CommandReceiver searchService(String command){
-        if (command.contains("查分")) {
+        if (command.equals("查分")) {
             return ageSearchCommand;
-        }else if (command.contains("绑定")) {
+        }else if (command.equals("绑定")) {
             return ageBindCommand;
-        }else if (command.contains(Constant.commands.picSearch)) {
+        }else if (command.equals(Constant.commands.picSearch)) {
             return picAgeSearchCommand;
         }
         else {

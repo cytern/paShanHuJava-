@@ -1,6 +1,7 @@
 package dam.jsoup.updatereport.updatreport.util;
 
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.Cursor;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
+import java.util.jar.JarEntry;
 
 /**
  * @ClassName RedisUtil
@@ -137,6 +139,16 @@ public class RedisUtil {
      */
     public Long getExpire(String key) {
         return redisTemplate.getExpire(key);
+    }
+
+    public <T> List<T> lRangeObject (String key,int start,int end,Class<T> tClass) {
+        List<String> strings = lRange(key, start, end);
+        ArrayList<T> ts = new ArrayList<>();
+        for (String string : strings) {
+            T t = JSONObject.parseObject(string, tClass);
+            ts.add(t);
+        }
+        return ts;
     }
 
     /**
@@ -367,6 +379,10 @@ public class RedisUtil {
         return redisTemplate.opsForHash().get(key, field);
     }
 
+    public <T> T hGet(String key, String field,Class<T> tClass) {
+      return  JSONObject.parseObject((String) redisTemplate.opsForHash().get(key, field),tClass);
+    }
+
     /**
      * 获取所有给定字段的值
      *
@@ -390,6 +406,10 @@ public class RedisUtil {
 
     public void hPut(String key, String hashKey, String value) {
         redisTemplate.opsForHash().put(key, hashKey, value);
+    }
+
+    public void hPut(String key, String hashKey, Object value) {
+        redisTemplate.opsForHash().put(key, hashKey, JSONObject.toJSONString(value));
     }
 
     public void hPutAll(String key, Map<String, String> maps) {
@@ -531,6 +551,10 @@ public class RedisUtil {
      */
     public Long lLeftPush(String key, String value) {
         return redisTemplate.opsForList().leftPush(key, value);
+    }
+
+    public Long lLeftPush(String key, Object value) {
+        return redisTemplate.opsForList().leftPush(key, JSONObject.toJSONString(value));
     }
 
     /**
@@ -967,8 +991,6 @@ public class RedisUtil {
      * 获取集合所有元素
      *
      * @param key
-     * @param otherKeys
-     * @param destKey
      * @return
      */
     public Set<String> setMembers(String key) {

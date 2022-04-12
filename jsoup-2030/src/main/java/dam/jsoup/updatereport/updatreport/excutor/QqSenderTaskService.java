@@ -1,6 +1,7 @@
 package dam.jsoup.updatereport.updatreport.excutor;
 
 import cn.hutool.core.date.DateUtil;
+import com.alibaba.fastjson.JSONObject;
 import dam.jsoup.updatereport.updatreport.config.Dict;
 import dam.jsoup.updatereport.updatreport.robot.dto.QqTimeTask;
 import dam.jsoup.updatereport.updatreport.robot.dto.QqTimeTaskDao;
@@ -66,7 +67,7 @@ public class QqSenderTaskService {
             redisUtil.sAdd(Dict.RedisKey.TimeSave + t.getId(), DateUtil.now());
             redisUtil.expire(Dict.RedisKey.TimeSave + t.getId(),3, TimeUnit.MINUTES);
             //向任务中心中注册
-            redisUtil.lLeftPush(Dict.RedisKey.TimeTask + t.getCreateBy(),t);
+            redisUtil.lLeftPush(Dict.RedisKey.TimeTask + t.getCreateBy(), JSONObject.toJSONString(t));
             //判断次数是否需要减少
             if (t.getTimes() > 0) {
                 //需要减少

@@ -13,6 +13,7 @@ import dam.jsoup.updatereport.updatreport.robot.pojo.CommandData;
 import dam.jsoup.updatereport.updatreport.robot.pojo.Constant;
 import dam.jsoup.updatereport.updatreport.util.RedisUtil;
 import dam.jsoup.updatereport.updatreport.util.Toolkit;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@Slf4j
 public class PicAgeSearchCommand implements CommandReceiver {
     private final RedisUtil redisUtil;
     private final QqAgeListDao qqAgeListDao;
@@ -34,8 +36,10 @@ public class PicAgeSearchCommand implements CommandReceiver {
     @Override
     public CommandData getAndSendBack(CommandData commandData) {
         //411 之后版本的服务端不进行语言文字解析
+        log.info("图片查分接口开始  入参{}",JSONObject.toJSONString(commandData));
         JSONObject params = commandData.getOtherDataMap();
         CommandData backCommand = CommandData.newCopyCommandData(commandData);
+        backCommand.setCommand(Constant.commands.ageSearchPicCreate);
         String userName = "";
         if (Toolkit.isValid(params.getString("userName"))) {
             //查分的时候携带了用户名
@@ -78,6 +82,8 @@ public class PicAgeSearchCommand implements CommandReceiver {
         ageSearchData.setSearchPlayer(userName);
         ageSearchData.setVersus("players");
         ageSearchData.setCount(1);
+        ageSearchData.setPage(1);
+        ageSearchData.setRegion("7");
         JSONArray totalDatas = new JSONArray();
         for (int i = 0; i < 2; i++) {
             JSONArray resultList = new JSONArray();
@@ -97,9 +103,12 @@ public class PicAgeSearchCommand implements CommandReceiver {
                     ageSearchData.setTeamSize("4v4");
                 }
                 JSONObject result = AgeSearchApi.searchAgeRank(ageSearchData);
-                JSONArray items = result.getJSONArray("items");
+                JSONArray items = null;
+                if (result != null) {
+                    items = result.getJSONArray("items");
+                }
                 if (items == null) {
-                    break;
+                    continue;
                 }
                 JSONObject singleItem = items.getJSONObject(0);
                 singleItem.put("updateTime", DateUtil.now());
@@ -113,7 +122,7 @@ public class PicAgeSearchCommand implements CommandReceiver {
             totalDatas.add(finalOneTimeData);
         }
         JSONObject oneTimesData = new JSONObject();
-        oneTimesData.put("matchType",totalDatas);
+        oneTimesData.put("totalData",totalDatas);
         oneTimesData.put("updateTime",DateUtil.now());
         //移出上一次的值
         redisUtil.lRightPop(cachedDataKet);
