@@ -1,9 +1,6 @@
 package dam.jsoup.updatereport.updatreport.util;
 
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.Cursor;
@@ -15,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * @ClassName RedisUtil
@@ -367,9 +363,8 @@ public class RedisUtil {
      * @param field
      * @return
      */
-    public <T> T hGet(String key, String field, Class<T> t ) {
-        String value = (String) redisTemplate.opsForHash().get(key, field);
-        return JSONObject.parseObject(value,t);
+    public Object hGet(String key, String field) {
+        return redisTemplate.opsForHash().get(key, field);
     }
 
     /**
@@ -395,10 +390,6 @@ public class RedisUtil {
 
     public void hPut(String key, String hashKey, String value) {
         redisTemplate.opsForHash().put(key, hashKey, value);
-    }
-    public void hPut(String key, String hashKey, Object value) {
-        String s = JSONObject.toJSONString(value);
-        redisTemplate.opsForHash().put(key, hashKey, s);
     }
 
     public void hPutAll(String key, Map<String, String> maps) {
@@ -530,15 +521,6 @@ public class RedisUtil {
     public List<String> lRange(String key, long start, long end) {
         return redisTemplate.opsForList().range(key, start, end);
     }
-    public <T> List<T> lRangeObject(String key, long start, long end,Class<T> tClass) {
-        List<String> range = redisTemplate.opsForList().range(key, start, end);
-        if (range == null) {
-            return null;
-        }else {
-        return  range.stream().map(t -> JSONObject.parseObject(t,tClass)).collect(Collectors.toList());
-        }
-
-    }
 
     /**
      * 存储在list头部
@@ -549,11 +531,6 @@ public class RedisUtil {
      */
     public Long lLeftPush(String key, String value) {
         return redisTemplate.opsForList().leftPush(key, value);
-    }
-
-    public Long lLeftPush(String key, Object value) {
-        String s = JSONObject.toJSONString(value);
-        return redisTemplate.opsForList().leftPush(key, s);
     }
 
     /**
@@ -696,10 +673,6 @@ public class RedisUtil {
      */
     public String lRightPop(String key) {
         return redisTemplate.opsForList().rightPop(key);
-    }
-    public <T> T lRightPopObject(String key,Class<T> tClass) {
-        String s = redisTemplate.opsForList().rightPop(key);
-        return JSONObject.parseObject(s,tClass);
     }
 
     /**

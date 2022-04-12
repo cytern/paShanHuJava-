@@ -3,6 +3,7 @@ package dam.jsoup.updatereport.updatreport.robot.pojo;
 import com.alibaba.fastjson.JSONObject;
 import dam.jsoup.updatereport.updatreport.util.readJson.JsonUtil;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
 
 @Data
 public class CommandData {
@@ -39,6 +40,9 @@ public class CommandData {
     public CommandData backMessage(String message) {
         this.message = message;
         return this;
+    }
+    public void clearOtherDataMap () {
+        this.otherDataMap = new JSONObject();
     }
 
 }
