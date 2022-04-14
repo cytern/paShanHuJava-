@@ -54,6 +54,8 @@ public class PicAgeSearchCommand implements CommandReceiver {
                 userName = qqAgeLists.get(0).getAgeName();
             }else {
                 backCommand.clearOtherDataMap();
+                backCommand.setMessage("未查询到绑定游戏名 请先绑定账户");
+                backCommand.setCommand(Constant.commands.send);
                 return backCommand;
             }
 
