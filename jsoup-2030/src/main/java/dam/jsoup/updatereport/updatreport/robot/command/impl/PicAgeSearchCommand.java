@@ -61,6 +61,7 @@ public class PicAgeSearchCommand implements CommandReceiver {
         JSONObject jsonObject = new JSONObject();
         List<JSONObject> userAllAgeData = getUserAllAgeData(userName);
         jsonObject.put("data",userAllAgeData);
+        jsonObject.put("userName",userName);
         backCommand.setOtherDataMap(jsonObject);
         return backCommand;
     }
