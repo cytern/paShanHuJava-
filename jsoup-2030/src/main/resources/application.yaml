@@ -25,8 +25,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   servlet:
-     multipart:
-       max-file-size: 10MB
+    multipart:
+      max-file-size: 10MB
   devtools:
     restart:
       enabled: true
@@ -64,6 +64,9 @@ eureka:
   instance:
     instance-id: spring-cloud-server-2030
     prefer-ip-address: true
+tencent:
+  SecretId: AKIDgBSTIuIRLzOYS6VfZDclfJhrmSs2ye4F
+  SecretKey: 3rPilZ7QUJtDI8i27wWqujJdihW6QUIr
 
 #info 配置
 info:

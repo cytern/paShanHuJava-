@@ -11,6 +11,7 @@ import dam.jsoup.updatereport.updatreport.robot.dto.QqAgeListExample;
 import dam.jsoup.updatereport.updatreport.robot.pojo.AgeSearchData;
 import dam.jsoup.updatereport.updatreport.robot.pojo.CommandData;
 import dam.jsoup.updatereport.updatreport.robot.pojo.Constant;
+import dam.jsoup.updatereport.updatreport.robot.service.UserInfoService;
 import dam.jsoup.updatereport.updatreport.util.RedisUtil;
 import dam.jsoup.updatereport.updatreport.util.Toolkit;
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +27,13 @@ import java.util.concurrent.TimeUnit;
 public class PicAgeSearchCommand implements CommandReceiver {
     private final RedisUtil redisUtil;
     private final QqAgeListDao qqAgeListDao;
+    private final UserInfoService userInfoService;
 
-    public PicAgeSearchCommand(RedisUtil redisUtil, QqAgeListDao qqAgeListDao) {
+    public PicAgeSearchCommand(RedisUtil redisUtil, QqAgeListDao qqAgeListDao, UserInfoService userInfoService) {
         this.redisUtil = redisUtil;
 
         this.qqAgeListDao = qqAgeListDao;
+        this.userInfoService = userInfoService;
     }
 
     @Override
@@ -59,6 +62,12 @@ public class PicAgeSearchCommand implements CommandReceiver {
                 return backCommand;
             }
 
+        }
+        if (userInfoService.isInCheckBalkList(userName,commandData.getQqId())){
+            backCommand.clearOtherDataMap();
+            backCommand.setMessage("哪里来的挂狗or上挂车的狗 有空去检查一下自己加户口本的页数还剩多少 检查完了想想自己这么打游戏对得起自己加里人么");
+            backCommand.setCommand(Constant.commands.send);
+            return backCommand;
         }
         JSONObject jsonObject = new JSONObject();
         List<JSONObject> userAllAgeData = getUserAllAgeData(userName);
