@@ -30,14 +30,22 @@ public class QqAutoReplyServiceImpl implements QqAutoReplyService {
      */
     @Override
     public CommandData andBackCommandData(CommandData commandData) {
-        List<QqAutoReply> autoReply = getAutoReply(commandData.getMessage());
+        String allMessage = commandData.getMessage();
+        log.info("获取到的 message {}",JSONObject.toJSONString(commandData));
+        List<QqAutoReply> autoReply = getAutoReply(allMessage);
+       log.info("获取到的回复列表 {}",autoReply );
         if (autoReply == null || autoReply.size()<1) {
             return null;
         }else {
             //筛选确定是否可回复
             List<QqAutoReply> collect = autoReply.stream().filter(t -> {
+                if (t.getAskType() == 1) {
+                    if (!allMessage.contains(t.getAskKey())) {
+                        return false;
+                    }
+                }
                 if (t.getAskType() == 2) {
-                    if (!t.getAskKey().equals(commandData.getMessage())) {
+                    if (!t.getAskKey().equals(allMessage)) {
                         return false;
                     }
                 }
@@ -54,6 +62,9 @@ public class QqAutoReplyServiceImpl implements QqAutoReplyService {
                 }
                 return true;
             }).collect(Collectors.toList());
+            if (collect.size() <1) {
+                return null;
+            }
             int i = RandomUtil.randomInt(0, collect.size());
             QqAutoReply qqAutoReply = collect.get(i);
             commandData.setCommand(Constant.commands.autoSend);
@@ -64,8 +75,6 @@ public class QqAutoReplyServiceImpl implements QqAutoReplyService {
 
     @Override
     public List<QqAutoReply> getAutoReply(String askKey) {
-        QqAutoReply qqAutoReply = new QqAutoReply();
-        qqAutoReply.setAskKey(askKey);
-        return qqAutoReplyMapper.selectOneByParams(qqAutoReply);
+        return qqAutoReplyMapper.selectOneByParams(askKey);
     }
 }

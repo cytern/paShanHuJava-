@@ -33,6 +33,7 @@ public class CommandData {
         backData.setQqId(commandData.getQqId());
         backData.setGroupId(commandData.getGroupId());
         backData.setType(commandData.getType());
+        backData.setMessage(commandData.getMessage());
         backData.setCommand("发送");
         return backData;
     }

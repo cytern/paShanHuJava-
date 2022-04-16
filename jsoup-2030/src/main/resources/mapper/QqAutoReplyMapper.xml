@@ -21,10 +21,9 @@
         ask_type,reply_key,reply_type,
         ctreate_by,target_type,del_flag
     </sql>
-    <select id="selectOneByParams" resultMap="BaseResultMap" resultType="java.util.List">
+    <select id="selectOneByParams"  resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/>
         from qq_auto_reply
         where del_flag = 0
-             and ask_key like concat('%',#{params.askKey},'%')
     </select>
 </mapper>

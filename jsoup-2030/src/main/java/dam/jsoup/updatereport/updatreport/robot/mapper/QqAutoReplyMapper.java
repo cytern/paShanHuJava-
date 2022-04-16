@@ -19,10 +19,8 @@ import java.util.List;
 public interface QqAutoReplyMapper{
     /**
      * 查询一个rely
-     * @param qqAutoReply
-     * @return
      */
-    List<QqAutoReply> selectOneByParams (@Param("params") QqAutoReply qqAutoReply);
+    List<QqAutoReply> selectOneByParams (@Param("key") String key);
 }
 
 

@@ -8,7 +8,6 @@ import java.io.Serializable;
  * 
  * @TableName qq_auto_reply
  */
-@Data
 public class QqAutoReply implements Serializable {
     /**
      * 
@@ -64,6 +63,78 @@ public class QqAutoReply implements Serializable {
     private Integer delFlag;
 
     private static final long serialVersionUID = 1L;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTargetKey() {
+        return targetKey;
+    }
+
+    public void setTargetKey(String targetKey) {
+        this.targetKey = targetKey;
+    }
+
+    public String getAskKey() {
+        return askKey;
+    }
+
+    public void setAskKey(String askKey) {
+        this.askKey = askKey;
+    }
+
+    public Integer getAskType() {
+        return askType;
+    }
+
+    public void setAskType(Integer askType) {
+        this.askType = askType;
+    }
+
+    public String getReplyKey() {
+        return replyKey;
+    }
+
+    public void setReplyKey(String replyKey) {
+        this.replyKey = replyKey;
+    }
+
+    public Integer getReplyType() {
+        return replyType;
+    }
+
+    public void setReplyType(Integer replyType) {
+        this.replyType = replyType;
+    }
+
+    public String getCtreateBy() {
+        return ctreateBy;
+    }
+
+    public void setCtreateBy(String ctreateBy) {
+        this.ctreateBy = ctreateBy;
+    }
+
+    public Integer getTargetType() {
+        return targetType;
+    }
+
+    public void setTargetType(Integer targetType) {
+        this.targetType = targetType;
+    }
+
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
+    }
 
     @Override
     public boolean equals(Object that) {
