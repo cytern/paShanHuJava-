@@ -7,6 +7,7 @@ public interface Constant {
         String picSearch = "图片查分";
         String ageSearchPicCreate = "帝国成绩图片生成";
         String send = "发送";
+        String autoSend = "自动回复";
     }
     interface redisKey {
         String cachedData = "ageData:cached:";

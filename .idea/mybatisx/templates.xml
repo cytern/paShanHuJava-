@@ -64,8 +64,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="QqBlackList" />
-                  <option name="tableName" value="qq_black_list" />
+                  <option name="className" value="QqAutoReply" />
+                  <option name="tableName" value="qq_auto_reply" />
                 </TableUIInfo>
               </list>
             </option>

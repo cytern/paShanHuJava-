@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dam.jsoup.updatereport.updatreport.robot.mapper.QqAutoReplyMapper">
+
+    <resultMap id="BaseResultMap" type="dam.jsoup.updatereport.updatreport.robot.pojo.QqAutoReply">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="targetKey" column="target_key" jdbcType="VARCHAR"/>
+            <result property="askKey" column="ask_key" jdbcType="VARCHAR"/>
+            <result property="askType" column="ask_type" jdbcType="INTEGER"/>
+            <result property="replyKey" column="reply_key" jdbcType="VARCHAR"/>
+            <result property="replyType" column="reply_type" jdbcType="INTEGER"/>
+            <result property="ctreateBy" column="ctreate_by" jdbcType="VARCHAR"/>
+            <result property="targetType" column="target_type" jdbcType="INTEGER"/>
+            <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,target_key,ask_key,
+        ask_type,reply_key,reply_type,
+        ctreate_by,target_type,del_flag
+    </sql>
+    <select id="selectOneByParams" resultMap="BaseResultMap" resultType="java.util.List">
+        select <include refid="Base_Column_List"/>
+        from qq_auto_reply
+        where del_flag = 0
+             and ask_key like concat('%',#{params.askKey},'%')
+    </select>
+</mapper>
