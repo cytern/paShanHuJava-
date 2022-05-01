@@ -67,6 +67,9 @@ eureka:
 tencent:
   SecretId: AKIDgBSTIuIRLzOYS6VfZDclfJhrmSs2ye4F
   SecretKey: 3rPilZ7QUJtDI8i27wWqujJdihW6QUIr
+baidu:
+  AcessKey: 36677409673441a6b0b8b4f9cf8a814a
+  SecretKey: 6a1deecaade84572aff750afc2b2b167
 
 #info 配置
 info:

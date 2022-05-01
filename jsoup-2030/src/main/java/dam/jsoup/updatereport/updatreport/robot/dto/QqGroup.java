@@ -11,9 +11,13 @@ import lombok.Data;
 public class QqGroup implements Serializable {
     private Integer id;
 
-    private Integer groupId;
+    private String groupId;
 
     private String groupName;
+
+    private Integer groupLevel;
+
+    private String groupRole;
 
     private static final long serialVersionUID = 1L;
 }

@@ -1,5 +1,8 @@
 package dam.jsoup.updatereport.updatreport.robot.dto;
 
+import lombok.Data;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -579,4 +582,9 @@ public class QqRotExample {
             this(condition, value, secondValue, null);
         }
     }
+
+    /**
+     *
+     * @TableName qq_role_img
+     */
 }

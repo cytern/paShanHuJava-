@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dam.jsoup.updatereport.updatreport.robot.mapper.QqRoleImgMapper">
+
+    <resultMap id="BaseResultMap" type="dam.jsoup.updatereport.updatreport.robot.dto.QqRoleImg">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+            <result property="roleNick" column="role_nick" jdbcType="VARCHAR"/>
+            <result property="emotion" column="emotion" jdbcType="INTEGER"/>
+            <result property="picUrl" column="pic_url" jdbcType="VARCHAR"/>
+            <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+            <result property="imgSize" column="img_size" jdbcType="INTEGER"/>
+            <result property="imgNum" column="img_num" jdbcType="INTEGER"/>
+            <result property="imgClass" column="img_class" jdbcType="INTEGER"/>
+            <result property="isDecode" column="is_decode" jdbcType="INTEGER"/>
+            <result property="decodeUrl" column="decode_url" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,role_name,role_nick,
+        emotion,pic_url,del_flag,
+        img_size,img_num,img_class,
+        is_decode,decode_url
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from qq_role_img
+        where  id = #{id,jdbcType=INTEGER} 
+    </select>
+    <select id="getGroupRole" resultType="dam.jsoup.updatereport.updatreport.robot.dto.QqGroup">
+        select * from  qq_group
+        where  group_id = #{groupId}
+    </select>
+    <select id="getAllRoleImage" resultType="dam.jsoup.updatereport.updatreport.robot.dto.QqRoleImg">
+        select <include refid="Base_Column_List"/>
+        from qq_role_img
+         where role_name = #{roleName}
+        order by emotion
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from qq_role_img
+        where  id = #{id,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqRoleImg" useGeneratedKeys="true">
+        insert into qq_role_img
+        ( id,role_name,role_nick
+        ,emotion,pic_url,del_flag
+        ,img_size,img_num,img_class
+        ,is_decode,decode_url)
+        values (#{id,jdbcType=INTEGER},#{roleName,jdbcType=VARCHAR},#{roleNick,jdbcType=VARCHAR}
+        ,#{emotion,jdbcType=INTEGER},#{picUrl,jdbcType=VARCHAR},#{delFlag,jdbcType=INTEGER}
+        ,#{imgSize,jdbcType=INTEGER},#{imgNum,jdbcType=INTEGER},#{imgClass,jdbcType=INTEGER}
+        ,#{isDecode,jdbcType=INTEGER},#{decodeUrl,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqRoleImg" useGeneratedKeys="true">
+        insert into qq_role_img
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="roleName != null">role_name,</if>
+                <if test="roleNick != null">role_nick,</if>
+                <if test="emotion != null">emotion,</if>
+                <if test="picUrl != null">pic_url,</if>
+                <if test="delFlag != null">del_flag,</if>
+                <if test="imgSize != null">img_size,</if>
+                <if test="imgNum != null">img_num,</if>
+                <if test="imgClass != null">img_class,</if>
+                <if test="isDecode != null">is_decode,</if>
+                <if test="decodeUrl != null">decode_url,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="roleName != null">#{roleName,jdbcType=VARCHAR},</if>
+                <if test="roleNick != null">#{roleNick,jdbcType=VARCHAR},</if>
+                <if test="emotion != null">#{emotion,jdbcType=INTEGER},</if>
+                <if test="picUrl != null">#{picUrl,jdbcType=VARCHAR},</if>
+                <if test="delFlag != null">#{delFlag,jdbcType=INTEGER},</if>
+                <if test="imgSize != null">#{imgSize,jdbcType=INTEGER},</if>
+                <if test="imgNum != null">#{imgNum,jdbcType=INTEGER},</if>
+                <if test="imgClass != null">#{imgClass,jdbcType=INTEGER},</if>
+                <if test="isDecode != null">#{isDecode,jdbcType=INTEGER},</if>
+                <if test="decodeUrl != null">#{decodeUrl,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqRoleImg">
+        update qq_role_img
+        <set>
+                <if test="roleName != null">
+                    role_name = #{roleName,jdbcType=VARCHAR},
+                </if>
+                <if test="roleNick != null">
+                    role_nick = #{roleNick,jdbcType=VARCHAR},
+                </if>
+                <if test="emotion != null">
+                    emotion = #{emotion,jdbcType=INTEGER},
+                </if>
+                <if test="picUrl != null">
+                    pic_url = #{picUrl,jdbcType=VARCHAR},
+                </if>
+                <if test="delFlag != null">
+                    del_flag = #{delFlag,jdbcType=INTEGER},
+                </if>
+                <if test="imgSize != null">
+                    img_size = #{imgSize,jdbcType=INTEGER},
+                </if>
+                <if test="imgNum != null">
+                    img_num = #{imgNum,jdbcType=INTEGER},
+                </if>
+                <if test="imgClass != null">
+                    img_class = #{imgClass,jdbcType=INTEGER},
+                </if>
+                <if test="isDecode != null">
+                    is_decode = #{isDecode,jdbcType=INTEGER},
+                </if>
+                <if test="decodeUrl != null">
+                    decode_url = #{decodeUrl,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqRoleImg">
+        update qq_role_img
+        set 
+            role_name =  #{roleName,jdbcType=VARCHAR},
+            role_nick =  #{roleNick,jdbcType=VARCHAR},
+            emotion =  #{emotion,jdbcType=INTEGER},
+            pic_url =  #{picUrl,jdbcType=VARCHAR},
+            del_flag =  #{delFlag,jdbcType=INTEGER},
+            img_size =  #{imgSize,jdbcType=INTEGER},
+            img_num =  #{imgNum,jdbcType=INTEGER},
+            img_class =  #{imgClass,jdbcType=INTEGER},
+            is_decode =  #{isDecode,jdbcType=INTEGER},
+            decode_url =  #{decodeUrl,jdbcType=VARCHAR}
+        where   id = #{id,jdbcType=INTEGER} 
+    </update>
+</mapper>

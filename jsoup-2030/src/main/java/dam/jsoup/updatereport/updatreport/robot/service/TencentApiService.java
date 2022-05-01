@@ -14,4 +14,11 @@ public interface TencentApiService {
      * @return
      */
     String getChatFile(String message);
+
+    /**
+     * 获取对话的情绪
+     * @param message
+     * @return
+     */
+    Integer getMessageEmotion(String message);
 }
