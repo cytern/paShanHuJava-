@@ -12,6 +12,7 @@ public interface Constant {
         String autoSend = "自动回复";
         String speakAs = "快说";
         String robotPic = "机器图片";
+        String robotEmotion = "机器情绪";
     }
     interface redisKey {
         String cachedData = "ageData:cached:";

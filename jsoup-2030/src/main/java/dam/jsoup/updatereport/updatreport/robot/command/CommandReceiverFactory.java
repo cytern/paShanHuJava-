@@ -1,9 +1,6 @@
 package dam.jsoup.updatereport.updatreport.robot.command;
 
-import dam.jsoup.updatereport.updatreport.robot.command.impl.AgeBindCommand;
-import dam.jsoup.updatereport.updatreport.robot.command.impl.AgeSearchCommand;
-import dam.jsoup.updatereport.updatreport.robot.command.impl.CommonCommand;
-import dam.jsoup.updatereport.updatreport.robot.command.impl.PicAgeSearchCommand;
+import dam.jsoup.updatereport.updatreport.robot.command.impl.*;
 import dam.jsoup.updatereport.updatreport.robot.pojo.CommandData;
 import dam.jsoup.updatereport.updatreport.robot.pojo.Constant;
 import lombok.extern.slf4j.Slf4j;
@@ -16,12 +13,14 @@ public class CommandReceiverFactory {
     private final CommonCommand commonCommand;
     private final AgeBindCommand ageBindCommand;
     private final PicAgeSearchCommand picAgeSearchCommand;
+    private final RobotEmotionCommand robotEmotionCommand;
 
-    public CommandReceiverFactory(AgeSearchCommand ageSearchCommand, CommonCommand command, CommonCommand commonCommand, AgeBindCommand ageBindCommand, PicAgeSearchCommand picAgeSearchCommand) {
+    public CommandReceiverFactory(AgeSearchCommand ageSearchCommand, CommonCommand command, CommonCommand commonCommand, AgeBindCommand ageBindCommand, PicAgeSearchCommand picAgeSearchCommand, RobotEmotionCommand robotEmotionCommand) {
         this.ageSearchCommand = ageSearchCommand;
         this.commonCommand = commonCommand;
         this.ageBindCommand = ageBindCommand;
         this.picAgeSearchCommand = picAgeSearchCommand;
+        this.robotEmotionCommand = robotEmotionCommand;
     }
     public CommandReceiver searchService(String command){
         if (command.equals("查分")) {
@@ -30,6 +29,8 @@ public class CommandReceiverFactory {
             return ageBindCommand;
         }else if (command.equals(Constant.commands.picSearch)) {
             return picAgeSearchCommand;
+        } else if (command.equals(Constant.commands.robotEmotion)) {
+            return robotEmotionCommand;
         }
         else {
             return commonCommand;
