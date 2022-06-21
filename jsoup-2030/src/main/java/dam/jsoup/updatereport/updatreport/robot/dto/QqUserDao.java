@@ -23,6 +23,8 @@ public interface QqUserDao {
 
     QqUser selectByPrimaryKey(Integer id);
 
+    QqUser selectByQqId(@Param("qqId") String qqId,@Param("qqName") String qqName);
+
     int updateByExampleSelective(@Param("record") QqUser record, @Param("example") QqUserExample example);
 
     int updateByExample(@Param("record") QqUser record, @Param("example") QqUserExample example);

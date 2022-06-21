@@ -158,7 +158,11 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+    <select id="selectByQqId" resultType="dam.jsoup.updatereport.updatreport.robot.dto.QqUser">
+      select <include refid="Base_Column_List"></include> from qq_user
+      where qq_id = #{qqId} and qq_name = #{qqName}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
     update qq_user
     <set>
       <if test="record.id != null">

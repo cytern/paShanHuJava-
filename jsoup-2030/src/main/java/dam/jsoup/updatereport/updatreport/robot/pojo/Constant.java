@@ -60,4 +60,11 @@ public interface Constant {
         Integer shame = 9;
 
     }
+
+    interface businessCode {
+        /**
+         * 个人好感度 跨群
+         */
+        Integer onesDisposition = 1;
+    }
 }
