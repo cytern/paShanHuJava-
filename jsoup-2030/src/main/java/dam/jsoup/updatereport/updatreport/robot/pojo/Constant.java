@@ -66,5 +66,13 @@ public interface Constant {
          * 个人好感度 跨群
          */
         Integer onesDisposition = 1;
+        /**
+         * 个人物品列表
+         */
+        Integer onesItemList = 2;
+        /**
+         * 更新所有现行的机器物品
+         */
+        Integer updateAllRotItem = 3;
     }
 }
