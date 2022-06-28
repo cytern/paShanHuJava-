@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class IDispositionService implements CommonDataService {
+public class QQUserService implements CommonDataService {
     @Autowired
     private QqUserDao qqUserDao;
     @Override
     public JSONObject resAndGetDataBack(JSONObject params) {
         String qqId = params.getString("qqId");
-        String rotCode = params.getString("rotCode");
+        String rotCode = params.getString("robotCode");
         String opType = params.getString("opType");
         if (opType.equals("search")) {
             return getOnesDis(qqId,rotCode);
@@ -26,8 +26,8 @@ public class IDispositionService implements CommonDataService {
         }
         QqUser qqUser = qqUserDao.selectByQqId(qqId,rotCode);
         JSONObject result = new JSONObject();
-        result.putAll(JSONObject.parseObject(JSONObject.toJSONString(qqUser)));
-        return result;
+        result.put("level",qqUser.getLevel());
+        return ApiResult.success(result);
     }
 
     private JSONObject getOnesDis(String qqId,String rotCode) {
@@ -42,12 +42,13 @@ public class IDispositionService implements CommonDataService {
            qqUserDao.insert(qqUser);
         }
         JSONObject result = new JSONObject();
-        result.putAll(JSONObject.parseObject(JSONObject.toJSONString(qqUser)));
-        return result;
+        result.put("level",qqUser.getLevel());
+        result.put("mark",qqUser.getQqMark());
+        return ApiResult.success(result);
     }
 
     private JSONObject updateOnesDis(String qqId,String rotCode,JSONObject params) {
-        Integer num = params.getInteger("num");
+        Integer num = params.getInteger("level");
         QqUser qqUser = qqUserDao.selectByQqId(qqId, rotCode);
         if (qqUser == null) {
             //如果不存在用户 就要创建用户
@@ -59,7 +60,11 @@ public class IDispositionService implements CommonDataService {
             qqUserDao.insert(qqUser);
         }
         qqUser.setLevel(qqUser.getLevel() + num);
+        qqUser.setQqMark((String) params.getOrDefault("mark",""));
         qqUserDao.updateByPrimaryKey(qqUser);
-        return ApiResult.success();
+        JSONObject result = new JSONObject();
+        result.put("level",qqUser.getLevel());
+        result.put("mark",qqUser.getQqMark());
+        return ApiResult.success(result);
     }
 }

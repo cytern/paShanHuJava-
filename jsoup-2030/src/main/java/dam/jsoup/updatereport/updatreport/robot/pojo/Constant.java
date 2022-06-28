@@ -74,5 +74,7 @@ public interface Constant {
          * 更新所有现行的机器物品
          */
         Integer updateAllRotItem = 3;
+
+
     }
 }
