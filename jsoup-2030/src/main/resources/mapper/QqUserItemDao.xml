@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dam.jsoup.updatereport.updatreport.robot.mapper.QqUserItemDao">
+  <resultMap id="BaseResultMap" type="dam.jsoup.updatereport.updatreport.robot.dto.QqUserItem">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="qq_id" jdbcType="VARCHAR" property="qqId" />
+    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="rot_code" jdbcType="VARCHAR" property="rotCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, qq_id, item_name, num, del_flag, update_time, rot_code
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from qq_user_item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="getUsersAllItem" resultType="com.alibaba.fastjson.JSONObject">
+      SELECT qu.item_name,qu.item_pop,qu.item_type,qu.item_img_name,qu.item_des,qui.num
+      FROM qq_user_item qui
+             LEFT JOIN qq_item qu on qui.item_name = qu.item_name and qui.rot_code = qu.rot_code and qui.del_flag = qu.del_flag
+      WHERE qui.qq_id = #{params.qqId}
+        and qui.rot_code = #{params.robotCode}
+        and qui.del_flag = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from qq_user_item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqUserItem" useGeneratedKeys="true">
+    insert into qq_user_item (qq_id, item_name, num, 
+      del_flag, update_time, rot_code
+      )
+    values (#{qqId,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, 
+      #{delFlag,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{rotCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqUserItem" useGeneratedKeys="true">
+    insert into qq_user_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="qqId != null">
+        qq_id,
+      </if>
+      <if test="itemName != null">
+        item_name,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="rotCode != null">
+        rot_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="qqId != null">
+        #{qqId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null">
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rotCode != null">
+        #{rotCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateQqUserItem">
+    insert into qq_user_item
+    (qq_id, item_name, num,
+     rot_code, del_flag) values
+    <foreach collection="itemList" separator="," item="item">
+    (#{item.qqId,jdbcType=INTEGER}, #{item.itemName,jdbcType=VARCHAR},
+     (select num from qq_user_item where item_name = #{item.itemName} and rot_code = #{item.robotCode} and del_flag = 0) +
+     #{item.num,jdbcType=INTEGER},
+            #{item.robotCode,jdbcType=VARCHAR}, #{item.delFlag,jdbcType=INTEGER})
+    </foreach>
+      on duplicate key update
+    item_name =  values (item_name),
+    rot_code = values (rot_code),
+                         del_flag = 0
+  </insert>
+  <insert id="insertAllQqItem">
+    insert into qq_user_item
+    (qq_id, item_name, num,
+    rot_code, del_flag) values
+    <foreach collection="itemList" separator="," item="item">
+      (#{item.qqId,jdbcType=INTEGER}, #{item.itemName,jdbcType=VARCHAR},
+      (select num from qq_user_item where item_name = #{item.itemName} and rot_code = #{item.robotCode} and del_flag = 0) +
+      #{item.num,jdbcType=INTEGER},
+      #{item.robotCode,jdbcType=VARCHAR}, #{item.delFlag,jdbcType=INTEGER})
+    </foreach>
+    on duplicate key update
+    item_name =  values (item_name),
+    rot_code = values (rot_code),
+    del_flag = 0
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqUserItem">
+    update qq_user_item
+    <set>
+      <if test="qqId != null">
+        qq_id = #{qqId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null">
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rotCode != null">
+        rot_code = #{rotCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqUserItem">
+    update qq_user_item
+    set qq_id = #{qqId,jdbcType=VARCHAR},
+      item_name = #{itemName,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      rot_code = #{rotCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

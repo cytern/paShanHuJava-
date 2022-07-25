@@ -18,6 +18,7 @@
     <data-source source="LOCAL" name="新腾讯云" uuid="962051da-a4b4-46a2-ab05-dca1e42289da">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://82.157.40.205:3306/jsoup</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
