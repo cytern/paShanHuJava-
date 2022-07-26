@@ -32,8 +32,10 @@ public class RobotItemService implements CommonDataService {
             return searchOnesItemList(params);
         }else if (opType.equals("update")) {
             return updateOnesItemList(params);
+        }else if (opType.equals("reflush")) {
+            return updateSysItemList(params);
         }
-        return null;
+        return ApiResult.fail("无效的操作类型");
     }
 
 
@@ -61,6 +63,21 @@ public class RobotItemService implements CommonDataService {
     }
 
     private JSONObject updateSysItemList (JSONObject params) {
-       return null;
+        String robotCode = params.getString("robotCode");
+        //删除现在有的机器码的物品
+        int i = qqUserItemDao.deleteQqItemByRobotCode(robotCode);
+        JSONArray itemList = params.getJSONArray("itemList");
+        ArrayList<JSONObject> waitAddJson = new ArrayList<>();
+        if (itemList!= null && itemList.size()>0) {
+            for (int j = 0; j < itemList.size(); j++) {
+                JSONObject jsonObject = itemList.getJSONObject(j);
+                jsonObject.put("robotCode",params.getString("robotCode"));
+                jsonObject.put("qqId",params.getString("qqId"));
+                jsonObject.put("delFlag",0);
+                waitAddJson.add(jsonObject);
+            }
+        }
+        qqUserItemDao.insertAllItem(waitAddJson);
+        return ApiResult.success();
     }
 }

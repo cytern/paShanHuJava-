@@ -29,4 +29,9 @@ public interface QqUserItemDao {
     int insertOrUpdateQqUserItem (@Param("itemList") List<JSONObject> itemList);
 
     int insertAllQqItem (@Param("list") List<JSONObject> itemList);
+
+    int deleteQqItemByRobotCode(@Param("robotCode")  String robotCode);
+
+
+    int insertAllItem(@Param("list")  List<JSONObject> itemList);
 }

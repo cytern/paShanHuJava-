@@ -20,7 +20,7 @@ spring:
     name: javaServer
   datasource:
     username: jsoup
-    password: WsMDWjwyhxaMmDCd
+    password: XsKkTXptGjbkn3kC
     url: jdbc:mysql://82.157.40.205:3306/jsoup?useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource

@@ -31,6 +31,12 @@
     delete from qq_user_item
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteQqItemByRobotCode">
+    update qq_item
+    SET del_flag = 0
+    WHERE rot_code = #{robotCode}
+
+  </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqUserItem" useGeneratedKeys="true">
     insert into qq_user_item (qq_id, item_name, num, 
       del_flag, update_time, rot_code
@@ -111,6 +117,9 @@
     item_name =  values (item_name),
     rot_code = values (rot_code),
     del_flag = 0
+  </insert>
+  <insert id="insertAllItem">
+
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqUserItem">
     update qq_user_item

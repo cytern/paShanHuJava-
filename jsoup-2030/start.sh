@@ -14,9 +14,9 @@ echo "************************************安装server**************************
 mvn clean install -Pdev -Dmaven.test.skip=true
 echo "************************************删除原来的jar包****************************************"
 # 删除 原来位置的jar包
-rm -rf /export/project/javaJar/$jarName
-cp -rf ./target/$jarName /export/project/javaJar
+rm -rf /home/ubuntu/export/project/javaJar/$jarName
+cp -rf ./target/$jarName /home/ubuntu/export/project/javaJar
 #启动项目
 BUILD_ID=dontKillMe
-nohup java -jar /export/project/javaJar/$jarName > /export/project/javaJar/server-dev.file 2>&1 &
+nohup java -jar /home/ubuntu/export/project/javaJar/$jarName > /home/ubuntu/export/project/javaJar/server-dev.file 2>&1 &
 echo "===================================安装server完毕======================================"
