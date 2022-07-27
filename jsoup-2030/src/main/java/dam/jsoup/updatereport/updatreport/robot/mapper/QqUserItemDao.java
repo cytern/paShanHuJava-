@@ -2,12 +2,14 @@ package dam.jsoup.updatereport.updatreport.robot.mapper;
 
 import com.alibaba.fastjson.JSONObject;
 import dam.jsoup.updatereport.updatreport.robot.dto.QqUserItem;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
+@Mapper
 public interface QqUserItemDao {
     int deleteByPrimaryKey(Integer id);
 
