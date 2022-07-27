@@ -16,10 +16,6 @@ import java.util.List;
 @Service
 @Slf4j
 public class RobotItemService implements CommonDataService {
-
-    @Autowired
-    private QqItemDao qqItemDao;
-
     @Autowired
     private QqUserItemDao qqUserItemDao;
 
