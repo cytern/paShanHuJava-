@@ -69,6 +69,9 @@ public class RobotItemService implements CommonDataService {
                 JSONObject jsonObject = itemList.getJSONObject(j);
                 jsonObject.put("robotCode",params.getString("robotCode"));
                 jsonObject.put("qqId",params.getString("qqId"));
+                if (jsonObject.getJSONObject("itemPop") == null || jsonObject.getJSONObject("itemPop").isEmpty()) {
+                    jsonObject.put("itemPop",null);
+                }
                 jsonObject.put("delFlag",0);
                 waitAddJson.add(jsonObject);
             }

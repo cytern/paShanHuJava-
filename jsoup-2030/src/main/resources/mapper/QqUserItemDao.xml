@@ -92,7 +92,7 @@
     insert into qq_user_item
     (qq_id, item_name, num,
      rot_code, del_flag) values
-    <foreach collection="itemList" separator="," item="item">
+    <foreach collection="list" separator="," item="item">
     (#{item.qqId,jdbcType=INTEGER}, #{item.itemName,jdbcType=VARCHAR},
      (select num from qq_user_item where item_name = #{item.itemName} and rot_code = #{item.robotCode} and del_flag = 0) +
      #{item.num,jdbcType=INTEGER},
@@ -107,7 +107,7 @@
     insert into qq_user_item
     (qq_id, item_name, num,
     rot_code, del_flag) values
-    <foreach collection="itemList" separator="," item="item">
+    <foreach collection="list" separator="," item="item">
       (#{item.qqId,jdbcType=INTEGER}, #{item.itemName,jdbcType=VARCHAR},
       (select num from qq_user_item where item_name = #{item.itemName} and rot_code = #{item.robotCode} and del_flag = 0) +
       #{item.num,jdbcType=INTEGER},
@@ -120,7 +120,7 @@
   </insert>
   <insert id="insertAllItem">
         insert into qq_item (item_name,item_type,item_img_name,item_des,item_pop,del_flag,rot_code) values
-       <foreach collection="itemList" separator="," item="item">
+       <foreach collection="list" separator="," item="item">
          (#{item.itemName},#{item.itemType},#{item.itemImgName},#{item.itemDes},#{item.itemPop},0,#{item.robotCode})
        </foreach>
        on duplicate key update
