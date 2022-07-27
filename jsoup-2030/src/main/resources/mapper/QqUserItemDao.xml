@@ -119,7 +119,14 @@
     del_flag = 0
   </insert>
   <insert id="insertAllItem">
-
+        insert into qq_item (item_name,item_type,item_img_name,item_des,item_pop,del_flag,rot_code) values
+       <foreach collection="itemList" separator="," item="item">
+         (#{item.itemName},#{item.itemType},#{item.itemImgName},#{item.itemDes},#{item.itemPop},0,#{item.robotCode})
+       </foreach>
+       on duplicate key update
+       item_name =  values (item_name),
+       rot_code = values (rot_code),
+       del_flag = 0
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqUserItem">
     update qq_user_item
