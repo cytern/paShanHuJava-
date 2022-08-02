@@ -28,7 +28,7 @@ public interface QqUserItemDao {
      */
     List<JSONObject> getUsersAllItem(@Param("params") JSONObject params);
 
-    int insertOrUpdateQqUserItem (@Param("itemList") List<JSONObject> itemList);
+    int insertOrUpdateQqUserItem (@Param("list") List<JSONObject> list);
 
     int insertAllQqItem (@Param("list") List<JSONObject> list);
 

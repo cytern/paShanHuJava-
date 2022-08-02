@@ -50,6 +50,11 @@ public class RobotItemService implements CommonDataService {
                 JSONObject jsonObject = itemList.getJSONObject(i);
                 jsonObject.put("robotCode",params.getString("robotCode"));
                 jsonObject.put("qqId",params.getString("qqId"));
+                if (jsonObject.getJSONObject("itemPop") == null || jsonObject.getJSONObject("itemPop").isEmpty()) {
+                    jsonObject.put("itemPop",null);
+                }else {
+                    jsonObject.put("itemPop",jsonObject.getJSONObject("itemPop").toJSONString());
+                }
                 jsonObject.put("delFlag",0);
                 insertList.add(jsonObject);
             }
@@ -71,7 +76,10 @@ public class RobotItemService implements CommonDataService {
                 jsonObject.put("qqId",params.getString("qqId"));
                 if (jsonObject.getJSONObject("itemPop") == null || jsonObject.getJSONObject("itemPop").isEmpty()) {
                     jsonObject.put("itemPop",null);
+                }else {
+                    jsonObject.put("itemPop",jsonObject.getJSONObject("itemPop").toJSONString());
                 }
+
                 jsonObject.put("delFlag",0);
                 waitAddJson.add(jsonObject);
             }
