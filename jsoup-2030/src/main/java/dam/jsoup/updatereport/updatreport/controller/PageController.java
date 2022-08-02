@@ -26,7 +26,7 @@ public class PageController {
         if (map.get("code").equals("success")){
             return "success";
         }else {
-            return "error";
+            return "outTimePage";
         }
     }
 }
