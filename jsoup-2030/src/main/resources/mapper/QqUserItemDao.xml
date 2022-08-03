@@ -20,7 +20,12 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
     <select id="getUsersAllItem" resultType="com.alibaba.fastjson.JSONObject">
-      SELECT qu.item_name,qu.item_pop,qu.item_type,qu.item_img_name,qu.item_des,qui.num
+      SELECT qu.item_name as itemName,
+             qu.item_pop as itemPop,
+             qu.item_type as itemType,
+             qu.item_img_name as itemImgName,
+             qu.item_des as itemDes,
+             qui.num
       FROM qq_user_item qui
              LEFT JOIN qq_item qu on qui.item_name = qu.item_name and qui.rot_code = qu.rot_code and qui.del_flag = qu.del_flag
       WHERE qui.qq_id = #{params.qqId}
