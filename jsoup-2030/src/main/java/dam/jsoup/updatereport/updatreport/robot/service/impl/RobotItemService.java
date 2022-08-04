@@ -40,19 +40,25 @@ public class RobotItemService implements CommonDataService {
 
 
     private JSONObject searchOnesItemAndReduce(JSONObject params) {
-        if (Toolkit.isInvalid(params.getString("itemName")) || Toolkit.isInvalid(params.getString("num"))) {
-            return ApiResult.fail("入参缺失 缺少必备的参数",401);
+        JSONArray itemList = params.getJSONArray("itemList");
+        if (itemList == null || itemList.isEmpty()) {
+            return ApiResult.fail("缺少物品数组");
         }
-        JSONObject jsonObject = qqUserItemDao.selectByNameRobotCodeAnd(params);
-        if (jsonObject == null) {
-            return ApiResult.fail("不存在该物品",601);
+        ArrayList<JSONObject> needReduceItem = new ArrayList<>();
+        for (int i = 0; i < itemList.size(); i++) {
+            JSONObject jsonObject = itemList.getJSONObject(i);
+            jsonObject.put("robotCode",params.getString("robotCode"));
+            jsonObject.put("qqId",params.getString("qqId"));
+            JSONObject single = qqUserItemDao.selectByNameRobotCodeAnd(params);
+            if (single == null || single.isEmpty()) {
+                return ApiResult.fail("没有足够的物品",601);
+            }
+            Integer num = params.getInteger("num");
+            num = -num;
+            jsonObject.put("num",num);
+            needReduceItem.add(jsonObject);
         }
-        Integer num = params.getInteger("num");
-        num = -num;
-        jsonObject.put("num",num);
-        jsonObject.put("robotCode",params.getString("robotCode"));
-        jsonObject.put("qqId",params.getString("qqId"));
-        qqUserItemDao.insertOrUpdateQqUserItem(Collections.singletonList(jsonObject));
+        qqUserItemDao.insertOrUpdateQqUserItem(needReduceItem);
         return ApiResult.success();
 
 
