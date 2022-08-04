@@ -36,4 +36,6 @@ public interface QqUserItemDao {
 
 
     int insertAllItem(@Param("list")  List<JSONObject> list);
+
+    JSONObject selectByNameRobotCodeAnd(@Param("params")JSONObject params);
 }

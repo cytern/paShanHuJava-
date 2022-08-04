@@ -6,11 +6,13 @@ import dam.jsoup.updatereport.updatreport.robot.mapper.QqItemDao;
 import dam.jsoup.updatereport.updatreport.robot.mapper.QqUserItemDao;
 import dam.jsoup.updatereport.updatreport.robot.pojo.ApiResult;
 import dam.jsoup.updatereport.updatreport.robot.service.CommonDataService;
+import dam.jsoup.updatereport.updatreport.util.Toolkit;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -30,10 +32,31 @@ public class RobotItemService implements CommonDataService {
             return updateOnesItemList(params);
         }else if (opType.equals("reflush")) {
             return updateSysItemList(params);
+        } else if (opType.equals("reduce")) {
+            return searchOnesItemAndReduce(params);
         }
         return ApiResult.fail("无效的操作类型");
     }
 
+
+    private JSONObject searchOnesItemAndReduce(JSONObject params) {
+        if (Toolkit.isInvalid(params.getString("itemName")) || Toolkit.isInvalid(params.getString("num"))) {
+            return ApiResult.fail("入参缺失 缺少必备的参数",401);
+        }
+        JSONObject jsonObject = qqUserItemDao.selectByNameRobotCodeAnd(params);
+        if (jsonObject == null) {
+            return ApiResult.fail("不存在该物品",601);
+        }
+        Integer num = params.getInteger("num");
+        num = -num;
+        jsonObject.put("num",num);
+        jsonObject.put("robotCode",params.getString("robotCode"));
+        jsonObject.put("qqId",params.getString("qqId"));
+        qqUserItemDao.insertOrUpdateQqUserItem(Collections.singletonList(jsonObject));
+        return ApiResult.success();
+
+
+    }
 
     private JSONObject searchOnesItemList (JSONObject params) {
         List<JSONObject> usersAllItem = qqUserItemDao.getUsersAllItem(params);

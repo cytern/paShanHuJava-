@@ -38,4 +38,14 @@ public class ApiResult {
     }
 
 
+    public static JSONObject fail(String msg,Integer code) {
+        ApiResult apiResult = new ApiResult();
+        apiResult.setCode(code);
+        apiResult.setMessage(msg);
+        return JSONObject.parseObject(JSONObject.toJSONString(apiResult));
+    }
+
+
+
+
 }
