@@ -51,7 +51,7 @@ public class RobotItemService implements CommonDataService {
             jsonObject.put("qqId",params.getString("qqId"));
             JSONObject single = qqUserItemDao.selectByNameRobotCodeAnd(params);
             if (single == null || single.isEmpty()) {
-                return ApiResult.fail("没有足够的物品",601);
+                return ApiResult.fail("没有足够的： " + jsonObject.getString("itemName"),601);
             }
             needReduceItem.add(jsonObject);
         }
