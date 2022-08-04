@@ -51,16 +51,17 @@ public class RobotItemService implements CommonDataService {
             jsonObject.put("qqId",params.getString("qqId"));
             Integer num = jsonObject.getInteger("num");
             if (num <0) {
-                JSONObject single = qqUserItemDao.selectByNameRobotCodeAnd(params);
+                JSONObject single = qqUserItemDao.selectByNameRobotCodeAnd(jsonObject);
                 if (single == null || single.isEmpty()) {
-                    JSONObject thisItem = qqUserItemDao.selectByNameRobotCode(params);
+                    JSONObject thisItem = qqUserItemDao.selectByNameRobotCode(jsonObject);
 
                     if (thisItem!= null && !thisItem.isEmpty()) {
-                        JSONObject pop = single.getJSONObject("itemPop");
+                        JSONObject pop = thisItem.getJSONObject("itemPop");
                         if (!pop.isEmpty() && pop.containsKey("firstUseAdd")) {
                             Integer firstUseAdd = pop.getInteger("firstUseAdd");
-                            if (firstUseAdd + num >=0) {
-                                jsonObject.put("num",firstUseAdd + num);
+                            int sum = firstUseAdd + num;
+                            if (sum >=0) {
+                                jsonObject.put("num", sum);
                             }else {
                                 return ApiResult.fail("没有足够的： " + jsonObject.getString("itemName"),601);
                             }
