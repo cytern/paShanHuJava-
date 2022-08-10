@@ -65,7 +65,7 @@ public class CommonDataController {
                 qqKeyEdit.setType(String.valueOf(type));
                 qqKeyEditDao.save(qqKeyEdit);
                 file1.delete();
-                return ApiResult.success(JSONObject.toJSONString(qqKeyEdit));
+                return ApiResult.success(JSONObject.parseObject(JSONObject.toJSONString(qqKeyEdit)));
             } catch (IORuntimeException e) {
                 file1.delete();
                 return ApiResult.fail("上传的json文件有误" + e.getMessage());
@@ -84,7 +84,7 @@ public class CommonDataController {
         }
         QqKeyEdit qqKeyEdit = JSONObject.parseObject(robotFile.toJSONString(), QqKeyEdit.class);
         qqKeyEditDao.save(qqKeyEdit);
-        return ApiResult.success(JSONObject.toJSONString(qqKeyEdit));
+        return ApiResult.success(JSONObject.parseObject(JSONObject.toJSONString(qqKeyEdit)));
     }
 
     @RequestMapping("newJsonFile")
@@ -112,7 +112,7 @@ public class CommonDataController {
         qqKeyEdit.setType(type);
         qqKeyEdit.setQqId(qqId);
         qqKeyEditDao.save(qqKeyEdit);
-        return ApiResult.success(JSONObject.toJSONString(qqKeyEdit));
+        return ApiResult.success(JSONObject.parseObject(JSONObject.toJSONString(qqKeyEdit)));
     }
 
     @RequestMapping("downLoadNewFile")
