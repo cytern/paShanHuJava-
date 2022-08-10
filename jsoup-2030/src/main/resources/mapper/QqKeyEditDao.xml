@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dam.jsoup.updatereport.updatreport.robot.mapper.QqKeyEditDao">
+  <resultMap id="BaseResultMap" type="dam.jsoup.updatereport.updatreport.robot.dto.QqKeyEdit">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="qq_id" jdbcType="VARCHAR" property="qqId" />
+    <result column="res_code" jdbcType="VARCHAR" property="resCode" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="json" jdbcType="VARCHAR" property="json" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, qq_id, res_code, `type`, json
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from qq_key_edit
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectKeyIdType" resultType="dam.jsoup.updatereport.updatreport.robot.dto.QqKeyEdit">
+    select
+    <include refid="Base_Column_List" />
+    from qq_key_edit
+    where qq_id = #{qqKeyEdit.qqId} and type = #{qqKeyEdit.type} and res_code = #{qqKeyEdit.resCode}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from qq_key_edit
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqKeyEdit" useGeneratedKeys="true">
+    insert into qq_key_edit (qq_id, res_code, `type`, 
+      json)
+    values (#{qqId,jdbcType=VARCHAR}, #{resCode,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{json,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqKeyEdit" useGeneratedKeys="true">
+    insert into qq_key_edit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="qqId != null">
+        qq_id,
+      </if>
+      <if test="resCode != null">
+        res_code,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="json != null">
+        json,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="qqId != null">
+        #{qqId,jdbcType=VARCHAR},
+      </if>
+      <if test="resCode != null">
+        #{resCode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="json != null">
+        #{json,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="save">
+    insert into qq_key_edit (qq_id, res_code, `type`,
+                             json)
+    values (#{qqId,jdbcType=VARCHAR}, #{resCode,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+            #{json,jdbcType=VARCHAR})
+      ON DUPLICATE KEY UPDATE
+      json = values(json)
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqKeyEdit">
+    update qq_key_edit
+    <set>
+      <if test="qqId != null">
+        qq_id = #{qqId,jdbcType=VARCHAR},
+      </if>
+      <if test="resCode != null">
+        res_code = #{resCode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="json != null">
+        json = #{json,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="dam.jsoup.updatereport.updatreport.robot.dto.QqKeyEdit">
+    update qq_key_edit
+    set qq_id = #{qqId,jdbcType=VARCHAR},
+      res_code = #{resCode,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      json = #{json,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
