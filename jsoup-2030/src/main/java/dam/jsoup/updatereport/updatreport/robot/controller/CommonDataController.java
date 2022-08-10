@@ -91,7 +91,7 @@ public class CommonDataController {
     public JSONObject newJsonFile (@RequestParam String qqId,@RequestParam String type,@RequestParam String activeCode ) {
         JSONObject json = new JSONObject();
        if (type.equals("1")) {
-           json  = JSONObject.parseObject("\"activeCode\":\"\",\n" +
+           json  = JSONObject.parseObject("{\"activeCode\":\"\",\n" +
                    "    \"assets\":[\n" +
                    "    ],\n" +
                    "    \"voice\":{\n" +
@@ -99,11 +99,11 @@ public class CommonDataController {
                    "        \"speed\":\"-0.7F\",\n" +
                    "        \"voiceType\":\"101016L\",\n" +
                    "        \"primaryLanguage\":\"1L\"\n" +
-                   "     }, \"robotCommand\": []");
+                   "     }, \"robotCommand\": []}");
        }else if (type.equals("2")) {
-           json  = JSONObject.parseObject("\"activeCode\":\"\",\n" +
+           json  = JSONObject.parseObject("{\"activeCode\":\"\",\n" +
                    "   \"assets\":[],\"data\": {\n" +
-                   "      \"items\" : []}");
+                   "      \"items\" : []}}");
        }else {
            return ApiResult.fail("无效的入参");
        }
