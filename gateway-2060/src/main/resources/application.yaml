@@ -31,7 +31,7 @@ zuul:
       path: /file/**
     jsoup:
       serviceId: javaServer
-      url: http://82.157.40.2059:2030
+      url: http://82.157.40.205:2030
       path: /server/**
     excutor:
       serviceId: excutor
