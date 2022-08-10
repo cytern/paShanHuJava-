@@ -17,7 +17,7 @@ spring:
     config:
       enabled: false
   application:
-    name: javaServer
+    name: JAVASERVER
   datasource:
     username: jsoup
     password: XsKkTXptGjbkn3kC
