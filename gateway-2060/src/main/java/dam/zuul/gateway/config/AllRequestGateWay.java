@@ -33,7 +33,7 @@ public class AllRequestGateWay extends ZuulFilter {
         RequestContext currentContext = RequestContext.getCurrentContext();
         HttpServletRequest request = currentContext.getRequest();
         String requestURI = request.getRequestURI();
-        if (requestURI.contains("everyone") || requestURI.contains("manager") || requestURI.contains("customer")) {
+        if (requestURI.contains("everyone") || requestURI.contains("manager") || requestURI.contains("customer") || requestURI.contains("openData")) {
             return !request.getMethod().equals("OPTIONS");
         }
         return false;
