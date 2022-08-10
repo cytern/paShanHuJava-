@@ -15,7 +15,7 @@ mvn clean install -Pdev -Dmaven.test.skip=true
 echo "************************************删除原来的jar包****************************************"
 # 删除 原来位置的jar包
 rm -rf /home/ubuntu/export/project/javaJar/$jarName
-cp -rf ./target/$jarName /export/project/javaJar
+cp -rf ./target/$jarName /home/ubuntu/export/project/javaJar
 #启动项目
 BUILD_ID=dontKillMe
 nohup java -jar /home/ubuntu/export/project/javaJar/$jarName > /home/ubuntu/export/project/javaJar/gateway.file 2>&1 &
