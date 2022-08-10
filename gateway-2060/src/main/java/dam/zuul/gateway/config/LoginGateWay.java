@@ -28,10 +28,8 @@ import java.util.Map;
 @Component
 @Slf4j
 public class LoginGateWay extends ZuulFilter {
-    private final HttpUserService httpUserService;
+    public LoginGateWay() {
 
-    public LoginGateWay(HttpUserService httpUserService) {
-        this.httpUserService = httpUserService;
     }
 
     @Override
@@ -81,7 +79,7 @@ public class LoginGateWay extends ZuulFilter {
         }else {
             JsoupUser user = new JsoupUser();
             user.setUserToken(token);
-            UserVo userVo = httpUserService.tokenCheck(token);
+            UserVo userVo = null;
             if (userVo == null) {
                 currentContext.setSendZuulResponse(false);
                 currentContext.setResponseStatusCode(401);

@@ -31,17 +31,17 @@ g. 最后Client被封装到LoadBalanceClient类，这个类结合类Ribbon做到
 //使用@FeignClient("eureka-feign-service-b")注解来绑定该接口对应feign-service-b服务
 
 
-@FeignClient(name = "JAVASERVER")
+//@FeignClient(name = "JAVASERVER")
 public interface HttpUserService {
     /**
      *
      *
      * @param userVo
-     * @return
-     */
-    @PostMapping("/everyone/getLoginData")
-    UserVo getUserData(@RequestBody UserVo userVo);
-
-    @PostMapping("/everyone/tokenCheck/{token}")
-    UserVo tokenCheck(@PathVariable("token") String token);
+//     * @return
+//     */
+//    @PostMapping("/everyone/getLoginData")
+//    UserVo getUserData(@RequestBody UserVo userVo);
+//
+//    @PostMapping("/everyone/tokenCheck/{token}")
+//    UserVo tokenCheck(@PathVariable("token") String token);
 }
