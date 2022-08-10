@@ -104,6 +104,8 @@ public class CommonDataController {
            json  = JSONObject.parseObject("\"activeCode\":\"\",\n" +
                    "   \"assets\":[],\"data\": {\n" +
                    "      \"items\" : []}");
+       }else {
+           return ApiResult.fail("无效的入参");
        }
         QqKeyEdit qqKeyEdit = new QqKeyEdit();
         json.put("activeCode",activeCode);
