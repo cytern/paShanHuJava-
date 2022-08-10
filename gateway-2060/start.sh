@@ -17,6 +17,6 @@ echo "************************************删除原来的jar包*****************
 rm -rf /home/ubuntu/export/project/javaJar/$jarName
 cp -rf ./target/$jarName /home/ubuntu/export/project/javaJar
 #启动项目
-BUILD_ID=dontKillMe
+BUILD_ID=dontKillMecd ..
 nohup java -jar /home/ubuntu/export/project/javaJar/$jarName > /home/ubuntu/export/project/javaJar/gateway.file 2>&1 &
 echo "===================================安装gateWay完毕======================================"
