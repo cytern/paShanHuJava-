@@ -83,6 +83,7 @@ public class CommonDataController {
             return ApiResult.fail("缺少必填参数");
         }
         QqKeyEdit qqKeyEdit = JSONObject.parseObject(robotFile.toJSONString(), QqKeyEdit.class);
+        qqKeyEdit.setJson(robotFile.toJSONString());
         qqKeyEditDao.save(qqKeyEdit);
         return ApiResult.success(JSONObject.parseObject(JSONObject.toJSONString(qqKeyEdit)));
     }
