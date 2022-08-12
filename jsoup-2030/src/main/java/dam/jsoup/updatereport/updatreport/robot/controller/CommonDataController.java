@@ -35,7 +35,7 @@ public class CommonDataController {
     }
 
     @RequestMapping("/addJsonFile")
-    public JSONObject commonReadFile(@RequestParam(value = "files",required = false) MultipartFile[] files,@RequestParam String qqId,@RequestParam Integer type) throws IOException {
+    public JSONObject commonReadFile(@RequestParam(name = "file",value = "file",required = false) MultipartFile[] files,@RequestParam String qqId,@RequestParam Integer type) throws IOException {
            if (files.length > 1) {
                return ApiResult.fail("过多的文件");
            }
