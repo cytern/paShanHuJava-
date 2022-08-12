@@ -118,25 +118,17 @@ public class CommonDataController {
         if (qqKeyEdit1 == null) {
             return;
         }
-        File file = new File(Paths.get("/") + "main.json");
-        FileUtil.writeString(JSONObject.toJSONString(qqKeyEdit1),file, StandardCharsets.UTF_8);
+
         response.setContentType("application/octet-stream;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setHeader("content-type", "application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment;filename=" + file.getName());
-        try (
-                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
-                OutputStream os = response.getOutputStream();
-        ) {
-            byte[] buff = new byte[1024];
-            int i = bis.read(buff);
-            while (i != -1) {
-                os.write(buff, 0, buff.length);
-                os.flush();
-                i = bis.read(buff);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        response.setHeader("Content-Disposition", "attachment;filename=" + "main.json");
+        try {
+            OutputStream os = response.getOutputStream();
+            os.write(JSONObject.toJSONString(qqKeyEdit1).getBytes(StandardCharsets.UTF_8));
+            os.flush();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
