@@ -37,7 +37,7 @@ public class OptionsGateWay extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletResponse response = ctx.getResponse();
         HttpServletRequest request = ctx.getRequest();
-        response.addHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
+        response.addHeader("Access-Control-Allow-Origin","*");
         response.addHeader("Access-Control-Allow-Credentials","true");
         response.addHeader("Access-Control-Allow-Headers","authorization, content-type, accessToken");
         response.addHeader("Access-Control-Allow-Methods","GET, POST,PUT, DELETE");
