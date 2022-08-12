@@ -2,6 +2,7 @@ package dam.jsoup.updatereport.updatreport.robot.controller;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IORuntimeException;
+import cn.hutool.core.io.IoUtil;
 import com.alibaba.fastjson.JSONObject;
 import dam.jsoup.updatereport.updatreport.robot.dto.QqKeyEdit;
 import dam.jsoup.updatereport.updatreport.robot.mapper.QqKeyEditDao;
@@ -40,22 +41,13 @@ public class CommonDataController {
                return ApiResult.fail("过多的文件");
            }
         for (MultipartFile file : files) {
-            File file1 = new File(Paths.get("/") + "tempFile.json");
             try {
-                if (file1.exists()) {
-                    file1.delete();
-                }else {
-                    file1.createNewFile();
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            file.transferTo(file1);
-            try {
-                JSONObject jsonObj = JSONObject.parseObject(FileUtil.readString(file1, StandardCharsets.UTF_8));
+                StringBuilder stringBuilder = new StringBuilder();
+                InputStream inputStream = file.getInputStream();
+                String read = IoUtil.read(inputStream, StandardCharsets.UTF_8);
+                JSONObject jsonObj = JSONObject.parseObject(read);
                 String activeCode = jsonObj.getString("activeCode");
                 if (Toolkit.isInvalid(activeCode)) {
-                    file1.delete();
                     return ApiResult.fail("文件非法 请确定是否有填写 生效模组编码 （activeCode）");
                 }
                 QqKeyEdit qqKeyEdit = new QqKeyEdit();
@@ -64,10 +56,8 @@ public class CommonDataController {
                 qqKeyEdit.setResCode(activeCode);
                 qqKeyEdit.setType(String.valueOf(type));
                 qqKeyEditDao.save(qqKeyEdit);
-                file1.delete();
                 return ApiResult.success(JSONObject.parseObject(JSONObject.toJSONString(qqKeyEdit)));
             } catch (IORuntimeException e) {
-                file1.delete();
                 return ApiResult.fail("上传的json文件有误" + e.getMessage());
             }
         }
