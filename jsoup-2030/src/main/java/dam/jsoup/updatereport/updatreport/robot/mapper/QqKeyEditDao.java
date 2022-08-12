@@ -22,5 +22,5 @@ public interface QqKeyEditDao {
 
     int save(QqKeyEdit record);
 
-    QqKeyEdit selectKeyIdType (@Param("qqKey") QqKeyEdit qqKeyEdit);
+    QqKeyEdit selectKeyIdType (@Param("qqKeyEdit") QqKeyEdit qqKeyEdit);
 }
